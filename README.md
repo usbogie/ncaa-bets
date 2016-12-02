@@ -8,6 +8,7 @@ The project breaks down into to main categories:
 ## Information Retrieval
 We will retrieve the following information:
 
+```
         Team: {
             kenpom.com:
                 School
@@ -49,6 +50,8 @@ We will retrieve the following information:
                 Away Team
                 True Home Game
         }
+```
+
 
 ## Information Storage and Access Plan
 *define language/schema for how we will store and access info*
