@@ -184,3 +184,53 @@ Dictionaries
             High Temp, High Temp = 2
             Low Temp, Low Temp = 3
 """
+
+def extract_kenpom():
+    import re
+    regexes = [re.compile('<td>([0-9\-\+\.]*)</td>'),
+               re.compile('<td class="td-[\w ]*">([0-9\.]*)</td>'),
+               re.compile('<td class="td-[\w ]*"><span class="seed">([0-9]*)</span></td>'),
+               re.compile('td style="text-align:left;"><a href="[\w \.\?\=]*">([\w \.]*)</a>')
+               ]
+
+
+    index_lookup = {0: 'rank',
+                    1: ('name', 3),
+                    2: 'conf',
+                    3: 'record',
+                    4: ('adjEM', 0),
+                    5: ('adjO', 1),
+                    6: 'adjO_seed',
+                    7: ('adjD', 1),
+                    8: 'adjD_seed',
+                    9: ('adjT', 1),
+                    10: 'adjT_seed',
+                    11: 'luck',
+                    12: 'luck_seed',
+                    13: 'sos_adjEM',
+                    14: 'sos_adjEM_seed',
+                    15: 'sos_oppO',
+                    16: 'sos_oppO_seed',
+                    17: 'sos_oppD',
+                    18: 'sos_oppD_seed',
+                    19: 'ncsos_adjEM',
+                    20: 'ncsos_adjEM_seed'}
+
+    targets = set(['name', 'adjO', 'adjD', 'adjT'])
+    from urllib2 import urlopen
+    from BeautifulSoup import BeautifulSoup as bs
+    s = bs(urlopen('http://kenpom.com/index.php'))
+    team_entries = [tr.findAll('td') for tr in s.findAll('tr')][2:]
+    teams = []
+    for team in team_entries[:1]:
+        new_team = {}
+        for i,table_element in enumerate(team):
+            if not isinstance(index_lookup[i], tuple):
+                continue
+            print i, table_element
+            element_name, ri = index_lookup[i]
+            if element_name in targets:
+                new_team[element_name] = regexes[ri].match(str(table_element)).groups()
+    teams.append(team)
+    print teams
+extract_kenpom()
