@@ -75,7 +75,6 @@ Variables:
         }
 
 Strategy:
-    Categorize games (Home lock, Home slight edge, Home slight dog, Home long shot, Neutral Big, Neutral normal)
     Categorize matchups
     Get database of games with same matchup types, games
     Regress data with offense defense differences, tipoff, total
@@ -132,7 +131,7 @@ Dictionaries
         h_adv (adj o - opp adj d)
         away
         a_adv
-        true
+        true (1 if true home game, 0 not)
         h_score
         a_score
         spread_difference
@@ -295,25 +294,6 @@ def set_game_attributes_team(game,team1,team2,side):
 # match_types
 def categorize_old_games():
     for game in old_games:
-        # Categorize into game types
-        spread = game["spread"]
-        home = game["true"]
-        if home:
-            if spread <= -10:
-                game_types[0].add(game)
-            else if spread < 0:
-                game_types[1].add(game)
-            else if spread < 10:
-                game_types[2].add(game)
-            else:
-                game_types[3].add(game)
-        else:
-            if spread <= -10:
-                game_types[4].add(game)
-            else:
-                game_types[5].add(game)
-
-        # Categorize into matchup types
         h_attributes = game["h_attributes"]
         a_attributes = game["a_attributes"]
         unique = True
@@ -325,7 +305,7 @@ def categorize_old_games():
         if unique:
             match_types.append([game])
 
-def set_picks:
+def set_picks():
     for game in new_games:
         regress_spread(find_similar_games(game),game)
 
@@ -336,7 +316,8 @@ def regress_spread(game_list, game):
     similar_games['game_a_adv'] = similar_games.a_adv - game["a_adv"]
     similar_games['game_tipoff'] = similar_games.tipoff - game["tipoff"]
     similar_games['game_total'] = similar_games.total - game["total"]
-    result = sm.ols(formula = "spread_difference ~ game_h_adv + game_a_adv + game_tipoff + game_total",data=similar_games,missing='drop').fit()
+    similar_games['game_true'] = similar_games.true - game["true"]
+    result = sm.ols(formula = "spread_difference ~ game_h_adv + game_a_adv + game_tipoff + game_total + game_true",data=similar_games,missing='drop').fit()
     residuals = similar_games['spread_difference'] - result.predict()
     SER = np.sqrt(sum(residuals*residuals)/len(game_list))
     se = np.sqrt(SER**2 + result.bse[0]**2)
@@ -389,3 +370,29 @@ def test_strategy(level):
     s2 = "This would lead to a profit of " + profit + " units."
     print(s1)
     print(s2)
+
+"""
+main:
+good_fto = outlier("fto", 1)
+good_ftd = outlier("ftd", -1)
+bad_ftd = outlier("ftd", 1)
+good_3o = outlier("3o", 1)
+good_3d = outlier("opp_3fg", -1)
+bad_3d = outlier("opp_3fg", 1)
+good_reb = outlier("reb", 1)
+bad_reb = outlier("reb", -1)
+low_to = outlier("to_poss", -1)
+high_to = outlier("to_poss", 1)
+agressive = outlier("tof_poss", 1)
+high_temp = outlier("kp_t", 1)
+low_temp = outlier("kp_t", -1)
+
+set_team_attributes_old()
+set_old_game_attributes()
+set_team_attributes_new()
+set_new_game_attributes()
+categorize_old_games()
+set_picks()
+set_retroactive_picks()
+test_strategy()
+"""
