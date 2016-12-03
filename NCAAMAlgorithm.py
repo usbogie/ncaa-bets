@@ -294,28 +294,7 @@ def set_game_attributes_team(game,team1,team2,side):
 # match_types
 def categorize_old_games():
     for game in old_games:
-<<<<<<< HEAD
-=======
-        # Categorize into game types
-        spread = game["spread"]
-        home = game["true"]
-        if home:
-            if spread <= -10:
-                game_types[0].add(game)
-            elif spread < 0:
-                game_types[1].add(game)
-            elif spread < 10:
-                game_types[2].add(game)
-            else:
-                game_types[3].add(game)
-        else:
-            if spread <= -10:
-                game_types[4].add(game)
-            else:
-                game_types[5].add(game)
-
         # Categorize into matchup types
->>>>>>> d92f6b684e0408071ad94f53295ab51ca3b70373
         h_attributes = game["h_attributes"]
         a_attributes = game["a_attributes"]
         unique = True
