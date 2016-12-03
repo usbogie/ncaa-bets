@@ -127,13 +127,19 @@ Dictionaries
     old_games: {
         spread
         total
-        tipoff
+        tipoff (-1 early, 0 not)
         home
+        h_adv (adj o - opp adj d)
         away
+        a_adv
         true
         h_score
         a_score
         spread_difference
+        winner
+        pick
+        confidence_level
+        match_type
         h_attributes*
         a_attributes*
     }
@@ -141,10 +147,15 @@ Dictionaries
     game_slate: {
         spread
         total
-        tipoff
+        tipoff (-1 early, 0 not)
         home
+        h_adv
         away
+        a_adv
         true
+        confidence_level
+        pick
+        match_type
         h_attributes*
         a_attributes*
     }
@@ -178,9 +189,10 @@ import numpy as np
 import pandas as pd
 
 def get_database():
-    # Get team info (old_teams, new_teams)
+    # Get team info (old_teams, new_teams, all_teams)
     # Get old game info
     # Get new game info
+    # old
 
 good_fto = outlier("fto", 1)
 good_ftd = outlier("ftd", -1)
@@ -196,7 +208,7 @@ agressive = outlier("tof_poss", 1)
 high_temp = outlier("kp_t", 1)
 low_temp = outlier("kp_t", -1)
 
-def set_attributes_old():
+def set_team_attributes_old():
     for team in old_teams:
         team["good_fto"] = team["fto"] > good_fto
         team["good_ftd"] = team["ftd"] < good_ftd
@@ -212,7 +224,7 @@ def set_attributes_old():
         team["high_temp"] = team["kp_t"] > high_temp
         team["low_temp"] = team["kp_t"] < low_temp
 
-def set_attributes_new():
+def set_team_attributes_new():
     for team in new_teams:
         team["good_fto"] = team["fto"] > good_fto
         team["good_ftd"] = team["ftd"] < good_ftd
@@ -227,6 +239,51 @@ def set_attributes_new():
         team["aggressive"] = team["tof_poss"] > aggressive
         team["high_temp"] = team["kp_t"] > high_temp
         team["low_temp"] = team["kp_t"] < low_temp
+
+def set_old_game_attributes():
+    for game in old_games:
+        home = game["home"]
+        away = game["away"]
+        set_game_attributes_team(game,home,away,"h_attributes")
+        set_game_attributes_team(game,away,home,"a_attributes")
+
+def set_new_game_attributes():
+    for game in new_games:
+        home = game["home"]
+        away = game["away"]
+        set_game_attributes_team(game,home,away,"h_attributes")
+        set_game_attributes_team(game,away,home,"a_attributes")
+
+def set_game_attributes_team(game,team1,team2,side):
+    if team1["good_fto"]:
+        if team2["bad_ftd"]:
+            game[side][0] = 1
+        else if team2["good_ftd"]:
+            game[side][0] = 2
+    if team1["good_3o"]:
+        if team2["bad_3d"]:
+            game[side][1] = 1
+        else if team2["good_3d"]:
+            game[side][1] = 2
+    if team1["good_reb"]:
+        if team2["good_reb"]:
+            game[side][2] = 1
+        if team2["bad_reb"]:
+            game[side][2] = 2
+    if team1["bad_reb"] and team2["bad_reb"]:
+        game[side][2] = 3
+    if team2["aggressive"]:
+        if team1["low_to"]:
+            game[side][3] = 1
+        else if team1["high_to"]:
+            game[side][3] = 2
+    if team1["high_temp"]:
+        if team2["low_temp"]:
+            game[side][4] = 1
+        else if team2["high_temp"]:
+            game[side][4] = 2
+    if team1["low_temp"] and team2["low_temp"]:
+        game[side][3] = 3
 
 # game_types
     # 0 home_locks
@@ -260,12 +317,41 @@ def categorize_old_games():
         h_attributes = game["h_attributes"]
         a_attributes = game["a_attributes"]
         unique = True
-        for matchup in match_types:
-            if h_attributes == matchup[0]["h_attributes"] and a_attributes == matchup[0]["a_attributes"]:
-                matchup.append(game)
+        for i in range(match_types):
+            if h_attributes == match_types[i][0]["h_attributes"] and a_attributes == match_types[i][0]["a_attributes"]:
+                match_types[i].append(game)
+                game["match_type"] = i
                 unique = False
         if unique:
             match_types.append([game])
+
+def set_picks:
+    for game in new_games:
+        regress_spread(find_similar_games(game),game)
+
+import statsmodels.formula.api as sm
+def regress_spread(game_list, game):
+    similar_games = pd.DataFrame.from_dict(similar_games)
+    similar_games['game_h_adv'] = similar_games.h_adv - game["h_adv"]
+    similar_games['game_a_adv'] = similar_games.a_adv - game["a_adv"]
+    similar_games['game_tipoff'] = similar_games.tipoff - game["tipoff"]
+    similar_games['game_total'] = similar_games.total - game["total"]
+    result = sm.ols(formula = "spread_difference ~ game_h_adv + game_a_adv + game_tipoff + game_total",data=similar_games,missing='drop').fit()
+    residuals = similar_games['spread_difference'] - result.predict()
+    SER = np.sqrt(sum(residuals*residuals)/len(game_list))
+    se = np.sqrt(SER**2 + result.bse[0]**2)
+    if result.params[0] < 0:
+        game["pick"] = game["away"]
+    else:
+        game["pick"] = game["home"]
+    if se * .12 > abs(result.params[0]):
+        game["confidence_level"] = 0
+    else if se * .26 > abs(result.params[0]):
+        game["confidence_level"] = 1
+    else if se * .52 > abs(result.params[0]):
+        game["confidence_level"] = 2
+    else:
+        game["confidence_level"] = 3
 
 def find_similar_games(game):
     h_attributes = game["h_attributes"]
@@ -284,3 +370,22 @@ def outlier(stat, sign):
     std = np.std(data)
     mean = np.mean(data)
     return mean + std * sign
+
+def set_retroactive_picks():
+    for game in old_games:
+        regress_spread(match_types[game["match_type"]], game)
+
+def test_strategy(level):
+    number_of_games = 0
+    wins = 0
+    for game in old_games:
+        if game["confidence_level"] >= level:
+            number_of_games += 1
+            if game["pick"] == game["winner"]:
+                wins += 1
+    percent = wins / number_of_games * 100
+    s1 = "Strategy with confidence level " + level + ", won " + percent + " percent of games."
+    profit = wins - 1.1 * (number_of_games - wins)
+    s2 = "This would lead to a profit of " + profit + " units."
+    print(s1)
+    print(s2)
