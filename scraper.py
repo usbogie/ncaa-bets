@@ -188,9 +188,9 @@ Dictionaries
 def extract_kenpom():
     import re
     regexes = [re.compile('<td>([0-9\-\+\.]*)</td>'),
-               re.compile('<td class="td-[\w ]*">([0-9\.]*)</td>'),
-               re.compile('<td class="td-[\w ]*"><span class="seed">([0-9]*)</span></td>'),
-               re.compile('td style="text-align:left;"><a href="[\w \.\?\=]*">([\w \.]*)</a>')
+               re.compile('<td class="td-[\w \-]*">([0-9\.]*)</td>'),
+               re.compile('<td class="td-[\w \-]*"><span class="seed">([0-9]*)</span></td>'),
+               re.compile('<td [a-z]*="[\w \-:;]*"><a href="[\w \.\?\=&\+%0-9]*">([\w \.&;\']*)</a>')
                ]
 
 
@@ -222,15 +222,21 @@ def extract_kenpom():
     s = bs(urlopen('http://kenpom.com/index.php'))
     team_entries = [tr.findAll('td') for tr in s.findAll('tr')][2:]
     teams = []
-    for team in team_entries[:1]:
+    for team in team_entries:
         new_team = {}
         for i,table_element in enumerate(team):
             if not isinstance(index_lookup[i], tuple):
                 continue
-            print i, table_element
             element_name, ri = index_lookup[i]
             if element_name in targets:
-                new_team[element_name] = regexes[ri].match(str(table_element)).groups()
-    teams.append(team)
-    print teams
+                try:
+                    new_team[element_name] = regexes[ri].match(str(table_element)).groups()[0].replace(';', '')
+                except:
+                    print 'regex {} didnt match {}'.format(regexes[ri].pattern, str(table_element))
+        teams.append(new_team)
+
+    from pprint import PrettyPrinter as pp
+    p = pp(indent=4)
+    p.pprint(teams)
+
 extract_kenpom()
