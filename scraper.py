@@ -1,3 +1,7 @@
+from urllib2 import urlopen
+from BeautifulSoup import BeautifulSoup as bs
+from pprint import PrettyPrinter as pp
+import re
 """
 Objective:
     Report the favorable spreads and over/unders
@@ -217,8 +221,6 @@ def extract_kenpom():
                     20: 'ncsos_adjEM_seed'}
 
     targets = set(['name', 'adjO', 'adjD', 'adjT'])
-    from urllib2 import urlopen
-    from BeautifulSoup import BeautifulSoup as bs
     s = bs(urlopen('http://kenpom.com/index.php'))
     team_entries = [tr.findAll('td') for tr in s.findAll('tr')][2:]
     teams = []
@@ -235,8 +237,29 @@ def extract_kenpom():
                     print 'regex {} didnt match {}'.format(regexes[ri].pattern, str(table_element))
         teams.append(new_team)
 
-    from pprint import PrettyPrinter as pp
     p = pp(indent=4)
     p.pprint(teams)
 
-extract_kenpom()
+def get_oddsshark():
+    url = 'http://www.oddsshark.com/stats/gamelog/basketball/ncaab'
+    rgx = re.compile('<td>([a-zA-Z\.\+0-9 ]+)</td>')
+    index_lookup = {0: 'ats',
+                    1: 'spread',
+                    2: 'o/u',
+                    3: 'total'}
+    data = []
+    for i in range(14924,14934): #TODO figure out how to get all matchup links, and also key entries by AWAY @ HOME
+        s = bs(urlopen('{}/{}'.format(url, i)))
+        entries = [tr.findAll('td')[5:9] for tr in s.findAll('tr')]
+        for entry in entries:
+            if not entry:
+                continue
+            game_info = {}
+            for i,box in enumerate(entry):
+                if not rgx.match(str(box)):
+                    continue
+                game_info[index_lookup[i]] = rgx.match(str(box)).groups()[0].strip()
+                if i == 3:
+                    data.append(game_info)
+    print data
+get_oddsshark()
