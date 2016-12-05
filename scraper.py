@@ -2,6 +2,18 @@ from urllib2 import urlopen
 from BeautifulSoup import BeautifulSoup as bs
 from pprint import PrettyPrinter as pp
 import re
+from subprocess import call
+import sys
+import json
+
+VERBOSE = False
+try:
+    if sys.argv[1] == '-v':
+        VERBOSE = True
+    print VERBOSE
+except:
+    pass
+
 """
 Objective:
     Report the favorable spreads and over/unders
@@ -225,6 +237,10 @@ def extract_kenpom():
     team_entries = [tr.findAll('td') for tr in s.findAll('tr')][2:]
     teams = []
     for team in team_entries:
+        if not team:
+            continue
+        if VERBOSE:
+            call('clear')
         new_team = {}
         for i,table_element in enumerate(team):
             if not isinstance(index_lookup[i], tuple):
@@ -233,33 +249,112 @@ def extract_kenpom():
             if element_name in targets:
                 try:
                     new_team[element_name] = regexes[ri].match(str(table_element)).groups()[0].replace(';', '')
+                    if VERBOSE:
+                        print 'found {} for current team: {}'.format(element_name, new_team[element_name])
                 except:
                     print 'regex {} didnt match {}'.format(regexes[ri].pattern, str(table_element))
+        print new_team
+        name = new_team['name']
+        name.replace('.', '')
+        name.replace(';', '')
+        name.replace('&', '')
+        name.replace('-', ' ')
+        name = name.lower()
+        new_team['name'] = name
         teams.append(new_team)
+        if VERBOSE:
+            print 'adding team: {}'.format(new_team)
 
     p = pp(indent=4)
-    p.pprint(teams)
+    if VERBOSE:
+        p.pprint(teams)
+    with open('kenpom.json', 'wr') as outfile:
+        json.dump(teams, outfile)
+
+
+def game_occurred_yet(block):
+    r = re.compile('<td>([\w 0-9,]*)</td>')
+    import datetime
+    ex = r.match(str(block[0])).groups()[0].lower().replace(',', '')
+    ex = ex[0].upper() + ex[1:]
+    date = datetime.datetime.strptime(ex, '%b %d %Y')
+    return not date > datetime.datetime.now()
+
+
+def extract_name(block):
+    r = re.compile('<td> <span> ([vs@])* </span> ([\w .\'&-;]*)</td>')
+    home_away = r.match(str(block[1])).groups()[0]
+    opponent = r.match(str(block[1])).groups()[1].strip().lower().split(' ')
+
+    tmp = []
+    for word in opponent:
+        word = word.replace('.', '')
+        word = word.replace(';', '')
+        if '-' in word:
+            for w in word.split('-'):
+                tmp.append(w)
+        else:
+            tmp.append(word)
+    opponent = tmp
+    matchup = None
+    try:
+        matchup = str(block[-2]).split('\"')[1].split('/')[-1].split('-')
+    except:
+        print 'couldnt get a regex match'
+    extract = matchup[:matchup.index('betting')]
+    if '@' in home_away:
+        print 'a'
+        if VERBOSE:
+            print 'Getting odds for {}...'.format('-'.join(extract[:extract.index(opponent[0])]))
+        return '-'.join(extract[:extract.index(opponent[0])])
+    else:
+        team_first_name = extract[extract.index(opponent[0]) + len(opponent)]
+        last_name = int(team_first_name[-1] != 's')
+        if VERBOSE:
+            print 'Getting odds for {}...'.format('-'.join(extract[:extract.index(opponent[0])]))
+        return '-'.join(extract[extract.index(team_first_name) + last_name + 1:])
 
 def get_oddsshark():
-    url = 'http://www.oddsshark.com/stats/gamelog/basketball/ncaab'
-    rgx = re.compile('<td>([a-zA-Z\.\+0-9 ]+)</td>')
-    index_lookup = {0: 'ats',
-                    1: 'spread',
-                    2: 'o/u',
-                    3: 'total'}
-    data = []
-    for i in range(14924,14934): #TODO figure out how to get all matchup links, and also key entries by AWAY @ HOME
-        s = bs(urlopen('{}/{}'.format(url, i)))
-        entries = [tr.findAll('td')[5:9] for tr in s.findAll('tr')]
-        for entry in entries:
-            if not entry:
+    data = None
+    try:
+        url = 'http://www.oddsshark.com/stats/gamelog/basketball/ncaab'
+        rgx = re.compile('<td>([a-zA-Z\.\+0-9 ]+)</td>')
+        index_lookup = {0: 'ats',
+                        1: 'spread',
+                        2: 'o/u',
+                        3: 'total'}
+        data = {}
+        for i in range(14920,16999): #TODO figure out how to get all matchup links, and also key entries by AWAY @ HOME
+            if VERBOSE:
+                print 'finding team {}'.format(i)
+            s = bs(urlopen('{}/{}'.format(url, i)))
+            entries = [tr.findAll('td') for tr in s.findAll('tr')]
+            if not entries:
+                if VERBOSE:
+                    print 'skipping odds table, no entries...'
                 continue
-            game_info = {}
-            for i,box in enumerate(entry):
-                if not rgx.match(str(box)):
+            if not str(entries[0]):
+                if VERBOSE:
+                    print 'skipping odds table, no entries...'
+                continue
+            for entry in entries:
+                if not entry or not game_occurred_yet(entry):
                     continue
-                game_info[index_lookup[i]] = rgx.match(str(box)).groups()[0].strip()
-                if i == 3:
-                    data.append(game_info)
-    print data
+                game_info = {'name': extract_name(entry)}
+                for i,box in enumerate(entry[5:9]):
+                    if not rgx.match(str(box)):
+                        continue
+                    game_info[index_lookup[i]] = rgx.match(str(box)).groups()[0].strip()
+                    if i == 3:
+                        name = game_info['name']
+                        del game_info[name]
+                        data[name] = game_info
+        if VERBOSE:
+            p = pp(indent=4)
+            p.pprint(data)
+    except:
+        pass
+    with open('oddsshark.json', 'wr') as outfile:
+        json.dump(data, outfile)
+extract_kenpom()
 get_oddsshark()
