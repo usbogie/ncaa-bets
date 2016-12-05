@@ -87,7 +87,7 @@ Dictionaries
         opp_3fg
         reb
         to
-        opp_to
+        tof
 
         fto (FTM / PPG)
         fto_z
@@ -160,6 +160,12 @@ Dictionaries
     }
 """
 
+old_teams = []
+old_games = []
+new_teams = []
+new_games = []
+all_teams = []
+
 import numpy as np
 import pandas as pd
 
@@ -168,6 +174,26 @@ def get_database():
     # Get old game info
     # Get new game info
     # old
+
+def get_old_teams():
+    ncaa_2014 = pd.read_csv('NCAAM_2014.csv')
+    ncaa_2015 = pd.read_csv('NCAAM_2015.csv')
+    ncaa_2016 = pd.read_csv('NCAAM_2016.csv')
+    old_years = []
+    old_years.append([ncaa_2014,ncaa_2015,ncaa_2016])
+    for i in range(len(old_years)):
+        teams = len(old_years[i])
+        for j in range(teams):
+            old_teams[j+teams*i]["name"] = old_years[i].Name[j]
+            old_teams[j+teams*i]["year"] = i + 2014
+            old_teams[j+teams*i]["ppg"] = old_years[i].PPG[j]
+            old_teams[j+teams*i]["ftm"] = old_years[i].3PG[j]
+            old_teams[j+teams*i]["fouls"] = old_years[i].opp3[j]
+            old_teams[j+teams*i]["3fg"] = old_years[i].FPG[j]
+            old_teams[j+teams*i]["opp_3fg"] = old_years[i].TOF[j]
+            old_teams[j+teams*i]["reb"] = old_years[i].TO[j]
+            old_teams[j+teams*i]["to"] = old_years[i].REB[j]
+            old_teams[j+teams*i]["tof"] = old_years[i].FTPG[j]
 
 def set_team_attributes(team_type):
     team_list = all_teams
