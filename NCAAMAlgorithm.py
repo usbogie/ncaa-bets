@@ -90,12 +90,12 @@ Dictionaries
         opp_to
 
         fto (FTM / PPG)
-        fto_sd
+        fto_z
         ftd (Fouls / KP Tempo)
-        ftd_sd
+        ftd_z
         3o (3FGM * 3 / PPG)
-        3o_sd
-        3d_sd
+        3o_z
+        3d_z
         to_poss (TO per game / KP Tempo)
         tof_poss (TO forced per game/ KP Tempo)
     }
@@ -124,7 +124,12 @@ Dictionaries
         margin
         winner
         pick
-        confidence_level
+        p_margin
+        p_spread_margin
+        correct (1 if pick and winner are equal, else 0)
+        prob
+        prob1
+        prob2
     }
 
     new_games: {
@@ -146,8 +151,12 @@ Dictionaries
         reb
         to
         tof
-        confidence_level
         pick
+        p_margin
+        p_spread_margin
+        prob
+        prob1
+        prob2
     }
 """
 
@@ -160,40 +169,41 @@ def get_database():
     # Get new game info
     # old
 
-def set_old_team_attributes():
-    for team in old_teams:
+def set_team_attributes(team_type):
+    team_list = all_teams
+    if team_type == "old":
+        team_list = old_teams
+    elif team_type == "new":
+        team_list = new_teams
+    for team in team_list:
         team["fto"] = team["ftm"]/team["ppg"]
         team["ftd"] = team["fouls"]/team["kp_t"]
         team["3o"] = team["3fg"]*3/team["ppg"]
         team["to_poss"] = team["to"]/team["kp_t"]
         team["tof_poss"] = team["tof"]/team["kp_t"]
 
-def set_new_team_attributes():
-    for team in new_teams:
-        team["fto"] = team["ftm"]/team["ppg"]
-        team["ftd"] = team["fouls"]/team["kp_t"]
-        team["3o"] = team["3fg"]*3/team["ppg"]
-        team["to_poss"] = team["to"]/team["kp_t"]
-        team["tof_poss"] = team["tof"]/team["kp_t"]
-
-def set_avg_sd():
-    fto_avg,fto_sd = find_avg_sd("fto")
-    ftd_avg,ftd_sd = find_avg_sd("ftd")
-    3o_avg,3o_sd = find_avg_sd("3o")
-    3d_avg,3d_sd = find_avg_sd("opp_3fg")
+from scipy.stats.mstats import zscore
+def set_zscores():
+    fto_list = []
+    ftd_list = []
+    3o_list = []
+    3d_list = []
     for team in all_teams:
-        team["fto_sd"] = (team["fto"] - fto_avg)/fto_sd
-        team["ftd_sd"] = (ftd_avg - team["ftd"])/ftd_sd
-        team["3o_sd"] = (team["3o"] - 3o_avg)/3o_sd
-        team["3d_sd"] = (3d_avg - team["opp_3fg"])/3d_sd
-
-def find_avg_sd(stat):
-    values = []
+        fto_list.append(team["fto"])
+        ftd_list.append(team["ftd"])
+        3o_list.append(team["3o"])
+        3d_list.append(team["3d"])
+    fto_z = npzscore(fto_list)
+    ftd_z = zscore(ftd_list)
+    3o_z = zscore(3o_list)
+    3d_z = zscore(3d_list)
+    i=0
     for team in all_teams:
-        values.append(team[stat])
-    mean = np.mean(values)
-    std = np.std(values)
-    return (mean,std)
+        team["fto_z"] = fto_z[i]
+        team["ftd_z"] = -1 * ftd_z[i]
+        team["3o_z"] = 3o_z[i]
+        team["3d_z"] = -1 * 3d_z[i]
+        i += 1
 
 def set_game_attributes():
     for game in all_games:
@@ -201,10 +211,10 @@ def set_game_attributes():
         game["def"] = game["home"]["kp_d"] - game["away"]["kp_o"]
         game["h_tempo"] = game["home"]["kp_t"]
         game["a_tempo"] = game["away"]["kp_t"]
-        game["fto"] = game["home"]["fto_sd"] - game["away"]["ftd_sd"]
-        game["ftd"] = game["home"]["ftd_sd"] - game["away"]["fto_sd"]
-        game["3o"] = game["home"]["3o_sd"] - game["away"]["3d_sd"]
-        game["3d"] = game["home"]["3d_sd"] - game["away"]["3o_sd"]
+        game["fto"] = game["home"]["fto_z"] - game["away"]["ftd_z"]
+        game["ftd"] = game["home"]["ftd_z"] - game["away"]["fto_z"]
+        game["3o"] = game["home"]["3o_z"] - game["away"]["3d_z"]
+        game["3d"] = game["home"]["3d_z"] - game["away"]["3o_z"]
         game["reb"] = game["home"]["reb"] - game["away"]["reb"]
         game["to"] = game["home"]["to_poss"] - game["away"]["tof_poss"]
         game["tof"] = game["home"]["tof_poss"] - game["away"]["to_poss"]
@@ -212,9 +222,12 @@ def set_game_attributes():
 import statsmodels.formula.api as sm
 def first_regression():
     gamesdf = pd.DataFrame.from_dict(old_games)
-    result = sm.ols(formula = "margin ~ off + def + h_tempo + a_tempo + fto + ftd + 3o + 3d + reb + to + tof + tipoff + total + true + weekend",data=gamesdf,missing='drop').fit()
+    result = sm.ols(formula = "margin ~ off + def + h_tempo + a_tempo + fto + ftd + 3o + 3d + reb + to + tof + total + tipoff + true + weekend -1",data=gamesdf,missing='drop').fit()
+    for i in range(len(result.params)):
+        parameters[i] = result.params[i]
     return (result,gamesdf)
 
+from scipy.stats.norm import cdf
 def regress_spread(game,gamesdf,result):
     gamesdf["game_off"] = gamesdf.off - game["off"]
     gamesdf["game_def"] = gamesdf.def - game["def"]
@@ -230,22 +243,23 @@ def regress_spread(game,gamesdf,result):
     gamesdf["game_total"] = gamesdf.total - game["total"]
     gamesdf["game_true"] = gamesdf.true - game["true"]
     gamesdf["game_weekend"] = gamesdf.weekend - game["weekend"]
-    result2 = sm.ols(formula = "margin ~ game_off + game_def + game_h_tempo + game_a_tempo + game_fto + game_ftd + game_3o + game_3d + game_reb + game_to + game_tof + game_tipoff + game_total + game_true + game_weekend",data=gamesdf,missing='drop').fit()
-    residuals = gamesdf["margin"] - result.predict()
-    SER = np.sqrt(sum(residuals*residuals)/len(game_list))
-    se = np.sqrt(SER**2 + result2.bse[0]**2)
-    if result2.params[0] - game["spread"] < 0:
+    result2 = sm.ols(formula = "margin ~ game_off + game_def + game_h_tempo + game_a_tempo + game_fto + game_ftd + game_3o + game_3d + game_reb + game_to + game_tof + game_total + game_tipoff + game_true + game_weekend",data=gamesdf,missing='drop').fit()
+    game["p_margin"] = result2.params[0]
+    game["p_spread_margin"] = abs(result2.params[0] + game["spread"])
+    if result2.params[0] + game["spread"] < 0:
         game["pick"] = game["away"]
     else:
         game["pick"] = game["home"]
-    if se * .12 > abs(result2.params[0]):
-        game["confidence_level"] = 0
-    elif se * .26 > abs(result2.params[0]):
-        game["confidence_level"] = 1
-    elif se * .52 > abs(result2.params[0]):
-        game["confidence_level"] = 2
-    else:
-        game["confidence_level"] = 3
+    # Option 1 for probability
+    residuals = gamesdf["margin"] - result.predict()
+    SER = np.sqrt(sum(residuals*residuals)/len(game_list))
+    se = np.sqrt(SER**2 + result2.bse[0]**2)
+    game["prob1"] = game["p_spread_margin"]/se
+
+    # Option 2 for probability
+    gamesdf["game_advantage"] = gamesdf.p_spread_margin - game["p_spread_margin"]
+    test2 = sm.ols(formular = "correct ~ game_advantage + game_advantage^2",data=gamesdf,missing='drop').fit()
+    game["prob2"] = test2.params[0]
 
 def set_retroactive_picks():
     for game in old_games:
@@ -255,21 +269,37 @@ def set_picks():
     for game in new_games:
         regress_spread(game)
 
-def test_strategy(level):
+def test_strategy(level,strat):
     number_of_games = 0
     wins = 0
+    prob = game["prob1"]
+    if strat == 2:
+        prob = game["prob2"]
     for game in old_games:
-        if game["confidence_level"] >= level:
+        if prob >= level:
             number_of_games += 1
             if game["pick"] == game["winner"]:
                 wins += 1
+
     percent = wins / number_of_games * 100
-    s1 = "Strategy with confidence level " + level + ", won " + percent + " percent of games."
+    s1 = "Strategy " + strat + " with probability level " + level + ", won " + percent + " percent of " + number_of_games + " games."
     profit = wins - 1.1 * (number_of_games - wins)
     s2 = "This would lead to a profit of " + profit + " units."
     print(s1)
     print(s2)
 
+def print_picks(prob = .524):
+    prob_list_b = []
+    for game in new_games:
+        if game["prob"] > prob:
+            prob_list_b.append(game["prob"])
+    np.sort(prob_list_b)
+    for i in range(len(prob_list_b)):
+        prob_list[i] = prob_list_b[len(prob_list_b)-i-1]
+    for p in prob_list:
+        for game in new_games:
+            if p == game["prob"]:
+                print(game["pick"]["name"],game["prob"])
 """
 main:
 get_database()
@@ -278,21 +308,24 @@ old_games
 new_teams
 new_games
 all_teams
-fto_sd
-fto_avg
-ftd_sd
-fto_avg
-3o_sd
-3o_avg
-3d_sd
-3d_avg
-set_old_team_attributes()
-set_new_team_attributes()
-set_avg_sd()
+
+#First:
+set_team_attributes("all")
+set_zscores()
 set_game_attributes()
+parameters
 result,gamesdf = first_regression()
 set_picks()
 set_retroactive_picks()
-for i in range(4):
-    test_strategy(i)
+test_strategy(.55,1)
+test_strategy(.55,2)
+print_picks()
+
+#After:
+set_team_attributes("new")
+set_zscores()
+set_game_attributes()
+result,gamesdf = first_regression()
+set_picks()
+print_picks()
 """
