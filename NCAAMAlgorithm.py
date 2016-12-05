@@ -90,12 +90,12 @@ Dictionaries
         opp_to
 
         fto (FTM / PPG)
-        fto_rank
+        fto_sd
         ftd (Fouls / KP Tempo)
-        ftd_rank
+        ftd_sd
         3o (3FGM * 3 / PPG)
-        3o_rank
-        3d_rank
+        3o_sd
+        3d_sd
         to_poss (TO per game / KP Tempo)
         tof_poss (TO forced per game/ KP Tempo)
     }
@@ -110,7 +110,8 @@ Dictionaries
         away
         off
         def
-        tempo
+        h_tempo
+        a_tempo
         fto
         ftd
         3o
@@ -136,7 +137,8 @@ Dictionaries
         away
         off
         def
-        tempo
+        h_tempo
+        a_tempo
         fto
         ftd
         3o
@@ -158,25 +160,59 @@ def get_database():
     # Get new game info
     # old
 
-def set_ranks():
-    for team in all_teams:
-        team["fto_rank"] = find_rank("fto",team)
-        team["ftd_rank"] = find_rank("ftd",team)
-        team["3o_rank"] = find_rank("3o",team)
-        team["3d_rank"] = find_rank("opp_3fg",team)
+def set_old_team_attributes():
+    for team in old_teams:
+        team["fto"] = team["ftm"]/team["ppg"]
+        team["ftd"] = team["fouls"]/team["kp_t"]
+        team["3o"] = team["3fg"]*3/team["ppg"]
+        team["to_poss"] = team["to"]/team["kp_t"]
+        team["tof_poss"] = team["tof"]/team["kp_t"]
 
-def find_rank(stat,team):
-    value = team["stat"]
-    rank = 0
-    for other in all_teams:
-        if other["stat"] <= value:
-            rank += 1
-    return rank
+def set_new_team_attributes():
+    for team in new_teams:
+        team["fto"] = team["ftm"]/team["ppg"]
+        team["ftd"] = team["fouls"]/team["kp_t"]
+        team["3o"] = team["3fg"]*3/team["ppg"]
+        team["to_poss"] = team["to"]/team["kp_t"]
+        team["tof_poss"] = team["tof"]/team["kp_t"]
+
+def set_avg_sd():
+    fto_avg,fto_sd = find_avg_sd("fto")
+    ftd_avg,ftd_sd = find_avg_sd("ftd")
+    3o_avg,3o_sd = find_avg_sd("3o")
+    3d_avg,3d_sd = find_avg_sd("opp_3fg")
+    for team in all_teams:
+        team["fto_sd"] = (team["fto"] - fto_avg)/fto_sd
+        team["ftd_sd"] = (ftd_avg - team["ftd"])/ftd_sd
+        team["3o_sd"] = (team["3o"] - 3o_avg)/3o_sd
+        team["3d_sd"] = (3d_avg - team["opp_3fg"])/3d_sd
+
+def find_avg_sd(stat):
+    values = []
+    for team in all_teams:
+        values.append(team[stat])
+    mean = np.mean(values)
+    std = np.std(values)
+    return (mean,std)
+
+def set_game_attributes():
+    for game in all_games:
+        game["off"] = game["home"]["kp_o"] - game["away"]["kp_d"]
+        game["def"] = game["home"]["kp_d"] - game["away"]["kp_o"]
+        game["h_tempo"] = game["home"]["kp_t"]
+        game["a_tempo"] = game["away"]["kp_t"]
+        game["fto"] = game["home"]["fto_sd"] - game["away"]["ftd_sd"]
+        game["ftd"] = game["home"]["ftd_sd"] - game["away"]["fto_sd"]
+        game["3o"] = game["home"]["3o_sd"] - game["away"]["3d_sd"]
+        game["3d"] = game["home"]["3d_sd"] - game["away"]["3o_sd"]
+        game["reb"] = game["home"]["reb"] - game["away"]["reb"]
+        game["to"] = game["home"]["to_poss"] - game["away"]["tof_poss"]
+        game["tof"] = game["home"]["tof_poss"] - game["away"]["to_poss"]
 
 import statsmodels.formula.api as sm
 def first_regression():
     gamesdf = pd.DataFrame.from_dict(old_games)
-    result = sm.ols(formula = "margin ~ off + def + tempo + fto + ftd + 3o + 3d + reb + to + tof + tipoff + total + true + weekend",data=gamesdf,missing='drop').fit()
+    result = sm.ols(formula = "margin ~ off + def + h_tempo + a_tempo + fto + ftd + 3o + 3d + reb + to + tof + tipoff + total + true + weekend",data=gamesdf,missing='drop').fit()
     return (result,gamesdf)
 
 def regress_spread(game,gamesdf,result):
@@ -194,7 +230,7 @@ def regress_spread(game,gamesdf,result):
     gamesdf["game_total"] = gamesdf.total - game["total"]
     gamesdf["game_true"] = gamesdf.true - game["true"]
     gamesdf["game_weekend"] = gamesdf.weekend - game["weekend"]
-    result2 = sm.ols(formula = "margin ~ game_off + game_def + game_tempo + game_fto + game_ftd + game_3o + game_3d + game_reb + game_to + game_tof + game_tipoff + game_total + game_true + game_weekend",data=gamesdf,missing='drop').fit()
+    result2 = sm.ols(formula = "margin ~ game_off + game_def + game_h_tempo + game_a_tempo + game_fto + game_ftd + game_3o + game_3d + game_reb + game_to + game_tof + game_tipoff + game_total + game_true + game_weekend",data=gamesdf,missing='drop').fit()
     residuals = gamesdf["margin"] - result.predict()
     SER = np.sqrt(sum(residuals*residuals)/len(game_list))
     se = np.sqrt(SER**2 + result2.bse[0]**2)
@@ -242,8 +278,19 @@ old_games
 new_teams
 new_games
 all_teams
+fto_sd
+fto_avg
+ftd_sd
+fto_avg
+3o_sd
+3o_avg
+3d_sd
+3d_avg
+set_old_team_attributes()
+set_new_team_attributes()
+set_avg_sd()
+set_game_attributes()
 result,gamesdf = first_regression()
-set_ranks()
 set_picks()
 set_retroactive_picks()
 for i in range(4):
