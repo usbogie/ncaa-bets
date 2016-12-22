@@ -1,9 +1,8 @@
 __author__ = 'patrick'
 
 from bs4 import BeautifulSoup
-import re
-import urllib2
-import html5lib
+import urllib.request as request
+import urllib.error as e
 from fake_useragent import UserAgent
 from game_parse import Game
 import pandas as pd
@@ -11,9 +10,7 @@ import numpy as np
 import time
 import random
 import fileinput
-from sqlalchemy import create_engine
 import json
-import pprint
 
 
 ua = UserAgent()
@@ -64,25 +61,26 @@ def create_day_url(base, date):
 def get_data(game_url, ua, tourney_df, ncaa):
 
     game = Game(game_url, ua, tourney_df, ncaa)
-    print "GAME"
-    print game
+    #print("GAME")
+    #print(game)
     game.make_dataframes()
     # appending the new dataframes to the lists of dataframes
     gen_info = game.info_df
+    print(gen_info)
     try:
-        players = game.players
+        #players = game.players
         game_stats = game.gm_totals
 
     except:
-        players = None
+        #players = None
         game_stats = None
-    print "Just finished: %s vs %s on %s" % (game.away_abbrv, game.home_abbrv, game.date)
+    #print("Just finished: %s vs %s on %s" % (game.away_abbrv, game.home_abbrv, game.date))
 
     # build in wait times between getting games to prevent an overload
     wait_time = round(max(10, 15 + random.gauss(0,3)), 2)
     time.sleep(wait_time)
 
-    return gen_info, players, game_stats
+    return gen_info, game_stats
 
 # new helper function to check for game cancellations/postponements???!!!!!!
 
@@ -91,7 +89,7 @@ def get_data(game_url, ua, tourney_df, ncaa):
 def make_overall_df(start_year):
 
     gen_info = []
-    players = []
+    #players = []
     game_stats = []
 
     date_list = make_season(start_year)
@@ -102,37 +100,36 @@ def make_overall_df(start_year):
         day_urls = create_day_url(base_url, day)
 
         for d in day_urls:
-            print d
             #Standard urllib2 to BeautifulSoup request process
-            request = urllib2.Request(d, headers = { 'User-Agent' : ua.random })
+            req = request.Request(d, headers = { 'User-Agent' : ua.random })
             try:
-                page = urllib2.urlopen(request)
-            except urllib2.URLError, e:
+                page = request.urlopen(req)
+            except e:
                 try:
                     # wait a few seconds if failed, and try again
                     wait_time = round(max(10, 12 + random.gauss(0,1)), 2)
                     time.sleep(wait_time)
-                    print "First attempt for %s failed. Trying again." % (d)
-                    page = urllib2.urlopen(request)
+                    print("First attempt for %s failed. Trying again." % (d))
+                    page = request.urlopen(req)
                 except:
                     if hasattr(e, 'reason'):
-                        print 'Failed to reach url'
-                        print 'Reason: ', e.reason
+                        print('Failed to reach url')
+                        print('Reason: ', e.reason)
                         f = open('Last_Day_Parsed', 'r+')
                         previous = f.read()
                         for line in fileinput.input('Last_Day_Parsed', inplace=True):
                             line.replace(previous, day)
                         f.close()
-                        return gen_info, players, game_stats
+                        return gen_info, game_stats
                     elif hasattr(e, 'code'):
                         if e.code == 404:
-                            print 'Error: ', e.code
+                            print('Error: ', e.code)
                             f = open('Last_Day_Parsed', 'r+')
                             previous = f.read()
                             for line in fileinput.input('Last_Day_Parsed', inplace=True):
                                 line.replace(previous, d)
                             f.close()
-                            return gen_info, players, game_stats
+                            return gen_info, game_stats
 
             content = page.read()
 
@@ -143,7 +140,6 @@ def make_overall_df(start_year):
             no_game_check = [i for i in no_game_check if 'Next game' in i]
             
             if len(no_game_check) > 0:
-                print "No games on ", day
                 continue
 
             links = []
@@ -157,10 +153,6 @@ def make_overall_df(start_year):
                     for event in events:
                         links.append(event['links'][1]['href'])
                         status_dict[event['id']] = event['status']['type']['shortDetail']
-
-            print "GAME_STATUSES"
-            for idx, status in status_dict.iteritems():
-                print idx, status
 
             # getting specific info (i.e. rounds) for tournament months
             if day[4:6] == '03' or day[4:6] == '04':
@@ -185,7 +177,6 @@ def make_overall_df(start_year):
 
                 game_id = url.split("=")[-1]
                 if status_dict[game_id] == 'Postponed' or status_dict[game_id] == 'Canceled':
-                    print "No Final Score for %s" % url
                     continue
 
                 else:
@@ -217,17 +208,17 @@ def make_overall_df(start_year):
                     # Now to extract the data from the boxscore's url
                     # Stored into a 'Game' object
                     try:
-                        gm_info, gm_players, gm_stats = get_data(url, ua, tourney_df, ncaa)
-                        print "SUCCESSFUL GET DATA"
-                        print "GM_INFO"
-                        print gm_info
-                        print "GM_PLAYERS"
-                        print gm_players
-                        print "GM_STATS"
-                        print gm_stats
+                        gm_info, gm_stats = get_data(url, ua, tourney_df, ncaa)
+                        #print("SUCCESSFUL GET DATA")
+                        #print("GM_INFO")
+                        #print(gm_info)
+                        #print("GM_PLAYERS")
+                        #print(gm_players)
+                        #print("GM_STATS")
+                        #print(gm_stats)
                         gen_info.append(gm_info)
-                        if gm_players is not None:
-                            players.append(gm_players)
+                        if gm_stats is not None:
+                            #players.append(gm_players)
                             game_stats.append(gm_stats)
                     except:
                         f = open('Last_Day_Parsed', 'w')
@@ -237,8 +228,8 @@ def make_overall_df(start_year):
                         box = url.split('.com')[-1]
                         f2.write(box)
                         f2.close()
-                        print "Broke off loop at ", url
-                        return gen_info, players, game_stats
+                        print("Broke off loop at ", url)
+                        return gen_info, game_stats
 
 
             # day-by-day 10% chance of a long wait/sleep time
@@ -246,31 +237,31 @@ def make_overall_df(start_year):
             choice = random.choice(chance)
             if choice < 10:
                 big_wait_time = round(max(25, 28 + random.gauss(0,2)), 2)
-                print "Big wait of %d seconds\n\n" % big_wait_time
+                print("Big wait of %d seconds\n\n" % big_wait_time)
                 time.sleep(big_wait_time)
 
-    return gen_info, players, game_stats
+    return gen_info, game_stats
 
 
 
 if __name__ == '__main__':
 
     start_year = 2013 # change this per season
-    info_list, players_list, gm_stats_list = make_overall_df(start_year)
+    info_list, gm_stats_list = make_overall_df(start_year)
     # print "info_list"
     # print info_list
     # print "players_list"
     # print players_list
     # print "gm_stats_list"
     # print gm_stats_list
+    print(info_list)
     final_info = pd.concat(info_list, ignore_index=True)
-    final_players = pd.concat(players_list, ignore_index=True)
+    #final_players = pd.concat(players_list, ignore_index=True)
     final_gm_stats = pd.concat(gm_stats_list, ignore_index=True)
 
-    print final_gm_stats
-    #engine = create_engine("postgresql://localhost:5432/ncaa")
-    #final_info.to_sql("gen_info", engine, if_exists='append', index=False)
-    #final_players.to_sql("players", engine, if_exists='append', index=False)
-    #final_gm_stats.to_sql("game_stats", engine, if_exists='append', index=False)
+    print(final_gm_stats)
+    final_info.to_csv("gen_info.csv", index=False)
+    #final_players.to_csv("players.csv", index=False)
+    final_gm_stats.to_csv("game_stats.csv", index=False)
 
-    print "\n\nFinished uploading to SQL"
+    print("\n\nFinished uploading to CSVs")

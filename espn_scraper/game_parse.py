@@ -1,8 +1,11 @@
 __author__ = 'patrick'
 from bs4 import BeautifulSoup
-import urllib2
-import html5lib
+import urllib.request as request
+import urllib.error as e
 import re
+import sys
+import time
+import random
 import itertools
 import pandas as pd
 import numpy as np
@@ -17,30 +20,30 @@ def isplit(iterable,splitters):
 
 class Game(object):
     def __init__(self, url, ua, tourney_df, ncaa_bool):
-        print url
+        print(url)
 
-        request = urllib2.Request(url, headers = { 'User-Agent' : ua.random })
+        req = request(url, headers = { 'User-Agent' : ua.random })
         try:
-            page = urllib2.urlopen(request)
-        except urllib2.URLError, e:
+            page = request.urlopen(req)
+        except e:
             try:
                 wait_time = round(max(10, 15 + random.gauss(0,2.5)), 2)
                 time.sleep(wait_time)
-                page = urllib2.urlopen(request)
+                page = request.urlopen(req)
             except:
                 try:
-                    print "First attempt for %s failed" % url
+                    print("First attempt for %s failed" % url)
                     wait_time = round(max(20, 24 + random.gauss(0,2.5)), 2)
                     time.sleep(wait_time)
-                    page = urllib2.urlopen(request)
+                    page = request.urlopen(req)
                 except:
                     if hasattr(e, 'reason'):
-                        print 'Failed to reach url'
-                        print 'Reason: ', e.reason
+                        print('Failed to reach url')
+                        print('Reason: ', e.reason)
                         sys.exit()
                     elif hasattr(e, 'code'):
                         if e.code == 404:
-                            print 'Error: ', e.code
+                            print('Error: ', e.code)
                             sys.exit()
 
         content = page.read()
