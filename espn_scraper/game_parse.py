@@ -6,6 +6,8 @@ import re
 import itertools
 import pandas as pd
 import numpy as np
+from datetime import datetime
+from dateutil import tz
 
 
 def isplit(iterable,splitters):
@@ -17,22 +19,29 @@ def isplit(iterable,splitters):
 
 class Game(object):
     def __init__(self, url, ua, tourney_df, ncaa_bool):
-        print url
+        self.from_zone = tz.gettz('UTC')
+        self.to_zone = tz.gettz('America/New_York')
+
+        game_summary_url = url.replace('boxscore','game')
 
         request = urllib2.Request(url, headers = { 'User-Agent' : ua.random })
+        request_summary = urllib2.Request(game_summary_url, headers = { 'User-Agent' : ua.random })
         try:
             page = urllib2.urlopen(request)
+            page2 = urllib2.urlopen(request_summary)
         except urllib2.URLError, e:
             try:
                 wait_time = round(max(10, 15 + random.gauss(0,2.5)), 2)
                 time.sleep(wait_time)
                 page = urllib2.urlopen(request)
+                page2 = urllib2.urlopen(request_summary)
             except:
                 try:
                     print "First attempt for %s failed" % url
                     wait_time = round(max(20, 24 + random.gauss(0,2.5)), 2)
                     time.sleep(wait_time)
                     page = urllib2.urlopen(request)
+                    page2 = urllib2.urlopen(request_summary)
                 except:
                     if hasattr(e, 'reason'):
                         print 'Failed to reach url'
@@ -44,8 +53,11 @@ class Game(object):
                             sys.exit()
 
         content = page.read()
+        content_summary = page2.read()
+
 
         self.soup = BeautifulSoup(content, "html5lib")
+        self.soup2 = BeautifulSoup(content_summary, "html5lib")
         self.game_id = url.split("=")[1]
 
         self.tourney_df = tourney_df
@@ -66,14 +78,14 @@ class Game(object):
         for script in scripts:
             if 'espn.gamepackage.timestamp' in script.text:
                 dateTime = script.text.split('espn.gamepackage.timestamp')[1].split("espn.gamepackage.status")[0].split("\"")[1]
-        # dateTime is in: 2013-09-29T18:46:19Z format;
-        date, time = dateTime.split('T')
+        # dateTime is in: 2013-09-29T21:00Z format;
+        dateTime = " ".join(dateTime.split('T'))[:-1]
+        utc = datetime.strptime(dateTime, '%Y-%m-%d %H:%M')
+        eastern = utc.replace(tzinfo=self.from_zone).astimezone(self.to_zone)
+        date, time = str(eastern)[:-6].split(" ")
         self.year = date.split('-')[0]
-        #splitted = self.game_time_loc.split(self.year)
-        #self.location = splitted[1]
-        #time = splitted[0].split(", ")
-        self.tipoff = time[:-1]
-        self.date = str(date.split('-')[1])+'/'+str(date.split('-')[2])
+        self.tipoff = time
+        self.date = date.split("-")[1]+'/'+date.split("-")[2]
 
         # Extracting things from the header, like school and record
         away = self.soup.find("div", {"class": "team away"})
@@ -195,7 +207,10 @@ class Game(object):
         home_stats = [x for x in home_stats if re.match("^[A-Za-z]", x[0].text)]
         self.home_stats = [[x.text for x in r] for r in home_stats]
 
-        #self.attendance = self.soup.find("div", {"class":"game-info-note capacity"}).text.split(": ")[1]
+        game_details = self.soup2.find("div", {"class":"location-details"})
+        self.attendance = game_details.find("div", {"class":"game-info-note capacity"}).text.split(": ")[1]
+        self.location = game_details.find("li").text.split()
+        self.location = " ".join(self.location[:2])
 
         # try:
         #     # This is what runs for 2008-2013
@@ -400,9 +415,9 @@ class Game(object):
 
         #######################################
         # Making general game information dataframe
-        info = ['Game_ID', 'Away_Abbrv', 'Home_Abbrv', 'Away_Score',
+        info = ['Game_ID', 'Away_Abbrv', 'Home_Abbrv', 'Away_Score', 'Attendance',
                 'Home_Score', 'Away_Rank', 'Home_Rank', 'Away_Rec', 'Home_Rec', 'Away_1st', 'Away_2nd',
-                'Home_1st', 'Home_2nd', 'Game_Year', 'Game_Date','Game_Tipoff', 
+                'Home_1st', 'Home_2nd', 'Game_Year', 'Game_Date','Game_Tipoff', 'Game_Location',
                 'Game_Away', 'Game_Home', "Away_OT", "Home_OT"]
         data = np.array([np.arange(len(info))])
         self.info_df = pd.DataFrame(data, columns=info)
@@ -411,7 +426,7 @@ class Game(object):
         self.info_df['Game_Year'] = self.year
         self.info_df['Game_Date'] = self.date
         self.info_df['Game_Tipoff'] = self.tipoff
-        #self.info_df['Game_Location'] = self.location
+        self.info_df['Game_Location'] = self.location
         self.info_df['Game_Away'] = self.away_tm
         self.info_df['Away_Abbrv'] = self.away_abbrv
         self.info_df['Game_Home'] = self.home_tm
@@ -429,7 +444,7 @@ class Game(object):
         self.info_df['Home_2nd'] = self.home_2nd
         self.info_df['Home_OT'] = self.home_ot
         #self.info_df['Officials'] = self.officials
-        #self.info_df['Attendance'] = self.attendance
+        self.info_df['Attendance'] = self.attendance
         self.info_df = pd.concat([self.info_df, self.tourney_df], axis=1)
 
 ########################

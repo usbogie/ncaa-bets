@@ -64,8 +64,6 @@ def create_day_url(base, date):
 def get_data(game_url, ua, tourney_df, ncaa):
 
     game = Game(game_url, ua, tourney_df, ncaa)
-    print "GAME"
-    print game
     game.make_dataframes()
     # appending the new dataframes to the lists of dataframes
     gen_info = game.info_df
@@ -157,10 +155,6 @@ def make_overall_df(start_year):
                     for event in events:
                         links.append(event['links'][1]['href'])
                         status_dict[event['id']] = event['status']['type']['shortDetail']
-
-            print "GAME_STATUSES"
-            for idx, status in status_dict.iteritems():
-                print idx, status
 
             # getting specific info (i.e. rounds) for tournament months
             if day[4:6] == '03' or day[4:6] == '04':
@@ -257,20 +251,20 @@ if __name__ == '__main__':
 
     start_year = 2013 # change this per season
     info_list, players_list, gm_stats_list = make_overall_df(start_year)
-    # print "info_list"
-    # print info_list
-    # print "players_list"
-    # print players_list
-    # print "gm_stats_list"
-    # print gm_stats_list
+    print "info_list"
+    print info_list
+    print "players_list"
+    print players_list
+    print "gm_stats_list"
+    print gm_stats_list
     final_info = pd.concat(info_list, ignore_index=True)
     final_players = pd.concat(players_list, ignore_index=True)
     final_gm_stats = pd.concat(gm_stats_list, ignore_index=True)
 
     print final_gm_stats
-    #engine = create_engine("postgresql://localhost:5432/ncaa")
-    #final_info.to_sql("gen_info", engine, if_exists='append', index=False)
-    #final_players.to_sql("players", engine, if_exists='append', index=False)
-    #final_gm_stats.to_sql("game_stats", engine, if_exists='append', index=False)
+    engine = create_engine("postgresql://henrybogardus:kingkong@localhost:5432/espndata")
+    final_info.to_sql("gen_info", engine, if_exists='append', index=False)
+    final_players.to_sql("players", engine, if_exists='append', index=False)
+    final_gm_stats.to_sql("game_stats", engine, if_exists='append', index=False)
 
     print "\n\nFinished uploading to SQL"
