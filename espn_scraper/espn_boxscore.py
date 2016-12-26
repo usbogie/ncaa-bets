@@ -59,14 +59,11 @@ def create_day_url(base, date):
     return box_urls
 
 def get_data(game_url, ua, tourney_df, ncaa):
-
     game = Game(game_url, ua, tourney_df, ncaa)
-    #print("GAME")
-    #print(game)
     game.make_dataframes()
     # appending the new dataframes to the lists of dataframes
     gen_info = game.info_df
-    print(gen_info)
+    """
     try:
         #players = game.players
         game_stats = game.gm_totals
@@ -74,13 +71,14 @@ def get_data(game_url, ua, tourney_df, ncaa):
     except:
         #players = None
         game_stats = None
+    """
     #print("Just finished: %s vs %s on %s" % (game.away_abbrv, game.home_abbrv, game.date))
 
     # build in wait times between getting games to prevent an overload
     wait_time = round(max(10, 15 + random.gauss(0,3)), 2)
     time.sleep(wait_time)
 
-    return gen_info, game_stats
+    return gen_info
 
 # new helper function to check for game cancellations/postponements???!!!!!!
 
@@ -90,7 +88,7 @@ def make_overall_df(start_year):
 
     gen_info = []
     #players = []
-    game_stats = []
+    #game_stats = []
 
     date_list = make_season(start_year)
 
@@ -120,7 +118,7 @@ def make_overall_df(start_year):
                         for line in fileinput.input('Last_Day_Parsed', inplace=True):
                             line.replace(previous, day)
                         f.close()
-                        return gen_info, game_stats
+                        return gen_info
                     elif hasattr(e, 'code'):
                         if e.code == 404:
                             print('Error: ', e.code)
@@ -129,7 +127,7 @@ def make_overall_df(start_year):
                             for line in fileinput.input('Last_Day_Parsed', inplace=True):
                                 line.replace(previous, d)
                             f.close()
-                            return gen_info, game_stats
+                            return gen_info
 
             content = page.read()
 
@@ -138,7 +136,7 @@ def make_overall_df(start_year):
             # INSERT CHECK FOR 'NO GAMES' HERE, BREAK LOOP/CONTINUE IF THAT'S THE CASE
             no_game_check = [x.text.encode('ascii', 'ignore') for x in soup.find_all('div', {'class': 'mod-content'})]
             no_game_check = [i for i in no_game_check if 'Next game' in i]
-            
+
             if len(no_game_check) > 0:
                 continue
 
@@ -153,10 +151,10 @@ def make_overall_df(start_year):
                     for event in events:
                         links.append(event['links'][1]['href'])
                         status_dict[event['id']] = event['status']['type']['shortDetail']
-
             # getting specific info (i.e. rounds) for tournament months
             if day[4:6] == '03' or day[4:6] == '04':
                 game_notes = soup.find_all("div", {"class": "game-note border-top"})
+
             try:
                 f2 = open('Failed_Game', 'r+')
                 failure = f2.read()
@@ -169,12 +167,9 @@ def make_overall_df(start_year):
                 if failure:
                     links = links[links.index(failure):]
             except:
-                continue
-
-
+                pass
             # Iterating through every boxscore url, fetching the data via creating Game objects
             for url in links:
-
                 game_id = url.split("=")[-1]
                 if status_dict[game_id] == 'Postponed' or status_dict[game_id] == 'Canceled':
                     continue
@@ -207,19 +202,22 @@ def make_overall_df(start_year):
                         pass
                     # Now to extract the data from the boxscore's url
                     # Stored into a 'Game' object
-                    try:
-                        gm_info, gm_stats = get_data(url, ua, tourney_df, ncaa)
-                        #print("SUCCESSFUL GET DATA")
-                        #print("GM_INFO")
-                        #print(gm_info)
-                        #print("GM_PLAYERS")
-                        #print(gm_players)
-                        #print("GM_STATS")
-                        #print(gm_stats)
-                        gen_info.append(gm_info)
-                        if gm_stats is not None:
-                            #players.append(gm_players)
-                            game_stats.append(gm_stats)
+                    #try:
+                    gm_info = get_data(url, ua, tourney_df, ncaa)
+                    #print("SUCCESSFUL GET DATA")
+                    #print("GM_INFO")
+                    #print(gm_info)
+                    #print("GM_PLAYERS")
+                    #print(gm_players)
+                    #print("GM_STATS")
+                    #print(gm_stats)
+                    gen_info.append(gm_info)
+                    """
+                    if gm_stats is not None:
+                        #players.append(gm_players)
+                        game_stats.append(gm_stats)
+                    """
+                    """
                     except:
                         f = open('Last_Day_Parsed', 'w')
                         f.write(day)
@@ -230,6 +228,7 @@ def make_overall_df(start_year):
                         f2.close()
                         print("Broke off loop at ", url)
                         return gen_info, game_stats
+                    """
 
 
             # day-by-day 10% chance of a long wait/sleep time
@@ -240,28 +239,28 @@ def make_overall_df(start_year):
                 print("Big wait of %d seconds\n\n" % big_wait_time)
                 time.sleep(big_wait_time)
 
-    return gen_info, game_stats
+    return gen_info
 
 
 
 if __name__ == '__main__':
 
     start_year = 2013 # change this per season
-    info_list, gm_stats_list = make_overall_df(start_year)
-    # print "info_list"
-    # print info_list
-    # print "players_list"
-    # print players_list
-    # print "gm_stats_list"
-    # print gm_stats_list
-    print(info_list)
+    info_list = make_overall_df(start_year)
+    #print("info_list")
+    #print(info_list)
+    #print("gm_stats_list")
+    #print(gm_stats_list)
     final_info = pd.concat(info_list, ignore_index=True)
     #final_players = pd.concat(players_list, ignore_index=True)
-    final_gm_stats = pd.concat(gm_stats_list, ignore_index=True)
+    #final_gm_stats = pd.concat(gm_stats_list, ignore_index=True)
 
-    print(final_gm_stats)
     final_info.to_csv("gen_info.csv", index=False)
     #final_players.to_csv("players.csv", index=False)
-    final_gm_stats.to_csv("game_stats.csv", index=False)
+    #final_gm_stats.to_csv("game_stats.csv", index=False)
+    #engine = create_engine("postgresql://henrybogardus:kingkong@localhost:5432/espndata")
+    #final_info.to_sql("gen_info", engine, if_exists='append', index=False)
+    #final_players.to_sql("players", engine, if_exists='append', index=False)
+    #final_gm_stats.to_sql("game_stats", engine, if_exists='append', index=False)
 
     print("\n\nFinished uploading to CSVs")
