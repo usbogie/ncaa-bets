@@ -16,7 +16,6 @@ Variables:
         REBD: defensive rebound percentage
         Turnovers per offensive play
         Turnovers forced per offensive play
-        Tipoff
         Total
         Home
         Weekend
@@ -44,7 +43,6 @@ Variables:
                 Spread
                 Total
             ESPN:
-                Tipoff
                 Day of week
                 True Home Game
                 Home Team
@@ -58,7 +56,6 @@ Variables:
                 Spread
                 Total
             ESPN:
-                Tipoff
                 Day of week
                 True Home Game
                 Home Team
@@ -72,7 +69,10 @@ Get Database
 Dictionaries
     teams: {
         name
+        espn
         year
+        home (May have issues if early in the year)
+        homes
         kp_o
         kp_d
         kp_t
@@ -98,14 +98,16 @@ Dictionaries
     }
 
     old_games: {
-        game_type ("new" or "old")
+        game_type ("old")
         home
         away
+        h_espn
+        a_espn
+        date
 
         spread
         total
-        tipoff (1 early and true, 0 not)
-        weekend (1 weekend and true, 0 false)
+        weekday (1 weekday and true, 0 false)
         true (1 true, 0 false)
         o
         d
@@ -137,12 +139,14 @@ Dictionaries
     }
 
     new_games: {
-        game_type ("new" or "old")
+        game_type ("new")
         home
         away
+        h_espn
+        a_espn
+        date
         spread
         total
-        tipoff (1 early and true, 0 not)
         weekend (1 weekend and true, 0 false)
         true (1 true, 0 false)
         o
@@ -168,7 +172,8 @@ Dictionaries
     }
 """
 
-teams = []
+teams = {}
+espn_names = {}
 all_teams = []
 old_teams = []
 new_teams = []
@@ -180,6 +185,11 @@ parameters2 = []
 
 import numpy as np
 import pandas as pd
+from scipy.stats.mstats import zscore
+import statsmodels.formula.api as sm
+from scipy.stats import norm
+from datetime import date, timedelta
+from fuzzywuzzy import fuzz
 
 def get_team_stats():
     ncaa_2014 = pd.read_csv('NCAAM_2014.csv')
@@ -187,44 +197,108 @@ def get_team_stats():
     ncaa_2016 = pd.read_csv('NCAAM_2016.csv')
     ncaa_2017 = pd.read_csv('NCAAM_2017.csv')
     years = [ncaa_2014,ncaa_2015,ncaa_2016,ncaa_2017]
-    teams = []
     for i in range(len(years)):
         teams_count = len(years[i])
-        teams.append([])
         for j in range(teams_count):
-            teams[i].append({})
-            all_teams.append(teams[i][j])
+            team = years[i].Name[j] + str(2014 + i)
+            teams[team] = {}
+            teams[team]["name"] = years[i].Name[j]
+            teams[team]["year"] = str(i + 2014)
+            teams[team]["homes"] = {}
+            teams[team]["fto"] = years[i].FTO[j]
+            teams[team]["ftd"] = years[i].FTD[j]
+            teams[team]["three_o"] = years[i].Three_O[j]
+            teams[team]["perc3"] = years[i].perc3[j]
+            teams[team]["three_d"] = years[i].Three_D[j]
+            teams[team]["rebo"] = years[i].REBO[j]
+            teams[team]["rebd"] = years[i].REBD[j]
+            teams[team]["to_poss"] = years[i].TOP[j]
+            teams[team]["tof_poss"] = years[i].TOFP[j]
+            all_teams.append(teams[team])
             if i < (len(years) - 1):
-                old_teams.append(teams[i][j])
-                teams[i][j]["game_type"] = "old"
+                old_teams.append(teams[team])
             else:
-                new_teams.append(teams[i][j])
-                teams[i][j]["game_type"] = "new"
-            teams[i][j]["name"] = years[i].Name[j]
-            teams[i][j]["year"] = i + 2014
-            teams[i][j]["fto"] = years[i].FTO[j]
-            teams[i][j]["ftd"] = years[i].FTD[j]
-            teams[i][j]["three_o"] = years[i].Three_O[j]
-            teams[i][j]["perc3"] = years[i].perc3[j]
-            teams[i][j]["three_d"] = years[i].Three_D[j]
-            teams[i][j]["rebo"] = years[i].REBO[j]
-            teams[i][j]["rebd"] = years[i].REBD[j]
-            teams[i][j]["to_poss"] = years[i].TOP[j]
-            teams[i][j]["tof_poss"] = years[i].TOFP[j]
+                new_teams.append(teams[team])
+
+def get_old_games():
+    gamesdf14 = pd.read_csv("game_info2014.csv")
+    gamesdf15 = pd.read_csv("game_info2015.csv")
+    gamesdf16 = pd.read_csv("game_info2016.csv")
+    gamesdf17 = pd.read_csv("game_info2017.csv")
+    years = [gamesdf14,gamesdf15,gamesdf16,gamesdf17]
+    for year in len(years):
+        for i in range(len(gamesdf.Game_Away)):
+            try:
+                home = espn_names[years[year].Game_Home[i]]
+                away = espn_names[years[year].Game_Away[i]]
+                game = {}
+                all_games.append(game)
+                old_games.append(game)
+                game["game_type"] = "old"
+                game["home"] = teams[home+str(2014+year)]
+                game["away"] = teams[away+str(2014+year)]
+                game["h_score"] = years[year].Home_Score[i]
+                game["a_score"] = years[year].Away_Score[i]
+                game["margin"] = game["h_score"] - game["a_score"]
+                game["home_winner"] = game["margin"] > 0
+                if game["home_winner"]:
+                    game["winner"] = game["home"]
+                else:
+                    game["winner"] = game["away"]
+
+                # Get Game Date
+                d = years[year].Game_Date[i].split("-")
+                d.append(year+2014)
+                months = ["Jan","Feb","Mar","Apr","Nov","Dec"]
+                j = 0
+                for m in months:
+                    j += 1
+                    if m == d[1]:
+                        if j > 4:
+                            d[2] -= 1
+                            d[1] = j + 6
+                        else:
+                            d[1] = j
+                        break
+                gameday = date(d[2],d[1],int(d[0]))
+                game["tipoff_e"] = years[year].Game_Tipoff[i]
+                hour = int(game["tipoff_e"].split(":")[0])
+                if (hour < 6 or hour == 12) and game["tipoff_e"].split(" ")[1] == "AM":
+                    gameday -= timedelta(days=1)
+                game["date"] = gameday
+
+                game["location"] = years[year].Game_Location[i]
+                try:
+                    game["home"]["homes"][game["location"]] += 1
+                except:
+                    game["home"]["homes"][game["location"]] = 1
+            except:
+                continue
+
+    for team in all_teams:
+        team["home"] = max(team["homes"],key=team["homes"].get)
+    for game in all_games:
+        game["true"] = False
+        if game["home"]["home"] == game["location"]:
+            game["true"] = True
+        game["weekday"] = False
+        if gameday.weekday() > 1 and gameday.weekday() < 7 and game["true"]:
+            game["weekday"] = True
 
 def update_team_stats():
     ncaa_2017 = pd.read_csv('NCAAM_2017.csv')
-    i = len(teams)-1
-    for j in range(len(teams[i])):
-        teams[i][j]["fto"] = ncaa_2017[i].FTO[j]
-        teams[i][j]["ftd"] = ncaa_2017[i].FTD[j]
-        teams[i][j]["three_o"] = ncaa_2017[i].Three_O[j]
-        teams[i][j]["perc3"] = ncaa_2017[i].perc3[j]
-        teams[i][j]["three_d"] = ncaa_2017[i].Three_D[j]
-        teams[i][j]["rebo"] = ncaa_2017[i].REBO[j]
-        teams[i][j]["rebd"] = ncaa_2017[i].REBD[j]
-        teams[i][j]["to_poss"] = ncaa_2017[i].TOP[j]
-        teams[i][j]["tof_poss"] = ncaa_2017[i].TOFP[j]
+    j = 0
+    for team in new_teams:
+        team["fto"] = ncaa_2017.FTO[j]
+        team["ftd"] = ncaa_2017.FTD[j]
+        team["three_o"] = ncaa_2017.Three_O[j]
+        team["perc3"] = ncaa_2017.perc3[j]
+        team["three_d"] = ncaa_2017.Three_D[j]
+        team["rebo"] = ncaa_2017.REBO[j]
+        team["rebd"] = ncaa_2017.REBD[j]
+        team["to_poss"] = ncaa_2017.TOP[j]
+        team["tof_poss"] = ncaa_2017.TOFP[j]
+        j += 1
     set_team_attributes()
 
 def set_team_attributes():
@@ -232,7 +306,6 @@ def set_team_attributes():
     for stat in stat_list:
         set_zscores(stat)
 
-from scipy.stats.mstats import zscore
 def set_zscores(stat):
     l = []
     for team in all_teams:
@@ -270,10 +343,9 @@ def set_game_attributes():
         game["tof"] = home["tof_poss_z"] + away["to_poss_z"]
 
 
-import statsmodels.formula.api as sm
 def regress_margin():
     gamesdf = pd.DataFrame.from_dict(old_games)
-    result = sm.ols(formula = "margin ~ o + d + h_tempo + a_tempo + fto + ftd + three_o + three_d + rebo + rebd + to + tof + total + tipoff + true + weekend -1",data=gamesdf,missing='drop').fit()
+    result = sm.ols(formula = "margin ~ o + d + h_tempo + a_tempo + fto + ftd + three_o + three_d + rebo + rebd + to + tof + total + true + weekend -1",data=gamesdf,missing='drop').fit()
     for i in range(len(result.params)):
         parameters1[i] = result.params[i]
     i = 0
@@ -282,7 +354,6 @@ def regress_margin():
     predictions1 = result.predict()
     return gamesdf
 
-from scipy.stats import norm
 def predict_spread(game,gamesdf):
     gamesdf["game_o"] = gamesdf.o - game["o"]
     gamesdf["game_d"] = gamesdf.d - game["d"]
@@ -295,11 +366,10 @@ def predict_spread(game,gamesdf):
     gamesdf["game_reb"] = gamesdf.reb - game["reb"]
     gamesdf["game_to"] = gamesdf.to - game["to"]
     gamesdf["game_tof"] = gamesdf.tof - game["tof"]
-    gamesdf["game_tipoff"] = gamesdf.tipoff - game["tipoff"]
     gamesdf["game_total"] = gamesdf.total - game["total"]
     gamesdf["game_true"] = gamesdf.true - game["true"]
     gamesdf["game_weekend"] = gamesdf.weekend - game["weekend"]
-    result2 = sm.ols(formula = "margin ~ game_o + game_d + game_h_tempo + game_a_tempo + game_fto + game_ftd + game_3o + game_3d + game_rebo + game_rebd + game_to + game_tof + game_total + game_tipoff + game_true + game_weekend",data=gamesdf,missing='drop').fit()
+    result2 = sm.ols(formula = "margin ~ game_o + game_d + game_h_tempo + game_a_tempo + game_fto + game_ftd + game_3o + game_3d + game_rebo + game_rebd + game_to + game_tof + game_total + game_true + game_weekend",data=gamesdf,missing='drop').fit()
     game["p_margin"] = result2.params[0]
     game["p_spread_margin"] = abs(result2.params[0] + game["spread"])
     if result2.params[0] + game["spread"] < 0:
@@ -331,7 +401,7 @@ def set_picks(gamesdf):
 
 def regress_winners():
     gamesdf = pd.DataFrame.from_dict(old_games)
-    result = sm.ols(formula = "home_winner ~ spread + o + d + h_tempo + a_tempo + fto + ftd + three_o + three_d + rebo + rebd + to + tof + total + tipoff + true + weekend -1",data=gamesdf,missing='drop').fit()
+    result = sm.ols(formula = "home_winner ~ spread + o + d + h_tempo + a_tempo + fto + ftd + three_o + three_d + rebo + rebd + to + tof + total + true + weekend -1",data=gamesdf,missing='drop').fit()
     for i in range(len(result.params)):
         parameters2[i] = result.params[i]
     i = 0
@@ -346,7 +416,7 @@ def regress_winners():
             game["prob3"] = prob
 
 def predict_new_games():
-    variables = ["spread","o","d","h_tempo","a_tempo","fto","ftd","three_o","three_d","rebo","rebd","to","tof","tipoff","total","true","weekend"]
+    variables = ["spread","o","d","h_tempo","a_tempo","fto","ftd","three_o","three_d","rebo","rebd","to","tof","total","true","weekend"]
     for game in new_games:
         prob = parameters2[0]
         for i in range(1,len(parameters2)):
@@ -390,9 +460,230 @@ def print_picks(prob = .6):
         for game in new_games:
             if p == game["prob"]:
                 print(game["pick1"]["name"],game["prob"])
+
+def get_espn_names(name_list):
+    team_pairs = set()
+    team_set = set()
+    for team in name_list:
+        team_set.add(team)
+
+    games_df = pd.read_csv('game_info2014.csv')
+    i = 0
+    team_set2 = set()
+    team_set3 = set()
+    for team in games_df["Game_Home"]:
+        if team in team_set:
+            team_set2.add(team)
+            team_pairs.add((team,team))
+        elif games_df["Home_Abbrv"][i] in team_set:
+            team_set2.add(games_df["Home_Abbrv"][i])
+            team_pairs.add((games_df["Home_Abbrv"][i],team))
+        else:
+            team_set3.add(team)
+        i += 1
+    for team in team_set2:
+        team_set.remove(team)
+    team_set4 = set()
+    for team in team_set3:
+        state = team.replace("State","St")
+        if state in team_set:
+            team_set.remove(state)
+            team_set4.add(team)
+            team_pairs.add((state,team))
+        state2 = team.replace("St","State")
+        sac = state2.replace("Sacramento","Sac")
+        nw = sac.replace("Northwestern", "NW")
+        app = nw.replace("Appalachian","App")
+        tenn = app.replace("Tennessee","TN")
+        miss = tenn.replace("Mississippi","Miss")
+        if miss in team_set:
+            team_set.remove(miss)
+            team_set4.add(team)
+            team_pairs.add((miss,team))
+        fran = team.replace("Francis","Fran")
+        if fran in team_set:
+            team_set.remove(fran)
+            team_set4.add(team)
+            team_pairs.add((fran,team))
+        s = team.replace("'s","s")
+        saint = s.replace("Saint","St")
+        st = saint.replace("St.","St")
+        if st in team_set:
+            team_set.remove(st)
+            team_set4.add(team)
+            team_pairs.add((st,team))
+        cent = team.replace("Cent","Central")
+        car = cent.replace(" Carolina","C")
+        if car in team_set:
+            team_set.remove(car)
+            team_set4.add(team)
+            team_pairs.add((car,team))
+        north = team.replace("North","N")
+        south = north.replace("South","S")
+        if south in team_set:
+            team_set.remove(south)
+            team_set4.add(team)
+            team_pairs.add((south,team))
+        tech = team.replace("Tenn","TN")
+        fla = tech.replace("Florida Atl","Fla Atlantic")
+        if fla in team_set:
+            team_set.remove(fla)
+            team_set4.add(team)
+            team_pairs.add((fla,team))
+        sm = team.replace("Southern Miss", "S Mississippi")
+        mass = sm.replace("Massachusetts", "U Mass")
+        um = mass.replace("UMass", "Massachusetts")
+        mar = um.replace("UM","Maryland ")
+        om = mar.replace("Ole Miss","Mississippi")
+        if om in team_set:
+            team_set.remove(om)
+            team_set4.add(team)
+            team_pairs.add((om,team))
+        a = team.replace("UCF","Central FL")
+        b = a.replace("FIU","Florida Intl")
+        c = b.replace("UIC","IL-Chicago")
+        d = c.replace("MD-E Shore","Maryland ES")
+        e = d.replace("New Mexico St", "N Mex State")
+        f = e.replace("PV A&M", "Prairie View")
+        g = f.replace("SMU", "S Methodist")
+        i = g.replace("VMI", "VA Military")
+        h = i.replace("TCU", "TX Christian")
+        if h in team_set:
+            team_set.remove(h)
+            team_set4.add(team)
+            team_pairs.add((h,team))
+    for team in team_set4:
+        team_set3.remove(team)
+    from fuzzywuzzy import fuzz
+    team_set4.clear()
+    for team1 in sorted(team_set):
+        ratio = 0
+        team = ""
+        for team2 in team_set3:
+            if fuzz.ratio(team1,team2) > ratio:
+                ratio = fuzz.ratio(team1,team2)
+                team = team2
+        invalid = ["Metro State", "Tenn Tech", "Massachusetts", "Florida Atl"]
+        if team in invalid:
+            continue
+        if ratio > 60:
+            team_set4.add(team1)
+            team_set3.remove(team)
+            team_pairs.add((team1,team))
+    for team in team_set4:
+        team_set.remove(team)
+    team_set4.clear()
+    for team1 in sorted(team_set):
+        ratio = 0
+        team = ""
+        for team2 in team_set3:
+            if fuzz.ratio(team1,team2) > ratio:
+                ratio = fuzz.ratio(team1,team2)
+                team = team2
+                valid = [38,57,58]
+        if ratio in valid:
+            team_set4.add(team1)
+            team_set3.remove(team)
+            team_pairs.add((team1,team))
+    for team in team_set4:
+        team_set.remove(team)
+    team_set4.clear()
+    for team1 in sorted(team_set):
+        ratio = 0
+        team = ""
+        for team2 in team_set3:
+            if fuzz.ratio(team1,team2) > ratio:
+                ratio = fuzz.ratio(team1,team2)
+                team = team2
+        if ratio > 40:
+            team_set4.add(team1)
+            team_set3.remove(team)
+            team_pairs.add((team1,team))
+    for tr,espn in team_pairs:
+        espn_names[espn] = tr
+
+def get_kp_name(name_list):
+    trset = set()
+    espnset = set()
+    matched = set()
+    unmatched = set()
+    pairs = set()
+    kpdf = pd.read_json('kenpom17.json')
+    for name in name_list:
+        trset.add(name)
+    for name in gamesdf.Game_Home:
+        espnset.add(name)
+    for name in kpdf.name:
+        if name in trset or name in espnset:
+            matched.add(name)
+            pairs.add((name,name))
+        else:
+            unmatched.add(name)
+    tmp = set()
+    for team in unmatched:
+        e = team.replace('Eastern','E')
+        e2 = e.replace('East','E')
+        tn = e2.replace('Tennessee','TN')
+        n = tn.replace('Northern','N')
+        n2 = n.replace('North','N')
+        w = n2.replace('Western','W')
+        s = w.replace('Southern','S')
+        se = s.replace('Southeastern','SE')
+        s2 = se.replace('South','S')
+        il = s2.replace('Illinois ','IL-')
+        miss = il.replace('Mississippi','Miss')
+        period = miss.replace('.','')
+        if period in espnset or period in trset:
+            matched.add(period)
+            pairs.add((period,team))
+            tmp.add(team)
+    for team in tmp:
+        unmatched.remove(team)
+    tmp.clear()
+    for team in unmatched:
+        george = team.replace('George','G.')
+        nc = george.replace('North Carolina','NC')
+        st = nc.replace('St.','State')
+        if st in espnset or st in trset:
+            matched.add(st)
+            pairs.add((st,team))
+            tmp.add(team)
+        la = team.replace('Louisiana','LA')
+        fw = la.replace('Fort Wayne','IPFW')
+        pa = fw.replace('Rio Grande Valley','Pan American')
+        ts = pa.replace('Tennessee St.','Tenn St')
+        if ts in espnset or ts in trset:
+            matched.add(ts)
+            pairs.add((ts,team))
+            tmp.add(team)
+    for team in tmp:
+        unmatched.remove(team)
+    tmp.clear()
+
+    for t1 in sorted(unmatched):
+        ratio = 0
+        t = ""
+        for t2 in espnset.union(trset):
+            if fuzz.ratio(t1,t2) > ratio:
+                ratio = fuzz.ratio(t1,t2)
+                t = t2
+        matched.add(t)
+        pairs.add((t,t1))
+        tmp.add(t1)
+    for team in tmp:
+        unmatched.remove(team)
+    tmp.clear()
+    for other,kp in pairs:
+        try:
+            kp_names[kp] = espn_names[other]
+        except:
+            kp_names[kp] = other
+
 """
 main:
-teams = []
+teams = {}
+espn_names = {}
+kp_names = {}
 all_teams = []
 old_teams = []
 new_teams = []
@@ -401,9 +692,20 @@ old_games = []
 new_games = []
 parameters1 = []
 parameters2 = []
-predictions1 = []
+
+import numpy as np
+import pandas as pd
+from scipy.stats.mstats import zscore
+import statsmodels.formula.api as sm
+from scipy.stats import norm
+from datetime import date, timedelta
+from fuzzywuzzy import fuzz
+
+get_espn_names()
+get_kp_names()
 
 get_team_stats()
+get_old_games()
 set_team_attributes()
 set_game_attributes()
 

@@ -245,7 +245,7 @@ def make_overall_df(start_year):
 
 if __name__ == '__main__':
 
-    start_year = 2013 # change this per season
+    start_year = 2014 # change this per season
     info_list = make_overall_df(start_year)
     #print("info_list")
     #print(info_list)
@@ -255,7 +255,7 @@ if __name__ == '__main__':
     #final_players = pd.concat(players_list, ignore_index=True)
     #final_gm_stats = pd.concat(gm_stats_list, ignore_index=True)
 
-    final_info.to_csv("gen_info.csv", index=False)
+    final_info.to_csv("game_info2015.csv", index=False)
     #final_players.to_csv("players.csv", index=False)
     #final_gm_stats.to_csv("game_stats.csv", index=False)
     #engine = create_engine("postgresql://henrybogardus:kingkong@localhost:5432/espndata")

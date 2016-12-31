@@ -253,14 +253,6 @@ def extract_kenpom():
                         print 'found {} for current team: {}'.format(element_name, new_team[element_name])
                 except:
                     print 'regex {} didnt match {}'.format(regexes[ri].pattern, str(table_element))
-        print new_team
-        name = new_team['name']
-        name.replace('.', '')
-        name.replace(';', '')
-        name.replace('&', '')
-        name.replace('-', ' ')
-        name = name.lower()
-        new_team['name'] = name
         teams.append(new_team)
         if VERBOSE:
             print 'adding team: {}'.format(new_team)
@@ -268,7 +260,7 @@ def extract_kenpom():
     p = pp(indent=4)
     if VERBOSE:
         p.pprint(teams)
-    with open('kenpom.json', 'wr') as outfile:
+    with open('kenpom17.json', 'w+') as outfile:
         json.dump(teams, outfile)
 
 
@@ -354,7 +346,7 @@ def get_oddsshark():
             p.pprint(data)
     except:
         pass
-    with open('oddsshark.json', 'wr') as outfile:
+    with open('oddsshark.json', 'w+') as outfile:
         json.dump(data, outfile)
 extract_kenpom()
 get_oddsshark()

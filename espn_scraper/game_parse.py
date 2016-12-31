@@ -62,7 +62,6 @@ class Game(object):
         self.soup = BeautifulSoup(content, "html5lib")
         self.soup2 = BeautifulSoup(content_summary, "html5lib")
         self.game_id = url.split("=")[1]
-
         self.tourney_df = tourney_df
         self.ncaa_bool = ncaa_bool
 
@@ -337,7 +336,7 @@ class Game(object):
                                     self.away_df['Player'][idx1] += ', N/A'
 
                     self.away_df['Player'], self.away_df['Position'] = zip(*self.away_df['Player'].apply(lambda x: x.split(', ', 1)))
-                
+
                 self.away_df['FGM'], self.away_df['FGA'] = zip(*self.away_df['FGM-A'].apply(lambda x: x.split('-',1)))
                 self.away_df['3PM'], self.away_df['3PA'] = zip(*self.away_df['3PM-A'].apply(lambda x: x.split('-',1)))
                 self.away_df['FTM'], self.away_df['FTA'] = zip(*self.away_df['FTM-A'].apply(lambda x: x.split('-',1)))
@@ -428,6 +427,7 @@ class Game(object):
         self.info_df['Game_Year'] = self.year
         self.info_df['Game_Date'] = self.date
         self.info_df['Game_Tipoff'] = self.tipoff
+        print(self.tipoff)
         self.info_df['Game_Location'] = self.location
         self.info_df['Game_Away'] = self.away_tm
         self.info_df['Away_Abbrv'] = self.away_abbrv
