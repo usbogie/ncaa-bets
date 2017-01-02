@@ -219,6 +219,21 @@ def get_team_stats():
                 old_teams.append(teams[team])
             else:
                 new_teams.append(teams[team])
+    get_kp_stats()
+
+def get_kp_stats():
+    kp14 = pd.read_json('kenpom14.json')
+    kp15 = pd.read_json('kenpom15.json')
+    kp16 = pd.read_json('kenpom16.json')
+    kp17 = pd.read_json('kenpom17.json')
+    years = [kp14,kp15,kp16,kp17]
+    for i in range(len(years)):
+        teams_count = len(years[i])
+        for j in range(teams_count):
+            name = kp_names[years[i].name[j]] + str(2014 + i)
+            teams[name]["kpo"] = years[i].adjO[j]
+            teams[name]["kpd"] = years[i].adjD[j]
+            teams[name]["kpt"] = years[i].adjT[j]
 
 def get_old_games():
     gamesdf14 = pd.read_csv("game_info2014.csv")
@@ -692,6 +707,7 @@ old_games = []
 new_games = []
 parameters1 = []
 parameters2 = []
+gamesdf = read_csv("NCAAM_2014.csv")
 
 import numpy as np
 import pandas as pd
@@ -701,8 +717,8 @@ from scipy.stats import norm
 from datetime import date, timedelta
 from fuzzywuzzy import fuzz
 
-get_espn_names()
-get_kp_names()
+get_espn_names(gamesdf.Name)
+get_kp_names(gamesdf.Name)
 
 get_team_stats()
 get_old_games()

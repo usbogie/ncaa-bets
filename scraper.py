@@ -201,7 +201,7 @@ Dictionaries
             Low Temp, Low Temp = 3
 """
 
-def extract_kenpom():
+def extract_kenpom(year):
     import re
     regexes = [re.compile('<td>([0-9\-\+\.]*)</td>'),
                re.compile('<td class="td-[\w \-]*">([0-9\.]*)</td>'),
@@ -233,7 +233,8 @@ def extract_kenpom():
                     20: 'ncsos_adjEM_seed'}
 
     targets = set(['name', 'adjO', 'adjD', 'adjT'])
-    s = bs(urlopen('http://kenpom.com/index.php'))
+    year_str = str(year)
+    s = bs(urlopen('http://kenpom.com/index.php?y=' + year_str))
     team_entries = [tr.findAll('td') for tr in s.findAll('tr')][2:]
     teams = []
     for team in team_entries:
@@ -260,7 +261,8 @@ def extract_kenpom():
     p = pp(indent=4)
     if VERBOSE:
         p.pprint(teams)
-    with open('kenpom17.json', 'w+') as outfile:
+    year_str2 = str(year%100)
+    with open('kenpom' + year_str2 + '.json', 'w+') as outfile:
         json.dump(teams, outfile)
 
 
@@ -348,5 +350,6 @@ def get_oddsshark():
         pass
     with open('oddsshark.json', 'w+') as outfile:
         json.dump(data, outfile)
-extract_kenpom()
-get_oddsshark()
+for i in range(3):
+    extract_kenpom(2014+i)
+#get_oddsshark()
