@@ -233,8 +233,10 @@ def extract_kenpom(year):
                     20: 'ncsos_adjEM_seed'}
 
     targets = set(['name', 'adjO', 'adjD', 'adjT'])
-    year_str = str(year)
-    s = bs(urlopen('http://kenpom.com/index.php?y=' + year_str))
+    year_str = '?y=' + str(year)
+    if year == 2017:
+        year_str = ''
+    s = bs(urlopen('http://kenpom.com/index.php' + year_str))
     team_entries = [tr.findAll('td') for tr in s.findAll('tr')][2:]
     teams = []
     for team in team_entries:
@@ -253,7 +255,17 @@ def extract_kenpom(year):
                     if VERBOSE:
                         print 'found {} for current team: {}'.format(element_name, new_team[element_name])
                 except:
-                    print 'regex {} didnt match {}'.format(regexes[ri].pattern, str(table_element))
+                    try:
+                        tbl_str = str(table_element)
+                        match1 = "y=" + str(year) + "\">"
+                        match2 = "</a>"
+                        for i in range(len(tbl_str)):
+                            if tbl_str[i:i+8] == match1:
+                                for j in range(len(tbl_str)-i):
+                                    if tbl_str[i+j+8:i+j+12] == match2:
+                                        new_team[element_name] = tbl_str[i+8:i+8+j].replace(';','')
+                    except:
+                        print 'regex {} didnt match {}'.format(regexes[ri].pattern, str(table_element))
         teams.append(new_team)
         if VERBOSE:
             print 'adding team: {}'.format(new_team)
@@ -264,7 +276,6 @@ def extract_kenpom(year):
     year_str2 = str(year%100)
     with open('kenpom' + year_str2 + '.json', 'w+') as outfile:
         json.dump(teams, outfile)
-
 
 def game_occurred_yet(block):
     r = re.compile('<td>([\w 0-9,]*)</td>')
@@ -352,4 +363,5 @@ def get_oddsshark():
         json.dump(data, outfile)
 for i in range(3):
     extract_kenpom(2014+i)
+#extract_kenpom(2017)
 #get_oddsshark()
