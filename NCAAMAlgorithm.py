@@ -660,7 +660,8 @@ def get_kp_names(name_list):
         la = team.replace('Louisiana','LA')
         fw = la.replace('Fort Wayne','IPFW')
         pa = fw.replace('Rio Grande Valley','Pan American')
-        ts = pa.replace('Tennessee St.','Tenn St')
+        ar = pa.replace('Arkansas Little','AR Lit')
+        ts = ar.replace('Tennessee St.','Tenn St')
         if ts in espnset or ts in trset:
             matched.add(ts)
             pairs.add((ts,team))
@@ -772,5 +773,5 @@ set_team_attributes()
 set_game_attributes()
 
 # Strategy 3
-regress_winners()
-test_strategy()
+#regress_winners()
+#test_strategy()
