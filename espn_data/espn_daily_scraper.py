@@ -12,26 +12,27 @@ import time
 
 ua = UserAgent()
 
-def get_data(game_url, ua, tourney_df, ncaa):
-    game = Game(game_url, ua, tourney_df, ncaa)
-    game.make_dataframes()
+def get_data(game_url, ua, tourney_df, ncaa, game_info):
+	game = Game(game_url, ua, tourney_df, ncaa, game_info)
+	game.make_dataframes()
 
-    gen_info = game.info_df
-    """
-    try:
-        #players = game.players
-        game_stats = game.gm_totals
+	gen_info = game.info_df
+	"""
+	try:
+		#players = game.players
+		game_stats = game.gm_totals
 
-    except:
-        #players = None
-        game_stats = None
-    """
-    print("Just finished: %s vs %s on %s" % (game.away_abbrv, game.home_abbrv, game.date))
+	except:
+		#players = None
+		game_stats = None
+	"""
+	wait_time = round(max(10, 15 + random.gauss(0,3)), 2)
 
-    wait_time = round(max(10, 15 + random.gauss(0,3)), 2)
-    time.sleep(wait_time)
+	print("Just finished: {} vs {} on {}. Wait {}".format(game.away_abbrv, game.home_abbrv, game.date, wait_time))
 
-    return gen_info
+	time.sleep(wait_time)
+
+	return gen_info
 
 def update_espn_scores():
 	base = "http://www.espn.com/mens-college-basketball/scoreboard/_/date/"
@@ -57,18 +58,34 @@ def update_espn_scores():
 
 	links = []
 	status_dict = {}
+	game_notes = []
 	for link in soup.find_all('script'):
 		if 'window.espn.scoreboardData' in str(link.text):
 			jsonValue1 = '{%s}' % (link.text.split('{', 1)[1].rsplit('}', 1)[0],)
 			jsonValue = jsonValue1.split(';window')[0]
 			value = json.loads(jsonValue)
 			events = value['events']
-			for event in events:
-				links.append(event['links'][1]['href'])
-				status_dict[event['id']] = event['status']['type']['shortDetail']
 
-				if date[4:6] == '03' or date[4:6] == '04':
-					game_notes = event['notes']['headline']
+			for event in events:
+				status_dict[event['id']]			= event['status']['type']['shortDetail']
+				game_info 							= {}
+				game_info['link']					= event['links'][1]['href']
+				competition 						= event['competitions'][0]
+				game_info['neutral_site']			= competition['neutralSite']
+				game_info['attendance']				= competition['attendance']
+				game_info['conferenceCompetition']	= competition['conferenceCompetition']
+				venueJSON							= competition['venue']
+
+				if 'address' in venueJSON.keys():
+					game_info['venue'] = "|".join([venueJSON['fullName'],venueJSON['address']['city'],venueJSON['address']['state']])
+				else:
+					game_info['venue'] = venueJSON['fullName']
+				links.append(game_info)
+
+				if date[4:6] == '03' or date[4:6] == '04' and 'notes' in event.keys():
+					game_notes.append(event['notes']['headline'])
+				else:
+					game_notes.append(None)
 	
 	for url in links:
 		game_id = url.split("=")[-1]
@@ -93,14 +110,7 @@ def update_espn_scores():
 			except:
 				pass
 
-			gm_info = get_data(url, ua, tourney_df, ncaa)
+			gm_info = get_data(url, ua, tourney_df, ncaa, game_info)
 			gen_info.append(gm_info)
-
-	chance = range(100)
-	choice = random.choice(chance)
-	if choice < 10:
-		big_wait_time = round(max(25, 28 + random.gauss(0,2)), 2)
-		print("Big wait of %d seconds\n\n" % big_wait_time)
-		time.sleep(big_wait_time)
 
 update_espn_scores()

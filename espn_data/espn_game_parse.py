@@ -40,24 +40,20 @@ def get_page(url, ua):
                         sys.exit()
 
 class Game(object):
-    def __init__(self, url, ua, tourney_df, ncaa_bool):
+    def __init__(self, url, ua, tourney_df, ncaa_bool, game_info):
 
         self.from_zone = tz.gettz('UTC')
         self.to_zone = tz.gettz('America/New_York')
 
-        game_summary_url = url.replace('boxscore','game')
-
         page = get_page(url, ua)
-        page2 = get_page(game_summary_url, ua)
 
         content = page.read()
-        content_summary = page2.read()
 
         self.soup = BeautifulSoup(content, "html5lib")
-        self.soup2 = BeautifulSoup(content_summary, "html5lib")
         self.game_id = url.split("=")[1]
         self.tourney_df = tourney_df
         self.ncaa_bool = ncaa_bool
+        self.game_info = game_info
 
         if 'OT' in self.soup.find("span", {"class": "game-time"}).text:
             self.ot = True
@@ -167,9 +163,11 @@ class Game(object):
         home_stats = [x for x in home_stats if re.match("^[A-Za-z]", x[0].text)]
         self.home_stats = [[x.text for x in r] for r in home_stats]
         """
-        game_details = self.soup2.find("div", {"class":"location-details"})
-        self.location = game_details.find("li").text.split()
-        self.location = " ".join(self.location[:2])
+
+        self.location = self.game_info['venue']
+        self.neutral_site = self.game_info['neutral_site']
+        self.attendance = self.game_info['attendance']
+        self.conferenceCompetition = self.game_info['conferenceCompetition']
 
     def make_dataframes(self):
         # call the first function that parses the data
@@ -313,8 +311,9 @@ class Game(object):
                 'Home_1st', 'Home_2nd', 'Game_Year', 'Game_Date','Game_Tipoff', 'Game_Location',
                 'Game_Away', 'Game_Home', "Away_OT", "Home_OT"]
         """
-        info = ['Game_ID', 'Away_Abbrv', 'Home_Abbrv', 'Away_Score', 'Home_Score', 'Game_Away', 'Game_Home',
-                'Game_Year', 'Game_Date','Game_Tipoff', 'Game_Location']
+        info = ['Game_ID', 'Away_Abbrv', 'Home_Abbrv', 'Away_Score', 'Home_Score',
+                'Game_Away', 'Game_Home','Game_Year', 'Game_Date','Game_Tipoff', 
+                'Game_Location', 'Neutral_Site', 'Conference_Competition', 'Attendance']
 
         data = np.array([np.arange(len(info))])
         self.info_df = pd.DataFrame(data, columns=info)
@@ -330,6 +329,9 @@ class Game(object):
         self.info_df['Game_Date'] = self.date
         self.info_df['Game_Tipoff'] = self.tipoff
         self.info_df['Game_Location'] = self.location
+        self.info_df['Neutral_Site'] = self.neutral_site
+        self.info_df['Conference_Competition'] = self.conferenceCompetition
+        self.info_df['Attendance'] = self.attendance
         #self.info_df['Away_Rank'] = self.away_rank
         #self.info_df['Home_Rank'] = self.home_rank
         #self.info_df['Away_Rec'] = self.away_rec
@@ -341,5 +343,4 @@ class Game(object):
         #self.info_df['Home_2nd'] = self.home_2nd
         #self.info_df['Home_OT'] = self.home_ot
         #self.info_df['Officials'] = self.officials
-        #self.info_df['Attendance'] = self.attendance
         self.info_df = pd.concat([self.info_df, self.tourney_df], axis=1)
