@@ -1,5 +1,5 @@
 from urllib2 import urlopen
-from bs4 import BeautifulSoup
+from BeautifulSoup import BeautifulSoup
 from itertools import izip
 import re
 
@@ -9,7 +9,7 @@ def grouped(iterable, n):
 
 def get_todays_sportsbook_lines():
 	url = "https://www.sportsbook.ag/sbk/sportsbook4/ncaa-basketball-betting/game-lines.sbk"
-	soup = BeautifulSoup(urlopen(url), "html5lib")
+	soup = BeautifulSoup(urlopen(url))
 	teams = [team.text for team in soup.findAll('span', {'class': 'team-title'})]
 	money_lines = [item.a.div.text for item in soup.findAll('div', {'class': 'column money pull-right'})]
 	spreads = [item.a.div.text for item in soup.findAll('div', {'class': 'column spread pull-right'})]
@@ -29,7 +29,5 @@ def get_todays_sportsbook_lines():
 		game['total_away'] = totals[j]
 		game['date'] = date
 		games.append(game)
-
-
-
+    print(games)
 get_todays_sportsbook_lines()
