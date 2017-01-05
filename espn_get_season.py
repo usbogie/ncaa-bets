@@ -36,13 +36,6 @@ def make_season(start_year):
             date = str(year)+month+day
             all_season.append(date)
 
-    f = open('Last_Day_Parsed', 'r')
-    last = f.read()
-    if last:
-        st_idx = all_season.index(last)
-        all_season = all_season[st_idx:]
-    f.close()
-
     return all_season
 
 def create_day_url(base, date):
@@ -173,7 +166,7 @@ def make_overall_df(start_year):
 
 if __name__ == '__main__':
 
-    start_year = 2014
+    start_year = 2013
     info_list = make_overall_df(start_year)
     final_info = pd.concat(info_list, ignore_index=True)
     #final_players = pd.concat(players_list, ignore_index=True)
