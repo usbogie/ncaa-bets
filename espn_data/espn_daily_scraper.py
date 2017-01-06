@@ -51,11 +51,7 @@ def get_data(game_url, ua, tourney_df, ncaa, game_info):
 		#players = None
 		game_stats = None
 	"""
-	wait_time = round(max(10, 15 + random.gauss(0,3)), 2)
-
-	print("Just finished: {} vs {} on {}. Wait {}".format(game.away_abbrv, game.home_abbrv, game.date, wait_time))
-
-	time.sleep(wait_time)
+	print("Just finished: {} vs {} on {}.".format(game.away_abbrv, game.home_abbrv, game.date))
 
 	return gen_info
 
@@ -184,10 +180,10 @@ def get_tonight_info():
 
 
 if __name__ == '__main__':
-	last_night = update_espn_data()
+	last_night = update_espn_data().set_index('Game_ID')
 	cur_season = pd.read_csv('game_info2017.csv')
 	cur_season_updated = pd.concat([cur_season,last_night], ignore_index=True)
 	cur_season_updated.to_csv('game_info2017.csv')
 
-	today_data = get_tonight_info()
+	today_data = get_tonight_info().set_index('Game_ID')
 	today_data.to_csv('upcoming_games.csv')

@@ -3,6 +3,7 @@ import urllib.request as request
 import urllib.error as error
 from fake_useragent import UserAgent
 from espn_game_parse import Game
+from datetime import datetime, timedelta
 import pandas as pd
 import numpy as np
 import time
@@ -43,7 +44,7 @@ def create_day_url(base, date):
 	url = base + date + '&confId=50'
 	box_urls.append(url)
 	if date[4:6] == '03' or date[4:6] == '04':
-		tourney_url = base + date + '&confId=100'
+		tourney_url = base + date
 		box_urls.append(tourney_url)
 	return box_urls
 
@@ -54,34 +55,21 @@ def get_data(game_url, ua, tourney_df, ncaa, game_info):
 	game.make_dataframes()
 
 	gen_info = game.info_df
-	"""
-	try:
-		#players = game.players
-		game_stats = game.gm_totals
-
-	except:
-		#players = None
-		game_stats = None
-	"""
-	#wait_time = round(max(10, 15 + random.gauss(0,3)), 2)
 
 	print("Just finished: {} vs {} on {}".format(game.away_abbrv, game.home_abbrv, game.date))
-
-	#time.sleep(wait_time)
-
 	return gen_info
 
 
 def make_overall_df(start_year):
 
 	gen_info = []
-	#players = []
-	#game_stats = []
-
 	date_list = make_season(start_year)
 
-	base_url = "http://scores.espn.com/mens-college-basketball/scoreboard/_/date/"
+	base_url = "http://scores.espn.com/mens-college-basketball/scoreboard/_/group/50/date/"
 	for day in date_list:
+		if (datetime.now() - timedelta(1)).strftime('%Y-%m-%d').replace('-','') < day:
+			continue
+
 		day_urls = create_day_url(base_url, day)
 
 		for d in day_urls:
@@ -100,42 +88,40 @@ def make_overall_df(start_year):
 			content = page.read()
 			soup = BeautifulSoup(content, "html5lib")
 
-			links = []
-			status_dict = {}
-			skip_day = False
-			game_notes = []
+			events = []
 			for link in soup.find_all('script'):
 				if 'window.espn.scoreboardData' in str(link.text):
-					jsonValue1 = '{%s}' % (link.text.split('{', 1)[1].rsplit('}', 1)[0],)
-					jsonValue = jsonValue1.split(';window')[0]
-					value = json.loads(jsonValue)
+					jsonValue = '{%s}' % (link.text.split('{', 1)[1].rsplit('}', 1)[0],)
+					value = json.loads(jsonValue.split(';window')[0])
 					events = value['events']
-					if len(events) == 0:
-						skip_day = True
-					for event in events:
-						if 'Final' not in event['status']['type']['shortDetail']:
-							continue
-						status_dict[event['id']]			= event['status']['type']['shortDetail']
-						game_info 							= {}
-						game_info['link']					= event['links'][1]['href']
-						competition 						= event['competitions'][0]
-						game_info['neutral_site']			= competition['neutralSite']
-						game_info['attendance']				= competition['attendance']
-						game_info['conferenceCompetition']	= competition['conferenceCompetition']
-						venueJSON							= competition['venue']
 
-						if 'address' in venueJSON.keys():
-							game_info['venue'] = "|".join([venueJSON['fullName'],venueJSON['address']['city'],venueJSON['address']['state']])
-						else:
-							game_info['venue'] = venueJSON['fullName']
-						links.append(game_info)
-
-						try: 
-							game_notes.append(event['notes']['headline'])
-						except:
-							game_notes.append(None)
-			if skip_day:
+			if len(events) == 0:
 				continue
+
+			links = []
+			status_dict = {}
+			game_notes = []
+			for event in events:
+				status_dict[event['id']]			= event['status']['type']['shortDetail']
+				game_info 							= {}
+				game_info['link']					= event['links'][1]['href']
+				competition 						= event['competitions'][0]
+				game_info['neutral_site']			= competition['neutralSite']
+				game_info['attendance']				= competition['attendance']
+				game_info['conferenceCompetition']	= competition['conferenceCompetition']
+				venueJSON							= competition['venue']
+
+				if 'address' in venueJSON.keys():
+					game_info['venue'] = "|".join([venueJSON['fullName'],venueJSON['address']['city'],venueJSON['address']['state']])
+				else:
+					game_info['venue'] = venueJSON['fullName']
+
+				links.append(game_info)
+
+				try: 
+					game_notes.append(event['notes']['headline'])
+				except:
+					game_notes.append(None)
 
 			for idx, game_info in enumerate(links):
 				url = game_info['link']
@@ -185,14 +171,29 @@ def make_overall_df(start_year):
 
 if __name__ == '__main__':
 
-	start_year = 2016
+	start_year = 2013
 	info_list = make_overall_df(start_year)
-	final_info = pd.concat(info_list, ignore_index=True)
+	final_info = pd.concat(info_list, ignore_index=True).set_index('Game_ID')
 	#final_players = pd.concat(players_list, ignore_index=True)
 	#final_gm_stats = pd.concat(gm_stats_list, ignore_index=True)
 
-	final_info.to_csv("game_info2017.csv", index=False)
+	final_info.drop_duplicates().to_csv("game_info2014.csv")
 	#final_players.to_csv("players.csv", index=False)
 	#final_gm_stats.to_csv("game_stats.csv", index=False)
+
+	start_year = 2014
+	info_list = make_overall_df(start_year)
+	final_info = pd.concat(info_list, ignore_index=True).set_index('Game_ID')
+	final_info.drop_duplicates().to_csv("game_info2015.csv")
+
+	start_year = 2015
+	info_list = make_overall_df(start_year)
+	final_info = pd.concat(info_list, ignore_index=True).set_index('Game_ID')
+	final_info.drop_duplicates().to_csv("game_info2016.csv")
+
+	start_year = 2016
+	info_list = make_overall_df(start_year)
+	final_info = pd.concat(info_list, ignore_index=True).set_index('Game_ID')
+	final_info.drop_duplicates().to_csv("game_info2017.csv")
 
 	print("\n\nFinished uploading to CSVs")
