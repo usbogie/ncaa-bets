@@ -343,4 +343,4 @@ class Game(object):
         #self.info_df['Home_2nd'] = self.home_2nd
         #self.info_df['Home_OT'] = self.home_ot
         #self.info_df['Officials'] = self.officials
-        self.info_df = pd.concat([self.info_df, self.tourney_df], axis=1)
+        #self.info_df = pd.concat([self.info_df, self.tourney_df], axis=1)
