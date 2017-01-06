@@ -168,6 +168,7 @@ def make_overall_df(start_year):
 						game_stats.append(gm_stats)
 					"""
 
+			print(pd.concat(gen_info, ignore_index=True))
 			chance = range(100)
 			choice = random.choice(chance)
 			if choice < 10:
