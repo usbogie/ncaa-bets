@@ -5,30 +5,31 @@ import math
 import json
 
 def get_names():
-    sites = ['espn','kp','os']
+    sites = ['espn','kp','os','sb']
     espn_names = {}
     kp_names = {}
     os_names = {}
-    dicts = [espn_names,kp_names,os_names]
+    sb_names = {}
+    dicts = [espn_names,kp_names,os_names,sb_names]
     for i in range(len(sites)):
         with open(sites[i] + '_data/names_dict.json', 'r+') as infile:
             dicts[i] = json.load(infile)
     return dicts
 
-def get_ncaa_stats(year_list = [2014,2015,2016,2017]):
+def get_team_stats(year_list = [2017]):
     years = []
-    csvs = ["NCAAM_2014.csv","NCAAM_2015.csv","NCAAM_2016.csv","NCAAM_2017.csv"]
+    csvs = ["team_stats14.csv","team_stats15.csv","team_stats16.csv","team_stats17.csv"]
     for i in range(len(csvs)):
         if i + 2014 in year_list:
-            gamesdf = pd.read_csv('ncaa_data/' + csvs[i])
+            gamesdf = pd.read_csv('tr_data/' + csvs[i])
             years.append(gamesdf)
     for i in range(len(years)):
         teams_count = len(years[i])
         for j in range(teams_count):
-            team = years[i].Name[j] + str(2014 + i)
+            team = years[i].Name[j] + str(year_list[i])
             teams[team] = {}
             teams[team]["name"] = years[i].Name[j]
-            teams[team]["year"] = str(i + 2014)
+            teams[team]["year"] = str(year_list[i])
             teams[team]["homes"] = {}
             teams[team]["fto"] = years[i].FTO[j]
             teams[team]["ftd"] = years[i].FTD[j]
@@ -40,28 +41,21 @@ def get_ncaa_stats(year_list = [2014,2015,2016,2017]):
             teams[team]["to_poss"] = years[i].TOP[j]
             teams[team]["tof_poss"] = years[i].TOFP[j]
 
-def update_ncaa_stats():
-    # Scrape data
-    ncaa_2017 = pd.read_csv('ncaa_data/NCAAM_2017.csv')
-    j = 0
-    new_teams = []
-    for name,team in teams.items():
-        if team[-4] == "2017":
-            new_teams.append(teams[team])
-    for team in new_teams:
-        team["fto"] = ncaa_2017.FTO[j]
-        team["ftd"] = ncaa_2017.FTD[j]
-        team["three_o"] = ncaa_2017.Three_O[j]
-        team["perc3"] = ncaa_2017.perc3[j]
-        team["three_d"] = ncaa_2017.Three_D[j]
-        team["rebo"] = ncaa_2017.REBO[j]
-        team["rebd"] = ncaa_2017.REBD[j]
-        team["to_poss"] = ncaa_2017.TOP[j]
-        team["tof_poss"] = ncaa_2017.TOFP[j]
-        j += 1
-    set_team_attributes()
+def update_all():
+    get_team_stats()
 
-def get_kp_stats(year_list = [2014,2015,2016,2017]):
+    get_kp_stats()
+
+    #get_old_games([2017])
+
+    #get_os_info([2017])
+
+    #get_new_games()
+
+    set_team_attributes()
+    set_game_attributes()
+
+def get_kp_stats(year_list = [2017]):
     years = []
     jsons = ['kenpom14.json','kenpom15.json','kenpom16.json','kenpom17.json']
     for i in range(len(jsons)):
@@ -71,7 +65,7 @@ def get_kp_stats(year_list = [2014,2015,2016,2017]):
     for i in range(len(years)):
         teams_count = len(years[i])
         for j in range(teams_count):
-            name = kp_names[years[i].name[j]] + str(2014 + i)
+            name = kp_names[years[i].name[j]] + str(year_list[i])
             teams[name]["kp_o"] = years[i].adjO[j]
             teams[name]["kp_d"] = years[i].adjD[j]
             teams[name]["kp_t"] = years[i].adjT[j]
@@ -89,14 +83,15 @@ def get_old_games(year_list = [2014,2015,2016,2017]):
         for i in range(len(years[year].Game_Away)):
             try:
                 game = {}
-                game["home"] = espn_names[years[year].Game_Home[i]] + str(2014+year)
-                game["away"] = espn_names[years[year].Game_Away[i]] + str(2014+year)
+                game["home"] = espn_names[years[year].Game_Home[i]] + str(year_list[year])
+                game["away"] = espn_names[years[year].Game_Away[i]] + str(year_list[year])
                 game["game_type"] = "old"
                 home = teams[game["home"]]
                 away = teams[game["away"]]
-                game["h_score"] = years[year].Home_Score[i]
-                game["a_score"] = years[year].Away_Score[i]
-                game["margin"] = game["h_score"] - game["a_score"]
+                game["h_score"] = float(years[year].Home_Score[i])
+                game["a_score"] = float(years[year].Away_Score[i])
+                game["total_score"] = float(game["h_score"] + game["a_score"])
+                game["margin"] = float(game["h_score"] - game["a_score"])
                 game["home_winner"] = (game["margin"]/abs(game["margin"])) * .5 + .5
                 if game["home_winner"] == 1:
                     game["winner"] = game["home"][:-4]
@@ -104,7 +99,7 @@ def get_old_games(year_list = [2014,2015,2016,2017]):
                     game["winner"] = game["away"][:-4]
                 # Get Game Date
                 d = years[year].Game_Date[i].split("-")
-                d.append(year+2014)
+                d.append(year_list[year])
                 months = ["Jan","Feb","Mar","Apr","Nov","Dec"]
                 j = 0
                 for m in months:
@@ -123,13 +118,17 @@ def get_old_games(year_list = [2014,2015,2016,2017]):
                     gameday -= timedelta(days=1)
                 game["date"] = str(gameday)
                 game["weekday"] = gameday.weekday()
-                key = (game["home"][:-4],game["away"][:-4],game["date"])
-                games[key] = game
-                game["location"] = years[year].Game_Location[i]
+                key = str((game["home"][:-4],game["away"][:-4],game["date"]))
                 try:
-                    home["homes"][game["location"]] += 1
+                    if games[key]:
+                        continue
                 except:
-                    home["homes"][game["location"]] = 1
+                    games[key] = game
+                    game["location"] = years[year].Game_Location[i]
+                    try:
+                        home["homes"][game["location"]] += 1
+                    except:
+                        home["homes"][game["location"]] = 1
             except:
                 continue
 
@@ -148,7 +147,7 @@ def get_old_games(year_list = [2014,2015,2016,2017]):
         else:
             game["weekday"] = 0
 
-def get_os_info(year_list = [2014,2015,2016,2017]):
+def get_os_info(year_list = [2017]):
     years = []
     jsons = ['oddsshark14.json','oddsshark15.json','oddsshark16.json','oddsshark17.json']
     for i in range(len(jsons)):
@@ -162,8 +161,13 @@ def get_os_info(year_list = [2014,2015,2016,2017]):
                 a = os_names[years[year].away[i]]
                 d = str(years[year].date[i])
                 d = d.split()[0]
-                key = (h,a,d)
+                key = str((h,a,d))
                 game = games[key]
+                try:
+                    if not math.isnan(game["spread"]) and not math.isnan(game["total"]):
+                        continue
+                except:
+                    pass
                 game["spread"] = float(years[year].spread[i])
                 game["total"] = float(years[year].total[i])
                 if years[year].ats[i] == 'L':
@@ -181,6 +185,52 @@ def get_os_info(year_list = [2014,2015,2016,2017]):
             except:
                 continue
 
+def get_new_games():
+    # NEED TO FORMAT UPCOMING GAMES
+    with open('espn_data/upcoming_games.json','r') as infile:
+        upcoming_games = json.load(infile)
+    with open('sb_data/game_lines.json','r') as infile:
+        game_lines = json.load(infile)
+    new_games = []
+    for game in game_lines:
+        try:
+            home = game['home']
+            away = game['away']
+            d = game['date'].split()
+            months = ["Jan","Feb","Mar","Apr","Nov","Dec"]
+            j = 0
+            for m in months:
+                j += 1
+                if m == d[0][:3]:
+                    if j > 4:
+                        d[1] = j + 6
+                    else:
+                        d[1] = j
+                    break
+            gameday = str(date(int(d[2]),d[0],int(d[0][:-1])))
+            key = str((sb_names[home],sb_names[away],gameday))
+            new_game = upcoming_games[key]
+            new_game['spread_away'] = (float(game['spread_away'][:-6]),float(game['spread_away'][-5:-1]))
+            new_game['spread_home'] = (float(game['spread_home'][:-6]),float(game['spread_home'][-5:-1]))
+            new_game['spread'] = new_game['spread_home'][0]
+            new_game['ml_away'] = float(game['money_line_away'])
+            new_game['ml_home'] = float(game['money_line_home'])
+            if game['total_over'] == "-":
+                new_game['total_over'] = "-"
+                new_game['total_under'] = "-"
+                new_game['total'] = None
+            else:
+                over = game['total_over'].split()[1]
+                under = game['total_under'].split()[1]
+                new_game['total_over'] = (float(over[:-6]),float(over[-5:-1]))
+                new_game['total_under'] = (float(under[:-6]),float(under[-5:-1]))
+                new_game['total'] = new_game['total_over'][0]
+            new_games.append(new_game)
+        except:
+            print("No game matched:",home,away)
+    with open('new_games.json','w') as outfile:
+        json.dump(new_games,outfile)
+
 def set_team_attributes():
     stat_list = ["kp_o","kp_d","fto","ftd","three_o","perc3","three_d","rebo","rebd","to_poss","tof_poss"]
     for stat in stat_list:
@@ -189,6 +239,7 @@ def set_team_attributes():
 def set_zscores(stat):
     l = []
     for name,team in teams.items():
+        print(team["year"],team["name"])
         l.append(team[stat])
     z = zscore(l)
     i=0
@@ -229,16 +280,19 @@ def set_game_attributes():
             game[hz] = home[statz]
             game[az] = away[statz]
 
-teams = {}
-games = {}
-regress_games = []
-espn_names, kp_names, os_names = get_names()
-get_ncaa_stats()
-get_kp_stats()
-get_old_games()
-get_os_info()
-set_team_attributes()
-set_game_attributes()
+with open('teams.json','r') as infile:
+    teams = json.load(infile)
+with open('games.json','r') as infile:
+    games = json.load(infile)
+with open('regress_games.json','r') as infile:
+    regress_games = json.load(infile)
 
-rgdf = pd.DataFrame.from_dict(regress_games)
-rgdf.to_csv('games.csv')
+espn_names, kp_names, os_names, sb_names = get_names()
+update_all()
+
+with open('teams.json', 'w') as outfile:
+    json.dump(teams, outfile)
+with open('games.json','w') as outfile:
+    json.dump(games, outfile)
+with open('regress_games.json','w') as outfile:
+    json.dump(regress_games,outfile)

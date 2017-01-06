@@ -312,7 +312,7 @@ class Game(object):
                 'Game_Away', 'Game_Home', "Away_OT", "Home_OT"]
         """
         info = ['Game_ID', 'Away_Abbrv', 'Home_Abbrv', 'Away_Score', 'Home_Score',
-                'Game_Away', 'Game_Home','Game_Year', 'Game_Date','Game_Tipoff', 
+                'Game_Away', 'Game_Home','Game_Year', 'Game_Date','Game_Tipoff',
                 'Game_Location', 'Neutral_Site', 'Conference_Competition', 'Attendance']
 
         data = np.array([np.arange(len(info))])

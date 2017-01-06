@@ -9,6 +9,7 @@ import numpy as np
 import json
 import random
 import time
+import csv
 
 ua = UserAgent()
 
@@ -35,10 +36,16 @@ def get_data(game_url, ua, tourney_df, ncaa, game_info):
 	return gen_info
 
 def update_espn_scores():
+	gen_info = []
+	with open('game_info2017.csv','r') as infile:
+		reader = csv.DictReader(infile)
+		for game in reader:
+			gen_info.append(game)
+
 	base = "http://www.espn.com/mens-college-basketball/scoreboard/_/date/"
 	date = (datetime.now() - timedelta(1)).strftime('%Y-%m-%d').replace('-','')
 	url = base + date + '&confId=50'
-	
+
 	try:
 		page = request.urlopen(request.Request(url, headers = { 'User-Agent' : ua.random }))
 	except error.HTTPError as e:
@@ -53,8 +60,6 @@ def update_espn_scores():
 
 	content = page.read()
 	soup = BeautifulSoup(content, "html5lib")
-
-	gen_info = []
 
 	links = []
 	status_dict = {}
@@ -80,13 +85,13 @@ def update_espn_scores():
 					game_info['venue'] = "|".join([venueJSON['fullName'],venueJSON['address']['city'],venueJSON['address']['state']])
 				else:
 					game_info['venue'] = venueJSON['fullName']
-				links.append(game_info)
+				links.append(game_info['link'])
 
 				if date[4:6] == '03' or date[4:6] == '04' and 'notes' in event.keys():
 					game_notes.append(event['notes']['headline'])
 				else:
 					game_notes.append(None)
-	
+
 	for url in links:
 		game_id = url.split("=")[-1]
 		if status_dict[game_id] == 'Postponed' or status_dict[game_id] == 'Canceled':
@@ -112,5 +117,11 @@ def update_espn_scores():
 
 			gm_info = get_data(url, ua, tourney_df, ncaa, game_info)
 			gen_info.append(gm_info)
+	with open('game_info2017.csv','w') as outfile:
+		keys = list(gen_info[0].keys())
+		writer = csv.DictWriter(outfile,fieldnames=keys)
+		writer.writeheader()
+		for game in gen_info:
+			writer.writerow(game)
 
 update_espn_scores()

@@ -10,7 +10,7 @@ VERBOSE = False
 try:
     if sys.argv[1] == '-v':
         VERBOSE = True
-    print VERBOSE
+    print(VERBOSE)
 except:
     pass
 
@@ -66,7 +66,7 @@ def extract_kenpom(year):
                 try:
                     new_team[element_name] = regexes[ri].match(str(table_element)).groups()[0].replace(';', '')
                     if VERBOSE:
-                        print 'found {} for current team: {}'.format(element_name, new_team[element_name])
+                        print('found {} for current team: {}'.format(element_name, new_team[element_name]))
                 except:
                     try:
                         tbl_str = str(table_element)
@@ -80,10 +80,10 @@ def extract_kenpom(year):
                                         break
                                 break
                     except:
-                        print 'regex {} didnt match {}'.format(regexes[ri].pattern, str(table_element))
+                        print('regex {} didnt match {}'.format(regexes[ri].pattern, str(table_element)))
         teams.append(new_team)
         if VERBOSE:
-            print 'adding team: {}'.format(new_team)
+            print('adding team: {}'.format(new_team))
 
     p = pp(indent=4)
     if VERBOSE:
