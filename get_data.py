@@ -46,11 +46,11 @@ def update_all():
 
     get_kp_stats()
 
-    #get_old_games([2017])
+    #get_old_games([2014,2015,2016,2017])
 
-    #get_os_info([2017])
+    get_os_info([2014,2015,2016,2017])
 
-    #get_new_games()
+    get_new_games()
 
     set_team_attributes()
     set_game_attributes()
@@ -78,14 +78,24 @@ def get_old_games(year_list = [2014,2015,2016,2017]):
             gamesdf = pd.read_csv('espn_data/' + csvs[i])
             years.append(gamesdf)
     for year in range(len(years)):
-        if year+2014 not in year_list:
-            continue
         for i in range(len(years[year].Game_Away)):
             try:
                 game = {}
                 game["home"] = espn_names[years[year].Game_Home[i]] + str(year_list[year])
                 game["away"] = espn_names[years[year].Game_Away[i]] + str(year_list[year])
-                game["game_type"] = "old"
+                d = years[year].Game_Date[i].split("/")
+                d.append(years[year].Game_Year[i])
+                gameday = date(int(d[2]),int(d[0]),int(d[1]))
+                game["tipoff"] = years[year].Game_Tipoff[i]
+                hour = int(game["tipoff"].split(":")[0])
+                if hour < 6:
+                    gameday -= timedelta(days=1)
+                game["date"] = str(gameday)
+                key = str((game["home"][:-4],game["away"][:-4],game["date"]))
+                if key not in set(games.keys()):
+                    games[key] = game
+                else:
+                    continue
                 home = teams[game["home"]]
                 away = teams[game["away"]]
                 game["h_score"] = float(years[year].Home_Score[i])
@@ -97,55 +107,9 @@ def get_old_games(year_list = [2014,2015,2016,2017]):
                     game["winner"] = game["home"][:-4]
                 else:
                     game["winner"] = game["away"][:-4]
-                # Get Game Date
-                d = years[year].Game_Date[i].split("-")
-                d.append(year_list[year])
-                months = ["Jan","Feb","Mar","Apr","Nov","Dec"]
-                j = 0
-                for m in months:
-                    j += 1
-                    if m == d[1]:
-                        if j > 4:
-                            d[2] -= 1
-                            d[1] = j + 6
-                        else:
-                            d[1] = j
-                        break
-                gameday = date(d[2],d[1],int(d[0]))
-                game["tipoff_e"] = years[year].Game_Tipoff[i]
-                hour = int(game["tipoff_e"].split(":")[0])
-                if (hour < 6 or hour == 12) and game["tipoff_e"].split(" ")[1] == "AM":
-                    gameday -= timedelta(days=1)
-                game["date"] = str(gameday)
-                game["weekday"] = gameday.weekday()
-                key = str((game["home"][:-4],game["away"][:-4],game["date"]))
-                try:
-                    if games[key]:
-                        continue
-                except:
-                    games[key] = game
-                    game["location"] = years[year].Game_Location[i]
-                    try:
-                        home["homes"][game["location"]] += 1
-                    except:
-                        home["homes"][game["location"]] = 1
+                game["true"] = 1 if not years[year].Neutral_Site[i] else 0
             except:
                 continue
-
-    for name,team in teams.items():
-        try:
-            team["home"] = max(team["homes"],key=team["homes"].get)
-            team["homes"] = None
-        except:
-            team["home"] = None
-    for key,game in games.items():
-        game["true"] = 0
-        if teams[game["home"]]["home"] == game["location"]:
-            game["true"] = 1
-        if game["weekday"] > 1 and game["weekday"] < 7 and game["true"] == 1:
-            game["weekday"] = 1
-        else:
-            game["weekday"] = 0
 
 def get_os_info(year_list = [2017]):
     years = []
@@ -163,11 +127,6 @@ def get_os_info(year_list = [2017]):
                 d = d.split()[0]
                 key = str((h,a,d))
                 game = games[key]
-                try:
-                    if not math.isnan(game["spread"]) and not math.isnan(game["total"]):
-                        continue
-                except:
-                    pass
                 game["spread"] = float(years[year].spread[i])
                 game["total"] = float(years[year].total[i])
                 if years[year].ats[i] == 'L':
@@ -179,23 +138,37 @@ def get_os_info(year_list = [2017]):
                 else:
                     game["cover"] = "Tie"
                     game["home_cover"] = .5
-                if math.isnan(game["spread"]) or math.isnan(game["total"]):
+                if math.isnan(game["spread"]):
                     continue
-                regress_games.append(game)
+                regress_spread.append(game)
             except:
                 continue
-
 def get_new_games():
     # NEED TO FORMAT UPCOMING GAMES
-    with open('espn_data/upcoming_games.json','r') as infile:
-        upcoming_games = json.load(infile)
+    gamesdf = pd.read_csv('espn_data/upcoming_games.csv')
+    upcoming_games = {}
+    for i in range(len(gamesdf.Game_Away)):
+        game = {}
+        game["home"] = espn_names[gamesdf.Game_Home[i]] + str(2017)
+        game["away"] = espn_names[gamesdf.Game_Away[i]] + str(2017)
+        d = gamesdf.Game_Date[i].split("/")
+        d.append(gamesdf.Game_Year[i])
+        gameday = date(int(d[2]),int(d[0]),int(d[1]))
+        game["tipoff"] = gamesdf.Game_Tipoff[i]
+        hour = int(game["tipoff"].split(":")[0])
+        if hour < 6:
+            gameday -= timedelta(days=1)
+        game["date"] = str(gameday)
+        game["true"] = 1 if not gamesdf.Neutral_Site[i] else 0
+        key = str((game["home"][:-4],game["away"][:-4],game["date"]))
+        upcoming_games[key] = game
+
     with open('sb_data/game_lines.json','r') as infile:
         game_lines = json.load(infile)
-    new_games = []
     for game in game_lines:
         try:
-            home = game['home']
-            away = game['away']
+            home = sb_names[game['home']]
+            away = sb_names[game['away']]
             d = game['date'].split()
             months = ["Jan","Feb","Mar","Apr","Nov","Dec"]
             j = 0
@@ -203,21 +176,25 @@ def get_new_games():
                 j += 1
                 if m == d[0][:3]:
                     if j > 4:
-                        d[1] = j + 6
+                        d[0] = j + 6
                     else:
-                        d[1] = j
+                        d[0] = j
                     break
-            gameday = str(date(int(d[2]),d[0],int(d[0][:-1])))
-            key = str((sb_names[home],sb_names[away],gameday))
+            gameday = str(date(int(d[2]),d[0],int(d[1][:-1])))
+            key = str((home,away,gameday))
             new_game = upcoming_games[key]
             new_game['spread_away'] = (float(game['spread_away'][:-6]),float(game['spread_away'][-5:-1]))
             new_game['spread_home'] = (float(game['spread_home'][:-6]),float(game['spread_home'][-5:-1]))
             new_game['spread'] = new_game['spread_home'][0]
-            new_game['ml_away'] = float(game['money_line_away'])
-            new_game['ml_home'] = float(game['money_line_home'])
+            try:
+                new_game['ml_away'] = float(game['money_line_away'])
+                new_game['ml_home'] = float(game['money_line_home'])
+            except:
+                new_game['ml_away'] = None
+                new_game['ml_home'] = None
             if game['total_over'] == "-":
-                new_game['total_over'] = "-"
-                new_game['total_under'] = "-"
+                new_game['total_over'] = None
+                new_game['total_under'] = None
                 new_game['total'] = None
             else:
                 over = game['total_over'].split()[1]
@@ -228,8 +205,6 @@ def get_new_games():
             new_games.append(new_game)
         except:
             print("No game matched:",home,away)
-    with open('new_games.json','w') as outfile:
-        json.dump(new_games,outfile)
 
 def set_team_attributes():
     stat_list = ["kp_o","kp_d","fto","ftd","three_o","perc3","three_d","rebo","rebd","to_poss","tof_poss"]
@@ -239,7 +214,6 @@ def set_team_attributes():
 def set_zscores(stat):
     l = []
     for name,team in teams.items():
-        print(team["year"],team["name"])
         l.append(team[stat])
     z = zscore(l)
     i=0
@@ -249,7 +223,12 @@ def set_zscores(stat):
         i += 1
 
 def set_game_attributes():
-    for key,game in games.items():
+    all_games = []
+    for game in regress_spread:
+        all_games.append(game)
+    for game in new_games:
+        all_games.append(game)
+    for game in all_games:
         home = teams[game["home"]]
         away = teams[game["away"]]
         game["o"] = home["kp_o_z"] + away["kp_d_z"]
@@ -270,6 +249,7 @@ def set_game_attributes():
             game["three_d"] = -1 * away["three_o_z"] + home["three_d_z"]
         game["rebo"] = home["rebo_z"] - away["rebd_z"]
         game["rebd"] = home["rebd_z"] - away["rebo_z"]
+        game["reb"] = game["rebo"] + game["rebd"]
         game["to"] = -1 * (home["to_poss_z"] + away["tof_poss_z"])
         game["tof"] = home["tof_poss_z"] + away["to_poss_z"]
         stat_list = ["fto","ftd","three_o","perc3","three_d","rebo","rebd","to_poss","tof_poss"]
@@ -284,9 +264,8 @@ with open('teams.json','r') as infile:
     teams = json.load(infile)
 with open('games.json','r') as infile:
     games = json.load(infile)
-with open('regress_games.json','r') as infile:
-    regress_games = json.load(infile)
-
+regress_spread = []
+new_games = []
 espn_names, kp_names, os_names, sb_names = get_names()
 update_all()
 
@@ -294,5 +273,7 @@ with open('teams.json', 'w') as outfile:
     json.dump(teams, outfile)
 with open('games.json','w') as outfile:
     json.dump(games, outfile)
-with open('regress_games.json','w') as outfile:
-    json.dump(regress_games,outfile)
+with open('regress_spread.json','w') as outfile:
+    json.dump(regress_spread,outfile)
+with open('new_games.json','w') as outfile:
+    json.dump(new_games,outfile)

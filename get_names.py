@@ -7,69 +7,73 @@ def get_espn_names(name_list):
     team_set = set()
     for team in name_list:
         team_set.add(team)
-
-    games_df = pd.read_csv('espn_data/game_info2014.csv')
-    i = 0
     team_set2 = set()
-    team_set3 = set()
-    for team in games_df["Game_Home"]:
-        if team in team_set:
+    csvs = ["game_info2014.csv","game_info2015.csv","game_info2016.csv","game_info2017.csv"]
+    for i in range(len(csvs)):
+        gamesdf = pd.read_csv('espn_data/' + csvs[i])
+        for team in gamesdf.Game_Home:
             team_set2.add(team)
-            team_pairs.add((team,team))
-        elif games_df["Home_Abbrv"][i] in team_set:
-            team_set2.add(games_df["Home_Abbrv"][i])
-            team_pairs.add((games_df["Home_Abbrv"][i],team))
-        else:
-            team_set3.add(team)
-        i += 1
+        for team in gamesdf.Game_Away:
+            team_set2.add(team)
+    tmp = set()
     for team in team_set2:
-        team_set.remove(team)
-    team_set4 = set()
-    for team in team_set3:
-        state = team.replace("State","St")
+        if team in team_set:
+            tmp.add(team)
+            team_set.remove(team)
+            team_pairs.add((team,team))
+    for team in tmp:
+        team_set2.remove(team)
+    tmp.clear()
+    tmp = set()
+    for team in team_set2:
+        eastern = team.replace("Eastern","E")
+        wash = eastern.replace("Washington","Washingtn")
+        state = wash.replace("State","St")
         if state in team_set:
             team_set.remove(state)
-            team_set4.add(team)
+            tmp.add(team)
             team_pairs.add((state,team))
         state2 = team.replace("St","State")
         sac = state2.replace("Sacramento","Sac")
         nw = sac.replace("Northwestern", "NW")
         app = nw.replace("Appalachian","App")
-        tenn = app.replace("Tennessee","TN")
-        miss = tenn.replace("Mississippi","Miss")
+        es = app.replace("-Eastern Shore"," ES")
+        fw = es.replace("Fort Wayne","IPFW")
+        miss = fw.replace("Mississippi","Miss")
         if miss in team_set:
             team_set.remove(miss)
-            team_set4.add(team)
+            tmp.add(team)
             team_pairs.add((miss,team))
-        fran = team.replace("Francis","Fran")
+        tenn = team.replace("Tennessee","TN")
+        fran = tenn.replace("Francis","Fran")
         if fran in team_set:
             team_set.remove(fran)
-            team_set4.add(team)
+            tmp.add(team)
             team_pairs.add((fran,team))
         s = team.replace("'s","s")
         saint = s.replace("Saint","St")
         st = saint.replace("St.","St")
         if st in team_set:
             team_set.remove(st)
-            team_set4.add(team)
+            tmp.add(team)
             team_pairs.add((st,team))
         cent = team.replace("Cent","Central")
         car = cent.replace(" Carolina","C")
         if car in team_set:
             team_set.remove(car)
-            team_set4.add(team)
+            tmp.add(team)
             team_pairs.add((car,team))
         north = team.replace("North","N")
         south = north.replace("South","S")
         if south in team_set:
             team_set.remove(south)
-            team_set4.add(team)
+            tmp.add(team)
             team_pairs.add((south,team))
         tech = team.replace("Tenn","TN")
         fla = tech.replace("Florida Atl","Fla Atlantic")
         if fla in team_set:
             team_set.remove(fla)
-            team_set4.add(team)
+            tmp.add(team)
             team_pairs.add((fla,team))
         sm = team.replace("Southern Miss", "S Mississippi")
         mass = sm.replace("Massachusetts", "U Mass")
@@ -78,68 +82,63 @@ def get_espn_names(name_list):
         om = mar.replace("Ole Miss","Mississippi")
         if om in team_set:
             team_set.remove(om)
-            team_set4.add(team)
+            tmp.add(team)
             team_pairs.add((om,team))
         a = team.replace("UCF","Central FL")
         b = a.replace("FIU","Florida Intl")
-        c = b.replace("UIC","IL-Chicago")
+        bc = b.replace("Baptist","Bap")
+        c = bc.replace("UIC","IL-Chicago")
         d = c.replace("MD-E Shore","Maryland ES")
         e = d.replace("New Mexico St", "N Mex State")
         f = e.replace("PV A&M", "Prairie View")
         g = f.replace("SMU", "S Methodist")
-        i = g.replace("VMI", "VA Military")
-        h = i.replace("TCU", "TX Christian")
+        gi = g.replace("Northwestern","NW")
+        i = gi.replace("VMI", "VA Military")
+        ih = i.replace("Southeastern","SE")
+        ii = ih.replace("UT Rio Grande Valley","TX-Pan Am")
+        h = ii.replace("TCU", "TX Christian")
         if h in team_set:
             team_set.remove(h)
-            team_set4.add(team)
+            tmp.add(team)
             team_pairs.add((h,team))
-    for team in team_set4:
-        team_set3.remove(team)
+    for team in tmp:
+        team_set2.remove(team)
+    tmp.clear()
+    for tr,espn in team_pairs:
+        espn_names[espn] = tr
+    team_pairs.clear()
     from fuzzywuzzy import fuzz
-    team_set4.clear()
     for team1 in sorted(team_set):
         ratio = 0
         team = ""
-        for team2 in team_set3:
+        for team2 in team_set2:
             if fuzz.ratio(team1,team2) > ratio:
                 ratio = fuzz.ratio(team1,team2)
                 team = team2
-        invalid = ["Metro State", "Tenn Tech", "Massachusetts", "Florida Atl"]
-        if team in invalid:
-            continue
-        if ratio > 60:
-            team_set4.add(team1)
-            team_set3.remove(team)
+        if ratio > 63:
+            tmp.add(team1)
+            team_set2.remove(team)
             team_pairs.add((team1,team))
-    for team in team_set4:
+    for team in tmp:
         team_set.remove(team)
-    team_set4.clear()
+    tmp.clear()
+    team_set.remove("UC Davis")
+    espn_names["UC Davis"] = "UC Davis"
+    team_set.remove("Maryland BC")
+    espn_names["UMBC"] = "Maryland BC"
     for team1 in sorted(team_set):
         ratio = 0
         team = ""
-        for team2 in team_set3:
+        for team2 in team_set2:
             if fuzz.ratio(team1,team2) > ratio:
                 ratio = fuzz.ratio(team1,team2)
                 team = team2
-                valid = [38,57,58]
-        if ratio in valid:
-            team_set4.add(team1)
-            team_set3.remove(team)
-            team_pairs.add((team1,team))
-    for team in team_set4:
+        tmp.add(team1)
+        team_set2.remove(team)
+        team_pairs.add((team1,team))
+    for team in tmp:
         team_set.remove(team)
-    team_set4.clear()
-    for team1 in sorted(team_set):
-        ratio = 0
-        team = ""
-        for team2 in team_set3:
-            if fuzz.ratio(team1,team2) > ratio:
-                ratio = fuzz.ratio(team1,team2)
-                team = team2
-        if ratio > 40:
-            team_set4.add(team1)
-            team_set3.remove(team)
-            team_pairs.add((team1,team))
+    tmp.clear()
     for tr,espn in team_pairs:
         espn_names[espn] = tr
     with open('espn_data/names_dict.json', 'w+') as outfile:
@@ -377,5 +376,4 @@ with open('os_data/names_dict.json','r') as infile:
     os_names = json.load(infile)
 with open('sb_data/names_dict.json','r') as infile:
     sb_names = json.load(infile)
-
 get_sb_names(trdf.Name)
