@@ -17,6 +17,8 @@ def get_page(url, ua):
         return page
     except error.HTTPError as e:
         try:
+            if e.code == 500:
+                return 500
             print("First attempt for %s failed. %s" % (url, e.code))
             wait_time = round(max(10, 15 + random.gauss(0,2.5)), 2)
             time.sleep(wait_time)
@@ -46,6 +48,9 @@ class Game(object):
         self.to_zone = tz.gettz('America/New_York')
 
         page = get_page(url, ua)
+
+        if page == 500: self.exist = False
+        else: self.exist = True
 
         content = page.read()
 

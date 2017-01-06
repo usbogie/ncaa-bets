@@ -18,8 +18,8 @@ def make_season(start_year):
 
 	months = ['11', '12', '01', '02', '03', '04']
 
-	dates = {'11': range(31)[1:], '12': range(32)[1:], '01': range(32)[1:], '02': range(29)[1:],
-			 '03': range(32)[1:], '04': range(9)[1:]}
+	dates = {'11': list(range(31)[1:]), '12': list(range(32)[1:]), '01': list(range(32)[1:]), '02': list(range(29)[1:]),
+			 '03': list(range(32)[1:]), '04': list(range(9)[1:])}
 
 	all_season = []
 	for month in months:
@@ -49,6 +49,8 @@ def create_day_url(base, date):
 
 def get_data(game_url, ua, tourney_df, ncaa, game_info):
 	game = Game(game_url, ua, tourney_df, ncaa, game_info)
+	if game.exist == False:
+		return "continue"
 	game.make_dataframes()
 
 	gen_info = game.info_df
@@ -61,11 +63,11 @@ def get_data(game_url, ua, tourney_df, ncaa, game_info):
 		#players = None
 		game_stats = None
 	"""
-	wait_time = round(max(10, 15 + random.gauss(0,3)), 2)
+	#wait_time = round(max(10, 15 + random.gauss(0,3)), 2)
 
-	print("Just finished: {} vs {} on {}. Wait {}".format(game.away_abbrv, game.home_abbrv, game.date, wait_time))
+	print("Just finished: {} vs {} on {}".format(game.away_abbrv, game.home_abbrv, game.date))
 
-	time.sleep(wait_time)
+	#time.sleep(wait_time)
 
 	return gen_info
 
@@ -111,6 +113,8 @@ def make_overall_df(start_year):
 					if len(events) == 0:
 						skip_day = True
 					for event in events:
+						if 'Final' not in event['status']['type']['shortDetail']:
+							continue
 						status_dict[event['id']]			= event['status']['type']['shortDetail']
 						game_info 							= {}
 						game_info['link']					= event['links'][1]['href']
@@ -126,9 +130,9 @@ def make_overall_df(start_year):
 							game_info['venue'] = venueJSON['fullName']
 						links.append(game_info)
 
-						if day[4:6] == '03' or day[4:6] == '04' and 'notes' in event.keys():
+						try: 
 							game_notes.append(event['notes']['headline'])
-						else:
+						except:
 							game_notes.append(None)
 			if skip_day:
 				continue
@@ -161,6 +165,8 @@ def make_overall_df(start_year):
 						pass
 
 					gm_info = get_data(url, ua, tourney_df, ncaa, game_info)
+					if isinstance(gm_info, str):
+						continue
 					gen_info.append(gm_info)
 					"""
 					if gm_stats is not None:
@@ -168,7 +174,6 @@ def make_overall_df(start_year):
 						game_stats.append(gm_stats)
 					"""
 
-			print(pd.concat(gen_info, ignore_index=True))
 			chance = range(100)
 			choice = random.choice(chance)
 			if choice < 10:
@@ -180,13 +185,13 @@ def make_overall_df(start_year):
 
 if __name__ == '__main__':
 
-	start_year = 2013
+	start_year = 2016
 	info_list = make_overall_df(start_year)
 	final_info = pd.concat(info_list, ignore_index=True)
 	#final_players = pd.concat(players_list, ignore_index=True)
 	#final_gm_stats = pd.concat(gm_stats_list, ignore_index=True)
 
-	final_info.to_csv("game_info2014.csv", index=False)
+	final_info.to_csv("game_info2017.csv", index=False)
 	#final_players.to_csv("players.csv", index=False)
 	#final_gm_stats.to_csv("game_stats.csv", index=False)
 
