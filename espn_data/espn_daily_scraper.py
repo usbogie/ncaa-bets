@@ -183,10 +183,11 @@ def get_tonight_info():
 	return pd.concat(gen_info, ignore_index=True)
 
 
-def update():
+if __name__ == '__main__':
 	last_night = update_espn_data()
 	cur_season = pd.read_csv('game_info2017.csv')
 	cur_season_updated = pd.concat([cur_season,last_night], ignore_index=True)
 	cur_season_updated.to_csv('game_info2017.csv')
 
 	today_data = get_tonight_info()
+	today_data.to_csv('upcoming_games.csv')

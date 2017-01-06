@@ -1,0 +1,7 @@
+,Game_ID,Away_Abbrv,Home_Abbrv,Game_Away,Game_Home,Game_Year,Game_Date,Game_Date,Game_Tipoff,Game_Location,Neutral_Site,Conference_Competition
+0,400915611,STAN,USC,Stanford,USC,2017,01/05,01/05,23:00:00,Galen Center|Los Angeles|California,False,True
+1,400915816,BYU,SMC,BYU,Saint Mary's,2017,01/05,01/05,23:00:00,McKeon Pavilion|Moraga|California,False,True
+2,400915608,CAL,UCLA,California,UCLA,2017,01/05,01/05,21:00:00,Pauley Pavilion|Los Angeles|California,False,True
+3,400915817,GONZ,SF,Gonzaga,San Francisco,2017,01/05,01/05,21:00:00,War Memorial Gymnasium|San Francisco|California,False,True
+4,400915610,UTAH,ARIZ,Utah,Arizona,2017,01/05,01/05,22:00:00,McKale Center|Tucson|Arizona,False,True
+5,400915159,PUR,OSU,Purdue,Ohio State,2017,01/05,01/05,19:00:00,Value City Arena|Columbus|Ohio,False,True
