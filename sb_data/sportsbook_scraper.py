@@ -20,8 +20,8 @@ def get_todays_sportsbook_lines():
     games = []
     for i, j in grouped(range(len(teams)), 2):
         game = {}
-        game['away'] = teams[i]
-        game['home'] = teams[j]
+        game['away'] = teams[i].replace(';','')
+        game['home'] = teams[j].replace(';','')
         game['money_line_away'] = totals[i]
         game['money_line_home'] = totals[j]
         game['spread_away'] = spreads[i]

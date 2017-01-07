@@ -1,9 +1,21 @@
-,Game_ID,Away_Abbrv,Home_Abbrv,Game_Away,Game_Home,Game_Year,Game_Date,Game_Date,Game_Tipoff,Game_Location,Neutral_Site,Conference_Competition
-0,400917114,WMU,AKR,Western Michigan,Akron,2017,01/06,01/06,18:30:00,James A. Rhodes Arena|Akron|Ohio,False,True
-1,400917569,IONA,MONM,Iona,Monmouth,2017,01/06,01/06,19:00:00,OceanFirst Bank Center|West Long Branch|New Jersey,False,True
-2,400917570,RID,MRST,Rider,Marist,2017,01/06,01/06,19:00:00,McCann Arena|Poughkeepsie|New York,False,True
-3,400918304,URI,DAY,Rhode Island,Dayton,2017,01/06,01/06,19:00:00,University of Dayton Arena|Dayton|Ohio,False,True
-4,400918503,DET,UIC,Detroit Mercy,UIC,2017,01/06,01/06,20:00:00,UIC Pavilion|Chicago|Illinois,False,True
-5,400918520,MILW,GB,Milwaukee,Green Bay,2017,01/06,01/06,20:00:00,Resch Center|Ashwaubenon|Wisconsin,False,True
-6,400918583,OAK,VALP,Oakland,Valparaiso,2017,01/06,01/06,21:00:00,Athletics-Recreation Center|Valparaiso|Indiana,False,True
-7,400919552,KENT,OHIO,Kent State,Ohio,2017,01/06,01/06,21:00:00,Convocation Center (OH)|Athens|Ohio,False,True
+Game_ID,Away_Abbrv,Home_Abbrv,Game_Away,Game_Home,Game_Year,Game_Date,Game_Date,Game_Tipoff,Game_Location,Neutral_Site,Conference_Competition
+400919669,BUT,GTWN,Butler,Georgetown,2017,01/07,01/07,12:00:00,Verizon Center|Washington|District of Columbia,False,True
+400916202,TCU,WVU,TCU,West Virginia,2017,01/07,01/07,13:00:00,WVU Coliseum|Morgantown|West Virginia,False,True
+400919671,CREI,PROV,Creighton,Providence,2017,01/07,01/07,14:00:00,Dunkin Donuts Center|Providence|Rhode Island,False,True
+400915362,BC,DUKE,Boston College,Duke,2017,01/07,01/07,14:00:00,Cameron Indoor Stadium|Durham|North Carolina,False,True
+400915363,VT,FSU,Virginia Tech,Florida State,2017,01/07,01/07,14:00:00,Donald L. Tucker Center|Tallahassee|Florida,False,True
+400915364,LOU,GT,Louisville,Georgia Tech,2017,01/07,01/07,14:00:00,McCamish Pavilion|Atlanta|Georgia,False,True
+400919672,SJU,XAV,St John's,Xavier,2017,01/07,01/07,14:30:00,Cintas Center|Cincinnati|Ohio,False,True
+400915365,CLEM,ND,Clemson,Notre Dame,2017,01/07,01/07,15:00:00,Purcell Pavilion|South Bend|Indiana,False,True
+400914959,ILL,IND,Illinois,Indiana,2017,01/07,01/07,17:00:00,Assembly Hall (Indiana)|Bloomington|Indiana,False,True
+400910643,TENN,FLA,Tennessee,Florida,2017,01/07,01/07,17:15:00,Exactech Arena|Gainesville|Florida,False,True
+400915614,ORE,WSU,Oregon,Washington State,2017,01/07,01/07,19:00:00,Friel Court|Pullman|Washington,False,True
+400916204,OKST,BAY,Oklahoma State,Baylor,2017,01/07,01/07,19:00:00,Ferrell Center|Waco|Texas,False,True
+400916205,TTU,KU,Texas Tech,Kansas,2017,01/07,01/07,19:15:00,Allen Fieldhouse|Lawrence|Kansas,False,True
+400919673,MARQ,NOVA,Marquette,Villanova,2017,01/07,01/07,19:30:00,Wells Fargo Center|Philadelphia|Pennsylvania,False,True
+400915366,NCST,UNC,NC State,North Carolina,2017,01/07,01/07,20:00:00,Dean E. Smith Center|Chapel Hill|North Carolina,False,True
+400910589,ARK,UK,Arkansas,Kentucky,2017,01/07,01/07,20:30:00,Rupp Arena|Lexington|Kentucky,False,True
+400916573,CIN,HOU,Cincinnati,Houston,2017,01/07,01/07,21:00:00,Hofheinz Pavilion|Houston|Texas,False,True
+400915615,COLO,ARIZ,Colorado,Arizona,2017,01/07,01/07,21:30:00,McKale Center|Tucson|Arizona,False,True
+400915820,GONZ,PORT,Gonzaga,Portland,2017,01/07,01/07,22:00:00,Chiles Center|Portland|Oregon,False,True
+400915823,SMC,SF,Saint Mary's,San Francisco,2017,01/07,01/07,23:00:00,War Memorial Gymnasium|San Francisco|California,False,True
