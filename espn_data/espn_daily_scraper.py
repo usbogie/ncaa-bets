@@ -38,8 +38,8 @@ def get_page(url):
 			print(e)
 			sys.exit()
 
-def get_data(game_url, ua, tourney_df, ncaa, game_info):
-	game = Game(game_url, ua, tourney_df, ncaa, game_info)
+def get_data(game_url, game_info):
+	game = Game(game_url, game_info)
 	game.make_dataframes()
 
 	gen_info = game.info_df
@@ -73,17 +73,32 @@ def update_espn_data():
 
 	for event in events:
 		status_dict[event['id']]			= event['status']['type']['shortDetail']
+		if status_dict[event['id']] == 'Canceled':
+			continue
 		game_info 							= {}
 		game_info['link']					= event['links'][1]['href']
 		competition 						= event['competitions'][0]
 		game_info['neutral_site']			= competition['neutralSite']
 		game_info['attendance']				= competition['attendance']
 		game_info['conferenceCompetition']	= competition['conferenceCompetition']
+		game_info['tipoff']					= competition['startDate']
 		venueJSON							= competition['venue']
 
 		game_info['venue'] = venueJSON['fullName']
 		if 'address' in venueJSON.keys():
 			game_info['venue']+="|"+"|".join([venueJSON['address']['city'],venueJSON['address']['state']])
+
+		competitors	= competition['competitors']
+		away = 0
+		home = 1
+		if competitors[0]['homeAway'] == 'home':
+			away = 1
+			home = 0
+		game_info['Away_Abbrv'] = competitors[away]['team']['abbreviation']
+		game_info['Home_Abbrv'] = competitors[home]['team']['abbreviation']
+		game_info['Game_Away'] = html.unescape(competitors[away]['team']['location'])
+		game_info['Game_Home'] = html.unescape(competitors[home]['team']['location'])
+
 		links.append(game_info)
 
 		if date[4:6] == '03' or date[4:6] == '04' and 'notes' in event.keys():
@@ -97,24 +112,7 @@ def update_espn_data():
 		if status_dict[game_id] == 'Postponed' or status_dict[game_id] == 'Canceled':
 			continue
 		else:
-			tourney_col = ['Tournament', 'Round', 'Away_Seed', 'Home_Seed']
-			ncaa = False
-			data = np.array([np.repeat(np.nan,4)])
-			tourney_df = pd.DataFrame(data, columns=tourney_col)
-			try:
-				note = game_notes[idx].text
-				tourney_split = note.split(' - ')
-				if tourney_split[0]:
-					tourney_df['Tournament'] = tourney_split[0]
-					round_split = tourney_split[-1].split(' AT ')
-					if tourney_split[0] == "MEN'S BASKETBALL CHAMPIONSHIP":
-						ncaa = True
-					if round_split[0]:
-						tourney_df['Round'] = round_split[0]
-			except:
-				pass
-
-			gm_info = get_data(url, ua, tourney_df, ncaa, game_info)
+			gm_info = get_data(url, ua, ncaa, game_info)
 			gen_info.append(gm_info)
 
 	return pd.concat(gen_info, ignore_index=True)

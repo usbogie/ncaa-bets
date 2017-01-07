@@ -40,18 +40,16 @@ def make_season(start_year):
 	return all_season
 
 def create_day_url(base, date):
-	box_urls = []
-	url = base + date + '&confId=50'
-	box_urls.append(url)
+	ncaa_base = 'http://scores.espn.com/mens-college-basketball/scoreboard/_/date/'
+	url = base + date
+	box_urls = [url]
 	if date[4:6] == '03' or date[4:6] == '04':
-		tourney_url = base + date
+		tourney_url = ncaa_base + date
 		box_urls.append(tourney_url)
 	return box_urls
 
-def get_data(game_url, ua, tourney_df, ncaa, game_info):
-	game = Game(game_url, ua, tourney_df, ncaa, game_info)
-	#if game.exist == False:
-	#	return "continue"
+def get_data(game_url, game_info):
+	game = Game(game_url, game_info)
 	game.make_dataframes()
 
 	gen_info = game.info_df
@@ -152,52 +150,21 @@ def make_overall_df(start_year):
 					continue
 
 				else:
-					# Making a small dataframe that contains tourney-specific information
-					tourney_col = ['Tournament', 'Round', 'Away_Seed', 'Home_Seed']
-					ncaa = False
-					data = np.array([np.repeat(np.nan,4)])
-					tourney_df = pd.DataFrame(data, columns=tourney_col)
-
-					try:
-						note = game_notes[idx]
-						tourney_split = note.split(' - ')
-						if tourney_split[0]:
-							tourney_df['Tournament'] = tourney_split[0]
-							round_split = tourney_split[-1].split(' AT ')
-
-							if tourney_split[0] == "MEN'S BASKETBALL CHAMPIONSHIP":
-								ncaa = True
-							if round_split[0]:
-								tourney_df['Round'] = round_split[0]
-					except:
-						pass
-
-					gm_info = get_data(url, ua, tourney_df, ncaa, game_info)
-
+					gm_info = get_data(url, game_info)
 					gen_info.append(gm_info)
-					"""
-					if gm_stats is not None:
-						#players.append(gm_players)
-						game_stats.append(gm_stats)
-					"""
 
 	return gen_info
 
 if __name__ == '__main__':
 
-	start_year = 2015
+	start_year = 2013
 	info_list = make_overall_df(start_year)
 	final_info = pd.concat(info_list, ignore_index=True).set_index('Game_ID')
 	#final_players = pd.concat(players_list, ignore_index=True)
 	#final_gm_stats = pd.concat(gm_stats_list, ignore_index=True)
 
-	final_info.drop_duplicates().to_csv("game_info2016.csv")
+	final_info.drop_duplicates().to_csv("game_info2014.csv")
 	#final_players.to_csv("players.csv", index=False)
 	#final_gm_stats.to_csv("game_stats.csv", index=False)
-
-	start_year = 2016
-	info_list = make_overall_df(start_year)
-	final_info = pd.concat(info_list, ignore_index=True).set_index('Game_ID')
-	final_info.drop_duplicates().to_csv("game_info2017.csv")
 
 	print("\n\nFinished uploading to CSVs")
