@@ -43,14 +43,7 @@ def get_data(game_url, ua, tourney_df, ncaa, game_info):
 	game.make_dataframes()
 
 	gen_info = game.info_df
-	"""
-	try:
-		#players = game.players
-		game_stats = game.gm_totals
-	except:
-		#players = None
-		game_stats = None
-	"""
+
 	print("Just finished: {} vs {} on {}.".format(game.away_abbrv, game.home_abbrv, game.date))
 
 	return gen_info
@@ -70,6 +63,7 @@ def update_espn_data():
 	links = []
 	status_dict = {}
 	game_notes = []
+	events = []
 	for link in soup.find_all('script'):
 		if 'window.espn.scoreboardData' in str(link.text):
 			jsonValue1 = '{%s}' % (link.text.split('{', 1)[1].rsplit('}', 1)[0],)
@@ -77,26 +71,25 @@ def update_espn_data():
 			value = json.loads(jsonValue)
 			events = value['events']
 
-			for event in events:
-				status_dict[event['id']]			= event['status']['type']['shortDetail']
-				game_info 							= {}
-				game_info['link']					= event['links'][1]['href']
-				competition 						= event['competitions'][0]
-				game_info['neutral_site']			= competition['neutralSite']
-				game_info['attendance']				= competition['attendance']
-				game_info['conferenceCompetition']	= competition['conferenceCompetition']
-				venueJSON							= competition['venue']
+	for event in events:
+		status_dict[event['id']]			= event['status']['type']['shortDetail']
+		game_info 							= {}
+		game_info['link']					= event['links'][1]['href']
+		competition 						= event['competitions'][0]
+		game_info['neutral_site']			= competition['neutralSite']
+		game_info['attendance']				= competition['attendance']
+		game_info['conferenceCompetition']	= competition['conferenceCompetition']
+		venueJSON							= competition['venue']
 
-				if 'address' in venueJSON.keys():
-					game_info['venue'] = "|".join([venueJSON['fullName'],venueJSON['address']['city'],venueJSON['address']['state']])
-				else:
-					game_info['venue'] = venueJSON['fullName']
-				links.append(game_info)
+		game_info['venue'] = venueJSON['fullName']
+		if 'address' in venueJSON.keys():
+			game_info['venue']+="|"+"|".join([venueJSON['address']['city'],venueJSON['address']['state']])
+		links.append(game_info)
 
-				if date[4:6] == '03' or date[4:6] == '04' and 'notes' in event.keys():
-					game_notes.append(event['notes']['headline'])
-				else:
-					game_notes.append(None)
+		if date[4:6] == '03' or date[4:6] == '04' and 'notes' in event.keys():
+			game_notes.append(event['notes']['headline'])
+		else:
+			game_notes.append(None)
 
 	for idx, game_info in enumerate(links):
 		url = game_info['link']
