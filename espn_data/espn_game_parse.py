@@ -60,82 +60,76 @@ class Game(object):
 		self.from_zone = tz.gettz('UTC')
 		self.to_zone = tz.gettz('America/New_York')
 
-		page = get_page(url, ua)
+		#page = get_page(url, ua)
 
-		if page == 500:
-			self.exist = False
-		else: 
-			self.exist = True
+		#if page == 500 or page.url == 'http://www.espn.com/mens-college-basketball/scoreboard':
+		#	self.exist = False
+		#else: 
+			#self.exist = True
 
-			content = page.read()
+			#content = page.read()
 
-			self.soup = BeautifulSoup(content, "html5lib")
-			self.game_id = url.split("=")[1]
-			self.tourney_df = tourney_df
-			self.ncaa_bool = ncaa_bool
-			self.game_info = game_info
+			#self.soup = BeautifulSoup(content, "html5lib")
+		self.game_id = url.split("=")[1]
+		self.tourney_df = tourney_df
+		self.ncaa_bool = ncaa_bool
+		self.game_info = game_info
 
-			if 'OT' in self.soup.find("span", {"class": "game-time"}).text:
-				self.ot = True
-			else:
-				self.ot = False
+			#if 'OT' in self.soup.find("span", {"class": "game-time"}).text:
+			#	self.ot = True
+			#else:
+			#	self.ot = False
 
 
 	def get_raw(self):
-		scripts = self.soup.find_all("script", {"type": "text/javascript"})
-		dateTime = None
-		for script in scripts:
-			if 'espn.gamepackage.timestamp' in script.text:
-				dateTime = script.text.split('espn.gamepackage.timestamp')[1].split("espn.gamepackage.status")[0].split("\"")[1]
-
-		dateTime = " ".join(dateTime.split('T'))[:-1]
+		dateTime = " ".join(self.game_info['tipoff'].split('T'))[:-1]
 		utc = datetime.strptime(dateTime, '%Y-%m-%d %H:%M')
 		eastern = utc.replace(tzinfo=self.from_zone).astimezone(self.to_zone)
 		date, time = str(eastern)[:-6].split(" ")
 		self.year = date.split('-')[0]
 		self.tipoff = time
-		self.date = date.split("-")[1]+'/'+date.split("-")[2]
+		self.date = "{}/{}".format(date.split("-")[1],date.split("-")[2])
 
-		away = self.soup.find("div", {"class": "team away"})
-		self.away_tm = away.find("span", {"class": "long-name"}).text
-		try:
-			self.away_score = away.find("div", {"class": "score-container"}).text
-			self.away_rank = np.nan
-		except ValueError:
-			rank_score = [i.text for i in away.find_all("span")]
-			rank = re.compile("\d+").findall(rank_score[0])
-			if self.ncaa_bool == True:
-				self.tourney_df['Away_Seed'] = int(rank[0])
-				self.away_rank = np.nan
-			else:
-				self.away_rank = int(rank[0])
-			self.away_score = int(rank_score[1])
+		# away = self.soup.find("div", {"class": "team away"})
+		# self.away_tm = away.find("span", {"class": "long-name"}).text
+		# try:
+		# 	self.away_score = away.find("div", {"class": "score-container"}).text
+		# 	self.away_rank = np.nan
+		# except ValueError:
+		# 	rank_score = [i.text for i in away.find_all("span")]
+		# 	rank = re.compile("\d+").findall(rank_score[0])
+		# 	if self.ncaa_bool == True:
+		# 		self.tourney_df['Away_Seed'] = int(rank[0])
+		# 		self.away_rank = np.nan
+		# 	else:
+		# 		self.away_rank = int(rank[0])
+		# 	self.away_score = int(rank_score[1])
 
-		home = self.soup.find("div", {"class": "team home"})
-		self.home_tm = home.find("span", {"class": "long-name"}).text
-		try:
-			self.home_score = home.find("div", {"class": "score-container"}).text
-			self.home_rank = np.nan
-		except ValueError:
-			rank_score = [i.text for i in home.find_all("span")]
-			rank = re.compile("\d+").findall(rank_score[0])
-			if self.ncaa_bool == True:
-				self.tourney_df['Home_Seed'] = int(rank[0])
-				self.home_rank = np.nan
-			else:
-				self.home_rank = int(rank[0])
-			self.home_score = int(rank_score[1])
+		# home = self.soup.find("div", {"class": "team home"})
+		# self.home_tm = home.find("span", {"class": "long-name"}).text
+		# try:
+		# 	self.home_score = home.find("div", {"class": "score-container"}).text
+		# 	self.home_rank = np.nan
+		# except ValueError:
+		# 	rank_score = [i.text for i in home.find_all("span")]
+		# 	rank = re.compile("\d+").findall(rank_score[0])
+		# 	if self.ncaa_bool == True:
+		# 		self.tourney_df['Home_Seed'] = int(rank[0])
+		# 		self.home_rank = np.nan
+		# 	else:
+		# 		self.home_rank = int(rank[0])
+		# 	self.home_score = int(rank_score[1])
 
-		linescore = self.soup.find("table", {"id": "linescore"})
-		cells = [td.text for td in linescore.find_all("td")]
-		n_col = int(len(cells)/2)
-		shape = (2, n_col)
-		cells = np.array(cells)
-		cells = cells.reshape(shape)
-		cells = np.delete(cells, -1, 1)
+		# linescore = self.soup.find("table", {"id": "linescore"})
+		# cells = [td.text for td in linescore.find_all("td")]
+		# n_col = int(len(cells)/2)
+		# shape = (2, n_col)
+		# cells = np.array(cells)
+		# cells = cells.reshape(shape)
+		# cells = np.delete(cells, -1, 1)
 
-		self.away_abbrv = cells[0,0]
-		self.home_abbrv = cells[1,0]
+		# self.away_abbrv = cells[0,0]
+		# self.home_abbrv = cells[1,0]
 		"""
 		try:
 			self.away_1st = int(cells[0,1])
@@ -183,11 +177,6 @@ class Game(object):
 		home_stats = [x for x in home_stats if re.match("^[A-Za-z]", x[0].text)]
 		self.home_stats = [[x.text for x in r] for r in home_stats]
 		"""
-
-		self.location = self.game_info['venue']
-		self.neutral_site = self.game_info['neutral_site']
-		self.attendance = self.game_info['attendance']
-		self.conferenceCompetition = self.game_info['conferenceCompetition']
 
 	def make_dataframes(self):
 		# call the first function that parses the data
@@ -339,19 +328,19 @@ class Game(object):
 		self.info_df = pd.DataFrame(data, columns=info)
 
 		self.info_df['Game_ID'] = self.game_id
-		self.info_df['Away_Abbrv'] = self.away_abbrv
-		self.info_df['Home_Abbrv'] = self.home_abbrv
-		self.info_df['Away_Score'] = self.away_score
-		self.info_df['Home_Score'] = self.home_score
-		self.info_df['Game_Away'] = self.away_tm
-		self.info_df['Game_Home'] = self.home_tm
+		self.info_df['Away_Abbrv'] = self.game_info['Away_Abbrv']
+		self.info_df['Home_Abbrv'] = self.game_info['Home_Abbrv']
+		self.info_df['Away_Score'] = self.game_info['Away_Score']
+		self.info_df['Home_Score'] = self.game_info['Home_Score']
+		self.info_df['Game_Away'] = self.game_info['Game_Away']
+		self.info_df['Game_Home'] = self.game_info['Game_Home']
 		self.info_df['Game_Year'] = self.year
 		self.info_df['Game_Date'] = self.date
 		self.info_df['Game_Tipoff'] = self.tipoff
-		self.info_df['Game_Location'] = self.location
-		self.info_df['Neutral_Site'] = self.neutral_site
-		self.info_df['Conference_Competition'] = self.conferenceCompetition
-		self.info_df['Attendance'] = self.attendance
+		self.info_df['Game_Location'] = self.game_info['venue']
+		self.info_df['Neutral_Site'] = self.game_info['neutral_site']
+		self.info_df['Conference_Competition'] = self.game_info['conferenceCompetition']
+		self.info_df['Attendance'] = self.game_info['attendance']
 		#self.info_df['Away_Rank'] = self.away_rank
 		#self.info_df['Home_Rank'] = self.home_rank
 		#self.info_df['Away_Rec'] = self.away_rec
