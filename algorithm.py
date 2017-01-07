@@ -86,21 +86,25 @@ def test_strategy(lb = .55,ub = 2,data=regress_spread):
     print(s1)
     print(s2)
 
-def print_picks(prob = .5):
-    probs = []
-    for game in new_games:
-        if game["prob"] > prob:
-            probs.append(-1 * game["prob"])
-    probs = sorted(probs)
+def print_picks(prob = .5,top = 175):
+    gamesleft = len(new_games)
     print("Pick".ljust(20),"Spread".ljust(6),"Prob".ljust(6),"Opponent")
-    for p in probs:
+    while gamesleft > 0 and top != 0:
+        maxprob = 0
+        nextgame = {}
         for game in new_games:
-            if -1 * p == game["prob"]:
-                if game["pick"] == game["home"][:-4]:
-                    print(game["pick"].ljust(20),str(game["spread"]).ljust(6),str(int(game["prob"]*10000)/100).ljust(6),"vs " + game["away"][:-4])
-                else:
-                    print(game["pick"].ljust(20),str(-1*game["spread"]).ljust(6),str(int(game["prob"]*10000)/100).ljust(6),"@  " + game["home"][:-4])
-
+            if game["prob"] > maxprob:
+                nextgame = game
+                maxprob = game["prob"]
+        if maxprob < prob:
+            break
+        if nextgame["pick"] == nextgame["home"][:-4]:
+            print(nextgame["pick"].ljust(20),str(nextgame["spread"]).ljust(6),str(int(nextgame["prob"]*10000)/100).ljust(6),"vs " + nextgame["away"][:-4])
+        else:
+            print(nextgame["pick"].ljust(20),str(-1*nextgame["spread"]).ljust(6),str(int(nextgame["prob"]*10000)/100).ljust(6),"@  " + nextgame["home"][:-4])
+        top -= 1
+        gamesleft -= 1
+        new_games.remove(nextgame)
 parameters = regress_spreads()
 predict_new_games()
 for i in range(10):

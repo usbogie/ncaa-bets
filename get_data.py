@@ -189,20 +189,24 @@ def get_new_games():
     gamesdf = pd.read_csv('espn_data/upcoming_games.csv')
     upcoming_games = {}
     for i in range(len(gamesdf.Game_Away)):
-        game = {}
-        game["home"] = espn_names[gamesdf.Game_Home[i]] + str(2017)
-        game["away"] = espn_names[gamesdf.Game_Away[i]] + str(2017)
-        d = gamesdf.Game_Date[i].split("/")
-        d.append(gamesdf.Game_Year[i])
-        gameday = date(int(d[2]),int(d[0]),int(d[1]))
-        game["tipoff"] = gamesdf.Game_Tipoff[i]
-        hour = int(game["tipoff"].split(":")[0])
-        if hour < 6:
-            gameday -= timedelta(days=1)
-        game["date"] = str(gameday)
-        game["true"] = 1 if not gamesdf.Neutral_Site[i] else 0
-        key = str((game["home"][:-4],game["away"][:-4],game["date"]))
-        upcoming_games[key] = game
+        try:
+            game = {}
+            game["home"] = espn_names[gamesdf.Game_Home[i].strip()] + str(2017)
+            game["away"] = espn_names[gamesdf.Game_Away[i].strip()] + str(2017)
+            d = gamesdf.Game_Date[i].split("/")
+            d.append(gamesdf.Game_Year[i])
+            gameday = date(int(d[2]),int(d[0]),int(d[1]))
+            game["tipoff"] = gamesdf.Game_Tipoff[i]
+            hour = int(game["tipoff"].split(":")[0])
+            if hour < 6:
+                gameday -= timedelta(days=1)
+            game["date"] = str(gameday)
+            game["true"] = 1 if not gamesdf.Neutral_Site[i] else 0
+            key = str((game["home"][:-4],game["away"][:-4],game["date"]))
+            upcoming_games[key] = game
+        except:
+            print(gamesdf.Game_Home[i],gamesdf.Game_Away[i])
+            continue
     with open('sb_data/game_lines.json','r') as infile:
         game_lines = json.load(infile)
     for game in game_lines:
@@ -236,7 +240,6 @@ def get_new_games():
                 new_game['total_over'] = (float(over[:-6]),float(over[-5:-1]))
                 new_game['total_under'] = (float(under[:-6]),float(under[-5:-1]))
                 new_game['total'] = new_game['total_over'][0]
-            print("Found:",home,away)
             new_games.append(new_game)
         except:
             print("No game matched:",home,away)

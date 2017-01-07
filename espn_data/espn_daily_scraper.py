@@ -44,7 +44,7 @@ def get_data(game_url, game_info):
 
 	gen_info = game.info_df
 
-	print("Just finished: {} vs {} on {}.".format(game.away_abbrv, game.home_abbrv, game.date))
+	print("Just finished: {} vs {} on {}.".format(gen_info['Away_Abbrv'].values[0],gen_info['Home_Abbrv'].values[0],gen_info['Game_Date'].values[0]))
 
 	return gen_info
 
@@ -72,7 +72,7 @@ def update_espn_data():
 			events = value['events']
 
 	for event in events:
-		status_dict[event['id']]			= event['status']['type']['shortDetail']
+		status_dict[event['id']] = event['status']['type']['shortDetail']
 		if status_dict[event['id']] == 'Canceled':
 			continue
 		game_info 							= {}
@@ -96,8 +96,10 @@ def update_espn_data():
 			home = 0
 		game_info['Away_Abbrv'] = competitors[away]['team']['abbreviation']
 		game_info['Home_Abbrv'] = competitors[home]['team']['abbreviation']
-		game_info['Game_Away'] = html.unescape(competitors[away]['team']['location'])
-		game_info['Game_Home'] = html.unescape(competitors[home]['team']['location'])
+		game_info['Game_Away']  = html.unescape(competitors[away]['team']['location'])
+		game_info['Game_Home']  = html.unescape(competitors[home]['team']['location'])
+		game_info['Away_Score'] = competitors[away]['score']
+		game_info['Home_Score'] = competitors[home]['score']
 
 		links.append(game_info)
 
@@ -112,13 +114,13 @@ def update_espn_data():
 		if status_dict[game_id] == 'Postponed' or status_dict[game_id] == 'Canceled':
 			continue
 		else:
-			gm_info = get_data(url, ua, ncaa, game_info)
+			gm_info = get_data(url, game_info)
 			gen_info.append(gm_info)
 
-	return pd.concat(gen_info, ignore_index=True)
+	return pd.concat(gen_info, ignore_index=True).set_index('Game_ID')
 
 def get_tonight_info():
-	base = "http://www.espn.com/mens-college-basketball/scoreboard/_/date/"
+	base = "http://scores.espn.com/mens-college-basketball/scoreboard/_/group/50/date/"
 	date = datetime.now().strftime('%Y-%m-%d').replace('-','')
 	url = base + date + '&confId=50'
 
@@ -131,15 +133,16 @@ def get_tonight_info():
 	events = get_json(soup)
 
 	for event in events:
-		info = ['Game_ID', 'Away_Abbrv', 'Home_Abbrv', 'Game_Away', 'Game_Home',
-			'Game_Year', 'Game_Date', 'Game_Date', 'Game_Tipoff',
-			'Game_Location', 'Neutral_Site', 'Conference_Competition']
+		info = ['Game_ID', 'Away_Abbrv', 'Home_Abbrv', 'Away_Score', 'Home_Score',
+				'Game_Away', 'Game_Home','Game_Year', 'Game_Date','Game_Tipoff',
+				'Game_Location', 'Neutral_Site', 'Conference_Competition', 'Attendance']
 		data = np.array([np.arange(len(info))])
 		game_info = pd.DataFrame(data, columns=info)
 		competition = event['competitions'][0]
 		game_info['Game_ID'] = event['id']
 		game_info['Neutral_Site'] = competition['neutralSite']
 		game_info['Conference_Competition']	= competition['conferenceCompetition']
+		game_info['Attendance']	= competition['attendance']
 		game_info['Game_Date'] = date[4:6]+'/'+date[6:]
 		game_info['Game_Year'] = date[:4]
 
@@ -153,6 +156,8 @@ def get_tonight_info():
 		game_info['Home_Abbrv'] = competitors[home]['team']['abbreviation']
 		game_info['Game_Away'] = html.unescape(competitors[away]['team']['location'])
 		game_info['Game_Home'] = html.unescape(competitors[home]['team']['location'])
+		game_info['Away_Score'] = competitors[away]['score']
+		game_info['Home_Score'] = competitors[home]['score']
 
 		dateTime = " ".join(competition['startDate'].split('T'))[:-1]
 		utc = datetime.strptime(dateTime, '%Y-%m-%d %H:%M')
@@ -167,14 +172,17 @@ def get_tonight_info():
 
 		gen_info.append(game_info)
 
-	return pd.concat(gen_info, ignore_index=True)
+	return pd.concat(gen_info, ignore_index=True).set_index('Game_ID')
 
 
 if __name__ == '__main__':
-	last_night = update_espn_data().set_index('Game_ID')
-	cur_season = pd.read_csv('game_info2017.csv')
-	cur_season_updated = pd.concat([cur_season,last_night], ignore_index=True)
-	cur_season_updated.to_csv('game_info2017.csv')
+	last_night = update_espn_data()
+	cur_season = pd.read_csv('game_info2017.csv', index_col='Game_ID')
+	print(cur_season)
+	cur_season_updated = pd.concat([cur_season,last_night])
+	print (cur_season_updated)
+	cur_season_updated.drop_duplicates().to_csv('game_info2017.csv', index_label='Game_ID')
 
-	today_data = get_tonight_info().set_index('Game_ID')
-	today_data.to_csv('upcoming_games.csv')
+	today_data = get_tonight_info()
+	print(today_data)
+	today_data.drop_duplicates().to_csv('upcoming_games.csv', index_label='Game_ID')
