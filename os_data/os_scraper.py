@@ -70,7 +70,7 @@ def get_oddsshark(year,links,names):
     rgx = re.compile('<td>([a-zA-Z\.\+0-9 ]+)</td>')
     index_lookup = {0: 'ats',
                     1: 'spread',
-                    2: 'o/u',
+                    2: 'o',
                     3: 'total'}
     data = []
     if year == 2017:

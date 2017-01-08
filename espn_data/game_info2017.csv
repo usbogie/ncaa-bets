@@ -180,7 +180,7 @@ Game_ID,Away_Abbrv,Home_Abbrv,Away_Score,Home_Score,Game_Away,Game_Home,Game_Yea
 400922402,BAPT,UALR,65,97,Central Baptist Coll,Little Rock,2016,11/12,15:00:00,Jack Stephens Center|Little Rock|Arkansas,False,False,2363
 400917001,KENT,CLEV,79,74,Kent State,Cleveland State,2016,11/12,16:00:00,Beeghly Center|Youngstown|Ohio,True,False,0
 400917869,OMA,UCSB,74,60,Omaha,UC Santa Barbara,2016,11/12,16:00:00,The Thunderdome|Santa Barbara|California,False,False,1708
-400921981,WCB,SJSU,70,109,West Coast Baptist,San José State,2016,11/12,16:00:00,Event Center (San Jose St.)|San Jose|California,False,False,1481
+400921981,WCB,SJSU,70,109,West Coast Baptist,San Josï¿½ State,2016,11/12,16:00:00,Event Center (San Jose St.)|San Jose|California,False,False,1481
 400925707,IIT,CHS,89,97,Illinois Tech,Chicago State,2016,11/12,16:00:00,Jones Convocation Center|Chicago|Illinois,False,False,1065
 400915490,NWN,UTAH,37,81,NW Nazarene,Utah,2016,11/12,18:00:00,Jon M. Huntsman Center|Salt Lake City|Utah,False,False,11275
 400916661,AVE,HP,41,74,Averett,High Point,2016,11/12,18:00:00,Millis Athletic Center|High Point|North Carolina,False,False,1333
@@ -382,7 +382,7 @@ Game_ID,Away_Abbrv,Home_Abbrv,Away_Score,Home_Score,Game_Away,Game_Home,Game_Yea
 400919800,JW,AFA,62,105,Johnson & Wales (CO),Air Force,2016,11/15,20:00:00,Clune Arena|Colorado Springs|Colorado,False,False,782
 400915500,CSUN,STAN,69,96,CSU Northridge,Stanford,2016,11/15,21:00:00,Maples Pavilion|Stanford|California,False,False,2801
 400915501,CWAS,WSU,76,81,Cent. Washington,Washington State,2016,11/15,21:00:00,Toyota Center WA|Kennewick|Washington,True,False,1935
-400915720,PORT,SJSU,79,66,Portland,San José State,2016,11/15,21:00:00,Event Center (San Jose St.)|San Jose|California,False,False,1623
+400915720,PORT,SJSU,79,66,Portland,San Josï¿½ State,2016,11/15,21:00:00,Event Center (San Jose St.)|San Jose|California,False,False,1623
 400915721,WEB,PEPP,68,69,Weber State,Pepperdine,2016,11/15,21:00:00,Firestone Fieldhouse|Malibu|California,False,False,1020
 400915118,UML,IND,78,100,UMass Lowell,Indiana,2016,11/16,18:00:00,Assembly Hall (Indiana)|Bloomington|Indiana,False,False,17222
 400915722,PV,SMC,72,110,Prairie View A&M,Saint Mary's,2016,11/16,21:00:00,McKeon Pavilion|Moraga|California,False,False,2673
@@ -488,7 +488,7 @@ Game_ID,Away_Abbrv,Home_Abbrv,Away_Score,Home_Score,Game_Away,Game_Home,Game_Yea
 400915507,WEB,STAN,49,67,Weber State,Stanford,2016,11/17,21:00:00,Maples Pavilion|Stanford|California,False,False,1232
 400915724,LIFE,PEPP,79,85,Life Pacific,Pepperdine,2016,11/17,21:00:00,Firestone Fieldhouse|Malibu|California,False,False,985
 400915726,CONN,LMU,65,62,Connecticut,Loyola Marymount,2016,11/17,21:00:00,Gersten Pavilion|Los Angeles|California,False,False,3421
-400917879,DEN,SJSU,74,69,Denver,San José State,2016,11/17,21:00:00,Event Center (San Jose St.)|San Jose|California,False,False,1481
+400917879,DEN,SJSU,74,69,Denver,San Josï¿½ State,2016,11/17,21:00:00,Event Center (San Jose St.)|San Jose|California,False,False,1481
 400918866,CSDH,CP,64,75,Cal State Dominguez Hills,Cal Poly,2016,11/17,21:00:00,Mott Athletics Center|San Luis Obispo|California,False,False,824
 400922281,HNU,UCD,75,89,Holy Names,UC Davis,2016,11/17,21:00:00,The Pavilion (UC Davis)|Davis|California,False,False,2113
 400916285,ANT,SAC,60,82,Antelope Valley,Sacramento State,2016,11/17,21:05:00,The Nest|Sacramento|California,False,False,459
@@ -758,7 +758,7 @@ Game_ID,Away_Abbrv,Home_Abbrv,Away_Score,Home_Score,Game_Away,Game_Home,Game_Yea
 400926733,UGA,KU,54,65,Georgia,Kansas,2016,11/22,21:00:00,Sprint Center|Kansas City|Missouri,True,False,12147
 400915259,GRAM,UVA,34,90,Grambling,Virginia,2016,11/22,18:00:00,John Paul Jones Arena|Charlottesville|Virginia,False,False,13235
 400926702,TENN,ORE,65,69,Tennessee,Oregon,2016,11/22,12:30:00,Lahaina Civic Center|Maui|Hawaii,True,False,2400
-400915739,SJSU,SMC,64,81,San José State,Saint Mary's,2016,11/22,21:00:00,McKeon Pavilion|Moraga|California,False,False,3178
+400915739,SJSU,SMC,64,81,San Josï¿½ State,Saint Mary's,2016,11/22,21:00:00,McKeon Pavilion|Moraga|California,False,False,3178
 400926704,WIS,GTWN,73,57,Wisconsin,Georgetown,2016,11/22,19:00:00,Lahaina Civic Center|Maui|Hawaii,True,False,2400
 400915185,PUR,USU,85,64,Purdue,Utah State,2016,11/22,19:30:00,Hard Rock Hotel Riviera Maya|Cancun|Mexico,True,False,1610
 400915258,SCST,SYR,59,101,South Carolina State,Syracuse,2016,11/22,18:00:00,Carrier Dome|Syracuse|New York,False,False,17073
@@ -1118,7 +1118,7 @@ Game_ID,Away_Abbrv,Home_Abbrv,Away_Score,Home_Score,Game_Away,Game_Home,Game_Yea
 400919405,UMES,LT,53,74,Maryland-Eastern Shore,Louisiana Tech,2016,11/27,16:00:00,Thomas Assembly Center|Ruston|Louisiana,False,False,2027
 400921967,HWP,ACU,55,71,Howard Payne,Abilene Christian ,2016,11/27,16:00:00,Moody Coliseum (Abilene)|Abilene|Texas,False,False,0
 400915748,PRST,PEPP,91,85,Portland State,Pepperdine,2016,11/27,16:30:00,Firestone Fieldhouse|Malibu|California,False,False,0
-400915531,SJSU,WSU,88,76,San José State,Washington State,2016,11/27,17:00:00,Friel Court|Pullman|Washington,False,False,2317
+400915531,SJSU,WSU,88,76,San Josï¿½ State,Washington State,2016,11/27,17:00:00,Friel Court|Pullman|Washington,False,False,2317
 400918234,EVAN,MTSU,55,66,Evansville,Middle Tennessee,2016,11/27,17:30:00,Nashville Municipal Auditorium|Nashville|Tennessee,True,False,0
 400917502,SIE,ALBY,72,81,Siena,Albany,2016,11/27,18:00:00,SEFCU Arena|Albany|New York,False,False,4538
 400918636,BING,FIU,57,74,Binghamton,Florida Intl,2016,11/27,18:00:00,FIU Arena|Miami|Florida,False,False,0
@@ -1210,7 +1210,7 @@ Game_ID,Away_Abbrv,Home_Abbrv,Away_Score,Home_Score,Game_Away,Game_Home,Game_Yea
 400914997,IOWA,ND,78,92,Iowa,Notre Dame,2016,11/29,20:00:00,Purcell Pavilion|South Bend|Indiana,False,False,7660
 400916311,LAM,IDST,60,77,Lamar,Idaho State,2016,11/29,20:05:00,Holt Arena|Pocatello|Idaho,False,False,1534
 400915751,PAC,NEV,67,77,Pacific,Nevada,2016,11/29,21:00:00,Lawlor Events Center|Reno|Nevada,False,False,6920
-400916310,SJSU,IDHO,58,49,San José State,Idaho,2016,11/29,21:00:00,Cowan Spectrum|Moscow|Idaho,False,False,0
+400916310,SJSU,IDHO,58,49,San Josï¿½ State,Idaho,2016,11/29,21:00:00,Cowan Spectrum|Moscow|Idaho,False,False,0
 400915122,UNC,IND,67,76,North Carolina,Indiana,2016,11/30,20:15:00,Assembly Hall (Indiana)|Bloomington|Indiana,False,False,17222
 400915152,OSU,UVA,61,63,Ohio State,Virginia,2016,11/30,20:15:00,John Paul Jones Arena|Charlottesville|Virginia,False,False,14566
 400916156,SHSU,BAY,45,79,Sam Houston State,Baylor,2016,11/30,20:00:00,Ferrell Center|Waco|Texas,False,False,5029
@@ -1471,7 +1471,7 @@ Game_ID,Away_Abbrv,Home_Abbrv,Away_Score,Home_Score,Game_Away,Game_Home,Game_Yea
 400919519,NWST,UTEP,79,67,Northwestern State,UTEP,2016,12/03,20:00:00,Don Haskins Center|El Paso|Texas,False,False,5928
 400918010,UTSA,UVU,71,75,UT San Antonio,Utah Valley,2016,12/03,20:30:00,UCCU Center|Orem|Utah,False,False,1676
 400915551,COLO,PORT,76,63,Colorado,Portland,2016,12/03,21:00:00,Chiles Center|Portland|Oregon,False,False,2720
-400915762,SCU,SJSU,40,55,Santa Clara,San José State,2016,12/03,21:00:00,Event Center (San Jose St.)|San Jose|California,False,False,0
+400915762,SCU,SJSU,40,55,Santa Clara,San Josï¿½ State,2016,12/03,21:00:00,Event Center (San Jose St.)|San Jose|California,False,False,0
 400916315,UCD,IDHO,66,68,UC Davis,Idaho,2016,12/03,21:00:00,Cowan Spectrum|Moscow|Idaho,False,False,0
 400918870,AMCC,CP,70,82,Texas A&M-CC,Cal Poly,2016,12/03,21:00:00,Mott Athletics Center|San Luis Obispo|California,False,False,1347
 400915284,RAD,UNC,50,95,Radford,North Carolina,2016,12/04,13:00:00,Dean E. Smith Center|Chapel Hill|North Carolina,False,False,14230
@@ -1627,7 +1627,7 @@ Game_ID,Away_Abbrv,Home_Abbrv,Away_Score,Home_Score,Game_Away,Game_Home,Game_Yea
 400915294,UMES,VT,59,75,Maryland-Eastern Shore,Virginia Tech,2016,12/07,19:30:00,Cassell Coliseum|Blacksburg|Virginia,False,False,7068
 400915026,HOW,MD,56,79,Howard,Maryland,2016,12/07,20:00:00,XFINITY Center|College Park|Maryland,False,False,15584
 400915766,WEB,BYU,66,77,Weber State,BYU,2016,12/07,20:00:00,Marriott Center|Provo|Utah,False,False,12859
-400916325,SJSU,MONT,62,81,San José State,Montana,2016,12/07,20:00:00,Dahlberg Arena|Missoula|Montana,False,False,3024
+400916325,SJSU,MONT,62,81,San Josï¿½ State,Montana,2016,12/07,20:00:00,Dahlberg Arena|Missoula|Montana,False,False,3024
 400917728,STET,SIUE,80,72,Stetson,SIU Edwardsville,2016,12/07,20:00:00,Vadalabene Center|Edwardsville|Illinois,False,False,1007
 400918011,SDSU,GCU,72,76,San Diego State,Grand Canyon,2016,12/07,20:00:00,GCU Arena|Phoenix|Arizona,False,False,7171
 400919520,UTEP,UNM,77,78,UTEP,New Mexico,2016,12/07,20:00:00,WisePies Arena|Albuquerque|New Mexico,False,False,11838
@@ -1738,7 +1738,7 @@ Game_ID,Away_Abbrv,Home_Abbrv,Away_Score,Home_Score,Game_Away,Game_Home,Game_Yea
 400916528,UMES,UCF,58,76,Maryland-Eastern Shore,UCF,2016,12/10,16:00:00,CFE Arena|Orlando|Florida,False,False,3579
 400917731,MORE,LIP,84,98,Morehead State,Lipscomb,2016,12/10,16:00:00,Allen Arena|Nashville|Tennessee,False,False,1302
 400918015,WIL,UMKC,71,93,William Jewell,UMKC,2016,12/10,16:00:00,Municipal Auditorium (MO)|Kansas City|Missouri,False,False,1769
-400919931,LIFE,SJSU,70,109,Life Pacific,San José State,2016,12/10,16:00:00,Event Center (San Jose St.)|San Jose|California,False,False,1323
+400919931,LIFE,SJSU,70,109,Life Pacific,San Josï¿½ State,2016,12/10,16:00:00,Event Center (San Jose St.)|San Jose|California,False,False,1323
 400921968,NNM,ACU,69,90,Northern New Mexico,Abilene Christian ,2016,12/10,16:00:00,Moody Coliseum (Abilene)|Abilene|Texas,False,False,1122
 400910583,UNF,ARK,76,91,North Florida,Arkansas,2016,12/10,16:30:00,Bud Walton Arena|Fayetteville|Arkansas,False,False,13700
 400916529,TULN,USM,71,64,Tulane,Southern Mississippi,2016,12/10,16:30:00,Reed Green Coliseum|Hattiesburg|Mississippi,False,False,3609
@@ -2051,7 +2051,7 @@ Game_ID,Away_Abbrv,Home_Abbrv,Away_Score,Home_Score,Game_Away,Game_Home,Game_Yea
 400917914,CSF,OMA,96,102,Cal State Fullerton,Omaha,2016,12/18,15:00:00,Baxter Arena|Omaha|Nebraska,False,False,1128
 400918224,JOES,ILST,72,81,Saint Joseph's,Illinois State,2016,12/18,15:00:00,Redbird Arena|Normal|Illinois,False,False,3924
 400919601,KEAN,DREX,44,84,Kean College,Drexel,2016,12/18,15:30:00,Daskalakis Athletic Center|Philadelphia|Pennsylvania,False,False,895
-400917085,BGSU,SJSU,76,77,Bowling Green,San José State,2016,12/18,16:00:00,Event Center (San Jose St.)|San Jose|California,False,False,0
+400917085,BGSU,SJSU,76,77,Bowling Green,San Josï¿½ State,2016,12/18,16:00:00,Event Center (San Jose St.)|San Jose|California,False,False,0
 400919511,SOU,UAB,74,75,Southern,UAB,2016,12/18,16:00:00,Bartow Arena|Birmingham|Alabama,False,False,3436
 400922137,MOB,NICH,66,83,Mobile,Nicholls,2016,12/18,16:00:00,Stopher Gymnasium|Thibodaux|Louisiana,False,False,368
 400915578,PORT,ORST,53,45,Portland,Oregon State,2016,12/18,17:00:00,Moda Center|Portland|Oregon,True,False,8334
@@ -2214,7 +2214,7 @@ Game_ID,Away_Abbrv,Home_Abbrv,Away_Score,Home_Score,Game_Away,Game_Home,Game_Yea
 400917090,OHIO,WKU,66,67,Ohio,Western Kentucky,2016,12/21,20:00:00,E. A. Diddle Arena|Bowling Green|Kentucky,False,False,2746
 400918908,CSUN,BSU,62,79,CSU Northridge,Boise State,2016,12/21,20:00:00,Taco Bell Arena|Boise|Idaho,False,False,3468
 400919521,UMES,UTEP,71,66,Maryland-Eastern Shore,UTEP,2016,12/21,20:25:00,Don Haskins Center|El Paso|Texas,False,False,5333
-400916357,SUU,SJSU,82,92,Southern Utah,San José State,2016,12/21,21:00:00,Event Center (San Jose St.)|San Jose|California,False,False,1289
+400916357,SUU,SJSU,82,92,Southern Utah,San Josï¿½ State,2016,12/21,21:00:00,Event Center (San Jose St.)|San Jose|California,False,False,1289
 400915588,KENT,ORST,50,69,Kent State,Oregon State,2016,12/21,22:00:00,Gill Coliseum|Corvallis|Oregon,False,False,0
 400916192,KU,UNLV,71,53,Kansas,UNLV,2016,12/22,20:00:00,Thomas & Mack Center|Las Vegas|Nevada,False,False,14116
 400914974,PEAY,IND,62,97,Austin Peay,Indiana,2016,12/22,18:00:00,Assembly Hall (Indiana)|Bloomington|Indiana,False,False,14688
@@ -2407,7 +2407,7 @@ Game_ID,Away_Abbrv,Home_Abbrv,Away_Score,Home_Score,Game_Away,Game_Home,Game_Yea
 400919875,FRES,UNM,73,78,Fresno State,New Mexico,2016,12/28,20:00:00,WisePies Arena|Albuquerque|New Mexico,False,True,11844
 400918035,UCD,SEA,72,65,UC Davis,Seattle,2016,12/28,21:00:00,KeyArena|Seattle|Washington,False,False,1261
 400918037,UVU,UCRV,73,64,Utah Valley,UC Riverside,2016,12/28,21:00:00,SRC Arena|Riverside|California,False,False,495
-400919932,SJSU,NEV,55,80,San José State,Nevada,2016,12/28,21:00:00,Lawlor Events Center|Reno|Nevada,False,True,10098
+400919932,SJSU,NEV,55,80,San Josï¿½ State,Nevada,2016,12/28,21:00:00,Lawlor Events Center|Reno|Nevada,False,True,10098
 400919841,UNLV,CSU,77,91,UNLV,Colorado State,2016,12/28,22:00:00,Moby Arena|Fort Collins|Colorado,False,True,2464
 400915805,PEPP,GONZ,62,92,Pepperdine,Gonzaga,2016,12/29,20:00:00,McCarthey Athletic Center|Spokane|Washington,False,True,6000
 400910691,UK,MISS,99,76,Kentucky,Ole Miss,2016,12/29,19:00:00,The Pavilion at Ole Miss|Oxford|Mississippi,False,True,9086
@@ -2738,7 +2738,7 @@ Game_ID,Away_Abbrv,Home_Abbrv,Away_Score,Home_Score,Game_Away,Game_Home,Game_Yea
 400918910,UCRV,CSUN,76,82,UC Riverside,CSU Northridge,2017,01/04,21:00:00,Matadome|Northridge|California,False,True,497
 400918944,LBSU,UCI,67,82,Long Beach State,UC Irvine,2017,01/04,21:00:00,Bren Events Center|Irvine|California,False,True,1955
 400918971,UCSB,UCD,47,73,UC Santa Barbara,UC Davis,2017,01/04,21:00:00,The Pavilion (UC Davis)|Davis|California,False,True,1304
-400919842,CSU,SJSU,76,71,Colorado State,San José State,2017,01/04,21:00:00,Event Center (San Jose St.)|San Jose|California,False,True,0
+400919842,CSU,SJSU,76,71,Colorado State,San Josï¿½ State,2017,01/04,21:00:00,Event Center (San Jose St.)|San Jose|California,False,True,0
 400919876,WYO,FRES,70,85,Wyoming,Fresno State,2017,01/04,21:00:00,Save Mart Center|Fresno|California,False,True,6437
 400915607,ORST,WSU,62,75,Oregon State,Washington State,2017,01/04,22:00:00,Friel Court|Pullman|Washington,False,True,2237
 400919822,BSU,UNLV,77,59,Boise State,UNLV,2017,01/04,22:00:00,Thomas & Mack Center|Las Vegas|Nevada,False,True,8872

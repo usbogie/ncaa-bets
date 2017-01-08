@@ -41,13 +41,13 @@ def get_team_stats(year_list = [2014,2015,2016,2017]):
             teams[team]["tof_poss"] = years[i].TOFP[j]
 
 def update_all():
-    #get_team_stats()
+    get_team_stats()
 
-    #get_kp_stats()
+    get_kp_stats()
 
     #get_old_games()
 
-    #get_os_info()
+    get_os_info()
 
     get_new_games()
 
@@ -89,6 +89,8 @@ def get_old_games(year_list = [2014,2015,2016,2017]):
                 gameday = date(int(d[2]),int(d[0]),int(d[1]))
                 game["tipoff"] = years[year].Game_Tipoff[i]
                 hour = int(game["tipoff"].split(":")[0])
+                central = hour-1 if hour != 0 else 23
+                game["tipstring"] = (str(central%12) if central != 12 else str(12)) + ("a" if central/12 == 0 else "p")
                 if hour < 6:
                     gameday -= timedelta(days=1)
                 game["date"] = str(gameday)
@@ -131,7 +133,10 @@ def get_os_info(year_list = [2014,2015,2016,2017]):
                 d = d.split()[0]
                 key = str((h,a,d))
                 game = games[key]
-                game["spread"] = float(years[year].spread[i])
+                if years[year].spread[i] == "Ev":
+                    game["spread"] = 0
+                else:
+                    game["spread"] = float(years[year].spread[i])
                 game["total"] = float(years[year].total[i])
                 if years[year].ats[i] == 'L':
                     game["cover"] = game["away"][:-4]
@@ -142,7 +147,13 @@ def get_os_info(year_list = [2014,2015,2016,2017]):
                 else:
                     game["cover"] = "Tie"
                     game["home_cover"] = .5
-                if math.isnan(game["spread"]):
+                # if years[year].o[i] == 'O':
+                #     game["over"] = 1
+                # elif years[year].o[i] == 'U':
+                #     game["over"] = 0
+                # else:
+                #     game["over"] = .5
+                if math.isnan(game["spread"]) or math.isnan(game["total"]):
                     continue
                 if abs(game["spread"] + game["margin"]) <= 3:
                     game["home_cover"] = (game["home_cover"] + .5) / 2
@@ -169,7 +180,10 @@ def get_test_games(year_list = [2017]):
                 d = d.split()[0]
                 key = str((h,a,d))
                 game = test_dict[key]
-                game["spread"] = float(years[year].spread[i])
+                if years[year].spread[i] == "Ev":
+                    game["spread"] = 0
+                else:
+                    game["spread"] = float(years[year].spread[i])
                 game["total"] = float(years[year].total[i])
                 if years[year].ats[i] == 'L':
                     game["cover"] = game["away"][:-4]
@@ -180,7 +194,7 @@ def get_test_games(year_list = [2017]):
                 else:
                     game["cover"] = "Tie"
                     game["home_cover"] = .5
-                if math.isnan(game["spread"]):
+                if math.isnan(game["spread"]) or math.isnan(game["total"]):
                     continue
                 test_games.append(game)
             except:
@@ -198,6 +212,8 @@ def get_new_games():
             gameday = date(int(d[2]),int(d[0]),int(d[1]))
             game["tipoff"] = gamesdf.Game_Tipoff[i]
             hour = int(game["tipoff"].split(":")[0])
+            central = hour-1 if hour != 0 else 23
+            game["tipstring"] = (str(central%12) if central != 12 else str(12)) + ("a" if central/12 == 0 else "p")
             if hour < 6:
                 gameday -= timedelta(days=1)
             game["date"] = str(gameday)
@@ -290,9 +306,10 @@ with open('teams.json','r') as infile:
     teams = json.load(infile)
 with open('games.json','r') as infile:
     games = json.load(infile)
-with open('regress_spread.json','r') as infile:
-    regress_spread = json.load(infile)
-# regress_spread = []
+# games = {}
+# with open('regress_spread.json','r') as infile:
+#     regress_spread = json.load(infile)
+regress_spread = []
 new_games = []
 test_games = []
 espn_names, kp_names, os_names, sb_names = get_names()
