@@ -1,77 +1,75 @@
 
                             OLS Regression Results                            
 ==============================================================================
-Dep. Variable:             home_cover   R-squared:                       0.100
+Dep. Variable:             home_cover   R-squared:                       0.099
 Model:                            OLS   Adj. R-squared:                  0.099
-Method:                 Least Squares   F-statistic:                     101.8
-Date:                Sun, 08 Jan 2017   Prob (F-statistic):          2.29e-260
-Time:                        01:03:11   Log-Likelihood:                -6725.1
-No. Observations:               11915   AIC:                         1.348e+04
-Df Residuals:                   11901   BIC:                         1.358e+04
-Df Model:                          13                                         
+Method:                 Least Squares   F-statistic:                     120.0
+Date:                Sun, 08 Jan 2017   Prob (F-statistic):          8.16e-262
+Time:                        01:21:59   Log-Likelihood:                -6758.9
+No. Observations:               11967   AIC:                         1.354e+04
+Df Residuals:                   11955   BIC:                         1.363e+04
+Df Model:                          11                                         
 Covariance Type:            nonrobust                                         
 ==============================================================================
                  coef    std err          t      P>|t|      [95.0% Conf. Int.]
 ------------------------------------------------------------------------------
-Intercept      0.5143      0.011     45.113      0.000         0.492     0.537
-spread         0.0438      0.001     32.979      0.000         0.041     0.046
-o              0.2137      0.007     32.084      0.000         0.201     0.227
-d              0.2163      0.007     32.897      0.000         0.203     0.229
-htz            0.0134      0.005      2.636      0.008         0.003     0.023
-htz:spread    -0.0009      0.000     -1.887      0.059        -0.002  3.64e-05
-atz           -0.0122      0.005     -2.442      0.015        -0.022    -0.002
-atz:spread    -0.0021      0.000     -4.298      0.000        -0.003    -0.001
-ftd            0.0060      0.003      1.977      0.048      5.06e-05     0.012
-three_d        0.0058      0.004      1.422      0.155        -0.002     0.014
-rebo           0.0039      0.003      1.260      0.208        -0.002     0.010
-to             0.0107      0.011      1.014      0.311        -0.010     0.031
-tof            0.0129      0.010      1.288      0.198        -0.007     0.033
-true           0.1340      0.012     10.920      0.000         0.110     0.158
+Intercept      0.5193      0.011     47.297      0.000         0.498     0.541
+spread         0.0438      0.001     32.999      0.000         0.041     0.046
+o              0.2131      0.007     32.122      0.000         0.200     0.226
+d              0.2169      0.007     33.136      0.000         0.204     0.230
+htz            0.0135      0.005      2.650      0.008         0.004     0.023
+htz:spread    -0.0010      0.000     -1.928      0.054        -0.002  1.61e-05
+atz           -0.0122      0.005     -2.454      0.014        -0.022    -0.002
+atz:spread    -0.0021      0.000     -4.266      0.000        -0.003    -0.001
+ftd            0.0057      0.003      1.886      0.059        -0.000     0.012
+three_d        0.0065      0.004      1.589      0.112        -0.002     0.014
+rebo           0.0043      0.003      1.400      0.162        -0.002     0.010
+true           0.1332      0.012     10.862      0.000         0.109     0.157
 ==============================================================================
-Omnibus:                        1.477   Durbin-Watson:                   2.039
-Prob(Omnibus):                  0.478   Jarque-Bera (JB):             1054.609
-Skew:                           0.027   Prob(JB):                    9.87e-230
-Kurtosis:                       1.544   Cond. No.                         46.6
+Omnibus:                        1.486   Durbin-Watson:                   2.044
+Prob(Omnibus):                  0.476   Jarque-Bera (JB):             1063.684
+Skew:                           0.027   Prob(JB):                    1.06e-231
+Kurtosis:                       1.540   Cond. No.                         46.0
 ==============================================================================
 
 Warnings:
 [1] Standard Errors assume that the covariance matrix of the errors is correctly specified.
-Testing with lower-bound 0.5 won 63.01 percent of 11672 games.
-This would lead to a profit of 2606.3 units.
-Testing with lower-bound 0.55 won 67.21 percent of 8104 games.
-This would lead to a profit of 2524.3 units.
-Testing with lower-bound 0.6 won 70.82 percent of 5118 games.
-This would lead to a profit of 1982.7 units.
-Testing with lower-bound 0.65 won 73.0 percent of 3000 games.
-This would lead to a profit of 1299.0 units.
-Testing with lower-bound 0.7 won 75.68 percent of 1682 games.
-This would lead to a profit of 823.1 units.
-Testing with lower-bound 0.75 won 79.19 percent of 865 games.
-This would lead to a profit of 487.0 units.
-Testing with lower-bound 0.8 won 79.37 percent of 446 games.
-This would lead to a profit of 252.8 units.
-Testing with lower-bound 0.85 won 80.43 percent of 230 games.
-This would lead to a profit of 135.5 units.
-Testing with lower-bound 0.9 won 81.81 percent of 121 games.
-This would lead to a profit of 74.8 units.
-Testing with lower-bound 0.95 won 87.5 percent of 64 games.
-This would lead to a profit of 47.2 units.
+Testing with lower-bound 0.5 won 62.93 percent of 11724 games.
+This would lead to a profit of 2599.5 units.
+Testing with lower-bound 0.55 won 67.27 percent of 8097 games.
+This would lead to a profit of 2532.0 units.
+Testing with lower-bound 0.6 won 70.84 percent of 5110 games.
+This would lead to a profit of 1981.0 units.
+Testing with lower-bound 0.65 won 72.82 percent of 2988 games.
+This would lead to a profit of 1282.8 units.
+Testing with lower-bound 0.7 won 75.95 percent of 1672 games.
+This would lead to a profit of 827.8 units.
+Testing with lower-bound 0.75 won 79.21 percent of 866 games.
+This would lead to a profit of 488.0 units.
+Testing with lower-bound 0.8 won 79.11 percent of 450 games.
+This would lead to a profit of 252.6 units.
+Testing with lower-bound 0.85 won 80.61 percent of 227 games.
+This would lead to a profit of 134.6 units.
+Testing with lower-bound 0.9 won 82.5 percent of 120 games.
+This would lead to a profit of 75.9 units.
+Testing with lower-bound 0.95 won 88.7 percent of 62 games.
+This would lead to a profit of 47.3 units.
 Pick                SpreadProb  Tip Opponent
-Central FL          1.5   58.67 4p  @  Connecticut
-Evansville          -3.0  58.14 3p  @  Drake
-Rider               -7.0  57.95 1p  vs Niagara
-Monmouth            -16.5 56.72 1p  vs Marist
-Stanford            20.5  56.09 7p  @  UCLA
-Valparaiso          -18.0 54.24 12p vs Detroit
-Virginia            -11.0 53.92 7p  vs Wake Forest
-N Iowa              10.5  53.65 3p  vs Wichita St
-Richmond            4.5   53.64 11p @  Geo Wshgtn
-Wisconsin           3.0   53.48 3p  @  Purdue
-Iona                -5.5  53.04 3p  vs Canisius
-IL-Chicago          9.0   52.63 4p  vs Oakland
-California          3.5   52.59 9p  @  USC
-Nebraska            1.0   52.0  1p  vs Northwestern
-Saint Louis         14.0  51.73 1p  vs Davidson
-Tulane              11.5  51.61 2p  vs Memphis
-Rutgers             9.5   51.3  3p  @  Iowa
-Ohio State          6.5   50.43 6p  @  Minnesota
+Evansville          -3.0  58.58 3p  @  Drake
+Rider               -7.0  58.53 1p  vs Niagara
+Central FL          1.5   57.97 4p  @  Connecticut
+Monmouth            -16.5 57.15 1p  vs Marist
+Stanford            20.5  55.58 7p  @  UCLA
+Valparaiso          -18.0 54.68 12p vs Detroit
+Richmond            4.5   54.32 11p @  Geo Wshgtn
+N Iowa              10.5  53.99 3p  vs Wichita St
+Iona                -5.5  53.29 3p  vs Canisius
+Wisconsin           3.0   53.25 3p  @  Purdue
+Virginia            -11.0 52.88 7p  vs Wake Forest
+Nebraska            1.0   52.47 1p  vs Northwestern
+California          3.5   52.14 9p  @  USC
+Tulane              11.5  52.09 2p  vs Memphis
+Saint Louis         14.0  52.08 1p  vs Davidson
+IL-Chicago          9.0   52.07 4p  vs Oakland
+Rutgers             9.5   50.75 3p  @  Iowa
+Minnesota           -6.5  50.09 6p  vs Ohio State

@@ -14,7 +14,16 @@ f = open('output.txt','w')
 def regress_spreads():
     gamesdf = pd.DataFrame.from_dict(regress_spread)
     #result = sm.ols(formula = "home_cover ~ spread + o + d + htz + atz + fto + ftd + three_o + three_d + rebo + rebd + to + tof + true",data=gamesdf,missing='drop').fit()
-    result = sm.ols(formula = "home_cover ~ spread + o + d + htz*spread + atz*spread + ftd + three_d + rebo + to + tof + true",data=gamesdf,missing='drop').fit()
+    variables = ["spread","o","d","htz","atz","ftd","three_d","rebo","true"]
+    form = ""
+    for var in variables:
+        if var == "spread":
+            form = var
+        else:
+            form += " + " + var
+        if var in ["htz","atz"]:
+            form += "*spread"
+    result = sm.ols(formula = "home_cover ~ "+form,data=gamesdf,missing='drop').fit()
     f.write("\n"+str(result.summary()))
     parameters = list(result.params)
     i = 0
@@ -27,10 +36,9 @@ def regress_spreads():
             game["pick"] = game["home"][:-4]
             game["prob"] = prob
         i += 1
-    return parameters
+    return (parameters,variables)
 
-def predict_new_games(data=new_games):
-    variables = ["spread","o","d","htz","atz","ftd","three_d","rebo","to","tof","true"]
+def predict_new_games(variables,data=new_games):
     gamesdf = pd.DataFrame.from_dict(data)
     for game in new_games:
         prob = parameters[0]
@@ -92,8 +100,8 @@ def print_picks(prob = .5,top = 175):
         top -= 1
         gamesleft -= 1
         new_games.remove(nextgame)
-parameters = regress_spreads()
+parameters,variables = regress_spreads()
 for i in range(10):
    test_strategy(lb=i/20+.5)
-predict_new_games()
+predict_new_games(variables)
 print_picks()

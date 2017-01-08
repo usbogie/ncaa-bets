@@ -45,9 +45,9 @@ def update_all():
 
     # get_kp_stats()
 
-    #get_old_games()
+    get_old_games([2017])
 
-    #get_os_info()
+    get_os_info()
 
     get_new_games()
 
@@ -309,9 +309,9 @@ with open('teams.json','r') as infile:
 with open('games.json','r') as infile:
     games = json.load(infile)
 # games = {}
-with open('regress_spread.json','r') as infile:
-    regress_spread = json.load(infile)
-# regress_spread = []
+# with open('regress_spread.json','r') as infile:
+#     regress_spread = json.load(infile)
+regress_spread = []
 new_games = []
 test_games = []
 espn_names, kp_names, os_names, sb_names = get_names()
