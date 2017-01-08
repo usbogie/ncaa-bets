@@ -1,16 +1,33 @@
-from urllib2 import urlopen
-from BeautifulSoup import BeautifulSoup
-from itertools import izip
+import urllib.request as request
+import urllib.error as error
+from bs4 import BeautifulSoup
+from fake_useragent import UserAgent
 import re
 import json
 
+ua = UserAgent()
+
 def grouped(iterable, n):
     "s -> (s0,s1,s2,...sn-1), (sn,sn+1,sn+2,...s2n-1), (s2n,s2n+1,s2n+2,...s3n-1), ..."
-    return izip(*[iter(iterable)]*n)
+    return zip(*[iter(iterable)]*n)
 
 def get_todays_sportsbook_lines():
     url = "https://www.sportsbook.ag/sbk/sportsbook4/ncaa-basketball-betting/game-lines.sbk"
-    soup = BeautifulSoup(urlopen(url))
+    try:
+        page = request.urlopen(request.Request(url, headers = { 'User-Agent' : ua.random }))
+    except error.HTTPError as e:
+        try:
+            wait_time = round(max(10, 12 + random.gauss(0,1)), 2)
+            time.sleep(wait_time)
+            print("First attempt for %s failed. Trying again." % (d))
+            page = request.urlopen(request.Request(url, headers = { 'User-Agent' : ua.random }))
+        except:
+            print(e)
+            sys.exit()
+
+    content = page.read()
+    soup = BeautifulSoup(content, "html5lib")
+
     teams = [team.text for team in soup.findAll('span', {'class': 'team-title'})]
     money_lines = [item.a.div.text for item in soup.findAll('div', {'class': 'column money pull-right'})]
     spreads = [item.a.div.text for item in soup.findAll('div', {'class': 'column spread pull-right'})]
@@ -32,4 +49,5 @@ def get_todays_sportsbook_lines():
         games.append(game)
     with open('game_lines.json','w') as outfile:
         json.dump(games,outfile)
+        
 get_todays_sportsbook_lines()
