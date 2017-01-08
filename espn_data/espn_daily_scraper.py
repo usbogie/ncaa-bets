@@ -6,7 +6,7 @@ from dateutil import tz
 import urllib.request as request
 import urllib.error as error
 import pandas as pd
-import numpy as np
+from numpy import *
 import json
 import random
 import time
@@ -49,7 +49,7 @@ def get_data(game_url, game_info):
 	return gen_info
 
 def update_espn_data():
-	base = "http://www.espn.com/mens-college-basketball/scoreboard/_/date/"
+	base = "http://scores.espn.com/mens-college-basketball/scoreboard/_/group/50/date/"
 	date = (datetime.now() - timedelta(1)).strftime('%Y-%m-%d').replace('-','')
 	url = base + date + '&confId=50'
 
@@ -136,7 +136,7 @@ def get_tonight_info():
 		info = ['Game_ID', 'Away_Abbrv', 'Home_Abbrv', 'Away_Score', 'Home_Score',
 				'Game_Away', 'Game_Home','Game_Year', 'Game_Date','Game_Tipoff',
 				'Game_Location', 'Neutral_Site', 'Conference_Competition', 'Attendance']
-		data = np.array([np.arange(len(info))])
+		data = array([arange(len(info))])
 		game_info = pd.DataFrame(data, columns=info)
 		competition = event['competitions'][0]
 		game_info['Game_ID'] = event['id']
@@ -177,12 +177,15 @@ def get_tonight_info():
 
 if __name__ == '__main__':
 	last_night = update_espn_data()
+	print(last_night)
 	cur_season = pd.read_csv('game_info2017.csv', index_col='Game_ID')
-	print(cur_season)
-	cur_season_updated = pd.concat([cur_season,last_night])
-	print (cur_season_updated)
-	cur_season_updated.drop_duplicates().to_csv('game_info2017.csv', index_label='Game_ID')
+	cur_season_indices = [idx.astype(int32) for idx in list(cur_season.index.values)]
+	for index, row in last_night.iterrows():
+		if int(index) not in list(cur_season.index.values):
+			cur_season.append(row)
+	cur_season = pd.concat([cur_season,last_night])
+	cur_season = cur_season[~cur_season.index.duplicated(keep='first')]
+	cur_season.to_csv('game_info2017.csv', index_label='Game_ID')
 
 	today_data = get_tonight_info()
-	print(today_data)
 	today_data.drop_duplicates().to_csv('upcoming_games.csv', index_label='Game_ID')
