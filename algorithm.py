@@ -24,7 +24,9 @@ def regress_spreads():
         if var in ["htz","atz"]:
             form += "*spread"
     result = sm.ols(formula = "home_cover ~ "+form,data=gamesdf,missing='drop').fit()
-    f.write("\n"+str(result.summary()))
+    o = str(result.summary())
+    f.write("\n"+o)
+    print(o)
     parameters = list(result.params)
     i = 0
     for game in regress_spread:
@@ -71,19 +73,24 @@ def test_strategy(lb = .5,ub = 2,data=regress_spread):
                 number_of_games -= 1
             else:
                 profit -= 11
-
     try:
         percent = int(wins / number_of_games * 10000)/100
     except:
         percent = 0
     s1 = "Testing with lower-bound " + str(lb) + " won " + str(percent) + " percent of " + str(number_of_games) + " games."
     s2 = "This would lead to a profit of " + str(profit/10) + " units."
-    f.write("\n"+s1)
-    f.write("\n"+s2)
+    o = s1
+    f.write("\n"+o)
+    print(o)
+    o = s2
+    f.write("\n"+o)
+    print(o)
 
 def print_picks(prob = .5,top = 175):
     gamesleft = len(new_games)
-    f.write("\n"+"Pick".ljust(20)+"Spread".ljust(6)+"Prob".ljust(6)+"Tip".ljust(4)+"Opponent")
+    o = "Pick".ljust(20)+"Spread".ljust(6)+"Prob".ljust(6)+"Tip".ljust(4)+"Opponent"
+    f.write("\n"+o)
+    print(o)
     while gamesleft > 0 and top != 0:
         maxprob = 0
         nextgame = {}
@@ -94,9 +101,13 @@ def print_picks(prob = .5,top = 175):
         if maxprob < prob:
             break
         if nextgame["pick"] == nextgame["home"][:-4]:
-            f.write("\n"+nextgame["pick"].ljust(20)+str(nextgame["spread"]).ljust(6)+str(int(nextgame["prob"]*10000)/100).ljust(6)+str(nextgame["tipstring"]).ljust(4)+"vs " + nextgame["away"][:-4])
+            o = nextgame["pick"].ljust(20)+str(nextgame["spread"]).ljust(6)+str(int(nextgame["prob"]*10000)/100).ljust(6)+str(nextgame["tipstring"]).ljust(4)+"vs " + nextgame["away"][:-4]
+            f.write("\n"+o)
+            print(o)
         else:
-            f.write("\n"+nextgame["pick"].ljust(20)+str(-1*nextgame["spread"]).ljust(6)+str(int(nextgame["prob"]*10000)/100).ljust(6)+str(nextgame["tipstring"]).ljust(4)+"@  " + nextgame["home"][:-4])
+            o = nextgame["pick"].ljust(20)+str(-1*nextgame["spread"]).ljust(6)+str(int(nextgame["prob"]*10000)/100).ljust(6)+str(nextgame["tipstring"]).ljust(4)+"@  " + nextgame["home"][:-4]
+            f.write("\n"+o)
+            print(o)
         top -= 1
         gamesleft -= 1
         new_games.remove(nextgame)

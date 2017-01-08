@@ -41,11 +41,11 @@ def get_team_stats(year_list = [2014,2015,2016,2017]):
             teams[team]["tof_poss"] = years[i].TOFP[j]
 
 def update_all():
-    # get_team_stats()
+    get_team_stats()
 
-    # get_kp_stats()
+    get_kp_stats()
 
-    get_old_games([2017])
+    # get_old_games([2017])
 
     get_os_info()
 
@@ -257,6 +257,7 @@ def get_new_games():
                 new_game['total_under'] = (float(under[:-6]),float(under[-5:-1]))
                 new_game['total'] = new_game['total_over'][0]
             new_games.append(new_game)
+            print("Found:",home,away)
         except:
             print("No game matched:",home,away)
 

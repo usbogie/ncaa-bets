@@ -5,7 +5,7 @@ Dep. Variable:             home_cover   R-squared:                       0.099
 Model:                            OLS   Adj. R-squared:                  0.099
 Method:                 Least Squares   F-statistic:                     120.0
 Date:                Sun, 08 Jan 2017   Prob (F-statistic):          8.16e-262
-Time:                        01:21:59   Log-Likelihood:                -6758.9
+Time:                        15:26:18   Log-Likelihood:                -6758.9
 No. Observations:               11967   AIC:                         1.354e+04
 Df Residuals:                   11955   BIC:                         1.363e+04
 Df Model:                          11                                         
@@ -55,21 +55,16 @@ This would lead to a profit of 75.9 units.
 Testing with lower-bound 0.95 won 88.7 percent of 62 games.
 This would lead to a profit of 47.3 units.
 Pick                SpreadProb  Tip Opponent
-Evansville          -3.0  58.58 3p  @  Drake
-Rider               -7.0  58.53 1p  vs Niagara
-Central FL          1.5   57.97 4p  @  Connecticut
-Monmouth            -16.5 57.15 1p  vs Marist
-Stanford            20.5  55.58 7p  @  UCLA
-Valparaiso          -18.0 54.68 12p vs Detroit
-Richmond            4.5   54.32 11p @  Geo Wshgtn
+Samford             -4.0  61.29 3p  vs Wofford
+Central FL          2.0   60.21 4p  @  Connecticut
+Stanford            21.5  59.56 7p  @  UCLA
+Evansville          -3.5  56.43 3p  @  Drake
+Iona                -5.0  55.35 3p  vs Canisius
+USC                 -2.0  54.25 9p  vs California
 N Iowa              10.5  53.99 3p  vs Wichita St
-Iona                -5.5  53.29 3p  vs Canisius
-Wisconsin           3.0   53.25 3p  @  Purdue
-Virginia            -11.0 52.88 7p  vs Wake Forest
-Nebraska            1.0   52.47 1p  vs Northwestern
-California          3.5   52.14 9p  @  USC
-Tulane              11.5  52.09 2p  vs Memphis
-Saint Louis         14.0  52.08 1p  vs Davidson
+Wake Forest         12.5  53.77 7p  @  Virginia
+Rutgers             10.0  52.84 3p  @  Iowa
+Rider               -8.5  52.32 1p  vs Niagara
+Minnesota           -6.0  52.18 6p  vs Ohio State
 IL-Chicago          9.0   52.07 4p  vs Oakland
-Rutgers             9.5   50.75 3p  @  Iowa
-Minnesota           -6.5  50.09 6p  vs Ohio State
+Wisconsin           2.5   50.98 3p  @  Purdue
