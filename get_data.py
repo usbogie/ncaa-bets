@@ -41,13 +41,13 @@ def get_team_stats(year_list = [2014,2015,2016,2017]):
             teams[team]["tof_poss"] = years[i].TOFP[j]
 
 def update_all():
-    get_team_stats()
+    # get_team_stats()
 
-    get_kp_stats()
+    # get_kp_stats()
 
     #get_old_games()
 
-    get_os_info()
+    #get_os_info()
 
     get_new_games()
 
@@ -147,12 +147,12 @@ def get_os_info(year_list = [2014,2015,2016,2017]):
                 else:
                     game["cover"] = "Tie"
                     game["home_cover"] = .5
-                # if years[year].o[i] == 'O':
-                #     game["over"] = 1
-                # elif years[year].o[i] == 'U':
-                #     game["over"] = 0
-                # else:
-                #     game["over"] = .5
+                if years[year].o[i] == 'O':
+                    game["over"] = 1
+                elif years[year].o[i] == 'U':
+                    game["over"] = 0
+                else:
+                    game["over"] = .5
                 if math.isnan(game["spread"]) or math.isnan(game["total"]):
                     continue
                 if abs(game["spread"] + game["margin"]) <= 3:
@@ -296,20 +296,22 @@ def set_game_attributes():
         game["ftd"] = -1 * (home["ftd_z"] + away["fto_z"])
         game["three_o"] = home["three_o_z"]
         game["three_d"] = -1 * away["three_o_z"]
+        game["h3d"] = 1 if home["three_o_z"] > 1 and away["three_d_z"] > 1 else 0
+        game["a3d"] = 1 if away["three_o_z"] > 1 and home["three_d_z"] > 1 else 0
         game["rebo"] = home["rebo_z"] - away["rebd_z"]
         game["rebd"] = home["rebd_z"] - away["rebo_z"]
-        game["reb"] = game["rebo"] + game["rebd"]
-        game["to"] = -1 * (home["to_poss_z"] + away["tof_poss_z"])
-        game["tof"] = home["tof_poss_z"] + away["to_poss_z"]
+        game["reb"] = 1 if game["rebo"] + game["rebd"] > 1 else 0
+        game["to"] = 1 if home["to_poss_z"] + away["tof_poss_z"] > 1 else 0
+        game["tof"] = 1 if home["tof_poss_z"] + away["to_poss_z"] > 1 else 0
 
 with open('teams.json','r') as infile:
     teams = json.load(infile)
 with open('games.json','r') as infile:
     games = json.load(infile)
 # games = {}
-# with open('regress_spread.json','r') as infile:
-#     regress_spread = json.load(infile)
-regress_spread = []
+with open('regress_spread.json','r') as infile:
+    regress_spread = json.load(infile)
+# regress_spread = []
 new_games = []
 test_games = []
 espn_names, kp_names, os_names, sb_names = get_names()

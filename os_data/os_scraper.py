@@ -119,5 +119,5 @@ names = []
 for link,name in get_links():
     links.append(link)
     names.append(name)
-
-get_oddsshark(2017,links,names)
+for i in range(4):
+    get_oddsshark(i+2014,links,names)
