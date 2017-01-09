@@ -30,65 +30,64 @@ def make_season(start_year=2016):
 
 	return all_season
 
-year = 2016
-all_dates = make_season(year-1)
-base = "http://www.lines.com/odds/ncaab/spreads-totals/"
-data = []
-for day in all_dates:
-	print (day)
-	url = base+day
-	if int((datetime.now() - timedelta(1)).strftime('%Y-%m-%d').replace('-','')) < int(day.replace('-','')):
-		continue
-	try:
-		page = request.urlopen(request.Request(url, headers = { 'User-Agent' : ua.random }))
-	except error.HTTPError as e:
+def get_data():
+	year = 2017
+	all_dates = make_season(year-1)
+	data = []
+	base = "http://www.lines.com/odds/ncaab/spreads-totals/"
+	today = int((datetime.now() - timedelta(1)).strftime('%Y-%m-%d').replace('-',''))
+	for day in all_dates:
+		url = base+day
+		print (day)
+		if today < int(day.replace('-','')):
+			continue
 		try:
-			wait_time = round(max(10, 12 + random.gauss(0,1)), 2)
-			time.sleep(wait_time)
-			print("First attempt for %s failed. Trying again." % (url))
 			page = request.urlopen(request.Request(url, headers = { 'User-Agent' : ua.random }))
-		except:
-			print(e)
-			sys.exit()
+		except error.HTTPError as e:
+			try:
+				wait_time = round(max(10, 12 + random.gauss(0,1)), 2)
+				time.sleep(wait_time)
+				print("First attempt for %s failed. Trying again." % (url))
+				page = request.urlopen(request.Request(url, headers = { 'User-Agent' : ua.random }))
+			except:
+				print(e)
+				sys.exit()
 
-	content = page.read()
-	soup = BeautifulSoup(content, "html5lib")
+		content = page.read()
+		soup = BeautifulSoup(content, "html5lib")
 
-	if soup.find('div',{'class': 'nogames'}) is not None:
-		print("NO GAMES "+day)
-		continue
-
-	table = soup.find('table', {'id': 'odds-1league-14'})
-	entries = [tr.findAll('td') for tr in table.tbody.findAll('tr')]
-	for entry in entries:
-		game_info = {}
-		game_info['date'],game_info['tipoff'] = entry[1].div.text[:5], entry[1].div.text[5:]
-		if len(entry[2].a.contents) < 3 and entry[2].a.contents[0] == 'High Point':
-			game_info['away'],game_info['home'] = 'Longwood','High Point'
-		else:
-			game_info['away'],game_info['home'] = entry[2].a.contents[0], entry[2].a.contents[2]
-		if entry[3].find('strong', {'class': 'postponed'}) is not None:
+		if soup.find('div',{'class': 'nogames'}) is not None:
 			continue
-		spans = entry[3].find('div', {'class': 'score last'})
-		if spans is None:
-			continue
-		away_score, home_score = spans.contents[0].text, spans.contents[1].text
-		bet365 = entry[7].contents
-		game_info['total'] = bet365[0].text.replace(u"½", u".5").split('\xa0')[0].strip()
-		if game_info['total'] == '-':
-			game_info['total'] = None
-		game_info['spread'] = bet365[3].text.replace(u"½", u".5").replace('+','').split('\xa0')[0].strip()
-		if game_info['spread'] == '-' or game_info['spread'] == 'PK':
-			game_info['spread'] = '0'
-		if float(away_score) - float(home_score) > float(game_info['spread']):
-			game_info['ats'] = 'L'
-		else:
-			game_info['ats'] = 'W'
-		print(game_info['away'],'@',game_info['home'])
-		data.append(game_info)
 
-with open('lines' + str(year) + '.json', 'w+') as outfile:
-	json.dump(data, outfile)
+		table = soup.find('table', {'id': 'odds-1league-14'})
+		data = []
+		entries = [tr.findAll('td') for tr in table.tbody.findAll('tr')]
+		for entry in entries:
+			game_info = {}
+			game_info['date'],game_info['tipoff'] = entry[1].div.text[:5], entry[1].div.text[5:]
+			if len(entry[2].a.contents) < 3 and entry[2].a.contents[0] == 'High Point':
+				game_info['away'],game_info['home'] = 'Longwood','High Point'
+			else:
+				game_info['away'],game_info['home'] = entry[2].a.contents[0], entry[2].a.contents[2]
+			if entry[3].find('strong', {'class': 'postponed'}) is not None:
+				continue
+			spans = entry[3].find('div', {'class': 'score last'})
+			if spans is None:
+				continue
+			away_score, home_score = spans.contents[0].text, spans.contents[1].text
+			bet365 = entry[7].contents
+			game_info['total'] = bet365[0].text.replace(u"½", u".5").split('\xa0')[0].strip()
+			if game_info['total'] == '-':
+				game_info['total'] = None
+			game_info['spread'] = bet365[3].text.replace(u"½", u".5").replace('+','').split('\xa0')[0].strip()
+			if game_info['spread'] == '-' or game_info['spread'] == 'PK':
+				game_info['spread'] = '0'
+			if float(away_score) - float(home_score) > float(game_info['spread']):
+				game_info['ats'] = 'L'
+			else:
+				game_info['ats'] = 'W'
+			data.append(game_info)
+	return data
 
 
 

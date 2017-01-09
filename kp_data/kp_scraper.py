@@ -1,5 +1,6 @@
-from urllib2 import urlopen
-from BeautifulSoup import BeautifulSoup as bs
+import urllib.request as request
+import urllib.error as error
+from bs4 import BeautifulSoup
 from pprint import PrettyPrinter as pp
 import re
 from subprocess import call
@@ -49,7 +50,7 @@ def extract_kenpom(year):
     year_str = '?y=' + str(year)
     if year == 2017:
         year_str = ''
-    s = bs(urlopen('http://kenpom.com/index.php' + year_str))
+    s = BeautifulSoup(request.urlopen(request.Request('http://kenpom.com/index.php'+year_str)).read(), "html5lib")
     team_entries = [tr.findAll('td') for tr in s.findAll('tr')][2:]
     teams = []
     for team in team_entries:
@@ -89,7 +90,5 @@ def extract_kenpom(year):
     if VERBOSE:
         p.pprint(teams)
     year_str2 = str(year%100)
-    with open('kenpom' + year_str2 + '.json', 'w+') as outfile:
-        json.dump(teams, outfile)
-
-extract_kenpom(2017)
+    return teams
+#extract_kenpom(2017)

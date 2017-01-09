@@ -13,20 +13,8 @@ def grouped(iterable, n):
 
 def get_todays_sportsbook_lines():
     url = "https://www.sportsbook.ag/sbk/sportsbook4/ncaa-basketball-betting/game-lines.sbk"
-    try:
-        page = request.urlopen(request.Request(url, headers = { 'User-Agent' : ua.random }))
-    except error.HTTPError as e:
-        try:
-            wait_time = round(max(10, 12 + random.gauss(0,1)), 2)
-            time.sleep(wait_time)
-            print("First attempt for %s failed. Trying again." % (d))
-            page = request.urlopen(request.Request(url, headers = { 'User-Agent' : ua.random }))
-        except:
-            print(e)
-            sys.exit()
-
-    content = page.read()
-    soup = BeautifulSoup(content, "html5lib")
+    page = request.urlopen(request.Request(url, headers = { 'User-Agent' : ua.random }))
+    soup = BeautifulSoup(page.read(), "html5lib")
 
     teams = [team.text for team in soup.findAll('span', {'class': 'team-title'})]
     money_lines = [item.a.div.text for item in soup.findAll('div', {'class': 'column money pull-right'})]
@@ -47,7 +35,6 @@ def get_todays_sportsbook_lines():
         game['total_under'] = money_lines[j]
         game['date'] = date
         games.append(game)
-    with open('game_lines.json','w') as outfile:
-        json.dump(games,outfile)
+    return games
         
-get_todays_sportsbook_lines()
+#get_todays_sportsbook_lines()
