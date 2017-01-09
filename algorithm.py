@@ -11,52 +11,61 @@ with open('regress_spread.json') as infile:
 with open('test_games.json') as infile:
     test_games = json.load(infile)
 f = open('output.txt','w')
+variables = ["spread","home_off_adv","away_off_adv","true_home_game","home_three_adv","away_three_adv","home_three_d_adv","away_three_d_adv","home_reb_adv","to","tof"]
+timespread = ["home_tempo_z","away_tempo_z","total_z"]
 def regress_spreads():
     gamesdf = pd.DataFrame.from_dict(regress_spread)
-    #result = sm.ols(formula = "home_cover ~ spread + o + d + htz + atz + fto + ftd + three_o + three_d + rebo + rebd + to + tof + true",data=gamesdf,missing='drop').fit()
-    variables = ["spread","o","d","htz","atz","ftd","three_d","rebo","true"]
     form = ""
     for var in variables:
         if var == "spread":
             form = var
         else:
             form += " + " + var
-        if var in ["htz","atz"]:
-            form += "*spread"
-    result = sm.ols(formula = "home_cover ~ "+form,data=gamesdf,missing='drop').fit()
+    for var in timespread:
+            form += " + " + var + ":spread"
+    result = sm.ols(formula = "home_cover ~ "+form+" -1",data=gamesdf,missing='drop').fit()
     o = str(result.summary())
     f.write("\n"+o)
     print(o)
     parameters = list(result.params)
     i = 0
     for game in regress_spread:
-        prob = result.predict()[i]
-        if prob < .5:
+        game["prob"] = result.predict()[i] + .5
+        if game["prob"] < .5:
             game["pick"] = game["away"][:-4]
-            game["prob"] = 1 - prob
+            game["prob"] = 1 - game["prob"]
         else:
             game["pick"] = game["home"][:-4]
-            game["prob"] = prob
         i += 1
-    return (parameters,variables)
+    # games = []
+    # margins = {}
+    # for i in range(len(gamesdf.spread)):
+    #     if abs(gamesdf.margin[i]) <= 8:
+    #         try:
+    #             margins[abs(gamesdf.margin[i])] += 1
+    #         except:
+    #             margins[abs(gamesdf.margin[i])] = 1
+    # for key in sorted(margins.keys()):
+    #     print(key,margins[key]/len(gamesdf.spread))
+    return parameters
 
-def predict_new_games(variables,data=new_games):
+def predict_new_games(data=new_games):
     gamesdf = pd.DataFrame.from_dict(data)
     for game in new_games:
-        prob = parameters[0]
-        i = 1
+        prob = 0
+        i = 0
         for var in variables:
             prob += parameters[i] * game[var]
-            if var in ["htz","atz"]:
-                i += 1
-                prob += parameters[i] * game[var] * game["spread"]
             i += 1
-        if prob < .5:
+        for var in timespread:
+            prob += parameters[i] * game[var] * game["spread"]
+            i += 1
+        game["prob"] = prob + .5
+        if prob < 0:
             game["pick"] = game["away"][:-4]
-            game["prob"] = 1 - prob
+            game["prob"] = 1 - game["prob"]
         else:
             game["pick"] = game["home"][:-4]
-            game["prob"] = prob
 
 def test_strategy(lb = .5,ub = 2,data=regress_spread):
     number_of_games = 0
@@ -101,18 +110,18 @@ def print_picks(prob = .5,top = 175):
         if maxprob < prob:
             break
         if nextgame["pick"] == nextgame["home"][:-4]:
-            o = nextgame["pick"].ljust(20)+str(nextgame["spread"]).ljust(6)+str(int(nextgame["prob"]*10000)/100).ljust(6)+str(nextgame["tipstring"]).ljust(4)+"vs " + nextgame["away"][:-4]
+            o = nextgame["home_espn"].ljust(20)+str(nextgame["spread"]).ljust(6)+str(int(nextgame["prob"]*10000)/100).ljust(6)+str(nextgame["tipstring"]).ljust(4)+"vs " + nextgame["away"][:-4]
             f.write("\n"+o)
             print(o)
         else:
-            o = nextgame["pick"].ljust(20)+str(-1*nextgame["spread"]).ljust(6)+str(int(nextgame["prob"]*10000)/100).ljust(6)+str(nextgame["tipstring"]).ljust(4)+"@  " + nextgame["home"][:-4]
+            o = nextgame["away_espn"].ljust(20)+str(-1*nextgame["spread"]).ljust(6)+str(int(nextgame["prob"]*10000)/100).ljust(6)+str(nextgame["tipstring"]).ljust(4)+"@  " + nextgame["home"][:-4]
             f.write("\n"+o)
             print(o)
         top -= 1
         gamesleft -= 1
         new_games.remove(nextgame)
-parameters,variables = regress_spreads()
+parameters = regress_spreads()
 for i in range(10):
    test_strategy(lb=i/20+.5)
-predict_new_games(variables)
+predict_new_games()
 print_picks()

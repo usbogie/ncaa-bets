@@ -23,6 +23,7 @@ def get_teamrankings(year_list = [2014,2015,2016,2017]):
              'opponent-three-point-pct',
              'offensive-rebounding-pct',
              'defensive-rebounding-pct',
+             'total-rebounding-percentage',
              'turnover-pct',
              'opponent-turnover-pct',
              'possessions-per-game']
@@ -30,13 +31,13 @@ def get_teamrankings(year_list = [2014,2015,2016,2017]):
                   2015: '?date=2015-04-06',
                   2016: '?date=2016-04-05',
                   2017: ''}
-    stats = ['FTO','FTD','Three_O','Three_D','REBO','REBD','TOP','TOFP','POSS']
+    stats = ['FTO','FTD','Three_O','Three_D','REBO','REBD','REB','TOP','TOFP','POSS']
     teams = {}
     for year in year_list:
         for i in range(len(links)): #TODO figure out how to get all matchup links, and also key entries by AWAY @ HOME
             if VERBOSE:
                 print 'finding stat {}'.format(i)
-            s = str(bs(urlopen('{}{}'.format(url,links[i],year_links[year]))))
+            s = str(bs(urlopen('{}{}{}'.format(url,links[i],year_links[year]))))
             match = 'data-sort="'
             index = 0
             name = ""
@@ -70,4 +71,4 @@ def get_teamrankings(year_list = [2014,2015,2016,2017]):
             for team in team_list:
                 writer.writerow(team)
 
-get_teamrankings()
+get_teamrankings([2016,2017])

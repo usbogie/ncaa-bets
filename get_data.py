@@ -37,6 +37,7 @@ def get_team_stats(year_list = [2014,2015,2016,2017]):
             teams[team]["three_d"] = years[i].Three_D[j]
             teams[team]["rebo"] = years[i].REBO[j]
             teams[team]["rebd"] = years[i].REBD[j]
+            teams[team]["reb"] = years[i].REB[j]
             teams[team]["to_poss"] = years[i].TOP[j]
             teams[team]["tof_poss"] = years[i].TOFP[j]
 
@@ -45,9 +46,9 @@ def update_all():
 
     get_kp_stats()
 
-    # get_old_games([2017])
+    # get_old_games()
 
-    get_os_info()
+    # get_os_info()
 
     get_new_games()
 
@@ -82,8 +83,10 @@ def get_old_games(year_list = [2014,2015,2016,2017]):
         for i in range(len(years[year].Game_Away)):
             try:
                 game = {}
-                game["home"] = espn_names[years[year].Game_Home[i]] + str(year_list[year])
-                game["away"] = espn_names[years[year].Game_Away[i]] + str(year_list[year])
+                game["home"] = espn_names[years[year].Game_Home[i].strip()] + str(year_list[year])
+                game["away"] = espn_names[years[year].Game_Away[i].strip()] + str(year_list[year])
+                game["home_espn"] = years[year].Game_Home[i].strip()
+                game["away_espn"] = years[year].Game_Away[i].strip()
                 d = years[year].Game_Date[i].split("/")
                 d.append(years[year].Game_Year[i])
                 gameday = date(int(d[2]),int(d[0]),int(d[1]))
@@ -111,7 +114,7 @@ def get_old_games(year_list = [2014,2015,2016,2017]):
                     game["winner"] = game["home"][:-4]
                 else:
                     game["winner"] = game["away"][:-4]
-                game["true"] = 1 if not years[year].Neutral_Site[i] else 0
+                game["true_home_game"] = 1 if not years[year].Neutral_Site[i] else 0
                 game["conf"] = 1 if years[year].Conference_Competition[i] else 0
                 game["weekday"] = 0 if gameday.weekday() == 1 or gameday.weekday() == 7 else 1
             except:
@@ -140,13 +143,13 @@ def get_os_info(year_list = [2014,2015,2016,2017]):
                 game["total"] = float(years[year].total[i])
                 if years[year].ats[i] == 'L':
                     game["cover"] = game["away"][:-4]
-                    game["home_cover"] = 0
+                    game["home_cover"] = -.5
                 elif years[year].ats[i] == 'W':
                     game["cover"] = game["home"][:-4]
-                    game["home_cover"] = 1
+                    game["home_cover"] = .5
                 else:
                     game["cover"] = "Tie"
-                    game["home_cover"] = .5
+                    game["home_cover"] = 0
                 if years[year].o[i] == 'O':
                     game["over"] = 1
                 elif years[year].o[i] == 'U':
@@ -156,7 +159,7 @@ def get_os_info(year_list = [2014,2015,2016,2017]):
                 if math.isnan(game["spread"]) or math.isnan(game["total"]):
                     continue
                 if abs(game["spread"] + game["margin"]) <= 3:
-                    game["home_cover"] = (game["home_cover"] + .5) / 2
+                    game["home_cover"] = game["home_cover"] / 2
                 regress_spread.append(game)
             except:
                 continue
@@ -187,13 +190,13 @@ def get_test_games(year_list = [2017]):
                 game["total"] = float(years[year].total[i])
                 if years[year].ats[i] == 'L':
                     game["cover"] = game["away"][:-4]
-                    game["home_cover"] = 0
+                    game["home_cover"] = -.5
                 elif years[year].ats[i] == 'W':
                     game["cover"] = game["home"][:-4]
-                    game["home_cover"] = 1
+                    game["home_cover"] = .5
                 else:
                     game["cover"] = "Tie"
-                    game["home_cover"] = .5
+                    game["home_cover"] = 0
                 if math.isnan(game["spread"]) or math.isnan(game["total"]):
                     continue
                 test_games.append(game)
@@ -207,6 +210,8 @@ def get_new_games():
             game = {}
             game["home"] = espn_names[gamesdf.Game_Home[i].strip()] + str(2017)
             game["away"] = espn_names[gamesdf.Game_Away[i].strip()] + str(2017)
+            game["home_espn"] = gamesdf.Game_Home[i].strip()
+            game["away_espn"] = gamesdf.Game_Away[i].strip()
             d = gamesdf.Game_Date[i].split("/")
             d.append(gamesdf.Game_Year[i])
             gameday = date(int(d[2]),int(d[0]),int(d[1]))
@@ -217,7 +222,7 @@ def get_new_games():
             if hour < 6:
                 gameday -= timedelta(days=1)
             game["date"] = str(gameday)
-            game["true"] = 1 if not gamesdf.Neutral_Site[i] else 0
+            game["true_home_game"] = 1 if not gamesdf.Neutral_Site[i] else 0
             key = str((game["home"][:-4],game["away"][:-4],game["date"]))
             upcoming_games[key] = game
         except:
@@ -262,7 +267,7 @@ def get_new_games():
             print("No game matched:",home,away)
 
 def set_team_attributes():
-    stat_list = ["kp_o","kp_d","kp_t","fto","ftd","three_o","three_d","rebo","rebd","to_poss","tof_poss"]
+    stat_list = ["kp_o","kp_d","kp_t","fto","ftd","three_o","three_d","rebo","rebd","reb","to_poss","tof_poss"]
     for stat in stat_list:
         set_zscores(stat)
 
@@ -285,34 +290,35 @@ def set_game_attributes():
         all_games.append(game)
     for game in test_games:
         all_games.append(game)
+    l = []
     for game in all_games:
+        l.append(game["total"])
+    z = zscore(l)
+    for i,game in enumerate(all_games):
         home = teams[game["home"]]
         away = teams[game["away"]]
-        game["o"] = home["kp_o_z"] + away["kp_d_z"]
-        game["d"] = -1 * (home["kp_d_z"] + away["kp_o_z"])
-        game["htz"] = home["kp_t_z"]
-        game["atz"] = away["kp_t_z"]
-        game["fto"] = 0
-        game["fto"] = home["fto_z"] + away["ftd_z"]
-        game["ftd"] = -1 * (home["ftd_z"] + away["fto_z"])
-        game["three_o"] = home["three_o_z"]
-        game["three_d"] = -1 * away["three_o_z"]
-        game["h3d"] = 1 if home["three_o_z"] > 1 and away["three_d_z"] > 1 else 0
-        game["a3d"] = 1 if away["three_o_z"] > 1 and home["three_d_z"] > 1 else 0
-        game["rebo"] = home["rebo_z"] - away["rebd_z"]
-        game["rebd"] = home["rebd_z"] - away["rebo_z"]
-        game["reb"] = 1 if game["rebo"] + game["rebd"] > 1 else 0
-        game["to"] = 1 if home["to_poss_z"] + away["tof_poss_z"] > 1 else 0
-        game["tof"] = 1 if home["tof_poss_z"] + away["to_poss_z"] > 1 else 0
+        game["home_off_adv"] = home["kp_o_z"] + away["kp_d_z"]
+        game["away_off_adv"] = home["kp_d_z"] + away["kp_o_z"]
+        game["home_tempo_z"] = home["kp_t_z"]
+        game["away_tempo_z"] = away["kp_t_z"]
+        game["home_three_adv"] = 1 if home["three_o_z"] > 1 else 0
+        game["home_three_d_adv"] = 1 if home["three_d_z"] < 1 and away["three_o_z"] > 1 else 0
+        game["away_three_adv"] = 1 if away["three_o_z"] > 1 else 0
+        game["away_three_d_adv"] = 1 if away["three_d_z"] < 1 and home["three_o_z"] > 1 else 0
+        game["home_reb_adv"] = home["reb"] - away["reb"]
+        game["to"] = 1 if home["to_poss_z"] > 1 and away["tof_poss_z"] > 1 else 0
+        game["tof"] = 1 if home["tof_poss_z"] > 1 and away["to_poss_z"] > 1 else 0
+        game["total_z"] = z[i]
 
 with open('teams.json','r') as infile:
     teams = json.load(infile)
+# teams = {}
 with open('games.json','r') as infile:
     games = json.load(infile)
 # games = {}
-# with open('regress_spread.json','r') as infile:
-#     regress_spread = json.load(infile)
-regress_spread = []
+with open('regress_spread.json','r') as infile:
+    regress_spread = json.load(infile)
+# regress_spread = []
 new_games = []
 test_games = []
 espn_names, kp_names, os_names, sb_names = get_names()
