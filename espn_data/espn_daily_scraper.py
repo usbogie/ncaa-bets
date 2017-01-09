@@ -14,6 +14,11 @@ import html
 
 
 ua = UserAgent()
+info = ['Game_ID', 'Away_Abbrv', 'Home_Abbrv', 'Away_Score',
+		'Home_Score', 'Game_Away', 'Game_Home','Game_Year',
+		'Game_Date','Game_Tipoff', 'Game_Location', 'Neutral_Site',
+		'Conference_Competition', 'Attendance']
+base_url = "http://scores.espn.com/mens-college-basketball/scoreboard/_/group/50/date/"
 
 class Game(object):
 	def __init__(self, url, game_info):
@@ -32,17 +37,7 @@ class Game(object):
 		date, time = str(eastern)[:-6].split(" ")
 		self.year = date.split('-')[0]
 		self.tipoff = time
-		self.date = "{}/{}".format(date.split("-")[1],date.split("-")[2])
-
-		"""
-		info = ['Game_ID', 'Away_Abbrv', 'Home_Abbrv', 'Away_Score', 'Attendance',
-				'Home_Score', 'Away_Rank', 'Home_Rank', 'Away_Rec', 'Home_Rec', 'Away_1st', 'Away_2nd',
-				'Home_1st', 'Home_2nd', 'Game_Year', 'Game_Date','Game_Tipoff', 'Game_Location',
-				'Game_Away', 'Game_Home', "Away_OT", "Home_OT"]
-		"""
-		info = ['Game_ID', 'Away_Abbrv', 'Home_Abbrv', 'Away_Score', 'Home_Score',
-				'Game_Away', 'Game_Home','Game_Year', 'Game_Date','Game_Tipoff',
-				'Game_Location', 'Neutral_Site', 'Conference_Competition', 'Attendance']
+		self.date = "{}/{}".format(tuple(date.split("-"))
 
 		data = array([arange(len(info))])
 		self.info_df = pd.DataFrame(data, columns=info)
@@ -108,9 +103,8 @@ def get_data(game_url, game_info):
 	return gen_info
 
 def update_espn_data():
-	base = "http://scores.espn.com/mens-college-basketball/scoreboard/_/group/50/date/"
 	date = (datetime.now() - timedelta(1)).strftime('%Y-%m-%d').replace('-','')
-	url = base + date + '&confId=50'
+	url = base_url + date
 
 	page = get_page(url)
 
@@ -145,7 +139,7 @@ def update_espn_data():
 
 		game_info['venue'] = venueJSON['fullName']
 		if 'address' in venueJSON.keys():
-			game_info['venue']+="|"+"|".join([venueJSON['address']['city'],venueJSON['address']['state']])
+			game_info['venue']+="|"+"|".join([venueJSON['address']['city'], venueJSON['address']['state']])
 
 		competitors	= competition['competitors']
 		away = 0
@@ -179,12 +173,10 @@ def update_espn_data():
 	return pd.concat(gen_info, ignore_index=True).set_index('Game_ID')
 
 def get_tonight_info():
-	base = "http://scores.espn.com/mens-college-basketball/scoreboard/_/group/50/date/"
 	date = datetime.now().strftime('%Y-%m-%d').replace('-','')
-	url = base + date + '&confId=50'
+	url = base_url + date
 
-	page = get_page(url)
-	content = page.read()
+	content = get_page(url).read()
 	soup = BeautifulSoup(content, "html5lib")
 
 	gen_info = []
@@ -192,9 +184,6 @@ def get_tonight_info():
 	events = get_json(soup)
 
 	for event in events:
-		info = ['Game_ID', 'Away_Abbrv', 'Home_Abbrv', 'Away_Score', 'Home_Score',
-				'Game_Away', 'Game_Home','Game_Year', 'Game_Date','Game_Tipoff',
-				'Game_Location', 'Neutral_Site', 'Conference_Competition', 'Attendance']
 		data = array([arange(len(info))])
 		game_info = pd.DataFrame(data, columns=info)
 		competition = event['competitions'][0]
