@@ -1,65 +1,65 @@
 
                             OLS Regression Results                            
 ==============================================================================
-Dep. Variable:             home_cover   R-squared:                       0.099
-Model:                            OLS   Adj. R-squared:                  0.098
-Method:                 Least Squares   F-statistic:                     94.09
-Date:                Mon, 09 Jan 2017   Prob (F-statistic):          2.81e-258
-Time:                        01:09:23   Log-Likelihood:                -6762.4
-No. Observations:               11970   AIC:                         1.355e+04
-Df Residuals:                   11956   BIC:                         1.366e+04
+Dep. Variable:             home_cover   R-squared:                       0.105
+Model:                            OLS   Adj. R-squared:                  0.104
+Method:                 Least Squares   F-statistic:                     107.9
+Date:                Mon, 09 Jan 2017   Prob (F-statistic):          1.08e-296
+Time:                        12:35:39   Log-Likelihood:                -7281.0
+No. Observations:               12845   AIC:                         1.459e+04
+Df Residuals:                   12831   BIC:                         1.469e+04
 Df Model:                          14                                         
 Covariance Type:            nonrobust                                         
 =======================================================================================
                           coef    std err          t      P>|t|      [95.0% Conf. Int.]
 ---------------------------------------------------------------------------------------
-spread                  0.0436      0.001     32.899      0.000         0.041     0.046
-home_off_adv            0.2131      0.007     31.227      0.000         0.200     0.227
-away_off_adv           -0.2152      0.007    -31.726      0.000        -0.228    -0.202
-true_home_game          0.1734      0.010     17.096      0.000         0.154     0.193
-home_three_adv          0.0213      0.025      0.855      0.393        -0.028     0.070
-away_three_adv         -0.0652      0.027     -2.396      0.017        -0.118    -0.012
-home_three_d_adv        0.0532      0.029      1.859      0.063        -0.003     0.109
-away_three_d_adv       -0.0190      0.027     -0.714      0.475        -0.071     0.033
-home_reb_adv           -0.0351      0.130     -0.270      0.787        -0.290     0.220
-to                     -0.0022      0.034     -0.065      0.948        -0.069     0.065
-tof                     0.0209      0.029      0.711      0.477        -0.037     0.078
-home_tempo_z:spread    -0.0016      0.000     -3.880      0.000        -0.002    -0.001
-away_tempo_z:spread    -0.0013      0.000     -3.166      0.002        -0.002    -0.001
-conf:true_home_game    -0.0282      0.009     -2.984      0.003        -0.047    -0.010
+spread                  0.0420      0.001     35.503      0.000         0.040     0.044
+home_off_adv            0.2054      0.006     32.773      0.000         0.193     0.218
+away_off_adv           -0.2098      0.006    -33.615      0.000        -0.222    -0.198
+true_home_game          0.1679      0.009     17.742      0.000         0.149     0.186
+home_three_adv          0.0154      0.024      0.639      0.523        -0.032     0.063
+away_three_adv         -0.0683      0.027     -2.564      0.010        -0.121    -0.016
+home_three_d_adv        0.0593      0.028      2.120      0.034         0.004     0.114
+away_three_d_adv       -0.0157      0.026     -0.610      0.542        -0.066     0.035
+home_reb_adv           -0.0628      0.126     -0.498      0.618        -0.310     0.184
+to                      0.0232      0.032      0.718      0.473        -0.040     0.087
+tof                     0.0091      0.028      0.325      0.745        -0.046     0.064
+home_tempo_z:spread    -0.0014      0.000     -3.535      0.000        -0.002    -0.001
+away_tempo_z:spread    -0.0012      0.000     -3.088      0.002        -0.002    -0.000
+conf:true_home_game    -0.0269      0.009     -2.966      0.003        -0.045    -0.009
 ==============================================================================
-Omnibus:                        1.525   Durbin-Watson:                   2.043
-Prob(Omnibus):                  0.466   Jarque-Bera (JB):             1058.016
-Skew:                           0.028   Prob(JB):                    1.80e-230
-Kurtosis:                       1.545   Cond. No.                         376.
+Omnibus:                        0.166   Durbin-Watson:                   1.989
+Prob(Omnibus):                  0.920   Jarque-Bera (JB):             1235.128
+Skew:                          -0.009   Prob(JB):                    6.24e-269
+Kurtosis:                       1.481   Cond. No.                         387.
 ==============================================================================
 
 Warnings:
 [1] Standard Errors assume that the covariance matrix of the errors is correctly specified.
-Testing with lower-bound 0.5 won 62.93 percent of 11727 games.
-This would lead to a profit of 2598.3 units.
-Testing with lower-bound 0.55 won 67.14 percent of 8029 games.
-This would lead to a profit of 2489.2 units.
-Testing with lower-bound 0.6 won 70.68 percent of 5080 games.
-This would lead to a profit of 1953.1 units.
-Testing with lower-bound 0.65 won 72.74 percent of 3001 games.
-This would lead to a profit of 1283.2 units.
-Testing with lower-bound 0.7 won 75.73 percent of 1677 games.
-This would lead to a profit of 822.3 units.
-Testing with lower-bound 0.75 won 78.1 percent of 854 games.
-This would lead to a profit of 461.3 units.
-Testing with lower-bound 0.8 won 80.53 percent of 452 games.
-This would lead to a profit of 267.2 units.
-Testing with lower-bound 0.85 won 80.73 percent of 218 games.
-This would lead to a profit of 129.8 units.
-Testing with lower-bound 0.9 won 81.81 percent of 110 games.
-This would lead to a profit of 68.0 units.
-Testing with lower-bound 0.95 won 86.88 percent of 61 games.
-This would lead to a profit of 44.2 units.
+Testing with lower-bound 0.5 won 63.14 percent of 12803 games.
+This would lead to a profit of 2893.1 units.
+Testing with lower-bound 0.55 won 67.05 percent of 8780 games.
+This would lead to a profit of 2704.7 units.
+Testing with lower-bound 0.6 won 71.15 percent of 5539 games.
+This would lead to a profit of 2183.2 units.
+Testing with lower-bound 0.65 won 73.62 percent of 3246 games.
+This would lead to a profit of 1448.4 units.
+Testing with lower-bound 0.7 won 76.8 percent of 1854 games.
+This would lead to a profit of 951.0 units.
+Testing with lower-bound 0.75 won 78.72 percent of 1001 games.
+This would lead to a profit of 553.7 units.
+Testing with lower-bound 0.8 won 81.75 percent of 581 games.
+This would lead to a profit of 358.4 units.
+Testing with lower-bound 0.85 won 82.33 percent of 334 games.
+This would lead to a profit of 210.1 units.
+Testing with lower-bound 0.9 won 84.86 percent of 185 games.
+This would lead to a profit of 126.2 units.
+Testing with lower-bound 0.95 won 91.52 percent of 118 games.
+This would lead to a profit of 97.0 units.
 Pick                SpreadProb  Tip Opponent
-Georgia Southern    -7.5  62.31 6p  vs S Alabama
-Coastal Carolina    -2.0  54.58 6p  vs AR Lit Rock
-Saint Peter's       -7.5  54.57 6p  vs Quinnipiac
-Georgia State       -6.0  52.9  6p  vs Troy
-Georgetown          -7.0  50.86 5p  vs St Johns
-Arkansas State      -6.0  50.31 6p  @  App State
+Coastal Carolina    -2.0  58.06 6p  vs AR Lit Rock
+Georgia Southern    -7.5  57.75 6p  vs S Alabama
+Saint Peter's       -7.0  56.5  6p  vs Quinnipiac
+Arkansas State      -5.5  53.71 6p  @  App State
+Troy                6.5   52.7  6p  @  Georgia St
+Georgetown          -6.5  51.9  5p  vs St Johns

@@ -30,17 +30,22 @@ def make_season(start_year=2016):
 
 	return all_season
 
-def get_data():
+def get_data(get_yesterday= False):
 	year = 2017
 	all_dates = make_season(year-1)
-	data = []
+	with open('lines' + str(year) + '.json','w') as infile:
+		data = json.load(infile)
 	base = "http://www.lines.com/odds/ncaab/spreads-totals/"
 	today = int((datetime.now() - timedelta(1)).strftime('%Y-%m-%d').replace('-',''))
 	for day in all_dates:
 		url = base+day
-		print (day)
 		if today < int(day.replace('-','')):
 			continue
+		if get_yesterday:
+			if today - int(day.replace('-','')) != 1:
+				continue
+		print (day)
+
 		try:
 			page = request.urlopen(request.Request(url, headers = { 'User-Agent' : ua.random }))
 		except error.HTTPError as e:
@@ -88,7 +93,3 @@ def get_data():
 				game_info['ats'] = 'W'
 			data.append(game_info)
 	return data
-
-
-
-

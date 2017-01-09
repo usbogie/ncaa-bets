@@ -5,12 +5,13 @@ import math
 import json
 
 def get_names():
-    sites = ['espn','kp','os','sb']
+    sites = ['espn','kp','os','sb','lines']
     espn_names = {}
     kp_names = {}
     os_names = {}
     sb_names = {}
-    dicts = [espn_names,kp_names,os_names,sb_names]
+    lines_names = {}
+    dicts = [espn_names,kp_names,os_names,sb_names,lines_names]
     for i in range(len(sites)):
         with open(sites[i] + '_data/names_dict.json', 'r+') as infile:
             dicts[i] = json.load(infile)
@@ -42,13 +43,15 @@ def get_team_stats(year_list = [2014,2015,2016,2017]):
             teams[team]["tof_poss"] = years[i].TOFP[j]
 
 def update_all():
-    # get_team_stats()
-    #
-    # get_kp_stats()
+    year_list = [2017]
+    get_team_stats(year_list)
 
-    # get_old_games()
+    get_kp_stats(year_list)
 
-    get_os_info()
+    get_old_games(year_list)
+
+    get_lines_info()
+    get_lines_info(lines=False)
 
     get_new_games()
 
@@ -120,24 +123,41 @@ def get_old_games(year_list = [2014,2015,2016,2017]):
             except:
                 continue
 
-def get_os_info(year_list = [2014,2015,2016,2017]):
+def get_lines_info(year_list = [2014,2015,2016,2017],lines = True):
     years = []
-    jsons = ['oddsshark14.json','oddsshark15.json','oddsshark16.json','oddsshark17.json']
+    jsons = ['lines2014.json','lines2015.json','lines2016.json','lines2017.json']
+    folder = 'lines_data/'
+    name_dict = lines_names
+    if not lines:
+        folder = 'os_data/'
+        name_dict = os_names
+        jsons = ['oddsshark14.json','oddsshark15.json','oddsshark16.json','oddsshark17.json']
     for i in range(len(jsons)):
         if i + 2014 in year_list:
-            osdf = pd.read_json('os_data/' + jsons[i])
-            years.append(osdf)
+            ldf = pd.read_json(folder + jsons[i])
+            years.append(ldf)
     for year in range(len(years)):
         for i in range(len(years[year].home)):
             try:
-                h = os_names[years[year].home[i]]
-                a = os_names[years[year].away[i]]
-                d = str(years[year].date[i])
-                d = d.split()[0]
-                key = str((h,a,d))
+                h = name_dict[years[year].home[i]]
+                a = name_dict[years[year].away[i]]
+                if lines:
+                    d = years[year].date[i].split('/')
+                    y = year_list[year] if int(d[0]) < 6 else year_list[year] - 1
+                    gamedate = date(y,int(d[0]),int(d[1][:2]))
+                    gamedate = str(gamedate)
+                else:
+                    d = str(years[year].date[i])
+                    gamedate = d.split()[0]
+                key = str((h,a,gamedate))
                 game = games[key]
+                try:
+                    regress_dict[key]
+                    continue
+                except:
+                    pass
                 if years[year].spread[i] == "Ev":
-                    game["spread"] = 0
+                    game["spread"] = float(0)
                 else:
                     game["spread"] = float(years[year].spread[i])
                 game["total"] = float(years[year].total[i])
@@ -150,17 +170,12 @@ def get_os_info(year_list = [2014,2015,2016,2017]):
                 else:
                     game["cover"] = "Tie"
                     game["home_cover"] = 0
-                if years[year].o[i] == 'O':
-                    game["over"] = 1
-                elif years[year].o[i] == 'U':
-                    game["over"] = 0
-                else:
-                    game["over"] = .5
                 if math.isnan(game["spread"]) or math.isnan(game["total"]):
                     continue
                 if abs(game["spread"] + game["margin"]) <= 3:
                     game["home_cover"] = game["home_cover"] / 2
                 regress_spread.append(game)
+                regress_dict[key] = game
             except:
                 continue
 def get_test_games(year_list = [2017]):
@@ -169,16 +184,16 @@ def get_test_games(year_list = [2017]):
         if int(game["season"]) in year_list:
             test_dict[key] = game
     years = []
-    jsons = ['oddsshark14.json','oddsshark15.json','oddsshark16.json','oddsshark17.json']
+    jsons = ['lines2014.json','lines2015.json','lines2016.json','lines2017.json']
     for i in range(len(jsons)):
         if i + 2014 in year_list:
-            osdf = pd.read_json('os_data/' + jsons[i])
+            osdf = pd.read_json('lines_data/' + jsons[i])
             years.append(osdf)
     for year in range(len(years)):
         for i in range(len(years[year].home)):
             try:
-                h = os_names[years[year].home[i]]
-                a = os_names[years[year].away[i]]
+                h = lines_names[years[year].home[i]]
+                a = lines_names[years[year].away[i]]
                 d = str(years[year].date[i])
                 d = d.split()[0]
                 key = str((h,a,d))
@@ -317,9 +332,10 @@ with open('games.json','r') as infile:
 # with open('regress_spread.json','r') as infile:
 #     regress_spread = json.load(infile)
 regress_spread = []
+regress_dict = {}
 new_games = []
 test_games = []
-espn_names, kp_names, os_names, sb_names = get_names()
+espn_names, kp_names, os_names, sb_names, lines_names = get_names()
 update_all()
 
 with open('teams.json', 'w') as outfile:

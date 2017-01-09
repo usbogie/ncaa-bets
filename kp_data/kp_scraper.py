@@ -65,7 +65,7 @@ def extract_kenpom(year):
             element_name, ri = index_lookup[i]
             if element_name in targets:
                 try:
-                    new_team[element_name] = regexes[ri].match(str(table_element)).groups()[0].replace(';', '')
+                    new_team[element_name] = regexes[ri].match(str(table_element)).groups()[0].replace(';', '').replace('&amp','&')
                     if VERBOSE:
                         print('found {} for current team: {}'.format(element_name, new_team[element_name]))
                 except:

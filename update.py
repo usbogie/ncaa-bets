@@ -27,8 +27,8 @@ with open('kp_data/kenpom17.json', 'w+') as outfile:
 	json.dump(teams, outfile)
 print("Updated KenPom")
 
-d = lines.get_data()
-with open('lines_data/lines2107.json', 'w+') as outfile:
+d = lines.get_data(get_yesterday=True)
+with open('lines_data/lines2017.json', 'w+') as outfile:
 	json.dump(d, outfile)
 print("Updated Game Lines")
 

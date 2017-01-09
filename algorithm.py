@@ -26,7 +26,7 @@ def regress_spreads():
             form += " + " + var + ":spread"
     for var in true:
             form += " + " + var + ":true_home_game"
-    result = sm.ols(formula = "home_cover ~ "+form+" -1",data=gamesdf,missing='drop').fit()
+    result = sm.ols(formula = "home_cover ~ "+form+" -1",data=gamesdf,missing='raise').fit()
     o = str(result.summary())
     f.write("\n"+o)
     print(o)

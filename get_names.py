@@ -366,7 +366,81 @@ def get_sb_names(name_list):
                     sb_names[team] = os_names[other]
     with open('sb_data/names_dict.json', 'w+') as outfile:
         json.dump(sb_names, outfile)
-
+def get_lines_names(name_list):
+    ldf = pd.read_json('lines_data/lines2017.json')
+    lset = set()
+    teamset = set()
+    trset = set()
+    for team in ldf.home:
+        lset.add(team)
+    for team in ldf.away:
+        lset.add(team)
+    for name in name_list:
+        teamset.add(name)
+        trset.add(name)
+    tmp = set()
+    for team in lset:
+        if team in trset:
+            lines_names[team] = team
+            tmp.add(team)
+        else:
+            dicts = [lines_names,sb_names,espn_names,kp_names,os_names]
+            for d in dicts:
+                try:
+                    lines_names[team] = d[team]
+                    tmp.add(team)
+                    break
+                except:
+                    pass
+    for team in tmp:
+        lset.remove(team)
+    tmp.clear()
+    for team in list(espn_names.keys()):
+        teamset.add(team)
+    for team in list(kp_names.keys()):
+        teamset.add(team)
+    for team in list(os_names.keys()):
+        teamset.add(team)
+    for team in list(sb_names.keys()):
+        teamset.add(team)
+    check_later = set()
+    for team in lset:
+        p = team.replace('.','')
+        ut = p.replace('Texas','UT')
+        chi = ut.replace('IL','CHI')
+        d = chi.replace('-',' ')
+        u = d.replace(' University','')
+        pa = u.replace(' (PA)','')
+        s = pa.replace('Virginia','VA')
+        if s in teamset:
+            check_later.add((team,s))
+            tmp.add(team)
+    for team in tmp:
+        lset.remove(team)
+    tmp.clear()
+    for team in sorted(lset):
+        ratio = 0
+        t = ""
+        for t2 in teamset:
+            if fuzz.ratio(team,t2) > ratio:
+                ratio = fuzz.ratio(team,t2)
+                t = t2
+    for team,other in check_later:
+        if other in trset:
+            lines_names[team] = other
+        else:
+            try:
+                lines_names[team] = espn_names[other]
+            except:
+                try:
+                    lines_names[team] = kp_names[other]
+                except:
+                    try:
+                        lines_names[team] = os_names[other]
+                    except:
+                        lines_names[team] = sb_names[team]
+    with open('lines_data/names_dict.json', 'w+') as outfile:
+        json.dump(lines_names, outfile)
 trdf = pd.read_csv("tr_data/team_stats14.csv")
 with open('espn_data/names_dict.json','r') as infile:
     espn_names = json.load(infile)
@@ -376,4 +450,7 @@ with open('os_data/names_dict.json','r') as infile:
     os_names = json.load(infile)
 with open('sb_data/names_dict.json','r') as infile:
     sb_names = json.load(infile)
+with open('lines_data/names_dict.json','r') as infile:
+    lines_names = json.load(infile)
 get_sb_names(trdf.Name)
+get_lines_names(trdf.Name)
