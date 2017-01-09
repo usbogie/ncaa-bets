@@ -5,7 +5,7 @@ Dep. Variable:             home_cover   R-squared:                       0.105
 Model:                            OLS   Adj. R-squared:                  0.105
 Method:                 Least Squares   F-statistic:                     167.7
 Date:                Mon, 09 Jan 2017   Prob (F-statistic):          8.15e-302
-Time:                        12:54:20   Log-Likelihood:                -7281.7
+Time:                        14:10:58   Log-Likelihood:                -7281.7
 No. Observations:               12845   AIC:                         1.458e+04
 Df Residuals:                   12836   BIC:                         1.465e+04
 Df Model:                           9                                         
@@ -31,26 +31,26 @@ Kurtosis:                       1.481   Cond. No.                         116.
 
 Warnings:
 [1] Standard Errors assume that the covariance matrix of the errors is correctly specified.
-Testing with lower-bound 0.5 won 63.14 percent of 12803 games.
-This would lead to a profit of 2893.1 units.
-Testing with lower-bound 0.55 won 67.05 percent of 8790 games.
-This would lead to a profit of 2708.4 units.
-Testing with lower-bound 0.6 won 71.23 percent of 5527 games.
-This would lead to a profit of 2188.0 units.
-Testing with lower-bound 0.65 won 73.78 percent of 3246 games.
-This would lead to a profit of 1458.9 units.
-Testing with lower-bound 0.7 won 76.6 percent of 1855 games.
-This would lead to a profit of 943.6 units.
-Testing with lower-bound 0.75 won 78.17 percent of 1008 games.
-This would lead to a profit of 546.0 units.
-Testing with lower-bound 0.8 won 81.66 percent of 578 games.
-This would lead to a profit of 355.4 units.
-Testing with lower-bound 0.85 won 82.28 percent of 333 games.
-This would lead to a profit of 209.1 units.
-Testing with lower-bound 0.9 won 85.16 percent of 182 games.
-This would lead to a profit of 125.3 units.
-Testing with lower-bound 0.95 won 90.75 percent of 119 games.
-This would lead to a profit of 95.9 units.
+Testing with lower-bound 0.5 won 54.57 percent of 4013 games.
+This would lead to a profit of 184.7 units.
+Testing with lower-bound 0.55 won 59.97 percent of 3263 games.
+This would lead to a profit of 520.4 units.
+Testing with lower-bound 0.6 won 67.6 percent of 2281 games.
+This would lead to a profit of 729.1 units.
+Testing with lower-bound 0.65 won 70.02 percent of 1391 games.
+This would lead to a profit of 515.3 units.
+Testing with lower-bound 0.7 won 74.73 percent of 847 games.
+This would lead to a profit of 397.6 units.
+Testing with lower-bound 0.75 won 73.48 percent of 430 games.
+This would lead to a profit of 190.6 units.
+Testing with lower-bound 0.8 won 80.81 percent of 245 games.
+This would lead to a profit of 146.3 units.
+Testing with lower-bound 0.85 won 78.8 percent of 151 games.
+This would lead to a profit of 83.8 units.
+Testing with lower-bound 0.9 won 74.6 percent of 63 games.
+This would lead to a profit of 29.4 units.
+Testing with lower-bound 0.95 won 90.0 percent of 50 games.
+This would lead to a profit of 39.5 units.
 Pick                SpreadProb  Tip Opponent
 Georgia Southern    -7.5  57.66 6p  vs S Alabama
 Coastal Carolina    -2.0  56.68 6p  vs AR Lit Rock

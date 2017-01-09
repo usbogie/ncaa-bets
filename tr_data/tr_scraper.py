@@ -1,19 +1,11 @@
-from urllib2 import urlopen
-from BeautifulSoup import BeautifulSoup as bs
+import urllib.request as request
+from bs4 import BeautifulSoup as bs
 from pprint import PrettyPrinter as pp
 import re
 from subprocess import call
 import sys
 import json
 import csv
-
-VERBOSE = False
-try:
-    if sys.argv[1] == '-v':
-        VERBOSE = True
-    print VERBOSE
-except:
-    pass
 
 def get_teamrankings(year_list = [2014,2015,2016,2017]):
     url = 'https://www.teamrankings.com/ncaa-basketball/stat/'
@@ -35,9 +27,8 @@ def get_teamrankings(year_list = [2014,2015,2016,2017]):
     teams = {}
     for year in year_list:
         for i in range(len(links)): #TODO figure out how to get all matchup links, and also key entries by AWAY @ HOME
-            if VERBOSE:
-                print 'finding stat {}'.format(i)
-            s = str(bs(urlopen('{}{}{}'.format(url,links[i],year_links[year]))))
+            s = str(bs(request.urlopen(request.Request('{}{}{}'.format(url,links[i],year_links[year]))),"html5lib"))
+            # s = str(bs(request.urlopen(request.Request('http://kenpom.com/index.php'+year_str)).read(), "html5lib"))
             match = 'data-sort="'
             index = 0
             name = ""
@@ -58,17 +49,7 @@ def get_teamrankings(year_list = [2014,2015,2016,2017]):
                                 break
 
                     index += 1
-        if VERBOSE:
-            p = pp(indent=4)
-            p.pprint(data)
         team_list = []
         for key,value in teams.items():
             team_list.append(value)
-        with open('team_stats'+str(year%100)+'.csv', 'w') as outfile:
-            keys = list(team_list[0].keys())
-            writer = csv.DictWriter(outfile,fieldnames=keys)
-            writer.writeheader()
-            for team in team_list:
-                writer.writerow(team)
-
-get_teamrankings([2016,2017])
+        return team_list

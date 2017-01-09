@@ -30,11 +30,9 @@ def make_season(start_year=2016):
 
 	return all_season
 
-def get_data(get_yesterday= False):
+def get_data(get_yesterday= False,data = []):
 	year = 2017
 	all_dates = make_season(year-1)
-	with open('lines' + str(year) + '.json','w') as infile:
-		data = json.load(infile)
 	base = "http://www.lines.com/odds/ncaab/spreads-totals/"
 	today = int((datetime.now() - timedelta(1)).strftime('%Y-%m-%d').replace('-',''))
 	for day in all_dates:
@@ -42,7 +40,7 @@ def get_data(get_yesterday= False):
 		if today < int(day.replace('-','')):
 			continue
 		if get_yesterday:
-			if today - int(day.replace('-','')) != 1:
+			if today != int(day.replace('-','')):
 				continue
 		print (day)
 

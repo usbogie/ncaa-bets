@@ -36,5 +36,3 @@ def get_todays_sportsbook_lines():
         game['date'] = date
         games.append(game)
     return games
-        
-#get_todays_sportsbook_lines()

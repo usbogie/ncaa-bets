@@ -4,8 +4,10 @@ import numpy as np
 from kp_data import kp_scraper as kp
 from lines_data import lines_scraper as lines
 from sb_data import sportsbook_scraper as sb
+from tr_data import tr_scraper as tr
 from datetime import datetime, timedelta
 import json
+import csv
 
 last_night = espn.update_espn_data()
 cur_season = pd.read_csv('espn_data/game_info2017.csv', index_col='Game_ID')
@@ -27,12 +29,22 @@ with open('kp_data/kenpom17.json', 'w+') as outfile:
 	json.dump(teams, outfile)
 print("Updated KenPom")
 
-d = lines.get_data(get_yesterday=True)
-with open('lines_data/lines2017.json', 'w+') as outfile:
-	json.dump(d, outfile)
+with open('lines_data/lines2017.json', 'r+') as linesfile:
+	gamelines = json.load(linesfile)
+	d = lines.get_data(get_yesterday=True,data=gamelines)
+	json.dump(d, linesfile)
 print("Updated Game Lines")
 
 games = sb.get_todays_sportsbook_lines()
 with open('sb_data/game_lines.json','w') as outfile:
 	json.dump(games,outfile)
 print("Updated new lines")
+
+team_list = tr.get_teamrankings([2017])
+with open('tr_data/team_stats17.csv', 'w') as outfile:
+	keys = list(team_list[0].keys())
+	writer = csv.DictWriter(outfile,fieldnames=keys)
+	writer.writeheader()
+	for team in team_list:
+		writer.writerow(team)
+print("Updated team stats")

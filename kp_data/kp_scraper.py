@@ -77,7 +77,7 @@ def extract_kenpom(year):
                             if tbl_str[i:i+8] == match1:
                                 for j in range(len(tbl_str)-i):
                                     if tbl_str[i+j+8:i+j+12] == match2:
-                                        new_team[element_name] = tbl_str[i+8:i+8+j].replace(';','')
+                                        new_team[element_name] = tbl_str[i+8:i+8+j].replace(';','').replace('&amp','&')
                                         break
                                 break
                     except:
@@ -91,4 +91,3 @@ def extract_kenpom(year):
         p.pprint(teams)
     year_str2 = str(year%100)
     return teams
-#extract_kenpom(2017)

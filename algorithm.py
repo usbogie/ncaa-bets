@@ -128,6 +128,6 @@ def print_picks(prob = .5,top = 175):
         new_games.remove(nextgame)
 parameters = regress_spreads()
 for i in range(10):
-   test_strategy(lb=i/20+.5)
+   test_strategy(lb=i/20+.5,ub=i/20+.55)
 predict_new_games()
 print_picks()

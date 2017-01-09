@@ -41,14 +41,15 @@ def get_team_stats(year_list = [2014,2015,2016,2017]):
             teams[team]["reb"] = years[i].REB[j]
             teams[team]["to_poss"] = years[i].TOP[j]
             teams[team]["tof_poss"] = years[i].TOFP[j]
+            teams[team]["games"] = []
 
 def update_all():
     year_list = [2017]
-    get_team_stats(year_list)
+    # get_team_stats()
+    #
+    # get_kp_stats()
 
-    get_kp_stats(year_list)
-
-    get_old_games(year_list)
+    # get_old_games()
 
     get_lines_info()
     get_lines_info(lines=False)
@@ -176,6 +177,8 @@ def get_lines_info(year_list = [2014,2015,2016,2017],lines = True):
                     game["home_cover"] = game["home_cover"] / 2
                 regress_spread.append(game)
                 regress_dict[key] = game
+                teams[game["home"]]["games"].append(game)
+                teams[game["away"]]["games"].append(game)
             except:
                 continue
 def get_test_games(year_list = [2017]):
