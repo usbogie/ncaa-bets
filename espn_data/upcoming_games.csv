@@ -1,31 +1,17 @@
 Game_ID,Away_Abbrv,Home_Abbrv,Away_Score,Home_Score,Game_Away,Game_Home,Game_Year,Game_Date,Game_Tipoff,Game_Location,Neutral_Site,Conference_Competition,Attendance
-400918365,RICH,GW,0,0,Richmond,George Washington,2017,01/08,12:00:00,Charles E. Smith Center|Washington|District of Columbia,False,True,0
-400918691,MAINE,UMBC,0,0,Maine,UMBC,2017,01/08,12:00:00,RAC Arena|Baltimore|Maryland,False,True,0
-400918504,DET,VALP,0,0,Detroit Mercy,Valparaiso,2017,01/08,13:00:00,Athletics-Recreation Center|Valparaiso|Indiana,False,True,0
-400919056,BUCK,HC,0,0,Bucknell,Holy Cross,2017,01/08,13:00:00,Hart Center|Worcester|Massachusetts,False,True,0
-400919057,L-MD,ARMY,0,0,Loyola (MD),Army,2017,01/08,13:00:00,Christl Arena|West Point|New York,False,True,0
-400933455,NCST,UNC,0,0,NC State,North Carolina,2017,01/08,13:00:00,Dean E. Smith Center|Chapel Hill|North Carolina,False,True,0
-400917573,NIAG,RID,0,0,Niagara,Rider,2017,01/08,14:00:00,Alumni Gymnasium (Rider)|Lawrenceville|New Jersey,False,True,0
-400917575,MRST,MONM,0,0,Marist,Monmouth,2017,01/08,14:00:00,OceanFirst Bank Center|West Long Branch|New Jersey,False,True,0
-400918267,DAV,SLU,0,0,Davidson,Saint Louis,2017,01/08,14:00:00,Chaifetz Arena|St. Louis|Missouri,False,True,0
-400918614,ALBY,STON,0,0,Albany,Stony Brook,2017,01/08,14:00:00,Island FCU Arena|Stony Brook|New York,False,True,0
-400918645,UML,BING,0,0,UMass Lowell,Binghamton,2017,01/08,14:00:00,Events Center (Binghamton)|Binghamton|New York,False,True,0
-400919058,BU,LAF,0,0,Boston University,Lafayette,2017,01/08,14:00:00,Kirby Sports Center|Easton|Pennsylvania,False,True,0
-400919059,AMER,LEH,0,0,American,Lehigh,2017,01/08,14:00:00,Stabler Arena|Bethlehem|Pennsylvania,False,True,0
-400919060,COLG,NAVY,0,0,Colgate,Navy,2017,01/08,14:00:00,Alumni Hall|Annapolis|Maryland,False,True,0
-400919300,FIS,COR,0,0,Fisher College,Cornell,2017,01/08,14:00:00,Newman Arena|Ithaca|New York,False,False,0
-400915111,NW,NEB,0,0,Northwestern,Nebraska,2017,01/08,14:15:00,Pinnacle Bank Arena|Lincoln|Nebraska,False,True,0
-400916574,MEM,TULN,0,0,Memphis,Tulane,2017,01/08,15:00:00,Devlin Fieldhouse|New Orleans|Louisiana,False,True,0
-400917574,CAN,IONA,0,0,Canisius,Iona,2017,01/08,16:00:00,Hynes Athletics Center|New Rochelle|New York,False,True,0
-400918117,WICH,UNI,0,0,Wichita St,Northern Iowa,2017,01/08,16:00:00,McLeod Center|Cedar Falls|Iowa,False,True,0
-400918239,EVAN,DRKE,0,0,Evansville,Drake,2017,01/08,16:00:00,The Knapp Center|Des Moines|Iowa,False,True,0
-400918666,HART,UVM,0,0,Hartford,Vermont,2017,01/08,16:00:00,Patrick Gymnasium|Burlington|Vermont,False,True,0
-400933447,WOF,SAM,0,0,Wofford,Samford,2017,01/08,16:00:00,Pete Hanna Center|Birmingham|Alabama,False,True,0
-400914933,WIS,PUR,0,0,Wisconsin,Purdue,2017,01/08,16:30:00,Mackey Arena|West Lafayette|Indiana,False,True,0
-400915007,RUTG,IOWA,0,0,Rutgers,Iowa,2017,01/08,16:30:00,Carver-Hawkeye Arena|Iowa City|Iowa,False,True,0
-400916575,UCF,CONN,0,0,UCF,Connecticut,2017,01/08,17:00:00,Gampel Pavilion|Storrs|Connecticut,False,True,0
-400918555,OAK,UIC,0,0,Oakland,UIC,2017,01/08,17:00:00,UIC Pavilion|Chicago|Illinois,False,True,0
-400915096,OSU,MINN,0,0,Ohio State,Minnesota,2017,01/08,19:30:00,Williams Arena|Minneapolis|Minnesota,False,True,0
-400915367,WAKE,UVA,0,0,Wake Forest,Virginia,2017,01/08,20:00:00,John Paul Jones Arena|Charlottesville|Virginia,False,True,0
-400915616,STAN,UCLA,0,0,Stanford,UCLA,2017,01/08,20:00:00,Pauley Pavilion|Los Angeles|California,False,True,0
-400915617,CAL,USC,0,0,California,USC,2017,01/08,22:00:00,Galen Center|Los Angeles|California,False,True,0
+400920483,UMES,NCAT,0,0,Maryland-Eastern Shore,North Carolina A&T,2017,01/09,16:00:00,Corbett Sports Center|Greensboro|North Carolina,False,True,0
+400919674,SJU,GTWN,0,0,St John's,Georgetown,2017,01/09,18:30:00,Verizon Center|Washington|District of Columbia,False,True,0
+400916026,TROY,GAST,0,0,Troy,Georgia State,2017,01/09,19:00:00,GSU Sports Arena|Atlanta|Georgia,False,True,0
+400916027,UALR,CCAR,0,0,Little Rock,Coastal Carolina,2017,01/09,19:00:00,The HTC Center|Conway|South Carolina,False,True,0
+400916028,ARST,APP,0,0,Arkansas State,Appalachian State,2017,01/09,19:00:00,Holmes Convocation Center|Boone|North Carolina,False,True,0
+400916029,USA,GASO,0,0,South Alabama,Georgia Southern,2017,01/09,19:00:00,W. S. Hanner Fieldhouse|Statesboro|Georgia,False,True,0
+400917576,QU,SPU,0,0,Quinnipiac,Saint Peter's,2017,01/09,19:00:00,Yanitelli Center|Jersey City|New Jersey,False,True,0
+400917939,OLIV,IPFW,0,0,Olivet College,Fort Wayne,2017,01/09,19:00:00,Hilliard Gates Sports Center|Fort Wayne|Indiana,False,False,0
+400920438,SAV,HAMP,0,0,Savannah State,Hampton,2017,01/09,19:00:00,Convocation Center (VA)|Hampton|Virginia,False,True,0
+400920366,COPP,COOK,0,0,Coppin State,Bethune-Cookman,2017,01/09,19:30:00,ICI Center|Daytona Beach|Florida,False,True,0
+400920420,DSU,NCCU,0,0,Delaware State,North Carolina Central,2017,01/09,19:30:00,McDougald-McLendon Gymnasium|Durham|North Carolina,False,True,0
+400922199,ALCN,GRAM,0,0,Alcorn State,Grambling,2017,01/09,20:30:00,Fredrick C. Hobdy Assembly Center|Grambling|Louisiana,False,True,0
+400922217,AAMU,ARPB,0,0,Alabama A&M,Arkansas-Pine Bluff,2017,01/09,20:30:00,H. O. Clemmons Arena|Pine Bluff|Arkansas,False,True,0
+400922248,ALST,MVSU,0,0,Alabama State,Mississippi Valley State,2017,01/09,20:30:00,Robert W. Harrison Complex|Itta Bena|Mississippi,False,True,0
+400922387,SOU,JKST,0,0,Southern,Jackson State,2017,01/09,20:30:00,Lee E. Williams Athletic and Assembly Center|Jackson|Mississippi,False,True,0
+400920523,SCST,NORF,0,0,South Carolina State,Norfolk State,2017,01/09,20:00:00,Echols Hall|Norfolk|Virginia,False,True,0

@@ -12,7 +12,8 @@ with open('test_games.json') as infile:
     test_games = json.load(infile)
 f = open('output.txt','w')
 variables = ["spread","home_off_adv","away_off_adv","true_home_game","home_three_adv","away_three_adv","home_three_d_adv","away_three_d_adv","home_reb_adv","to","tof"]
-timespread = ["home_tempo_z","away_tempo_z","total_z"]
+timespread = ["home_tempo_z","away_tempo_z"]
+true = ["conf"]
 def regress_spreads():
     gamesdf = pd.DataFrame.from_dict(regress_spread)
     form = ""
@@ -23,6 +24,8 @@ def regress_spreads():
             form += " + " + var
     for var in timespread:
             form += " + " + var + ":spread"
+    for var in true:
+            form += " + " + var + ":true_home_game"
     result = sm.ols(formula = "home_cover ~ "+form+" -1",data=gamesdf,missing='drop').fit()
     o = str(result.summary())
     f.write("\n"+o)
@@ -59,6 +62,9 @@ def predict_new_games(data=new_games):
             i += 1
         for var in timespread:
             prob += parameters[i] * game[var] * game["spread"]
+            i += 1
+        for var in true:
+            prob += parameters[i] * game[var] * game["true_home_game"]
             i += 1
         game["prob"] = prob + .5
         if prob < 0:

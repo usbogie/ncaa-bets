@@ -42,13 +42,13 @@ def get_team_stats(year_list = [2014,2015,2016,2017]):
             teams[team]["tof_poss"] = years[i].TOFP[j]
 
 def update_all():
-    get_team_stats()
-
-    get_kp_stats()
+    # get_team_stats()
+    #
+    # get_kp_stats()
 
     # get_old_games()
 
-    # get_os_info()
+    get_os_info()
 
     get_new_games()
 
@@ -223,6 +223,8 @@ def get_new_games():
                 gameday -= timedelta(days=1)
             game["date"] = str(gameday)
             game["true_home_game"] = 1 if not gamesdf.Neutral_Site[i] else 0
+            game["conf"] = 1 if gamesdf.Conference_Competition[i] else 0
+            game["weekday"] = 0 if gameday.weekday() == 1 or gameday.weekday() == 7 else 1
             key = str((game["home"][:-4],game["away"][:-4],game["date"]))
             upcoming_games[key] = game
         except:
@@ -290,10 +292,6 @@ def set_game_attributes():
         all_games.append(game)
     for game in test_games:
         all_games.append(game)
-    l = []
-    for game in all_games:
-        l.append(game["total"])
-    z = zscore(l)
     for i,game in enumerate(all_games):
         home = teams[game["home"]]
         away = teams[game["away"]]
@@ -308,7 +306,7 @@ def set_game_attributes():
         game["home_reb_adv"] = home["reb"] - away["reb"]
         game["to"] = 1 if home["to_poss_z"] > 1 and away["tof_poss_z"] > 1 else 0
         game["tof"] = 1 if home["tof_poss_z"] > 1 and away["to_poss_z"] > 1 else 0
-        game["total_z"] = z[i]
+        game["weekday"] = 0 if game["weekday"] == -1 else game["weekday"]
 
 with open('teams.json','r') as infile:
     teams = json.load(infile)
@@ -316,9 +314,9 @@ with open('teams.json','r') as infile:
 with open('games.json','r') as infile:
     games = json.load(infile)
 # games = {}
-with open('regress_spread.json','r') as infile:
-    regress_spread = json.load(infile)
-# regress_spread = []
+# with open('regress_spread.json','r') as infile:
+#     regress_spread = json.load(infile)
+regress_spread = []
 new_games = []
 test_games = []
 espn_names, kp_names, os_names, sb_names = get_names()
