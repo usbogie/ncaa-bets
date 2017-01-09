@@ -6,7 +6,7 @@ from espn_data import espn_daily_scraper as espn
 import pandas as pd
 import numpy as np
 from kp_data import kp_scraper as kp
-from os_data import os_scraper as os
+from os_data import os_scraper as oddsshark
 from sb_data import sportsbook_scraper as sb
 
 last_night = espn.update_espn_data()
@@ -25,5 +25,12 @@ today_data.drop_duplicates().to_csv('espn_data/upcoming_games.csv', index_label=
 
 
 kp.extract_kenpom(2017)
-os.get_oddsshark(2017,links,names)
+
+links = []
+names = []
+for link,name in oddsshark.get_links():
+    links.append(link)
+    names.append(name)
+for i in range(4):
+	oddsshark.get_oddsshark(2017,links,names)
 sb.get_todays_sportsbook_lines()
