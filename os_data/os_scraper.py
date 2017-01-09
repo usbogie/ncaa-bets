@@ -1,31 +1,29 @@
-from urllib2 import urlopen
-from BeautifulSoup import BeautifulSoup as bs
+import urllib.request as request
+import urllib.error as error
+from bs4 import BeautifulSoup
+from fake_useragent import UserAgent
 from pprint import PrettyPrinter as pp
 import re
 from subprocess import call
 import sys
 import json
 
+ua = UserAgent()
+
 VERBOSE = False
 try:
     if sys.argv[1] == '-v':
         VERBOSE = True
-    print VERBOSE
+    print (VERBOSE)
 except:
     pass
 
 def get_links():
-    s = str(bs(urlopen('http://www.oddsshark.com/stats/gamelogs/basketball/ncaab')))
-    match = "/stats/gamelog/basketball/ncaab/"
-    name_match = "</a>"
-    links = []
-    for i in range(len(s)-32):
-        if s[i:i+32] == match:
-            link = s[i+32:i+37]
-            for j in range(50):
-                if s[i+j+58:i+j+62] == name_match:
-                    name = s[i+58:i+j+58].replace('amp;','')
-                    links.append((link,name.replace('&#039;','\'')))
+    url = 'http://www.oddsshark.com/stats/gamelogs/basketball/ncaab'
+    page = request.urlopen(request.Request(url, headers = { 'User-Agent' : ua.random }))
+    content = page.read()
+    soup = BeautifulSoup(content, "html5lib")
+    links = [(link['href'].split('/')[-1],link.text) for link in soup.findAll('a', {'class': 'base-arrow'})][1:]
     return links
 
 def game_occurred_yet(block):
@@ -77,19 +75,20 @@ def get_oddsshark(year,links,names):
         year_str = ''
     else:
         year_str = "/" + str(year)
-    j = 0
-    for i in links: #TODO figure out how to get all matchup links, and also key entries by AWAY @ HOME
+    for j,i in enumerate(links): #TODO figure out how to get all matchup links, and also key entries by AWAY @ HOME
         if VERBOSE:
-            print 'finding team {}'.format(i)
-        s = bs(urlopen('{}/{}{}'.format(url,i,year_str)))
+            print ('finding team {}'.format(i))
+        page = request.urlopen(request.Request('{}/{}{}'.format(url,i,year_str), headers = { 'User-Agent' : ua.random }))
+        content = page.read()
+        s = BeautifulSoup(content, "html5lib")
         entries = [tr.findAll('td') for tr in s.findAll('tr')]
         if not entries:
             if VERBOSE:
-                print 'skipping odds table, no entries...'
+                print ('skipping odds table, no entries...')
             continue
         if not str(entries[0]):
             if VERBOSE:
-                print 'skipping odds table, no entries...'
+                print ('skipping odds table, no entries...')
             continue
         for entry in entries:
             if not entry or not game_occurred_yet(entry):
@@ -106,7 +105,6 @@ def get_oddsshark(year,links,names):
                     game_info[index_lookup[i]] = str(box)[4:-5].strip()
                 if i == 3:
                     data.append(game_info)
-        j += 1
     if VERBOSE:
         p = pp(indent=4)
         p.pprint(data)
