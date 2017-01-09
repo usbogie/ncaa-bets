@@ -92,8 +92,8 @@ def test_strategy(lb = .5,ub = 2,data=regress_spread):
         percent = int(wins / number_of_games * 10000)/100
     except:
         percent = 0
-    s1 = "Testing with lower-bound " + str(lb) + " won " + str(percent) + " percent of " + str(number_of_games) + " games."
-    s2 = "This would lead to a profit of " + str(profit/10) + " units."
+    s1 = "Testing with lower-bound {} won {} percent of {} games.".format(str(lb), str(percent), str(number_of_games))
+    s2 = "This would lead to a profit of {} units.".format(str(profit/10))
     o = s1
     f.write("\n"+o)
     print(o)
