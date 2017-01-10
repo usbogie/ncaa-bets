@@ -5,6 +5,7 @@ import math
 import json
 
 def get_names():
+    print("Getting name_dicts")
     sites = ['espn','kp','os','sb','lines']
     espn_names = {}
     kp_names = {}
@@ -18,6 +19,7 @@ def get_names():
     return dicts
 
 def get_team_stats(year_list = [2014,2015,2016,2017]):
+    print("Getting team stats")
     years = []
     csvs = ["team_stats14.csv","team_stats15.csv","team_stats16.csv","team_stats17.csv"]
     for i in range(len(csvs)):
@@ -45,11 +47,11 @@ def get_team_stats(year_list = [2014,2015,2016,2017]):
 
 def update_all():
     year_list = [2017]
-    # get_team_stats()
-    #
-    # get_kp_stats()
+    get_team_stats()
 
-    # get_old_games()
+    get_kp_stats()
+
+    get_old_games()
 
     get_lines_info()
     get_lines_info(lines=False)
@@ -64,6 +66,7 @@ def update_all():
     # set_game_attributes(data=test_games)
 
 def get_kp_stats(year_list = [2014,2015,2016,2017]):
+    print("Getting kp stats")
     years = []
     jsons = ['kenpom14.json','kenpom15.json','kenpom16.json','kenpom17.json']
     for i in range(len(jsons)):
@@ -79,6 +82,7 @@ def get_kp_stats(year_list = [2014,2015,2016,2017]):
             teams[name]["kp_t"] = years[i].adjT[j]
 
 def get_old_games(year_list = [2014,2015,2016,2017]):
+    print("Getting old games from ESPN")
     years = []
     csvs = ["game_info2014.csv","game_info2015.csv","game_info2016.csv","game_info2017.csv"]
     for i in range(len(csvs)):
@@ -127,6 +131,10 @@ def get_old_games(year_list = [2014,2015,2016,2017]):
                 continue
 
 def get_lines_info(year_list = [2014,2015,2016,2017],lines = True):
+    if lines:
+        print("Getting lines data from lines")
+    else:
+        print("Getting lines data from oddsshark")
     years = []
     jsons = ['lines2014.json','lines2015.json','lines2016.json','lines2017.json']
     folder = 'lines_data/'
@@ -180,47 +188,48 @@ def get_lines_info(year_list = [2014,2015,2016,2017],lines = True):
                     continue
                 if abs(game["spread"] + game["margin"]) <= 3:
                     game["home_cover"] = game["home_cover"] / 2
-                regress_spread.append(game)
+                tmp_regress_spread.append(game)
                 regress_dict[key] = game
                 if len(teams[game["home"]]["games"]) == 0:
-                    teams[game["home"]]["games"].append(game)
+                    teams[game["home"]]["games"].append(game["key"])
                 else:
-                    for index,game2 in enumerate(teams[game["home"]]["games"]):
-                        datearray = game2["date"].split("-")
+                    for index,key in enumerate(teams[game["home"]]["games"]):
+                        datearray = games[key]["date"].split("-")
                         dateobject = date(int(datearray[0]),int(datearray[1]),int(datearray[2]))
                         if gamedateobject < dateobject:
-                            teams[game["home"]]["games"][index] = game
+                            teams[game["home"]]["games"][index] = game["key"]
                             for index2 in range(index+1,len(teams[game["home"]]["games"])):
                                 tmp = teams[game["home"]]["games"][index2]
-                                teams[game["home"]]["games"][index2] = game2
-                                game2 = tmp
-                            teams[game["home"]]["games"].append(game2)
+                                teams[game["home"]]["games"][index2] = key
+                                key = tmp
+                            teams[game["home"]]["games"].append(key)
                             break
-                        elif gamedateobject == dateobject:
+                        elif game["key"] == key:
                             break
                         if index == len(teams[game["home"]]["games"]) - 1:
-                            teams[game["home"]]["games"].append(game)
+                            teams[game["home"]]["games"].append(game["key"])
                 if len(teams[game["away"]]["games"]) == 0:
-                    teams[game["away"]]["games"].append(game)
+                    teams[game["away"]]["games"].append(game["key"])
                 else:
-                    for index,game2 in enumerate(teams[game["away"]]["games"]):
-                        datearray = game2["date"].split("-")
+                    for index,key in enumerate(teams[game["away"]]["games"]):
+                        datearray = games[key]["date"].split("-")
                         dateobject = date(int(datearray[0]),int(datearray[1]),int(datearray[2]))
                         if gamedateobject < dateobject:
-                            teams[game["away"]]["games"][index] = game
+                            teams[game["away"]]["games"][index] = game["key"]
                             for index2 in range(index+1,len(teams[game["away"]]["games"])):
                                 tmp = teams[game["away"]]["games"][index2]
-                                teams[game["away"]]["games"][index2] = game2
-                                game2 = tmp
-                            teams[game["away"]]["games"].append(game2)
+                                teams[game["away"]]["games"][index2] = key
+                                key = tmp
+                            teams[game["away"]]["games"].append(key)
                             break
-                        elif gamedateobject == dateobject:
+                        elif game["key"] == key:
                             break
                         if index == len(teams[game["away"]]["games"]) - 1:
-                            teams[game["away"]]["games"].append(game)
+                            teams[game["away"]]["games"].append(game["key"])
             except:
                 continue
 def get_test_games(year_list = [2017]):
+    print("Getting test games")
     test_dict = {}
     for key,game in games.items():
         if int(game["season"]) in year_list:
@@ -260,6 +269,7 @@ def get_test_games(year_list = [2017]):
             except:
                 continue
 def get_new_games():
+    print("Getting new games")
     gamesdf = pd.read_csv('espn_data/upcoming_games.csv')
     upcoming_games = {}
     for i in range(len(gamesdf.Game_Away)):
@@ -327,6 +337,7 @@ def get_new_games():
             print("No game matched:",home,away)
 
 def set_team_attributes():
+    print("Setting team attributes")
     stat_list = ["kp_o","kp_d","kp_t","fto","ftd","three_o","three_d","rebo","rebd","reb","to_poss","tof_poss"]
     for stat in stat_list:
         set_zscores(stat)
@@ -345,10 +356,11 @@ def set_zscores(stat):
 def set_game_attributes(new = False):
     all_games = []
     if not new:
-        data = regress_spread
+        data = tmp_regress_spread
+        print("Setting game attributes")
     else:
         data = new_games
-    t = 0
+        print("Setting game attributes for new games")
     for i,game in enumerate(data):
         home = teams[game["home"]]
         away = teams[game["away"]]
@@ -364,51 +376,103 @@ def set_game_attributes(new = False):
         game["to"] = 1 if home["to_poss_z"] > 1 and away["tof_poss_z"] > 1 else 0
         game["tof"] = 1 if home["tof_poss_z"] > 1 and away["to_poss_z"] > 1 else 0
         game["weekday"] = 0 if game["weekday"] == -1 else game["weekday"]
-        add = False
+        game["home_ats"] = 0
+        game["away_ats"] = 0
+        game["home_rec"] = 0
+        game["away_rec"] = 0
+        game["home_prev3"] = 0
+        game["away_prev3"] = 0
+        both = True
+        if len(home["games"]) == 0 or len(away["games"]) == 0:
+            continue
         if not new:
-            if len(home["games"]) == 0 or len(away["games"]) == 0:
-                continue
-            game["home_prev"] = 0
-            game["away_prev"] = 0
             for j,game2 in enumerate(home["games"]):
-                if game["key"] == game2["key"]:
+                if game["key"] == game2:
+                    if j < 3:
+                        both = False
                     for k in range(j):
-                        if home["games"][k]["cover"] == home["name"]:
-                            game["home_prev"] += 1
+                        nextgame = games[home["games"][k]]
+                        if nextgame["cover"] == home["name"]:
+                            game["home_ats"] += 1
+                        elif nextgame["cover"] == "Tie":
+                            game["home_ats"] += .5
+                        if nextgame["winner"] == home["name"]:
+                            game["home_rec"] += 1
+                        if j - k <= 3 and both:
+                            if nextgame["cover"] == home["name"]:
+                                game["home_prev3"] += 1
+                            elif nextgame["cover"] == "Tie":
+                                game["home_prev3"] += .5
                     break
             for j,game2 in enumerate(away["games"]):
-                if game["key"] == game2["key"]:
+                if game["key"] == game2:
+                    if j < 3:
+                        game["home_prev3"] = 0
+                        both = False
                     for k in range(j):
-                        if away["games"][k]["cover"] == away["name"]:
-                            game["away_prev"] += 1
+                        nextgame = games[away["games"][k]]
+                        if nextgame["cover"] == away["name"]:
+                            game["away_ats"] += 1
+                        elif nextgame["cover"] == "Tie":
+                            game["away_ats"] += .5
+                        if nextgame["winner"] == away["name"]:
+                            game["away_rec"] += 1
+                        if j - k <= 3 and both:
+                            if nextgame["cover"] == away["name"]:
+                                game["away_prev3"] += 1
+                            elif nextgame["cover"] == "Tie":
+                                game["away_prev3"] += .5
                     break
-            game["home_prev"] /= len(home["games"])
-            game["away_prev"] /= len(away["games"])
-            new_regress_spread.append(game)
+            game["home_ats"] /= len(home["games"])
+            game["away_ats"] /= len(away["games"])
+            game["home_rec"] /= len(home["games"])
+            game["away_rec"] /= len(away["games"])
+            regress_spread.append(game)
         elif new:
-            if len(home["games"]) == 0 or len(away["games"]) == 0:
-                continue
-            game["home_prev"] = 0
-            game["away_prev"] = 0
-            for game2 in home["games"]:
+            if len(home["games"]) < 3 or len(away["games"]) < 3:
+                both = False
+            for j,key in enumerate(home["games"]):
+                game2 = games[key]
                 if game2["cover"] == home["name"]:
-                    game["home_prev"] += 1
-            for game2 in away["games"]:
+                    game["home_ats"] += 1
+                elif game2["cover"] == "Tie":
+                    game["home_ats"] += .5
+                if game2["winner"] == home["name"]:
+                    game["home_rec"] += 1
+                if len(home["games"]) - j <= 3 and both:
+                    if game2["cover"] == away["name"]:
+                        game["home_prev3"] += 1
+                    elif game2["cover"] == "Tie":
+                        game["home_prev3"] += .5
+            for j,key in enumerate(away["games"]):
+                game2 = games[key]
                 if game2["cover"] == away["name"]:
-                    game["away_prev"] += 1
-            game["home_prev"] /= len(home["games"])
-            game["away_prev"] /= len(away["games"])
+                    game["away_ats"] += 1
+                elif game2["cover"] == "Tie":
+                    game["away_ats"] += .5
+                if game2["winner"] == away["name"]:
+                    game["away_rec"] += 1
+                if len(away["games"]) - j <= 3 and both:
+                    if game2["cover"] == away["name"]:
+                        game["away_prev3"] += 1
+                    elif game2["cover"] == "Tie":
+                        game["away_prev3"] += .5
+            game["home_ats"] /= len(home["games"])
+            game["away_ats"] /= len(away["games"])
+            game["home_rec"] /= len(home["games"])
+            game["away_rec"] /= len(away["games"])
             new_new_games.append(game)
-with open('teams.json','r') as infile:
-    teams = json.load(infile)
-# teams = {}
-with open('games.json','r') as infile:
-    games = json.load(infile)
-# games = {}
+
+teams = {}
+games = {}
+tmp_regress_spread = []
+# with open('teams.json','r') as infile:
+#     teams = json.load(infile)
+# with open('games.json','r') as infile:
+#     games = json.load(infile)
 # with open('regress_spread.json','r') as infile:
-#     regress_spread = json.load(infile)
+#     tmp_regress_spread = json.load(infile)
 regress_spread = []
-new_regress_spread = []
 regress_dict = {}
 new_games = []
 new_new_games = []
@@ -422,7 +486,7 @@ with open('teams.json', 'w') as outfile:
 with open('games.json','w') as outfile:
     json.dump(games, outfile)
 with open('regress_spread.json','w') as outfile:
-    json.dump(new_regress_spread,outfile)
+    json.dump(regress_spread,outfile)
 with open('new_games.json','w') as outfile:
     json.dump(new_new_games,outfile)
 with open('test_games.json','w') as outfile:
