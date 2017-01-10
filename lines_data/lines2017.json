@@ -1,1 +1,162 @@
-[{"home": "George Washington", "total": "141.5", "spread": "-5.5", "tipoff": "2:00 PM", "date": "1/081", "away": "Richmond", "ats": "L"}, {"home": "Valparaiso", "total": "152", "spread": "-17", "tipoff": ":00 PM", "date": "1/081", "away": "Detroit", "ats": "L"}, {"home": "Purdue", "total": "138", "spread": "-2", "tipoff": ":30 PM", "date": "1/084", "away": "Wisconsin", "ats": "W"}, {"home": "Saint Louis", "total": "137.5", "spread": "16", "tipoff": ":00 PM", "date": "1/082", "away": "Davidson", "ats": "W"}, {"home": "Iowa", "total": "146", "spread": "-10", "tipoff": ":30 PM", "date": "1/084", "away": "Rutgers", "ats": "L"}, {"home": "Nebraska", "total": "135.5", "spread": "1", "tipoff": ":15 PM", "date": "1/082", "away": "Northwestern", "ats": "L"}, {"home": "Tulane", "total": "150.5", "spread": "11.5", "tipoff": ":00 PM", "date": "1/083", "away": "Memphis", "ats": "L"}, {"home": "Northern Iowa", "total": "130.5", "spread": "10.5", "tipoff": ":00 PM", "date": "1/084", "away": "Wichita State", "ats": "L"}, {"home": "Drake", "total": "142.5", "spread": "3", "tipoff": ":00 PM", "date": "1/084", "away": "Evansville", "ats": "W"}, {"home": "Illinois-Chicago", "total": "152.5", "spread": "9", "tipoff": ":00 PM", "date": "1/085", "away": "Oakland", "ats": "W"}, {"home": "Connecticut", "total": "118", "spread": "-2", "tipoff": ":00 PM", "date": "1/085", "away": "UCF", "ats": "W"}, {"home": "Minnesota", "total": "140", "spread": "-5.5", "tipoff": ":30 PM", "date": "1/087", "away": "Ohio State", "ats": "W"}, {"home": "Virginia", "total": "131.5", "spread": "-12", "tipoff": ":00 PM", "date": "1/088", "away": "Wake Forest", "ats": "W"}, {"home": "UCLA", "total": "158", "spread": "-21", "tipoff": ":00 PM", "date": "1/088", "away": "Stanford", "ats": "L"}, {"home": "USC", "total": "139", "spread": "-1.5", "tipoff": "0:00 PM", "date": "1/081", "away": "California", "ats": "L"}, {"home": "Monmouth", "total": "155", "spread": "-16.5", "tipoff": ":00 PM", "date": "1/082", "away": "Marist", "ats": "L"}, {"home": "Rider", "total": "149", "spread": "-8.5", "tipoff": ":00 PM", "date": "1/085", "away": "Niagara", "ats": "W"}, {"home": "Iona", "total": "161.5", "spread": "-5", "tipoff": ":00 PM", "date": "1/084", "away": "Canisius", "ats": "W"}, {"home": "Samford", "total": "148", "spread": "-4", "tipoff": ":00 PM", "date": "1/084", "away": "Wofford", "ats": "L"}, {"home": "North Carolina", "total": "164", "spread": "-13", "tipoff": ":00 PM", "date": "1/081", "away": "North Carolina State", "ats": "W"}]
+[
+  {
+    "date": "1/08",
+    "away": "Richmond",
+    "home": "George Washington",
+    "total": "141.5",
+    "spread": "-5.5",
+    "ats": "L"
+  },
+  {
+    "date": "1/08",
+    "away": "Detroit",
+    "home": "Valparaiso",
+    "total": "152",
+    "spread": "-17",
+    "ats": "L"
+  },
+  {
+    "date": "1/08",
+    "away": "Wisconsin",
+    "home": "Purdue",
+    "total": "138",
+    "spread": "-2",
+    "ats": "W"
+  },
+  {
+    "date": "1/08",
+    "away": "Davidson",
+    "home": "Saint Louis",
+    "total": "137.5",
+    "spread": "16",
+    "ats": "W"
+  },
+  {
+    "date": "1/08",
+    "away": "Rutgers",
+    "home": "Iowa",
+    "total": "146",
+    "spread": "-10",
+    "ats": "L"
+  },
+  {
+    "date": "1/08",
+    "away": "Northwestern",
+    "home": "Nebraska",
+    "total": "135.5",
+    "spread": "1",
+    "ats": "L"
+  },
+  {
+    "date": "1/08",
+    "away": "Memphis",
+    "home": "Tulane",
+    "total": "150.5",
+    "spread": "11.5",
+    "ats": "L"
+  },
+  {
+    "date": "1/08",
+    "away": "Wichita State",
+    "home": "Northern Iowa",
+    "total": "130.5",
+    "spread": "10.5",
+    "ats": "L"
+  },
+  {
+    "date": "1/08",
+    "away": "Evansville",
+    "home": "Drake",
+    "total": "142.5",
+    "spread": "3",
+    "ats": "W"
+  },
+  {
+    "date": "1/08",
+    "away": "Oakland",
+    "home": "Illinois-Chicago",
+    "total": "152.5",
+    "spread": "9",
+    "ats": "W"
+  },
+  {
+    "date": "1/08",
+    "away": "UCF",
+    "home": "Connecticut",
+    "total": "118",
+    "spread": "-2",
+    "ats": "W"
+  },
+  {
+    "date": "1/08",
+    "away": "Ohio State",
+    "home": "Minnesota",
+    "total": "140",
+    "spread": "-5.5",
+    "ats": "W"
+  },
+  {
+    "date": "1/08",
+    "away": "Wake Forest",
+    "home": "Virginia",
+    "total": "131.5",
+    "spread": "-12",
+    "ats": "W"
+  },
+  {
+    "date": "1/08",
+    "away": "Stanford",
+    "home": "UCLA",
+    "total": "158",
+    "spread": "-21",
+    "ats": "L"
+  },
+  {
+    "date": "1/08",
+    "away": "California",
+    "home": "USC",
+    "total": "139",
+    "spread": "-1.5",
+    "ats": "L"
+  },
+  {
+    "date": "1/08",
+    "away": "Marist",
+    "home": "Monmouth",
+    "total": "155",
+    "spread": "-16.5",
+    "ats": "L"
+  },
+  {
+    "date": "1/08",
+    "away": "Niagara",
+    "home": "Rider",
+    "total": "149",
+    "spread": "-8.5",
+    "ats": "W"
+  },
+  {
+    "date": "1/08",
+    "away": "Canisius",
+    "home": "Iona",
+    "total": "161.5",
+    "spread": "-5",
+    "ats": "W"
+  },
+  {
+    "date": "1/08",
+    "away": "Wofford",
+    "home": "Samford",
+    "total": "148",
+    "spread": "-4",
+    "ats": "L"
+  },
+  {
+    "date": "1/08",
+    "away": "North Carolina State",
+    "home": "North Carolina",
+    "total": "164",
+    "spread": "-13",
+    "ats": "W"
+  }
+]

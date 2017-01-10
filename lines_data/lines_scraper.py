@@ -30,20 +30,20 @@ def make_season(start_year=2016):
 
 	return all_season
 
-def get_data(get_yesterday= False,data = []):
-	year = 2017
+def get_data(get_yesterday=False, year=2017):
 	all_dates = make_season(year-1)
+	with open('lines' + str(year) + '.json','r+') as infile:
+ 		data = json.load(infile)
 	base = "http://www.lines.com/odds/ncaab/spreads-totals/"
 	today = int((datetime.now() - timedelta(1)).strftime('%Y-%m-%d').replace('-',''))
 	for day in all_dates:
-		url = base+day
 		if today < int(day.replace('-','')):
 			continue
 		if get_yesterday:
-			if today != int(day.replace('-','')):
+			if today - int(day.replace('-','')) != 1:
 				continue
 		print (day)
-
+		url = base+day
 		try:
 			page = request.urlopen(request.Request(url, headers = { 'User-Agent' : ua.random }))
 		except error.HTTPError as e:
@@ -67,7 +67,7 @@ def get_data(get_yesterday= False,data = []):
 		entries = [tr.findAll('td') for tr in table.tbody.findAll('tr')]
 		for entry in entries:
 			game_info = {}
-			game_info['date'],game_info['tipoff'] = entry[1].div.text[:5], entry[1].div.text[5:]
+			game_info['date'] = entry[1].div.contents[0]
 			if len(entry[2].a.contents) < 3 and entry[2].a.contents[0] == 'High Point':
 				game_info['away'],game_info['home'] = 'Longwood','High Point'
 			else:
