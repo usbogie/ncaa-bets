@@ -30,10 +30,17 @@ def make_season(start_year=2016):
 
 	return all_season
 
-def get_data(get_yesterday=False, year=2017):
+def ordered(obj):
+    if isinstance(obj, dict):
+        return sorted((k, ordered(v)) for k, v in obj.items())
+    if isinstance(obj, list):
+        return sorted(ordered(x) for x in obj)
+    else:
+        return obj
+
+def get_data(game_lines, get_yesterday=False, year=2017):
+	data = game_lines
 	all_dates = make_season(year-1)
-	with open('lines' + str(year) + '.json','r+') as infile:
- 		data = json.load(infile)
 	base = "http://www.lines.com/odds/ncaab/spreads-totals/"
 	today = int((datetime.now() - timedelta(1)).strftime('%Y-%m-%d').replace('-',''))
 	for day in all_dates:
@@ -63,7 +70,6 @@ def get_data(get_yesterday=False, year=2017):
 			continue
 
 		table = soup.find('table', {'id': 'odds-1league-14'})
-		data = []
 		entries = [tr.findAll('td') for tr in table.tbody.findAll('tr')]
 		for entry in entries:
 			game_info = {}
@@ -89,5 +95,10 @@ def get_data(get_yesterday=False, year=2017):
 				game_info['ats'] = 'L'
 			else:
 				game_info['ats'] = 'W'
-			data.append(game_info)
+			add = True
+			for line in data:
+				if ordered(line) == ordered(game_info):
+					add = False
+			if add:
+				data.append(game_info)
 	return data

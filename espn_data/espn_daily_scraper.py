@@ -37,7 +37,7 @@ class Game(object):
 		date, time = str(eastern)[:-6].split(" ")
 		self.year = date.split('-')[0]
 		self.tipoff = time
-		self.date = "{}/{}".format(tuple(date.split("-"))
+		self.date = "{}/{}".format(date.split("-")[1],date.split("-")[2])
 
 		data = array([arange(len(info))])
 		self.info_df = pd.DataFrame(data, columns=info)

@@ -2980,3 +2980,17 @@ Game_ID,Away_Abbrv,Home_Abbrv,Away_Score,Home_Score,Game_Away,Game_Home,Game_Yea
 400917573,NIAG,RID,78,89,Niagara,Rider,2017,01/08,16:00:00,Alumni Gymnasium (Rider)|Lawrenceville|New Jersey,False,True,1192
 400918555,OAK,UIC,58,57,Oakland,UIC,2017,01/08,16:00:00,UIC Pavilion|Chicago|Illinois,False,True,1970
 400915096,OSU,MINN,68,78,Ohio State,Minnesota,2017,01/08,18:30:00,Williams Arena|Minneapolis|Minnesota,False,True,11267
+400920483,UMES,NCAT,99,88,Maryland-Eastern Shore,North Carolina A&T,2017,2017/2017,15:00:00,Corbett Sports Center|Greensboro|North Carolina,False,True,1418
+400919674,SJU,GTWN,55,83,St John's,Georgetown,2017,2017/2017,17:30:00,Verizon Center|Washington|District of Columbia,False,True,5158
+400916026,TROY,GAST,80,77,Troy,Georgia State,2017,2017/2017,18:00:00,GSU Sports Arena|Atlanta|Georgia,False,True,1400
+400916027,UALR,CCU,63,66,Little Rock,Coastal Carolina,2017,2017/2017,18:00:00,The HTC Center|Conway|South Carolina,False,True,1292
+400916028,ARST,APP,57,70,Arkansas State,Appalachian State,2017,2017/2017,18:00:00,Holmes Convocation Center|Boone|North Carolina,False,True,522
+400916029,USA,GASO,79,84,South Alabama,Georgia Southern,2017,2017/2017,18:00:00,W. S. Hanner Fieldhouse|Statesboro|Georgia,False,True,0
+400917576,QU,SPU,54,58,Quinnipiac,Saint Peter's,2017,2017/2017,18:00:00,Yanitelli Center|Jersey City|New Jersey,False,True,0
+400917939,OLIV,IPFW,60,115,Olivet College,Fort Wayne,2017,2017/2017,18:00:00,Hilliard Gates Sports Center|Fort Wayne|Indiana,False,False,906
+400920438,SAV,HAMP,80,84,Savannah State,Hampton,2017,2017/2017,18:00:00,Convocation Center (VA)|Hampton|Virginia,False,True,1234
+400920366,COPP,BCU,76,73,Coppin State,Bethune-Cookman,2017,2017/2017,18:30:00,ICI Center|Daytona Beach|Florida,False,True,711
+400922199,ALCN,GRAM,62,67,Alcorn State,Grambling,2017,2017/2017,19:30:00,Fredrick C. Hobdy Assembly Center|Grambling|Louisiana,False,True,743
+400922217,AAMU,UAPB,65,81,Alabama A&M,Arkansas-Pine Bluff,2017,2017/2017,19:30:00,H. O. Clemmons Arena|Pine Bluff|Arkansas,False,True,705
+400922248,ALST,MVSU,70,73,Alabama State,Mississippi Valley State,2017,2017/2017,19:30:00,Robert W. Harrison Complex|Itta Bena|Mississippi,False,True,2201
+400922387,SOU,JKST,61,65,Southern,Jackson State,2017,2017/2017,19:30:00,Lee E. Williams Athletic and Assembly Center|Jackson|Mississippi,False,True,1327
