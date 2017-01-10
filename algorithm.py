@@ -11,7 +11,7 @@ with open('regress_spread.json') as infile:
 with open('test_games.json') as infile:
     test_games = json.load(infile)
 f = open('output.txt','w')
-variables = ["spread","home_off_adv","away_off_adv","true_home_game","away_three_adv","home_three_d_adv"]
+variables = ["spread","home_off_adv","away_off_adv","true_home_game","away_three_adv","home_three_d_adv","home_prev","away_prev"]
 timespread = ["home_tempo_z","away_tempo_z"]
 true = ["conf"]
 def regress_spreads():
@@ -128,6 +128,6 @@ def print_picks(prob = .5,top = 175):
         new_games.remove(nextgame)
 parameters = regress_spreads()
 for i in range(10):
-   test_strategy(lb=i/20+.5,ub=i/20+.55)
+   test_strategy(lb=i/20+.5)
 predict_new_games()
 print_picks()
