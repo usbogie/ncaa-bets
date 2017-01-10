@@ -6,6 +6,7 @@ from lines_data import lines_scraper as lines
 from sb_data import sportsbook_scraper as sb
 from tr_data import tr_scraper as tr
 from datetime import datetime, timedelta
+import record_results
 import json
 import csv
 
@@ -28,12 +29,13 @@ with open('kp_data/kenpom17.json', 'w+') as outfile:
 	json.dump(teams, outfile)
 print("Updated KenPom")
 
+all_lines = []
 with open('lines_data/lines2017.json', 'r+') as linesfile:
 	gamelines = json.load(linesfile)
-	d = lines.get_data(gamelines, get_yesterday=True)
+	all_lines = lines.get_data(gamelines, get_yesterday=True)
 	linesfile.seek(0)
 	linesfile.truncate()
-	json.dump(d, linesfile)
+	json.dump(all_lines, linesfile)
 print("Updated Game Lines")
 
 games = sb.get_todays_sportsbook_lines()
@@ -49,3 +51,14 @@ with open('tr_data/team_stats17.csv', 'w') as outfile:
 	for team in team_list:
 		writer.writerow(team)
 print("Updated team stats")
+
+with open('results.json', 'r+') as resultsfile:
+	past_results = json.load(resultsfile)
+	print(past_results)
+	results = record_results.add_yesterday(last_night,all_lines)
+	total = past_results+results
+	print(total)
+	resultsfile.seek(0)
+	resultsfile.truncate()
+	json.dump(total, resultsfile)
+print("Updated record jsons")
