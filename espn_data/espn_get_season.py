@@ -131,14 +131,14 @@ def make_overall_df(start_year):
 				except:
 					game_info['skip_game'] = True
 				game_info['Home_Abbrv'] = competitors[home]['team']['abbreviation']
-				game_info['Game_Away'] = html.unescape(competitors[away]['team']['location'])
-				game_info['Game_Home'] = html.unescape(competitors[home]['team']['location'])
+				game_info['Game_Away'] = html.unescape(competitors[away]['team']['location']).replace('\u00E9', 'e')
+				game_info['Game_Home'] = html.unescape(competitors[home]['team']['location']).replace('\u00E9', 'e')
 				game_info['Away_Score'] = competitors[away]['score']
 				game_info['Home_Score'] = competitors[home]['score']
 
 				links.append(game_info)
 
-				try: 
+				try:
 					game_notes.append(event['notes']['headline'])
 				except:
 					game_notes.append(None)

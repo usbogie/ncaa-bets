@@ -49,8 +49,8 @@ class Game(object):
 		self.info_df['Home_Abbrv'] = self.game_info['Home_Abbrv']
 		self.info_df['Away_Score'] = self.game_info['Away_Score']
 		self.info_df['Home_Score'] = self.game_info['Home_Score']
-		self.info_df['Game_Away'] = self.game_info['Game_Away']
-		self.info_df['Game_Home'] = self.game_info['Game_Home']
+		self.info_df['Game_Away'] = self.game_info['Game_Away'].replace('\u00E9', 'e')
+		self.info_df['Game_Home'] = self.game_info['Game_Home'].replace('\u00E9', 'e')
 		self.info_df['Game_Year'] = self.year
 		self.info_df['Game_Date'] = self.date
 		self.info_df['Game_Tipoff'] = self.tipoff
