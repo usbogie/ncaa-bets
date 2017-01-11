@@ -199,7 +199,7 @@ Game_ID,Away_Abbrv,Home_Abbrv,Away_Score,Home_Score,Game_Away,Game_Home,Game_Yea
 400823059,L-LA,UTEP,49,96,Loyola (LA),UTEP,2015,11/14,20:05:00,Don Haskins Center|El Paso|Texas,False,False,7596
 400827679,TXSO,CREI,70,93,Texas Southern,Creighton,2015,11/14,20:30:00,CenturyLink Center Omaha|Omaha|Nebraska,False,False,16538
 400841827,CLEV,AKR,53,65,Cleveland State,Akron,2015,11/14,20:30:00,MAC Center|Kent|Ohio,True,False,5471
-400827827,IDHO,SJSU,74,54,Idaho,San José State,2015,11/14,21:00:00,Event Center (San Jose St.)|San Jose|California,False,False,0
+400827827,IDHO,SJSU,74,54,Idaho,San Jose State,2015,11/14,21:00:00,Event Center (San Jose St.)|San Jose|California,False,False,0
 400839975,SDCC,CSB,69,93,San Diego Christian,CSU Bakersfield,2015,11/14,21:00:00,Icardo Center|Bakersfield|California,False,False,901
 400830223,DEN,SCU,55,33,Denver,Santa Clara,2015,11/14,22:00:00,Leavey Center|Santa Clara|California,False,False,0
 400820654,FAIR,UNC,65,92,Fairfield,North Carolina,2015,11/15,15:00:00,Dean E. Smith Center|Chapel Hill|North Carolina,False,False,13178
@@ -294,7 +294,7 @@ Game_ID,Away_Abbrv,Home_Abbrv,Away_Score,Home_Score,Game_Away,Game_Home,Game_Yea
 400846814,ORU,SC,66,84,Oral Roberts,South Carolina,2015,11/16,18:30:00,Colonial Life Arena|Columbia|South Carolina,False,False,9640
 400847100,LSUAL,NWST,99,97,Alexandria,Northwestern State,2015,11/16,18:30:00,Prather Coliseum|Natchitoches|Louisiana,False,False,1726
 400847120,MNCH,IPFW,53,85,Manchester,Fort Wayne,2015,11/16,18:30:00,Allen County War Memorial Coliseum|Fort Wayne|Indiana,False,False,1204
-400809346,NCAT,FLA,54,104,North Carolina A&T,Florida,2015,11/16,19:00:00,Exactech Arena at the Stephen C. O&#39;Connell Center|Gainesville|Florida,False,False,0
+400809346,NCAT,FLA,54,104,North Carolina A&T,Florida,2015,11/16,19:00:00,Exactech Arena|Gainesville|Florida,False,False,0
 400814190,MORE,ILST,66,67,Morehead State,Illinois State,2015,11/16,19:00:00,Redbird Arena|Normal|Illinois,False,False,4698
 400816947,SCHR,IW,49,73,Schreiner,Incarnate Word,2015,11/16,19:00:00,McDermott Convocation Center|San Antonio|Texas,False,False,502
 400816977,ARPB,OKST,72,86,Arkansas-Pine Bluff,Oklahoma State,2015,11/16,19:00:00,Gallagher-Iba Arena|Stillwater|Oklahoma,False,False,4556
@@ -320,7 +320,7 @@ Game_ID,Away_Abbrv,Home_Abbrv,Away_Score,Home_Score,Game_Away,Game_Home,Game_Yea
 400820674,BEL,ASU,74,83,Belmont,Arizona State,2015,11/16,21:00:00,Wells Fargo Arena (AZ)|Tempe|Arizona,False,False,4549
 400830179,SDCC,PEPP,49,91,San Diego Christian,Pepperdine,2015,11/16,21:00:00,Firestone Fieldhouse|Malibu|California,False,False,989
 400830202,RICE,SF,54,80,Rice,San Francisco,2015,11/16,21:00:00,War Memorial Gymnasium|San Francisco|California,False,False,1417
-400841086,MONT,SJSU,61,64,Montana,San José State,2015,11/16,21:00:00,Event Center (San Jose St.)|San Jose|California,False,False,1231
+400841086,MONT,SJSU,61,64,Montana,San Jose State,2015,11/16,21:00:00,Event Center (San Jose St.)|San Jose|California,False,False,1231
 400842025,MAN,SMC,63,89,Manhattan,Saint Mary's,2015,11/16,21:00:00,McKeon Pavilion|Moraga|California,False,False,2242
 400845438,NMH,UNLV,45,107,New Mexico Highlands,UNLV,2015,11/16,21:00:00,Thomas & Mack Center|Las Vegas|Nevada,False,False,9961
 400847077,LAM,FRES,72,80,Lamar,Fresno State,2015,11/16,21:00:00,Save Mart Center|Fresno|California,False,False,4799
@@ -505,7 +505,7 @@ Game_ID,Away_Abbrv,Home_Abbrv,Away_Score,Home_Score,Game_Away,Game_Home,Game_Yea
 400853217,LBSU,UVA,52,87,Long Beach State,Virginia,2015,11/20,20:30:00,TD Arena|Charleston|South Carolina,True,False,3417
 400816970,MCNS,OKLA,56,85,McNeese,Oklahoma,2015,11/20,19:00:00,Lloyd Noble Center|Norman|Oklahoma,False,False,8364
 400827781,ETSU,NOVA,51,86,East Tennessee St.,Villanova,2015,11/20,18:00:00,The Pavilion (Villanova)|Villanova|Pennsylvania,False,False,6500
-400839317,ARPB,MSU,46,92,Arkansas-Pine Bluff,Michigan State,2015,11/20,18:00:00,Breslin Center|East Lansing|Michigan,False,False,0
+400839317,UAPB,MSU,46,92,Arkansas-Pine Bluff,Michigan State,2015,11/20,18:00:00,Breslin Center|East Lansing|Michigan,False,False,0
 400839717,ECU,CAL,62,70,East Carolina,California,2015,11/20,22:00:00,Haas Pavilion|Berkeley|California,False,False,8658
 400853183,MIA,UTAH,90,66,Miami,Utah,2015,11/20,18:00:00,Roberto Clemente Coliseum|San Juan|Puerto Rico,True,False,2001
 400831582,JKST,BAY,60,77,Jackson State,Baylor,2015,11/20,19:00:00,Ferrell Center|Waco|Texas,False,False,5973
@@ -546,7 +546,7 @@ Game_ID,Away_Abbrv,Home_Abbrv,Away_Score,Home_Score,Game_Away,Game_Home,Game_Yea
 400839212,DET,PITT,79,95,Detroit Mercy,Pittsburgh,2015,11/20,19:00:00,Petersen Events Center|Pittsburgh|Pennsylvania,False,False,7819
 400847200,TRIN,MILW,61,85,Trinity Intl,Milwaukee,2015,11/20,19:00:00,UW-Milwaukee Panther Arena|Milwaukee|Wisconsin,False,False,1724
 400847349,AMKN,TRGV,56,78,Texas A&M-K'ville,UT Rio Grande Valley,2015,11/20,19:00:00,UTRGV Fieldhouse|Edinburg|Texas,False,False,1371
-400809339,INST,NORF,70,61,Indiana State,Norfolk State,2015,11/20,19:30:00,Sports and Fitness Center|St. Thomas|Virgin Islands,True,False,1601
+400809339,INST,NSU,70,61,Indiana State,Norfolk State,2015,11/20,19:30:00,Sports and Fitness Center|St. Thomas|Virgin Islands,True,False,1601
 400843735,SCST,LONG,83,77,South Carolina State,Longwood,2015,11/20,19:30:00,McBrayer Arena|Richmond|Kentucky,True,False,500
 400817121,UUTN,USU,49,73,Union (TN),Utah State,2015,11/20,20:00:00,Dee Glen Smith Spectrum|Logan|Utah,False,False,8628
 400830158,ADST,BYU,56,97,Adams State,BYU,2015,11/20,20:00:00,Marriott Center|Provo|Utah,False,False,12976
@@ -555,7 +555,7 @@ Game_ID,Away_Abbrv,Home_Abbrv,Away_Score,Home_Score,Game_Away,Game_Home,Game_Yea
 400852988,EMR,NAU,57,90,Embry-Riddle Aeronau,Northern Arizona,2015,11/20,20:00:00,J. Lawrence Walkup Skydome|Flagstaff|Arizona,False,False,0
 400814241,GASO,AUB,62,92,Georgia Southern,Auburn,2015,11/20,20:30:00,Auburn Arena|Auburn|Alabama,False,False,7806
 400817477,HNU,SAC,56,96,Holy Names,Sacramento State,2015,11/20,21:05:00,The Nest|Sacramento|California,False,False,625
-400844213,SJSU,MTST,69,81,San José State,Montana State,2015,11/20,21:05:00,Brick Breeden Fieldhouse |Bozeman|Montana,False,False,1806
+400844213,SJSU,MTST,69,81,San Jose State,Montana State,2015,11/20,21:05:00,Brick Breeden Fieldhouse |Bozeman|Montana,False,False,1806
 400818910,IDST,WSU,67,85,Idaho State,Washington State,2015,11/20,22:00:00,Friel Court|Pullman|Washington,False,False,2662
 400817213,UNC,UNI,67,71,North Carolina,Northern Iowa,2015,11/21,13:00:00,McLeod Center|Cedar Falls|Iowa,False,False,7018
 400818872,EMP,WICH,54,76,Emporia State,Wichita St,2015,11/21,14:00:00,Charles Koch Arena|Wichita|Kansas,False,False,10506
@@ -594,7 +594,7 @@ Game_ID,Away_Abbrv,Home_Abbrv,Away_Score,Home_Score,Game_Away,Game_Home,Game_Yea
 400833200,UALR,SDSU,49,43,Little Rock,San Diego State,2015,11/21,15:00:00,Viejas Arena|San Diego|California,False,False,12414
 400841874,BGSU,UND,59,77,Bowling Green,North Dakota,2015,11/21,15:00:00,Alico Arena|Fort Myers|Florida,True,False,0
 400853319,PV,RAD,56,64,Prairie View A&M,Radford,2015,11/21,15:00:00,Chace Athletic Center|Smithfield|Rhode Island,True,False,114
-400853333,OHIO,NORF,93,71,Ohio,Norfolk State,2015,11/21,15:00:00,Sports and Fitness Center|St. Thomas|Virgin Islands,True,False,0
+400853333,OHIO,NSU,93,71,Ohio,Norfolk State,2015,11/21,15:00:00,Sports and Fitness Center|St. Thomas|Virgin Islands,True,False,0
 400835611,CP,PEAY,73,64,Cal Poly,Austin Peay,2015,11/21,15:30:00,Bank of Colorado Arena|Greeley|Colorado,True,False,0
 400841851,LONG,BALL,67,78,Longwood,Ball State,2015,11/21,15:30:00,McBrayer Arena|Richmond|Kentucky,True,False,500
 400809352,NIAG,UVM,67,85,Niagara,Vermont,2015,11/21,16:00:00,Mohegan Sun Arena|Uncasville|Connecticut,True,False,0
@@ -603,7 +603,7 @@ Game_ID,Away_Abbrv,Home_Abbrv,Away_Score,Home_Score,Game_Away,Game_Home,Game_Yea
 400841606,ORST,UCSB,71,59,Oregon State,UC Santa Barbara,2015,11/21,16:00:00,The Thunderdome|Santa Barbara|California,False,False,2108
 400842113,TOL,L-IL,62,69,Toledo,Loyola (CHI),2015,11/21,16:00:00,Joseph J. Gentile Center|Chicago|Illinois,False,False,1556
 400830660,USD,CSF,55,67,San Diego,Cal State Fullerton,2015,11/21,17:00:00,Titan Gym|Fullerton|California,False,False,851
-400841031,COOK,RICH,64,89,Bethune-Cookman,Richmond,2015,11/21,17:00:00,Robins Center|Richmond|Virginia,False,False,5625
+400841031,BCU,RICH,64,89,Bethune-Cookman,Richmond,2015,11/21,17:00:00,Robins Center|Richmond|Virginia,False,False,5625
 400853317,FSU,DEP,83,67,Florida State,DePaul,2015,11/21,17:30:00,Sports and Fitness Center|St. Thomas|Virgin Islands,True,False,2205
 400809385,BU,USF,78,66,Boston University,South Florida,2015,11/21,18:00:00,USF Sun Dome|Tampa|Florida,False,False,2903
 400814191,HBU,ILST,56,72,Houston Baptist,Illinois State,2015,11/21,18:00:00,Redbird Arena|Normal|Illinois,False,False,4100
@@ -849,7 +849,7 @@ Game_ID,Away_Abbrv,Home_Abbrv,Away_Score,Home_Score,Game_Away,Game_Home,Game_Yea
 400853748,WKU,DUQ,73,81,Western Kentucky,Duquesne,2015,11/25,13:30:00,Germain Arena|Estero|Florida,True,False,1077
 400853769,SJU,CHAM,100,93,St John's,Chaminade,2015,11/25,13:30:00,Lahaina Civic Center|Maui|Hawaii,True,False,2400
 400827677,SYR,CHAR,83,70,Syracuse,Charlotte,2015,11/25,13:38:00,Imperial Arena|Nassau|Bahamas,True,False,1744
-400809349,UVM,FLA,62,86,Vermont,Florida,2015,11/25,14:00:00,Exactech Arena at the Stephen C. O&#39;Connell Center|Gainesville|Florida,False,False,8003
+400809349,UVM,FLA,62,86,Vermont,Florida,2015,11/25,14:00:00,Exactech Arena|Gainesville|Florida,False,False,8003
 400845029,SAM,IDHO,75,58,Samford,Idaho,2015,11/25,14:00:00,UNT Coliseum|Denton|Texas,True,False,177
 400847417,TRI,WIU,44,79,Trinity (IL),Western Illinois,2015,11/25,14:00:00,Western Hall|Macomb|Illinois,False,False,815
 400853771,SDST,CLEV,77,66,South Dakota State,Cleveland State,2015,11/25,14:00:00,Hard Rock Hotel Riviera Maya|Cancun|Mexico,True,False,982
@@ -900,7 +900,7 @@ Game_ID,Away_Abbrv,Home_Abbrv,Away_Score,Home_Score,Game_Away,Game_Home,Game_Yea
 400840061,GF,SEA,48,58,University of Great Falls,Seattle,2015,11/25,21:00:00,ShoWare Center|Kent|Washington,True,False,575
 400841535,PRST,NEV,73,76,Portland State,Nevada,2015,11/25,21:00:00,Lawlor Events Center|Reno|Nevada,False,False,5890
 400841803,UCSB,SF,68,61,UC Santa Barbara,San Francisco,2015,11/25,21:30:00,War Memorial Gymnasium|San Francisco|California,False,False,1452
-400842114,SJSU,TOL,74,89,San José State,Toledo,2015,11/25,22:30:00,Alaska Airlines Arena|Seattle|Washington,True,False,2340
+400842114,SJSU,TOL,74,89,San Jose State,Toledo,2015,11/25,22:30:00,Alaska Airlines Arena|Seattle|Washington,True,False,2340
 400853711,CLEM,RUTG,76,58,Clemson,Rutgers,2015,11/25,22:59:00,MGM Grand Garden Arena|Las Vegas|Nevada,True,False,0
 400844418,USD,L-IL,57,67,San Diego,Loyola (CHI),2015,11/26,01:00:00,Alaska Airlines Center|Anchorage|Alaska,True,False,0
 400826226,BC,MSU,68,99,Boston College,Michigan State,2015,11/26,17:30:00,Titan Gym|Fullerton|California,True,False,2341
@@ -956,7 +956,7 @@ Game_ID,Away_Abbrv,Home_Abbrv,Away_Score,Home_Score,Game_Away,Game_Home,Game_Yea
 400833427,WMU,LIB,68,58,Western Michigan,Liberty,2015,11/27,14:30:00,Nashville Municipal Auditorium|Nashville|Tennessee,True,False,0
 400844521,SIU,UTEP,66,71,Southern Illinois,UTEP,2015,11/27,14:30:00,American Bank Center|Corpus Christi|Texas,True,False,264
 400843693,SFU,UMES,57,70,St Francis (PA),Maryland-Eastern Shore,2015,11/27,15:00:00,Hytche Arena|Princess Anne|Maryland,False,False,428
-400854068,SJSU,USD,76,67,San José State,San Diego,2015,11/27,15:00:00,Alaska Airlines Center|Anchorage|Alaska,True,False,2379
+400854068,SJSU,USD,76,67,San Jose State,San Diego,2015,11/27,15:00:00,Alaska Airlines Center|Anchorage|Alaska,True,False,2379
 400840134,JAC,IPFW,63,71,Jacksonville,Fort Wayne,2015,11/27,15:30:00,Greensboro Coliseum|Greensboro|North Carolina,True,False,0
 400854115,FUR,MSM,69,60,Furman,Mount St Mary's,2015,11/27,15:30:00,Alumni Gym (Elon University)|Elon|North Carolina,True,False,0
 400817507,SELA,WEBB,68,77,Southeastern Louisiana,Gardner-Webb,2015,11/27,16:00:00,Christl Arena|West Point|New York,True,False,0
@@ -1054,7 +1054,7 @@ Game_ID,Away_Abbrv,Home_Abbrv,Away_Score,Home_Score,Game_Away,Game_Home,Game_Yea
 400841196,MAN,FOR,64,87,Manhattan,Fordham,2015,11/28,16:00:00,Rose Hill Gymnasium|Bronx|New York,False,False,2747
 400854245,CSU,UTEP,90,99,Colorado State,UTEP,2015,11/28,16:00:00,American Bank Center|Corpus Christi|Texas,True,False,274
 400854299,SELA,ARPB,60,62,Southeastern Louisiana,Arkansas-Pine Bluff,2015,11/28,16:00:00,Christl Arena|West Point|New York,True,False,0
-400854236,SJSU,UAA,91,87,San José State,Alaska Anchorage,2015,11/28,17:00:00,Alaska Airlines Center|Anchorage|Alaska,False,False,2419
+400854236,SJSU,UAA,91,87,San Jose State,Alaska Anchorage,2015,11/28,17:00:00,Alaska Airlines Center|Anchorage|Alaska,False,False,2419
 400846746,CINC,TNTC,66,91,Cincinnati Clermont,Tennessee Tech,2015,11/28,17:30:00,Hooper Eblen Center|Cookeville|Tennessee,False,False,0
 400817478,SDAK,SAC,96,90,South Dakota,Sacramento State,2015,11/28,17:35:00,The Nest|Sacramento|California,False,False,778
 400830502,TNST,KENN,56,49,Tennessee State,Kennesaw State,2015,11/28,18:00:00,KSU Convocation Center|Kennesaw|Georgia,False,False,884
@@ -1291,7 +1291,7 @@ Game_ID,Away_Abbrv,Home_Abbrv,Away_Score,Home_Score,Game_Away,Game_Home,Game_Yea
 400816757,BYU,UTAH,75,83,BYU,Utah,2015,12/02,21:00:00,Jon M. Huntsman Center|Salt Lake City|Utah,False,False,15131
 400817481,SAC,UCD,61,66,Sacramento State,UC Davis,2015,12/02,21:00:00,The Pavilion (UC Davis)|Davis|California,False,False,2934
 400830133,LMU,ORST,70,79,Loyola Marymount,Oregon State,2015,12/02,21:00:00,Gill Coliseum|Corvallis|Oregon,False,False,4576
-400845436,ANT,SJSU,60,90,Antelope Valley,San José State,2015,12/02,21:00:00,Event Center (San Jose St.)|San Jose|California,False,False,1105
+400845436,ANT,SJSU,60,90,Antelope Valley,San Jose State,2015,12/02,21:00:00,Event Center (San Jose St.)|San Jose|California,False,False,1105
 400846767,BETHE,USD,56,71,Bethesda,San Diego,2015,12/02,21:00:00,Jenny Craig Pavilion|San Diego|California,False,False,1281
 400830548,PORT,PRST,78,72,Portland,Portland State,2015,12/02,21:05:00,Stott Center|Portland|Oregon,False,False,785
 400827831,CSB,IDHO,63,67,CSU Bakersfield,Idaho,2015,12/02,22:00:00,Cowan Spectrum|Moscow|Idaho,False,False,563
@@ -1448,7 +1448,7 @@ Game_ID,Away_Abbrv,Home_Abbrv,Away_Score,Home_Score,Game_Away,Game_Home,Game_Yea
 400841037,IDST,LAM,70,82,Idaho State,Lamar,2015,12/05,20:30:00,Montagne Center|Beaumont|Texas,False,False,2137
 400817187,FRES,CP,65,77,Fresno State,Cal Poly,2015,12/05,21:00:00,Mott Athletics Center|San Luis Obispo|California,False,False,2861
 400830183,PEPP,CSUN,70,55,Pepperdine,CSU Northridge,2015,12/05,21:00:00,Matadome|Northridge|California,False,False,0
-400830247,SJSU,SCU,75,78,San José State,Santa Clara,2015,12/05,21:00:00,Leavey Center|Santa Clara|California,False,False,1676
+400830247,SJSU,SCU,75,78,San Jose State,Santa Clara,2015,12/05,21:00:00,Leavey Center|Santa Clara|California,False,False,1676
 400830549,BSU,PORT,81,71,Boise State,Portland,2015,12/05,21:00:00,Chiles Center|Portland|Oregon,False,False,2282
 400839978,NAU,CSB,55,72,Northern Arizona,CSU Bakersfield,2015,12/05,21:00:00,Icardo Center|Bakersfield|California,False,False,1001
 400820656,DAV,UNC,65,98,Davidson,North Carolina,2015,12/06,17:00:00,Dean E. Smith Center|Chapel Hill|North Carolina,False,False,14805
@@ -1537,7 +1537,7 @@ Game_ID,Away_Abbrv,Home_Abbrv,Away_Score,Home_Score,Game_Away,Game_Home,Game_Yea
 400814187,BRAD,UTA,61,97,Bradley,UT-Arlington,2015,12/08,19:00:00,College Park Center|Arlington|Texas,False,False,1833
 400816987,UTSA,TEX,50,116,UT San Antonio,Texas,2015,12/08,19:00:00,Frank Erwin Center|Austin|Texas,False,False,9657
 400817206,AFA,OSU,50,74,Air Force,Ohio State,2015,12/08,19:00:00,Value City Arena|Columbus|Ohio,False,False,11816
-400827760,SJSU,MARQ,62,80,San José State,Marquette,2015,12/08,19:00:00,BMO Harris Bradley Center|Milwaukee|Wisconsin,False,False,11696
+400827760,SJSU,MARQ,62,80,San Jose State,Marquette,2015,12/08,19:00:00,BMO Harris Bradley Center|Milwaukee|Wisconsin,False,False,11696
 400839347,SDST,MINN,84,70,South Dakota State,Minnesota,2015,12/08,19:00:00,Williams Arena|Minneapolis|Minnesota,False,False,10378
 400840004,UMKC,SDAK,70,79,UMKC,South Dakota,2015,12/08,19:00:00,The DakotaDome|Vermillion|South Dakota,False,False,1423
 400841878,BGSU,SEMO,79,52,Bowling Green,Southeast Missouri State,2015,12/08,19:00:00,Show Me Center|Cape Girardeau|Missouri,False,False,0
@@ -1688,7 +1688,7 @@ Game_ID,Away_Abbrv,Home_Abbrv,Away_Score,Home_Score,Game_Away,Game_Home,Game_Yea
 400841699,EKY,MRSH,72,96,Eastern Kentucky,Marshall,2015,12/12,18:00:00,Cam Henderson Center|Huntington|West Virginia,False,False,4553
 400841796,UNLV,UCRV,73,62,UNLV,UC Riverside,2015,12/12,18:00:00,SRC Arena|Riverside|California,False,False,1772
 400841813,CAN,KENT,77,84,Canisius,Kent State,2015,12/12,18:00:00,MAC Center|Kent|Ohio,False,False,3107
-400841830,COOK,AKR,60,81,Bethune-Cookman,Akron,2015,12/12,18:00:00,James A. Rhodes Arena|Akron|Ohio,False,False,2828
+400841830,BCU,AKR,60,81,Bethune-Cookman,Akron,2015,12/12,18:00:00,James A. Rhodes Arena|Akron|Ohio,False,False,2828
 400845008,ATU,SFA,48,86,Arkansas Tech,Stephen F. Austin,2015,12/12,18:00:00,William R. Johnson Coliseum|Nacogdoches|Texas,False,False,2063
 400817188,PAC,FRES,52,71,Pacific,Fresno State,2015,12/12,18:30:00,Save Mart Center|Fresno|California,False,False,5434
 400827461,ALBY,SIE,70,78,Albany,Siena,2015,12/12,18:30:00,Times Union Center|Albany|New York,False,False,10790
@@ -1746,7 +1746,7 @@ Game_ID,Away_Abbrv,Home_Abbrv,Away_Score,Home_Score,Game_Away,Game_Home,Game_Yea
 400845548,ALST,JVST,63,60,Alabama State,Jacksonville State,2015,12/13,15:00:00,Pete Mathews Coliseum|Jacksonville|Alabama,False,False,0
 400847343,ECC,SOU,69,96,Ecclesia,Southern,2015,12/13,15:00:00,F. G. Clark Activity Center|Baton Rouge|Louisiana,False,False,319
 400817630,MAINE,BC,60,91,Maine,Boston College,2015,12/13,16:00:00,Silvio Conte Forum|Chestnut Hill|Massachusetts,False,False,1411
-400844215,MTST,SJSU,91,83,Montana State,San José State,2015,12/13,16:00:00,Event Center (San Jose St.)|San Jose|California,False,False,1116
+400844215,MTST,SJSU,91,83,Montana State,San Jose State,2015,12/13,16:00:00,Event Center (San Jose St.)|San Jose|California,False,False,1116
 400817765,LSU,HOU,98,105,LSU,Houston,2015,12/13,16:30:00,Hofheinz Pavilion|Houston|Texas,False,False,7918
 400818916,UTEP,WSU,68,84,UTEP,Washington State,2015,12/13,17:00:00,Friel Court|Pullman|Washington,False,False,1917
 400825536,ALA,CLEM,51,50,Alabama,Clemson,2015,12/13,17:00:00,Bon Secours Wellness Arena|Greenville|South Carolina,False,False,7412
@@ -2016,7 +2016,7 @@ Game_ID,Away_Abbrv,Home_Abbrv,Away_Score,Home_Score,Game_Away,Game_Home,Game_Yea
 400833204,NAU,UALR,57,84,Northern Arizona,Little Rock,2015,12/20,13:00:00,Jack Stephens Center|Little Rock|Arkansas,False,False,0
 400833356,ECU,JMU,61,67,East Carolina,James Madison,2015,12/20,13:00:00,JMU Convocation Center|Harrisonburg|Virginia,False,False,2510
 400842043,MRST,ARMY,89,83,Marist,Army,2015,12/20,13:00:00,Christl Arena|West Point|New York,False,False,916
-400844336,ALST,CCAR,65,68,Alabama State,Coastal Carolina,2015,12/20,13:00:00,The HTC Center|Conway|South Carolina,False,False,1510
+400844336,ALST,CCU,65,68,Alabama State,Coastal Carolina,2015,12/20,13:00:00,The HTC Center|Conway|South Carolina,False,False,1510
 400830532,PEAY,LIP,92,84,Austin Peay,Lipscomb,2015,12/20,14:00:00,Allen Arena|Nashville|Tennessee,False,False,1255
 400835615,CP,AMCC,74,80,Cal Poly,Texas A&M-CC,2015,12/20,14:00:00,American Bank Center|Corpus Christi|Texas,False,False,917
 400841989,EWU,DEN,74,58,Eastern Washington,Denver,2015,12/20,14:00:00,Magness Arena|Denver|Colorado,False,False,1405
@@ -2028,7 +2028,7 @@ Game_ID,Away_Abbrv,Home_Abbrv,Away_Score,Home_Score,Game_Away,Game_Home,Game_Yea
 400820723,SAM,NEB,69,58,Samford,Nebraska,2015,12/20,18:00:00,Pinnacle Bank Arena|Lincoln|Nebraska,False,False,14871
 400841547,BETHE,CSUN,49,79,Bethesda,CSU Northridge,2015,12/20,19:00:00,Matadome|Northridge|California,False,False,613
 400841798,LIFE,UCRV,48,95,Life Pacific,UC Riverside,2015,12/20,19:00:00,SRC Arena|Riverside|California,False,False,244
-400840066,SJSU,SEA,64,67,San José State,Seattle,2015,12/20,20:00:00,KeyArena|Seattle|Washington,False,False,1275
+400840066,SJSU,SEA,64,67,San Jose State,Seattle,2015,12/20,20:00:00,KeyArena|Seattle|Washington,False,False,1275
 400820658,APP,UNC,70,94,Appalachian State,North Carolina,2015,12/21,18:00:00,Dean E. Smith Center|Chapel Hill|North Carolina,False,False,18336
 400827768,PROV,UMASS,90,66,Providence,Massachusetts,2015,12/21,18:00:00,William D. Mullins Memorial Center|Amherst|Massachusetts,False,False,4411
 400813816,EKY,WVU,59,84,Eastern Kentucky,West Virginia,2015,12/21,18:00:00,WVU Coliseum|Morgantown|West Virginia,False,False,8121
@@ -2044,7 +2044,7 @@ Game_ID,Away_Abbrv,Home_Abbrv,Away_Score,Home_Score,Game_Away,Game_Home,Game_Yea
 400839236,YSU,ND,78,87,Youngstown State,Notre Dame,2015,12/21,18:00:00,Purcell Pavilion|South Bend|Indiana,False,False,7313
 400840283,CHS,MARQ,74,91,Chicago State,Marquette,2015,12/21,18:00:00,BMO Harris Bradley Center|Milwaukee|Wisconsin,False,False,11937
 400840815,HP,W&M,75,78,High Point,William & Mary,2015,12/21,18:00:00,Kaplan Arena|Williamsburg|Virginia,False,False,1388
-400840862,ARPB,OHIO,58,65,Arkansas-Pine Bluff,Ohio,2015,12/21,18:00:00,Convocation Center (OH)|Athens|Ohio,False,False,5254
+400840862,UAPB,OHIO,58,65,Arkansas-Pine Bluff,Ohio,2015,12/21,18:00:00,Convocation Center (OH)|Athens|Ohio,False,False,5254
 400840884,ELON,UNCA,86,81,Elon,UNC Asheville,2015,12/21,18:00:00,Kimmel Arena|Asheville|North Carolina,False,False,1611
 400841785,SHSU,UCI,53,63,Sam Houston State,UC Irvine,2015,12/21,18:00:00,Don Haskins Center|El Paso|Texas,True,False,0
 400841938,EMU,COPP,73,62,Eastern Michigan,Coppin State,2015,12/21,18:00:00,Physical Education Complex|Baltimore|Maryland,False,False,813
@@ -2105,7 +2105,7 @@ Game_ID,Away_Abbrv,Home_Abbrv,Away_Score,Home_Score,Game_Away,Game_Home,Game_Yea
 400841806,IONA,UCSB,76,80,Iona,UC Santa Barbara,2015,12/22,14:00:00,South Point Arena|Las Vegas|Nevada,True,False,250
 400843635,NICH,HAMP,84,81,Nicholls,Hampton,2015,12/22,14:00:00,Orleans Arena|Las Vegas|Nevada,True,False,0
 400844416,SFA,ASU,73,80,Stephen F. Austin,Arizona State,2015,12/22,14:00:00,Wells Fargo Arena (AZ)|Tempe|Arizona,False,False,4373
-400845437,LIFE,SJSU,66,128,Life Pacific,San José State,2015,12/22,14:00:00,Event Center (San Jose St.)|San Jose|California,False,False,0
+400845437,LIFE,SJSU,66,128,Life Pacific,San Jose State,2015,12/22,14:00:00,Event Center (San Jose St.)|San Jose|California,False,False,0
 400817632,FOR,BC,55,64,Fordham,Boston College,2015,12/22,14:30:00,Barclays Center|Brooklyn|New York,True,False,0
 400821343,TROY,MISS,80,83,Troy,Ole Miss,2015,12/22,15:00:00,C. M. Tad Smith Coliseum|Oxford|Mississippi,False,False,9289
 400843697,CPE,UMES,86,115,Central Pennsylvania College,Maryland-Eastern Shore,2015,12/22,15:00:00,Hytche Arena|Princess Anne|Maryland,False,False,403
@@ -2399,7 +2399,7 @@ Game_ID,Away_Abbrv,Home_Abbrv,Away_Score,Home_Score,Game_Away,Game_Home,Game_Yea
 400841581,UCD,BSU,56,64,UC Davis,Boise State,2015,12/30,20:00:00,Taco Bell Arena|Boise|Idaho,False,False,5592
 400857948,ARI,NMSU,61,81,Arizona Christian,New Mexico State,2015,12/30,20:00:00,Pan American Center|Las Cruces|New Mexico,False,False,4210
 400817077,WYO,SDSU,55,67,Wyoming,San Diego State,2015,12/30,21:00:00,Viejas Arena|San Diego|California,False,True,12414
-400817126,USU,SJSU,80,71,Utah State,San José State,2015,12/30,21:00:00,Event Center (San Jose St.)|San Jose|California,False,True,1417
+400817126,USU,SJSU,80,71,Utah State,San Jose State,2015,12/30,21:00:00,Event Center (San Jose St.)|San Jose|California,False,True,1417
 400840069,UCSB,SEA,88,50,UC Santa Barbara,Seattle,2015,12/30,21:00:00,KeyArena|Seattle|Washington,False,False,1383
 400817097,FRES,UNLV,69,66,Fresno State,UNLV,2015,12/30,22:00:00,Thomas & Mack Center|Las Vegas|Nevada,False,True,12220
 400840333,XAV,NOVA,64,95,Xavier,Villanova,2015,12/31,11:00:00,The Pavilion (Villanova)|Villanova|Pennsylvania,False,True,6500
@@ -2476,7 +2476,7 @@ Game_ID,Away_Abbrv,Home_Abbrv,Away_Score,Home_Score,Game_Away,Game_Home,Game_Yea
 400840142,JAC,WMU,72,76,Jacksonville,Western Michigan,2016,01/02,12:00:00,University Arena (MI)|Kalamazoo|Michigan,False,False,0
 400841105,HC,NAVY,60,65,Holy Cross,Navy,2016,01/02,12:00:00,Alumni Hall|Annapolis|Maryland,False,True,2677
 400841221,WEBI,STET,53,103,Webber Int.,Stetson,2016,01/02,12:00:00,Edmunds Center|Deland|Florida,False,False,0
-400817142,SJSU,AFA,57,64,San José State,Air Force,2016,01/02,13:00:00,Clune Arena|Colorado Springs|Colorado,False,True,1131
+400817142,SJSU,AFA,57,64,San Jose State,Air Force,2016,01/02,13:00:00,Clune Arena|Colorado Springs|Colorado,False,True,1131
 400817372,BRWN,MAINE,92,98,Brown,Maine,2016,01/02,13:00:00,Cross Insurance Center|Bangor|Maine,False,False,0
 400830374,TENN,AUB,77,83,Tennessee,Auburn,2016,01/02,13:00:00,Auburn Arena|Auburn|Alabama,False,True,8614
 400830671,NORF,ALA,49,68,Norfolk State,Alabama,2016,01/02,13:00:00,Coleman Coliseum|Tuscaloosa|Alabama,False,False,0
@@ -2562,7 +2562,7 @@ Game_ID,Away_Abbrv,Home_Abbrv,Away_Score,Home_Score,Game_Away,Game_Home,Game_Yea
 400830533,LIP,AKR,73,80,Lipscomb,Akron,2016,01/02,18:20:00,James A. Rhodes Arena|Akron|Ohio,False,False,3652
 400835206,CONN,TULN,75,67,Connecticut,Tulane,2016,01/02,18:30:00,Devlin Fieldhouse|New Orleans|Louisiana,False,True,2243
 400830140,LMU,PEPP,65,68,Loyola Marymount,Pepperdine,2016,01/02,19:00:00,Firestone Fieldhouse|Malibu|California,False,True,1516
-400830371,UGA,FLA,63,77,Georgia,Florida,2016,01/02,19:00:00,Exactech Arena at the Stephen C. O&#39;Connell Center|Gainesville|Florida,False,True,9053
+400830371,UGA,FLA,63,77,Georgia,Florida,2016,01/02,19:00:00,Exactech Arena|Gainesville|Florida,False,True,9053
 400839983,CSB,UCRV,67,48,CSU Bakersfield,UC Riverside,2016,01/02,19:00:00,SRC Arena|Riverside|California,False,False,321
 400840924,DAV,SBON,85,97,Davidson,St Bonaventure,2016,01/02,19:00:00,Reilly Center|Saint Bonaventure|New York,False,True,3783
 400844515,UNI,SIU,73,75,Northern Iowa,Southern Illinois,2016,01/02,19:00:00,SIU Arena|Carbondale|Illinois,False,True,6106
@@ -2638,7 +2638,7 @@ Game_ID,Away_Abbrv,Home_Abbrv,Away_Score,Home_Score,Game_Away,Game_Home,Game_Yea
 400820369,UNO,LAM,68,64,New Orleans,Lamar,2016,01/04,19:30:00,Montagne Center|Beaumont|Texas,False,True,1731
 400846819,ALST,GRAM,81,84,Alabama State,Grambling,2016,01/04,19:30:00,Fredrick C. Hobdy Assembly Center|Grambling|Louisiana,False,True,426
 400847295,AAMU,JKST,66,67,Alabama A&M,Jackson State,2016,01/04,19:30:00,Lee E. Williams Athletic and Assembly Center|Jackson|Mississippi,False,True,617
-400847307,ARPB,MVSU,60,66,Arkansas-Pine Bluff,Mississippi Valley State,2016,01/04,19:30:00,Leflore County Civic Center|Greenwood|Mississippi,False,True,0
+400847307,UAPB,MVSU,60,66,Arkansas-Pine Bluff,Mississippi Valley State,2016,01/04,19:30:00,Leflore County Civic Center|Greenwood|Mississippi,False,True,0
 400847332,SOU,PV,65,71,Southern,Prairie View A&M,2016,01/04,19:30:00,William Nicks Building|Prairie View|Texas,False,True,331
 400844027,ALCN,TXSO,58,74,Alcorn State,Texas Southern,2016,01/04,20:00:00,H&PE Arena|Houston|Texas,False,True,1245
 400840285,MARQ,PROV,65,64,Marquette,Providence,2016,01/05,18:00:00,Dunkin Donuts Center|Providence|Rhode Island,False,True,10446
@@ -2726,7 +2726,7 @@ Game_ID,Away_Abbrv,Home_Abbrv,Away_Score,Home_Score,Game_Away,Game_Home,Game_Yea
 400841315,CAL,ORE,65,68,California,Oregon,2016,01/06,20:00:00,Matthew Knight Arena|Eugene|Oregon,False,True,6948
 400841992,ORU,DEN,75,78,Oral Roberts,Denver,2016,01/06,20:00:00,Magness Arena|Denver|Colorado,False,True,1039
 400817098,UNLV,CSU,65,66,UNLV,Colorado State,2016,01/06,21:00:00,Moby Arena|Fort Collins|Colorado,False,True,3431
-400817143,SJSU,SDSU,62,77,San José State,San Diego State,2016,01/06,21:00:00,Viejas Arena|San Diego|California,False,True,12414
+400817143,SJSU,SDSU,62,77,San Jose State,San Diego State,2016,01/06,21:00:00,Viejas Arena|San Diego|California,False,True,12414
 400817176,NEV,FRES,63,85,Nevada,Fresno State,2016,01/06,21:00:00,Save Mart Center|Fresno|California,False,True,5315
 400830726,LBSU,CSUN,94,79,Long Beach State,CSU Northridge,2016,01/06,21:00:00,Matadome|Northridge|California,False,True,704
 400841631,STAN,ORST,78,72,Stanford,Oregon State,2016,01/06,22:00:00,Gill Coliseum|Corvallis|Oregon,False,True,0
@@ -2878,7 +2878,7 @@ Game_ID,Away_Abbrv,Home_Abbrv,Away_Score,Home_Score,Game_Away,Game_Home,Game_Yea
 400845071,SFU,LIU,72,65,St Francis (PA),LIU Brooklyn,2016,01/09,15:30:00,"Wellness, Recreation and Athletic Center|Brooklyn|New York",False,True,1174
 400847057,ACU,NICH,62,63,Abilene Christian ,Nicholls,2016,01/09,15:30:00,Stopher Gymnasium|Thibodaux|Louisiana,False,True,1297
 400816847,TROY,GASO,88,93,Troy,Georgia Southern,2016,01/09,16:00:00,W. S. Hanner Fieldhouse|Statesboro|Georgia,False,True,1155
-400817144,CSU,SJSU,85,84,Colorado State,San José State,2016,01/09,16:00:00,Event Center (San Jose St.)|San Jose|California,False,True,1470
+400817144,CSU,SJSU,85,84,Colorado State,San Jose State,2016,01/09,16:00:00,Event Center (San Jose St.)|San Jose|California,False,True,1470
 400839386,NEB,RUTG,90,56,Nebraska,Rutgers,2016,01/09,16:00:00,Louis Brown Athletic Center|Piscataway|New Jersey,False,True,4454
 400842072,OMA,SDAK,79,73,Omaha,South Dakota,2016,01/09,16:00:00,The DakotaDome|Vermillion|South Dakota,False,True,1741
 400844053,ASU,UCLA,74,81,Arizona State,UCLA,2016,01/09,16:00:00,Pauley Pavilion|Los Angeles|California,False,True,9973
@@ -3044,7 +3044,7 @@ Game_ID,Away_Abbrv,Home_Abbrv,Away_Score,Home_Score,Game_Away,Game_Home,Game_Yea
 400839239,GT,ND,64,72,Georgia Tech,Notre Dame,2016,01/13,20:00:00,Purcell Pavilion|South Bend|Indiana,False,True,7795
 400839783,FSU,NCST,85,78,Florida State,NC State,2016,01/13,20:00:00,PNC Arena|Raleigh|North Carolina,False,True,16846
 400844510,WICH,MOST,78,62,Wichita St,Missouri State,2016,01/13,20:00:00,JQH Arena|Springfield|Missouri,False,True,7684
-400817081,WYO,SJSU,55,62,Wyoming,San José State,2016,01/13,21:00:00,Event Center (San Jose St.)|San Jose|California,False,True,1395
+400817081,WYO,SJSU,55,62,Wyoming,San Jose State,2016,01/13,21:00:00,Event Center (San Jose St.)|San Jose|California,False,True,1395
 400817168,SDSU,CSU,69,62,San Diego State,Colorado State,2016,01/13,21:00:00,Moby Arena|Fort Collins|Colorado,False,True,4018
 400817178,BSU,NEV,74,67,Boise State,Nevada,2016,01/13,21:00:00,Lawlor Events Center|Reno|Nevada,False,True,7564
 400841632,ORST,COLO,54,71,Oregon State,Colorado,2016,01/13,22:00:00,Coors Events Center|Boulder|Colorado,False,True,9190
@@ -3223,7 +3223,7 @@ Game_ID,Away_Abbrv,Home_Abbrv,Away_Score,Home_Score,Game_Away,Game_Home,Game_Yea
 400846822,AAMU,ALST,80,75,Alabama A&M,Alabama State,2016,01/16,17:32:00,Dunn-Oliver Acadome|Montgomery|Alabama,False,True,0
 400816830,UPST,FGCU,56,85,South Carolina Upstate,Florida Gulf Coast,2016,01/16,18:00:00,Alico Arena|Fort Myers|Florida,False,True,4074
 400817004,MTST,UNCO,76,78,Montana State,Northern Colorado,2016,01/16,18:00:00,Bank of Colorado Arena|Greeley|Colorado,False,True,1120
-400817145,SJSU,FRES,74,81,San José State,Fresno State,2016,01/16,18:00:00,Save Mart Center|Fresno|California,False,True,6457
+400817145,SJSU,FRES,74,81,San Jose State,Fresno State,2016,01/16,18:00:00,Save Mart Center|Fresno|California,False,True,6457
 400825517,COLG,BUCK,84,73,Colgate,Bucknell,2016,01/16,18:00:00,Sojka Pavilion|Lewisburg|Pennsylvania,False,True,3137
 400830511,KENN,UNF,78,93,Kennesaw State,North Florida,2016,01/16,18:00:00,UNF Arena|Jacksonville|Florida,False,True,2131
 400830535,LIP,JAC,73,76,Lipscomb,Jacksonville,2016,01/16,18:00:00,Jacksonville Veterans Memorial|Jacksonville|Florida,False,True,736
@@ -3380,7 +3380,7 @@ Game_ID,Away_Abbrv,Home_Abbrv,Away_Score,Home_Score,Game_Away,Game_Home,Game_Yea
 400847413,WIU,SDAK,67,76,Western Illinois,South Dakota,2016,01/20,19:00:00,The DakotaDome|Vermillion|South Dakota,False,True,1674
 400839354,MINN,MICH,69,74,Minnesota,Michigan,2016,01/20,19:30:00,Crisler Center|Ann Arbor|Michigan,False,True,11726
 400817083,NEV,WYO,75,69,Nevada,Wyoming,2016,01/20,20:00:00,Arena-Auditorium|Laramie|Wyoming,False,True,4959
-400817146,SJSU,BSU,69,94,San José State,Boise State,2016,01/20,20:00:00,Taco Bell Arena|Boise|Idaho,False,True,5992
+400817146,SJSU,BSU,69,94,San Jose State,Boise State,2016,01/20,20:00:00,Taco Bell Arena|Boise|Idaho,False,True,5992
 400817196,CSU,AFA,83,79,Colorado State,Air Force,2016,01/20,20:00:00,Clune Arena|Colorado Springs|Colorado,False,True,2021
 400830409,VAN,TENN,88,74,Vanderbilt,Tennessee,2016,01/20,20:00:00,Thompson-Boling Arena|Knoxville|Tennessee,False,True,13561
 400821336,JOES,PENN,75,60,Saint Joseph's,Penn,2016,01/20,20:30:00,The Palestra|Philadelphia|Pennsylvania,False,False,8030
@@ -3523,7 +3523,7 @@ Game_ID,Away_Abbrv,Home_Abbrv,Away_Score,Home_Score,Game_Away,Game_Home,Game_Yea
 400841902,BUFF,WMU,71,91,Buffalo,Western Michigan,2016,01/23,15:30:00,University Arena (MI)|Kalamazoo|Michigan,False,True,3079
 400847094,NWST,MCNS,74,75,Northwestern State,McNeese,2016,01/23,15:30:00,Burton Coliseum|Lake Charles|Louisiana,False,True,1231
 400841885,KENT,BGSU,62,59,Kent State,Bowling Green,2016,01/23,15:35:00,Stroh Center|Bowling Green|Ohio,False,True,3100
-400817147,UNM,SJSU,83,64,New Mexico,San José State,2016,01/23,16:00:00,Event Center (San Jose St.)|San Jose|California,False,True,1633
+400817147,UNM,SJSU,83,64,New Mexico,San Jose State,2016,01/23,16:00:00,Event Center (San Jose St.)|San Jose|California,False,True,1633
 400847289,SDST,SDAK,79,75,South Dakota State,South Dakota,2016,01/23,16:00:00,The DakotaDome|Vermillion|South Dakota,False,True,4832
 400816880,USA,ULM,68,100,South Alabama,Louisiana Monroe,2016,01/23,16:25:00,Fant-Ewing Coliseum|Monroe|Louisiana,False,True,1556
 400816932,ARST,TXST,68,78,Arkansas State,Texas State,2016,01/23,16:30:00,Strahan Coliseum|San Marcos|Texas,False,True,2857
@@ -3554,7 +3554,7 @@ Game_ID,Away_Abbrv,Home_Abbrv,Away_Score,Home_Score,Game_Away,Game_Home,Game_Yea
 400816851,TROY,ULL,65,88,Troy,UL Lafayette,2016,01/23,18:30:00,Cajundome|Lafayette|Louisiana,False,True,6064
 400820373,UNO,AMCC,76,97,New Orleans,Texas A&M-CC,2016,01/23,19:00:00,American Bank Center|Corpus Christi|Texas,False,True,0
 400830170,BYU,PEPP,65,71,BYU,Pepperdine,2016,01/23,19:00:00,Firestone Fieldhouse|Malibu|California,False,True,3019
-400830411,AUB,FLA,63,95,Auburn,Florida,2016,01/23,19:00:00,Exactech Arena at the Stephen C. O&#39;Connell Center|Gainesville|Florida,False,True,11230
+400830411,AUB,FLA,63,95,Auburn,Florida,2016,01/23,19:00:00,Exactech Arena|Gainesville|Florida,False,True,11230
 400841618,LT,USM,70,59,Louisiana Tech,Southern Mississippi,2016,01/23,19:00:00,Reed Green Coliseum|Hattiesburg|Mississippi,False,True,3334
 400841743,UNT,UAB,57,78,North Texas,UAB,2016,01/23,19:00:00,Bartow Arena|Birmingham|Alabama,False,True,6835
 400842074,OMA,ORU,85,79,Omaha,Oral Roberts,2016,01/23,19:00:00,Mabee Center|Tulsa|Oklahoma,False,True,5308
@@ -3644,7 +3644,7 @@ Game_ID,Away_Abbrv,Home_Abbrv,Away_Score,Home_Score,Game_Away,Game_Home,Game_Yea
 400830920,KSU,WVU,55,70,Kansas State,West Virginia,2016,01/26,18:00:00,WVU Coliseum|Morgantown|West Virginia,False,True,9936
 400839337,UVA,WAKE,72,71,Virginia,Wake Forest,2016,01/26,18:00:00,Lawrence Joel Coliseum|Winston-salem|North Carolina,False,True,9221
 400839290,IND,WIS,79,82,Indiana,Wisconsin,2016,01/26,18:00:00,Kohl Center|Madison|Wisconsin,False,True,17287
-400862853,COOK,HOW,68,70,Bethune-Cookman,Howard,2016,01/26,17:00:00,Burr Gymnasium|Washington|District of Columbia,False,True,1605
+400862853,BCU,HOW,68,70,Bethune-Cookman,Howard,2016,01/26,17:00:00,Burr Gymnasium|Washington|District of Columbia,False,True,1605
 400840225,CREI,GTWN,73,74,Creighton,Georgetown,2016,01/26,17:30:00,Verizon Center|Washington|District of Columbia,False,True,6897
 400830420,MSST,SC,74,84,Mississippi State,South Carolina,2016,01/26,18:00:00,Colonial Life Arena|Columbia|South Carolina,False,True,12764
 400835277,MEM,UCF,97,86,Memphis,UCF,2016,01/26,18:00:00,CFE Arena|Orlando|Florida,False,True,4577
@@ -3706,7 +3706,7 @@ Game_ID,Away_Abbrv,Home_Abbrv,Away_Score,Home_Score,Game_Away,Game_Home,Game_Yea
 400835280,USF,TULN,73,60,South Florida,Tulane,2016,01/27,19:00:00,Devlin Fieldhouse|New Orleans|Louisiana,False,True,2429
 400839792,GT,NCST,90,83,Georgia Tech,NC State,2016,01/27,19:00:00,PNC Arena|Raleigh|North Carolina,False,True,15945
 400845537,MURR,EKY,75,71,Murray State,Eastern Kentucky,2016,01/27,19:00:00,McBrayer Arena|Richmond|Kentucky,False,True,2700
-400817148,SJSU,CSU,66,74,San José State,Colorado State,2016,01/27,20:00:00,Moby Arena|Fort Collins|Colorado,False,True,3582
+400817148,SJSU,CSU,66,74,San Jose State,Colorado State,2016,01/27,20:00:00,Moby Arena|Fort Collins|Colorado,False,True,3582
 400817159,AFA,UNM,55,84,Air Force,New Mexico,2016,01/27,20:00:00,WisePies Arena|Albuquerque|New Mexico,False,True,12072
 400841653,STAN,COLO,75,91,Stanford,Colorado,2016,01/27,20:00:00,Coors Events Center|Boulder|Colorado,False,True,8001
 400843787,UNI,BRAD,68,50,Northern Iowa,Bradley,2016,01/27,20:00:00,Carver Arena|Peoria|Illinois,False,True,5334
@@ -3854,7 +3854,7 @@ Game_ID,Away_Abbrv,Home_Abbrv,Away_Score,Home_Score,Game_Away,Game_Home,Game_Yea
 400827713,NJIT,KENN,75,67,NJIT,Kennesaw State,2016,01/30,15:30:00,KSU Convocation Center|Kennesaw|Georgia,False,True,1623
 400841887,BGSU,CMU,65,77,Bowling Green,Central Michigan,2016,01/30,15:30:00,McGuirk Arena|Mount Pleasant|Michigan,False,True,3758
 400844989,UNCG,MER,67,81,UNC Greensboro,Mercer,2016,01/30,15:30:00,Hawkins Arena|Macon|Georgia,False,True,4032
-400817149,AFA,SJSU,54,75,Air Force,San José State,2016,01/30,16:00:00,Event Center (San Jose St.)|San Jose|California,False,True,2169
+400817149,AFA,SJSU,54,75,Air Force,San Jose State,2016,01/30,16:00:00,Event Center (San Jose St.)|San Jose|California,False,True,2169
 400817160,UNM,BSU,88,83,New Mexico,Boise State,2016,01/30,16:00:00,Taco Bell Arena|Boise|Idaho,False,True,7355
 400830537,UPST,LIP,92,91,South Carolina Upstate,Lipscomb,2016,01/30,16:00:00,Allen Arena|Nashville|Tennessee,False,True,2374
 400844061,STAN,UTAH,74,96,Stanford,Utah,2016,01/30,16:00:00,Jon M. Huntsman Center|Salt Lake City|Utah,False,True,14109
@@ -4004,7 +4004,7 @@ Game_ID,Away_Abbrv,Home_Abbrv,Away_Score,Home_Score,Game_Away,Game_Home,Game_Yea
 400839176,VT,SYR,60,68,Virginia Tech,Syracuse,2016,02/02,19:00:00,Carrier Dome|Syracuse|New York,False,True,21409
 400839338,CLEM,WAKE,76,62,Clemson,Wake Forest,2016,02/02,19:00:00,Lawrence Joel Coliseum|Winston-salem|North Carolina,False,True,8716
 400841672,HBU,ACU,72,79,Houston Baptist,Abilene Christian ,2016,02/02,19:00:00,Moody Coliseum (Abilene)|Abilene|Texas,False,True,0
-400843044,SAV,COOK,59,62,Savannah State,Bethune-Cookman,2016,02/02,19:00:00,Moore Gymnasium|Daytona Beach|Florida,False,True,805
+400843044,SAV,BCU,59,62,Savannah State,Bethune-Cookman,2016,02/02,19:00:00,Moore Gymnasium|Daytona Beach|Florida,False,True,805
 400843789,BRAD,MOST,71,77,Bradley,Missouri State,2016,02/02,19:00:00,JQH Arena|Springfield|Missouri,False,True,3723
 400816913,ULM,ULL,65,72,Louisiana Monroe,UL Lafayette,2016,02/02,19:15:00,Cajundome|Lafayette|Louisiana,False,True,3749
 400817087,WYO,AFA,62,70,Wyoming,Air Force,2016,02/02,20:00:00,Clune Arena|Colorado Springs|Colorado,False,True,876
@@ -4024,7 +4024,7 @@ Game_ID,Away_Abbrv,Home_Abbrv,Away_Score,Home_Score,Game_Away,Game_Home,Game_Yea
 400844526,SIU,WICH,55,76,Southern Illinois,Wichita St,2016,02/03,20:00:00,Charles Koch Arena|Wichita|Kansas,False,True,10506
 400841597,ARIZ,WSU,79,64,Arizona,Washington State,2016,02/03,21:00:00,Friel Court|Pullman|Washington,False,True,3189
 400839266,ILL,RUTG,110,101,Illinois,Rutgers,2016,02/03,17:30:00,Louis Brown Athletic Center|Piscataway|New Jersey,False,True,4500
-400830427,ARK,FLA,83,87,Arkansas,Florida,2016,02/03,18:00:00,Exactech Arena at the Stephen C. O&#39;Connell Center|Gainesville|Florida,False,True,9013
+400830427,ARK,FLA,83,87,Arkansas,Florida,2016,02/03,18:00:00,Exactech Arena|Gainesville|Florida,False,True,9013
 400833399,CHSO,UNCA,55,63,Charleston Southern,UNC Asheville,2016,02/03,18:00:00,Kimmel Arena|Asheville|North Carolina,False,True,1927
 400833416,WEBB,HP,79,74,Gardner-Webb,High Point,2016,02/03,18:00:00,Millis Athletic Center|High Point|North Carolina,False,True,1597
 400835603,CAMP,LONG,79,80,Campbell,Longwood,2016,02/03,18:00:00,Willett Hall|Farmville|Virginia,False,True,1309
@@ -4037,7 +4037,7 @@ Game_ID,Away_Abbrv,Home_Abbrv,Away_Score,Home_Score,Game_Away,Game_Home,Game_Yea
 400840974,VCU,LAS,88,70,VCU,La Salle,2016,02/03,18:00:00,Tom Gola Arena|Philadelphia|Pennsylvania,False,True,1711
 400840975,SBON,JOES,83,73,St Bonaventure,Saint Joseph's,2016,02/03,18:00:00,Hagan Arena|Philadelphia|Pennsylvania,False,True,4027
 400841047,BU,NAVY,83,72,Boston University,Navy,2016,02/03,18:00:00,Alumni Hall|Annapolis|Maryland,False,True,1264
-400841063,CCAR,PRE,69,66,Coastal Carolina,Presbyterian College,2016,02/03,18:00:00,Ross E. Templeton P.E. Center|Clinton|South Carolina,False,True,598
+400841063,CCU,PRE,69,66,Coastal Carolina,Presbyterian College,2016,02/03,18:00:00,Ross E. Templeton P.E. Center|Clinton|South Carolina,False,True,598
 400841130,ARMY,LAF,84,81,Army,Lafayette,2016,02/03,18:00:00,Kirby Sports Center|Easton|Pennsylvania,False,True,1554
 400841146,L-MD,LEH,66,71,Loyola (MD),Lehigh,2016,02/03,18:00:00,Stabler Arena|Bethlehem|Pennsylvania,False,True,636
 400841238,CHAR,NCAT,92,72,Charlotte,North Carolina A&T,2016,02/03,18:00:00,Corbett Sports Center|Greensboro|North Carolina,False,False,1081
@@ -4048,7 +4048,7 @@ Game_ID,Away_Abbrv,Home_Abbrv,Away_Score,Home_Score,Game_Away,Game_Home,Game_Yea
 400840290,MARQ,HALL,62,79,Marquette,Seton Hall,2016,02/03,19:45:00,Prudential Center|Newark|New Jersey,False,True,6008
 400830430,MISS,MIZ,76,73,Ole Miss,Missouri,2016,02/03,20:00:00,Mizzou Arena|Columbia|Missouri,False,True,4734
 400831338,OKST,TTU,61,63,Oklahoma State,Texas Tech,2016,02/03,20:00:00,United Supermarkets Arena|Lubbock|Texas,False,True,8734
-400817150,FRES,SJSU,53,65,Fresno State,San José State,2016,02/03,21:00:00,Event Center (San Jose St.)|San Jose|California,False,True,2324
+400817150,FRES,SJSU,53,65,Fresno State,San Jose State,2016,02/03,21:00:00,Event Center (San Jose St.)|San Jose|California,False,True,2324
 400835622,UCI,CP,78,72,UC Irvine,Cal Poly,2016,02/03,21:00:00,Mott Athletics Center|San Luis Obispo|California,False,True,1877
 400841553,CSUN,UCRV,73,71,CSU Northridge,UC Riverside,2016,02/03,21:00:00,SRC Arena|Riverside|California,False,True,884
 400841297,ASU,WASH,83,95,Arizona State,Washington,2016,02/03,22:00:00,Alaska Airlines Arena|Seattle|Washington,False,True,6533
@@ -4344,7 +4344,7 @@ Game_ID,Away_Abbrv,Home_Abbrv,Away_Score,Home_Score,Game_Away,Game_Home,Game_Yea
 400839399,NW,OSU,63,71,Northwestern,Ohio State,2016,02/09,19:00:00,Value City Arena|Columbus|Ohio,False,True,11376
 400816867,UTA,TXST,65,53,UT-Arlington,Texas State,2016,02/09,20:00:00,Strahan Coliseum|San Marcos|Texas,False,True,3408
 400830440,ARK,MSST,46,78,Arkansas,Mississippi State,2016,02/09,20:00:00,Humphrey Coliseum|Starkville|Mississippi,False,True,6272
-400830444,MISS,FLA,72,77,Ole Miss,Florida,2016,02/09,20:00:00,Exactech Arena at the Stephen C. O&#39;Connell Center|Gainesville|Florida,False,True,8345
+400830444,MISS,FLA,72,77,Ole Miss,Florida,2016,02/09,20:00:00,Exactech Arena|Gainesville|Florida,False,True,8345
 400847433,BUAZ,GCU,71,95,Benedictine (AZ),Grand Canyon,2016,02/09,20:00:00,GCU Arena|Phoenix|Arizona,False,False,0
 400817135,UNM,USU,72,80,New Mexico,Utah State,2016,02/09,21:00:00,Dee Glen Smith Spectrum|Logan|Utah,False,True,9290
 400831537,ISU,TTU,82,85,Iowa State,Texas Tech,2016,02/10,20:00:00,United Supermarkets Arena|Lubbock|Texas,False,True,6715
@@ -4377,7 +4377,7 @@ Game_ID,Away_Abbrv,Home_Abbrv,Away_Score,Home_Score,Game_Away,Game_Home,Game_Yea
 400839357,MICH,MINN,82,74,Michigan,Minnesota,2016,02/10,20:00:00,Williams Arena|Minneapolis|Minnesota,False,True,11137
 400841299,WASH,UTAH,82,90,Washington,Utah,2016,02/10,20:00:00,Jon M. Huntsman Center|Salt Lake City|Utah,False,True,0
 400845486,PEAY,EIU,79,70,Austin Peay,Eastern Illinois,2016,02/10,20:00:00,Lantz Arena|Charleston|Illinois,False,True,1771
-400817107,SJSU,UNLV,61,64,San José State,UNLV,2016,02/10,21:00:00,Thomas & Mack Center|Las Vegas|Nevada,False,True,11647
+400817107,SJSU,UNLV,61,64,San Jose State,UNLV,2016,02/10,21:00:00,Thomas & Mack Center|Las Vegas|Nevada,False,True,11647
 400817180,AFA,NEV,52,72,Air Force,Nevada,2016,02/10,21:00:00,Lawlor Events Center|Reno|Nevada,False,True,5624
 400830700,CSF,CSUN,67,75,Cal State Fullerton,CSU Northridge,2016,02/10,21:00:00,Matadome|Northridge|California,False,True,1127
 400817173,SDSU,FRES,57,58,San Diego State,Fresno State,2016,02/10,22:00:00,Save Mart Center|Fresno|California,False,True,6476
@@ -4525,7 +4525,7 @@ Game_ID,Away_Abbrv,Home_Abbrv,Away_Score,Home_Score,Game_Away,Game_Home,Game_Yea
 400840990,DAV,GMU,59,60,Davidson,George Mason,2016,02/13,15:00:00,EagleBank Arena|Fairfax|Virginia,False,True,6327
 400840992,GW,SBON,57,64,George Washington,St Bonaventure,2016,02/13,15:00:00,Reilly Center|Saint Bonaventure|New York,False,True,5480
 400841240,UNT,CHAR,79,103,North Texas,Charlotte,2016,02/13,15:00:00,Halton Arena|Charlotte|North Carolina,False,True,4444
-400843046,COOK,NCCU,66,90,Bethune-Cookman,North Carolina Central,2016,02/13,15:00:00,McDougald-McLendon Gymnasium|Durham|North Carolina,False,True,1362
+400843046,BCU,NCCU,66,90,Bethune-Cookman,North Carolina Central,2016,02/13,15:00:00,McDougald-McLendon Gymnasium|Durham|North Carolina,False,True,1362
 400843548,NKU,UIC,77,79,Northern Kentucky,UIC,2016,02/13,15:00:00,UIC Pavilion|Chicago|Illinois,False,True,2666
 400843825,DRKE,SIU,60,75,Drake,Southern Illinois,2016,02/13,15:00:00,SIU Arena|Carbondale|Illinois,False,True,5474
 400844300,WAG,BRY,79,55,Wagner,Bryant,2016,02/13,15:00:00,Chace Athletic Center|Smithfield|Rhode Island,False,True,427
@@ -4550,10 +4550,10 @@ Game_ID,Away_Abbrv,Home_Abbrv,Away_Score,Home_Score,Game_Away,Game_Home,Game_Yea
 400816934,ARST,ULM,73,78,Arkansas State,Louisiana Monroe,2016,02/13,16:15:00,Fant-Ewing Coliseum|Monroe|Louisiana,False,True,3792
 400816798,UALR,ULL,68,64,Little Rock,UL Lafayette,2016,02/13,16:25:00,Cajundome|Lafayette|Louisiana,False,True,5347
 400833156,GASO,USA,76,80,Georgia Southern,South Alabama,2016,02/13,16:25:00,Mitchell Center|Mobile|Alabama,False,True,2296
-400830447,ALA,FLA,61,55,Alabama,Florida,2016,02/13,16:30:00,Exactech Arena at the Stephen C. O&#39;Connell Center|Gainesville|Florida,False,True,12045
+400830447,ALA,FLA,61,55,Alabama,Florida,2016,02/13,16:30:00,Exactech Arena|Gainesville|Florida,False,True,12045
 400841675,HBU,SHSU,68,80,Houston Baptist,Sam Houston State,2016,02/13,16:30:00,Bernard G. Johnson Coliseum|Huntsville|Texas,False,True,1172
 400847290,SDAK,SDST,68,85,South Dakota,South Dakota State,2016,02/13,16:30:00,Frost Arena|Brookings|South Dakota,False,True,5035
-400817152,SJSU,UNM,58,74,San José State,New Mexico,2016,02/13,17:00:00,WisePies Arena|Albuquerque|New Mexico,False,True,13411
+400817152,SJSU,UNM,58,74,San Jose State,New Mexico,2016,02/13,17:00:00,WisePies Arena|Albuquerque|New Mexico,False,True,13411
 400823079,UTEP,FAU,89,82,UTEP,Florida Atlantic,2016,02/13,17:00:00,FAU Arena|Boca Raton|Florida,False,True,1254
 400830219,USD,SF,51,68,San Diego,San Francisco,2016,02/13,17:00:00,War Memorial Gymnasium|San Francisco|California,False,True,1358
 400830453,VAN,AUB,86,57,Vanderbilt,Auburn,2016,02/13,17:00:00,Auburn Arena|Auburn|Alabama,False,True,7954
@@ -4563,9 +4563,9 @@ Game_ID,Away_Abbrv,Home_Abbrv,Away_Score,Home_Score,Game_Away,Game_Home,Game_Yea
 400843599,PENN,COR,92,84,Penn,Cornell,2016,02/13,17:00:00,Newman Arena|Ithaca|New York,False,True,1237
 400844912,RMU,FDU,72,70,Robert Morris,Fairleigh Dickinson,2016,02/13,17:00:00,Rothman Center|Teaneck|New Jersey,False,True,1411
 400847335,GRAM,PV,56,60,Grambling,Prairie View A&M,2016,02/13,17:15:00,William Nicks Building|Prairie View|Texas,False,True,313
-400825560,MORG,NORF,73,79,Morgan State,Norfolk State,2016,02/13,17:20:00,Echols Hall|Norfolk|Virginia,False,True,2561
+400825560,MORG,NSU,73,79,Morgan State,Norfolk State,2016,02/13,17:20:00,Echols Hall|Norfolk|Virginia,False,True,2561
 400841324,ORST,CAL,71,83,Oregon State,California,2016,02/13,17:30:00,Haas Pavilion|Berkeley|California,False,True,10906
-400847313,ARPB,SOU,58,66,Arkansas-Pine Bluff,Southern,2016,02/13,17:30:00,F. G. Clark Activity Center|Baton Rouge|Louisiana,False,True,623
+400847313,UAPB,SOU,58,66,Arkansas-Pine Bluff,Southern,2016,02/13,17:30:00,F. G. Clark Activity Center|Baton Rouge|Louisiana,False,True,623
 400847425,MVSU,ALCN,71,72,Mississippi Valley State,Alcorn State,2016,02/13,17:30:00,Davey Whitney Complex|Lorman|Mississippi,False,True,0
 400817181,FRES,NEV,72,77,Fresno State,Nevada,2016,02/13,18:00:00,Lawlor Events Center|Reno|Nevada,False,True,6750
 400817381,BRWN,DART,70,87,Brown,Dartmouth,2016,02/13,18:00:00,Edward Leede Arena|Hanover|New Hampshire,False,True,777
@@ -4652,7 +4652,7 @@ Game_ID,Away_Abbrv,Home_Abbrv,Away_Score,Home_Score,Game_Away,Game_Home,Game_Yea
 400847063,SHSU,ACU,84,71,Sam Houston State,Abilene Christian ,2016,02/15,19:30:00,Mabee Athletic Complex|Abilene|Texas,True,True,1075
 400847426,MVSU,SOU,64,97,Mississippi Valley State,Southern,2016,02/15,19:30:00,F. G. Clark Activity Center|Baton Rouge|Louisiana,False,True,599
 400823445,SELA,MCNS,79,76,Southeastern Louisiana,McNeese,2016,02/15,20:00:00,Burton Coliseum|Lake Charles|Louisiana,False,True,350
-400845097,ARPB,ALCN,60,79,Arkansas-Pine Bluff,Alcorn State,2016,02/15,20:00:00,Davey Whitney Complex|Lorman|Mississippi,False,True,1213
+400845097,UAPB,ALCN,60,79,Arkansas-Pine Bluff,Alcorn State,2016,02/15,20:00:00,Davey Whitney Complex|Lorman|Mississippi,False,True,1213
 400847328,JKST,PV,80,66,Jackson State,Prairie View A&M,2016,02/15,20:00:00,William Nicks Building|Prairie View|Texas,False,True,687
 400830925,WVU,TEX,78,85,West Virginia,Texas,2016,02/16,18:00:00,Frank Erwin Center|Austin|Texas,False,True,12284
 400831542,ISU,BAY,91,100,Iowa State,Baylor,2016,02/16,20:00:00,Ferrell Center|Waco|Texas,False,True,5556
@@ -4724,7 +4724,7 @@ Game_ID,Away_Abbrv,Home_Abbrv,Away_Score,Home_Score,Game_Away,Game_Home,Game_Yea
 400840269,HALL,GTWN,72,64,Seton Hall,Georgetown,2016,02/17,20:00:00,Verizon Center|Washington|District of Columbia,False,True,5278
 400843826,EVAN,DRKE,80,74,Evansville,Drake,2016,02/17,20:00:00,The Knapp Center|Des Moines|Iowa,False,True,2790
 400835301,HOU,TULN,82,69,Houston,Tulane,2016,02/17,20:30:00,Devlin Fieldhouse|New Orleans|Louisiana,False,True,1593
-400817153,NEV,SJSU,61,55,Nevada,San José State,2016,02/17,21:00:00,Event Center (San Jose St.)|San Jose|California,False,True,1560
+400817153,NEV,SJSU,61,55,Nevada,San Jose State,2016,02/17,21:00:00,Event Center (San Jose St.)|San Jose|California,False,True,1560
 400817162,BSU,UNM,78,80,Boise State,New Mexico,2016,02/17,21:00:00,WisePies Arena|Albuquerque|New Mexico,False,True,12434
 400830702,UCI,CSF,96,77,UC Irvine,Cal State Fullerton,2016,02/17,21:00:00,Titan Gym|Fullerton|California,False,True,1209
 400841656,COLO,USC,72,79,Colorado,USC,2016,02/17,22:00:00,Galen Center|Los Angeles|California,False,True,5132
@@ -4747,7 +4747,7 @@ Game_ID,Away_Abbrv,Home_Abbrv,Away_Score,Home_Score,Game_Away,Game_Home,Game_Yea
 400840822,HP,LONG,88,80,High Point,Longwood,2016,02/18,18:00:00,Willett Hall|Farmville|Virginia,False,True,1218
 400840835,UNCW,W&M,69,87,UNC Wilmington,William & Mary,2016,02/18,18:00:00,Kaplan Arena|Williamsburg|Virginia,False,True,3148
 400840889,UNCA,PRE,70,61,UNC Asheville,Presbyterian College,2016,02/18,18:00:00,Ross E. Templeton P.E. Center|Clinton|South Carolina,False,True,606
-400841077,CCAR,WIN,67,79,Coastal Carolina,Winthrop,2016,02/18,18:00:00,Winthrop Coliseum|Rock Hill|South Carolina,False,True,2151
+400841077,CCU,WIN,67,79,Coastal Carolina,Winthrop,2016,02/18,18:00:00,Winthrop Coliseum|Rock Hill|South Carolina,False,True,2151
 400841241,CHAR,MRSH,72,87,Charlotte,Marshall,2016,02/18,18:00:00,Cam Henderson Center|Huntington|West Virginia,False,True,6164
 400842053,MRST,NIAG,72,76,Marist,Niagara,2016,02/18,18:00:00,Gallagher Center|Niagara Falls|New York,False,True,1163
 400844301,SHU,BRY,74,57,Sacred Heart,Bryant,2016,02/18,18:00:00,Chace Athletic Center|Smithfield|Rhode Island,False,True,431
@@ -4856,7 +4856,7 @@ Game_ID,Away_Abbrv,Home_Abbrv,Away_Score,Home_Score,Game_Away,Game_Home,Game_Yea
 400830542,LIP,STET,77,74,Lipscomb,Stetson,2016,02/20,14:30:00,Edmunds Center|Deland|Florida,False,True,761
 400816944,TROY,APP,74,78,Troy,Appalachian State,2016,02/20,15:00:00,Holmes Convocation Center|Boone|North Carolina,False,True,2069
 400817092,WYO,CSU,84,66,Wyoming,Colorado State,2016,02/20,15:00:00,Moby Arena|Fort Collins|Colorado,False,True,7067
-400817413,COOK,FAMU,55,54,Bethune-Cookman,Florida A&M,2016,02/20,15:00:00,Al Lawson Center|Tallahassee|Florida,False,True,6211
+400817413,BCU,FAMU,55,54,Bethune-Cookman,Florida A&M,2016,02/20,15:00:00,Al Lawson Center|Tallahassee|Florida,False,True,6211
 400820380,UNO,NWST,102,99,New Orleans,Northwestern State,2016,02/20,15:00:00,Prather Coliseum|Natchitoches|Louisiana,False,True,1928
 400830154,SF,LMU,87,100,San Francisco,Loyola Marymount,2016,02/20,15:00:00,Gersten Pavilion|Los Angeles|California,False,True,3407
 400833126,DEL,JMU,50,75,Delaware,James Madison,2016,02/20,15:00:00,JMU Convocation Center|Harrisonburg|Virginia,False,True,5522
@@ -4872,7 +4872,7 @@ Game_ID,Away_Abbrv,Home_Abbrv,Away_Score,Home_Score,Game_Away,Game_Home,Game_Yea
 400825562,NCCU,MORG,73,59,North Carolina Central,Morgan State,2016,02/20,15:30:00,Hill Field House|Baltimore|Maryland,False,True,1104
 400839141,HP,RAD,75,72,High Point,Radford,2016,02/20,15:30:00,Donald N. Dedmon Center|Radford|Virginia,False,True,2331
 400839972,UML,BING,77,81,UMass Lowell,Binghamton,2016,02/20,15:30:00,Events Center (Binghamton)|Binghamton|New York,False,True,2884
-400843714,NORF,DSU,64,67,Norfolk State,Delaware State,2016,02/20,15:30:00,"Memorial Hall (Dover, DE)|Dover|Delaware",False,True,1846
+400843714,NSU,DSU,64,67,Norfolk State,Delaware State,2016,02/20,15:30:00,"Memorial Hall (Dover, DE)|Dover|Delaware",False,True,1846
 400844952,ETSU,MER,77,74,East Tennessee St.,Mercer,2016,02/20,15:30:00,Hawkins Arena|Macon|Georgia,False,True,3874
 400845019,SFA,NICH,88,53,Stephen F. Austin,Nicholls,2016,02/20,15:30:00,Stopher Gymnasium|Thibodaux|Louisiana,False,True,522
 400847086,LAM,MCNS,87,76,Lamar,McNeese,2016,02/20,15:30:00,Burton Coliseum|Lake Charles|Louisiana,False,True,1403
@@ -4924,7 +4924,7 @@ Game_ID,Away_Abbrv,Home_Abbrv,Away_Score,Home_Score,Game_Away,Game_Home,Game_Yea
 400843794,DRKE,BRAD,70,73,Drake,Bradley,2016,02/20,19:00:00,Carver Arena|Peoria|Illinois,False,True,7149
 400816870,ULM,UTA,64,61,Louisiana Monroe,UT-Arlington,2016,02/20,19:15:00,College Park Center|Arlington|Texas,False,True,3314
 400845557,JVST,TNST,46,61,Jacksonville State,Tennessee State,2016,02/20,19:30:00,Gentry Center|Nashville|Tennessee,False,True,2341
-400847314,PV,ARPB,57,55,Prairie View A&M,Arkansas-Pine Bluff,2016,02/20,19:30:00,H. O. Clemmons Arena|Pine Bluff|Arkansas,False,True,798
+400847314,PV,UAPB,57,55,Prairie View A&M,Arkansas-Pine Bluff,2016,02/20,19:30:00,H. O. Clemmons Arena|Pine Bluff|Arkansas,False,True,798
 400830570,IDST,SUU,89,71,Idaho State,Southern Utah,2016,02/20,20:00:00,Centrum Arena|Cedar City|Utah,False,True,1568
 400840018,UMKC,UVU,70,79,UMKC,Utah Valley,2016,02/20,20:00:00,UCCU Center|Orem|Utah,False,True,2981
 400840078,SEA,NMSU,57,70,Seattle,New Mexico State,2016,02/20,20:00:00,Pan American Center|Las Cruces|New Mexico,False,True,4669
@@ -4958,7 +4958,7 @@ Game_ID,Away_Abbrv,Home_Abbrv,Away_Score,Home_Score,Game_Away,Game_Home,Game_Yea
 400842094,MONM,SPU,82,75,Monmouth,Saint Peter's,2016,02/21,13:00:00,Yanitelli Center|Jersey City|New Jersey,False,True,1013
 400843516,DET,VALP,74,90,Detroit Mercy,Valparaiso,2016,02/21,13:30:00,Athletics-Recreation Center|Valparaiso|Indiana,False,True,4151
 400842004,DEN,SDAK,76,71,Denver,South Dakota,2016,02/21,14:00:00,The DakotaDome|Vermillion|South Dakota,False,True,1644
-400817154,SDSU,SJSU,78,56,San Diego State,San José State,2016,02/21,15:00:00,Event Center (San Jose St.)|San Jose|California,False,True,3317
+400817154,SDSU,SJSU,78,56,San Diego State,San Jose State,2016,02/21,15:00:00,Event Center (San Jose St.)|San Jose|California,False,True,3317
 400841005,GMU,UMASS,64,70,George Mason,Massachusetts,2016,02/21,15:00:00,William D. Mullins Memorial Center|Amherst|Massachusetts,False,True,3691
 400843924,WICH,INST,84,51,Wichita St,Indiana State,2016,02/21,15:00:00,Hulman Center|Terre Haute|Indiana,False,True,4521
 400844507,L-IL,MOST,75,62,Loyola (CHI),Missouri State,2016,02/21,15:00:00,JQH Arena|Springfield|Missouri,False,True,3385
@@ -5259,7 +5259,7 @@ Game_ID,Away_Abbrv,Home_Abbrv,Away_Score,Home_Score,Game_Away,Game_Home,Game_Yea
 400847330,MVSU,JKST,49,60,Mississippi Valley State,Jackson State,2016,02/27,19:30:00,Lee E. Williams Athletic and Assembly Center|Jackson|Mississippi,False,True,2193
 400847041,AAMU,TXSO,54,77,Alabama A&M,Texas Southern,2016,02/27,19:50:00,H&PE Arena|Houston|Texas,False,True,2342
 400817014,PRST,UNCO,89,86,Portland State,Northern Colorado,2016,02/27,20:00:00,Bank of Colorado Arena|Greeley|Colorado,False,True,1290
-400817139,SJSU,USU,70,88,San José State,Utah State,2016,02/27,20:00:00,Dee Glen Smith Spectrum|Logan|Utah,False,True,9437
+400817139,SJSU,USU,70,88,San Jose State,Utah State,2016,02/27,20:00:00,Dee Glen Smith Spectrum|Logan|Utah,False,True,9437
 400830259,PAC,SCU,65,69,Pacific,Santa Clara,2016,02/27,20:00:00,Leavey Center|Santa Clara|California,False,True,3808
 400830604,MONT,WEB,54,60,Montana,Weber State,2016,02/27,20:00:00,Dee Events Center|Ogden|Utah,False,True,8960
 400830705,UCSB,CSF,80,62,UC Santa Barbara,Cal State Fullerton,2016,02/27,20:00:00,Titan Gym|Fullerton|California,False,True,928
@@ -5305,16 +5305,16 @@ Game_ID,Away_Abbrv,Home_Abbrv,Away_Score,Home_Score,Game_Away,Game_Home,Game_Yea
 400864019,CHAT,VMI,67,65,Chattanooga,VMI,2016,02/29,18:00:00,Cameron Hall|Lexington|Virginia,False,True,1211
 400820383,UNO,NICH,76,80,New Orleans,Nicholls,2016,02/29,18:30:00,Stopher Gymnasium|Thibodaux|Louisiana,False,True,782
 400843647,DSU,HAMP,65,79,Delaware State,Hampton,2016,02/29,18:30:00,Convocation Center (VA)|Hampton|Virginia,False,True,4123
-400843049,NCAT,COOK,52,62,North Carolina A&T,Bethune-Cookman,2016,02/29,18:45:00,Moore Gymnasium|Daytona Beach|Florida,False,True,0
+400843049,NCAT,BCU,52,62,North Carolina A&T,Bethune-Cookman,2016,02/29,18:45:00,Moore Gymnasium|Daytona Beach|Florida,False,True,0
 400847393,SAV,NCCU,44,61,Savannah State,North Carolina Central,2016,02/29,18:47:00,McDougald-McLendon Gymnasium|Durham|North Carolina,False,True,1427
 400823448,NWST,SELA,82,84,Northwestern State,Southeastern Louisiana,2016,02/29,19:00:00,University Center (LA)|Hammond|Louisiana,False,True,1050
 400847074,SHSU,UCA,83,73,Sam Houston State,Central Arkansas,2016,02/29,19:00:00,Farris Center|Conway|Arkansas,False,True,748
 400847087,MCNS,LAM,77,74,McNeese,Lamar,2016,02/29,19:00:00,Montagne Center|Beaumont|Texas,False,True,2143
-400843715,HOW,NORF,66,84,Howard,Norfolk State,2016,02/29,19:30:00,Echols Hall|Norfolk|Virginia,False,True,2111
+400843715,HOW,NSU,66,84,Howard,Norfolk State,2016,02/29,19:30:00,Echols Hall|Norfolk|Virginia,False,True,2111
 400847427,MVSU,GRAM,58,57,Mississippi Valley State,Grambling,2016,02/29,19:45:00,Fredrick C. Hobdy Assembly Center|Grambling|Louisiana,False,True,1752
 400846853,ALST,TXSO,86,96,Alabama State,Texas Southern,2016,02/29,20:00:00,H&PE Arena|Houston|Texas,False,True,0
 400847304,AAMU,PV,65,85,Alabama A&M,Prairie View A&M,2016,02/29,20:00:00,William Nicks Building|Prairie View|Texas,False,True,683
-400847316,ARPB,JKST,56,67,Arkansas-Pine Bluff,Jackson State,2016,02/29,20:00:00,Lee E. Williams Athletic and Assembly Center|Jackson|Mississippi,False,True,701
+400847316,UAPB,JKST,56,67,Arkansas-Pine Bluff,Jackson State,2016,02/29,20:00:00,Lee E. Williams Athletic and Assembly Center|Jackson|Mississippi,False,True,701
 400840248,DEP,NOVA,62,83,DePaul,Villanova,2016,03/01,18:00:00,The Pavilion (Villanova)|Villanova|Pennsylvania,False,True,6500
 400839766,UVA,CLEM,64,57,Virginia,Clemson,2016,03/01,18:00:00,Bon Secours Wellness Arena|Greenville|South Carolina,False,True,9626
 400831556,BAY,OKLA,71,73,Baylor,Oklahoma,2016,03/01,19:00:00,Lloyd Noble Center|Norman|Oklahoma,False,True,11563
@@ -5367,7 +5367,7 @@ Game_ID,Away_Abbrv,Home_Abbrv,Away_Score,Home_Score,Game_Away,Game_Home,Game_Yea
 400868284,BING,UNH,51,56,Binghamton,New Hampshire,2016,03/02,18:30:00,Lundholm Gymnasium|Durham|New Hampshire,False,True,1866
 400831557,TCU,KSU,54,79,TCU,Kansas State,2016,03/02,19:00:00,Bramlage Coliseum|Manhattan|Kansas,False,True,11518
 400840217,HALL,BUT,78,85,Seton Hall,Butler,2016,03/02,19:30:00,Hinkle Fieldhouse|Indianapolis|Indiana,False,True,7392
-400817096,SJSU,WYO,78,81,San José State,Wyoming,2016,03/02,20:00:00,Arena-Auditorium|Laramie|Wyoming,False,True,6617
+400817096,SJSU,WYO,78,81,San Jose State,Wyoming,2016,03/02,20:00:00,Arena-Auditorium|Laramie|Wyoming,False,True,6617
 400817183,NEV,BSU,57,76,Nevada,Boise State,2016,03/02,20:00:00,Taco Bell Arena|Boise|Idaho,False,True,8495
 400830482,ARK,ALA,62,61,Arkansas,Alabama,2016,03/02,20:00:00,Coleman Coliseum|Tuscaloosa|Alabama,False,True,11533
 400835316,ECU,USF,52,39,East Carolina,South Florida,2016,03/02,20:00:00,USF Sun Dome|Tampa|Florida,False,True,2957
@@ -5524,7 +5524,7 @@ Game_ID,Away_Abbrv,Home_Abbrv,Away_Score,Home_Score,Game_Away,Game_Home,Game_Yea
 400820704,UND,MTST,82,89,North Dakota,Montana State,2016,03/05,15:05:00,Brick Breeden Fieldhouse |Bozeman|Montana,False,True,2585
 400823449,SELA,NICH,45,64,Southeastern Louisiana,Nicholls,2016,03/05,15:30:00,Stopher Gymnasium|Thibodaux|Louisiana,False,True,901
 400817032,HBU,IW,86,97,Houston Baptist,Incarnate Word,2016,03/05,16:00:00,McDermott Convocation Center|San Antonio|Texas,False,True,1058
-400817155,BSU,SJSU,63,68,Boise State,San José State,2016,03/05,16:00:00,Event Center (San Jose St.)|San Jose|California,False,True,1759
+400817155,BSU,SJSU,63,68,Boise State,San Jose State,2016,03/05,16:00:00,Event Center (San Jose St.)|San Jose|California,False,True,1759
 400830494,SC,ARK,76,61,South Carolina,Arkansas,2016,03/05,16:00:00,Bud Walton Arena|Fayetteville|Arkansas,False,True,17106
 400835319,USF,TLSA,74,84,South Florida,Tulsa,2016,03/05,16:00:00,Reynolds Center|Tulsa|Oklahoma,False,True,6524
 400841791,UCI,UCRV,76,66,UC Irvine,UC Riverside,2016,03/05,16:00:00,SRC Arena|Riverside|California,False,True,766
@@ -5657,7 +5657,7 @@ Game_ID,Away_Abbrv,Home_Abbrv,Away_Score,Home_Score,Game_Away,Game_Home,Game_Yea
 400870354,RUTG,NEB,72,89,Rutgers,Nebraska,2016,03/09,18:00:00,Bankers Life Fieldhouse|Indianapolis|Indiana,True,True,0
 400870282,HC,LEH,59,56,Holy Cross,Lehigh,2016,03/09,18:30:00,Stabler Arena|Bethlehem|Pennsylvania,False,True,4587
 400870182,AUB,TENN,59,97,Auburn,Tennessee,2016,03/09,19:00:00,Bridgestone Arena|Nashville|Tennessee,True,True,9787
-400870239,SJSU,CSU,61,80,San José State,Colorado State,2016,03/09,19:05:00,Thomas & Mack Center|Las Vegas|Nevada,True,True,5970
+400870239,SJSU,CSU,61,80,San Jose State,Colorado State,2016,03/09,19:05:00,Thomas & Mack Center|Las Vegas|Nevada,True,True,5970
 400870187,NICH,MCNS,94,90,Nicholls,McNeese,2016,03/09,19:30:00,Leonard E. Merrell Center|Katy|Texas,True,True,1077
 400870671,NCCU,NORF,47,66,North Carolina Central,Norfolk State,2016,03/09,19:30:00,Norfolk Scope Arena|Norfolk|Virginia,True,True,0
 400870221,LAS,DUQ,88,73,La Salle,Duquesne,2016,03/09,20:00:00,Barclays Center|Brooklyn|New York,True,True,5523

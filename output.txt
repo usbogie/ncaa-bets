@@ -1,72 +1,74 @@
 
                             OLS Regression Results                            
 ==============================================================================
-Dep. Variable:            home_winner   R-squared:                       0.358
-Model:                            OLS   Adj. R-squared:                  0.358
-Method:                 Least Squares   F-statistic:                     518.4
-Date:                Wed, 11 Jan 2017   Prob (F-statistic):               0.00
-Time:                        00:52:16   Log-Likelihood:                -6091.8
-No. Observations:               12086   AIC:                         1.221e+04
-Df Residuals:                   12073   BIC:                         1.231e+04
+Dep. Variable:             home_cover   R-squared:                       0.107
+Model:                            OLS   Adj. R-squared:                  0.106
+Method:                 Least Squares   F-statistic:                     111.9
+Date:                Wed, 11 Jan 2017   Prob (F-statistic):          4.27e-286
+Time:                        15:25:07   Log-Likelihood:                -6820.6
+No. Observations:               12177   AIC:                         1.367e+04
+Df Residuals:                   12164   BIC:                         1.376e+04
 Df Model:                          13                                         
 Covariance Type:            nonrobust                                         
 =======================================================================================
                           coef    std err          t      P>|t|      [95.0% Conf. Int.]
 ---------------------------------------------------------------------------------------
-spread                  0.0091      0.001      7.402      0.000         0.007     0.012
-true_home_game          0.1319      0.010     13.732      0.000         0.113     0.151
-home_ats               -0.2476      0.045     -5.461      0.000        -0.336    -0.159
-away_ats                0.2187      0.043      5.053      0.000         0.134     0.304
-home_rec                0.0937      0.042      2.234      0.026         0.011     0.176
-away_rec               -0.0038      0.041     -0.095      0.925        -0.083     0.076
-home_off_adv            0.1820      0.006     30.064      0.000         0.170     0.194
-away_off_adv           -0.1714      0.006    -28.156      0.000        -0.183    -0.159
-away_three_adv         -0.1066      0.025     -4.187      0.000        -0.156    -0.057
-home_three_d_adv        0.0999      0.027      3.728      0.000         0.047     0.152
-home_tempo_z:spread    -0.0012      0.000     -3.018      0.003        -0.002    -0.000
-away_tempo_z:spread     0.0004      0.000      0.992      0.321        -0.000     0.001
-conf:true_home_game    -0.0020      0.010     -0.199      0.842        -0.021     0.017
+spread                  0.0415      0.001     32.047      0.000         0.039     0.044
+true_home_game          0.1569      0.010     15.511      0.000         0.137     0.177
+home_ats               -0.2297      0.048     -4.797      0.000        -0.324    -0.136
+away_ats                0.1317      0.046      2.890      0.004         0.042     0.221
+home_rec               -0.0900      0.044     -2.036      0.042        -0.177    -0.003
+away_rec                0.2198      0.043      5.142      0.000         0.136     0.304
+home_off_adv            0.2144      0.006     33.639      0.000         0.202     0.227
+away_off_adv           -0.2168      0.006    -33.847      0.000        -0.229    -0.204
+away_three_adv         -0.0672      0.027     -2.515      0.012        -0.120    -0.015
+home_three_d_adv        0.0547      0.028      1.945      0.052        -0.000     0.110
+home_tempo_z:spread    -0.0019      0.000     -4.553      0.000        -0.003    -0.001
+away_tempo_z:spread    -0.0012      0.000     -2.909      0.004        -0.002    -0.000
+conf:true_home_game    -0.0271      0.010     -2.611      0.009        -0.047    -0.007
 ==============================================================================
-Omnibus:                     2606.013   Durbin-Watson:                   1.999
-Prob(Omnibus):                  0.000   Jarque-Bera (JB):              692.265
-Skew:                          -0.327   Prob(JB):                    4.75e-151
-Kurtosis:                       2.026   Cond. No.                         188.
+Omnibus:                        1.441   Durbin-Watson:                   2.010
+Prob(Omnibus):                  0.486   Jarque-Bera (JB):             1069.012
+Skew:                           0.027   Prob(JB):                    7.36e-233
+Kurtosis:                       1.549   Cond. No.                         189.
 ==============================================================================
 
 Warnings:
 [1] Standard Errors assume that the covariance matrix of the errors is correctly specified.
-Testing with lower-bound 0.5 won 62.22 percent of 11843 games.
-This would lead to a profit of 2447.6 units.
-Testing with lower-bound 0.55 won 66.33 percent of 7874 games.
-This would lead to a profit of 2306.9 units.
-Testing with lower-bound 0.6 won 70.67 percent of 4689 games.
-This would lead to a profit of 1801.5 units.
-Testing with lower-bound 0.65 won 73.86 percent of 2644 games.
-This would lead to a profit of 1192.9 units.
-Testing with lower-bound 0.7 won 75.99 percent of 1429 games.
-This would lead to a profit of 708.7 units.
+Testing with lower-bound 0.5 won 63.13 percent of 11930 games.
+This would lead to a profit of 2694.2 units.
 Prob  Pick                    Spread Opponent                   Tip
-67.37 Vanderbilt              12.5   vs Kentucky                6p  
-65.09 DePaul                  5.5    vs Providence              8p  
-62.84 Oklahoma                12.5   vs Kansas                  8p  
-59.84 Alabama                 5.5    vs Florida                 8p  
-59.21 Bowling Green           2.5    vs E Michigan              6p  
-58.16 Saint Joseph's          -4.0   vs Geo Mason               6p  
-55.34 Maryland                1.0    vs Indiana                 8p  
-55.0  Fairfield               -3.5   vs Canisius                6p  
-54.9  Ohio                    -1.0   @  Buffalo                 6p  
-54.71 Ball State              -7.5   vs Miami (OH)              6p  
-54.35 Virginia Tech           -3.5   vs Syracuse                6p  
-54.18 Northern Illinois       5.5    @  Kent State              6p  
-53.31 Villanova               -8.0   vs Xavier                  6p  
-53.27 Niagara                 6.0    @  Manhattan               6p  
-53.2  Southeast Missouri State-3.0   vs TN Tech                 6p  
-53.12 Duke                    1.5    @  Florida St              7p  
-53.09 Arkansas                -10.0  vs Miss State              8p  
-53.04 UNLV                    10.0   @  New Mexico              8p  
-52.15 Western Michigan        3.5    vs Toledo                  6p  
-51.64 Green Bay               -4.0   vs N Kentucky              7p  
-51.39 Akron                   -3.0   @  Central Mich            6p  
-50.46 Kansas State            4.5    @  Texas Tech              8p  
-50.42 West Virginia           -6.0   vs Baylor                  6p  
-50.01 Missouri                1.0    vs Auburn                  6p  
+66.96 Illinois State          4.0    @  S Illinois              7p  
+66.31 Connecticut             -2.0   vs Temple                  8p  
+64.31 Butler                  -5.5   @  Creighton               8p  
+63.68 Wake Forest             9.0    vs N Carolina              7p  
+62.72 Tulsa                   5.0    vs Memphis                 7p  
+61.72 The Citadel             -25.5  @  Chattanooga             6p  
+61.39 Louisville              -11.0  vs Pittsburgh              6p  
+60.74 Tennessee               2.0    vs S Carolina              5p  
+60.31 Evansville              -7.0   @  Missouri St             7p  
+59.86 Air Force               2.0    vs Fresno St               8p  
+59.43 St Bonaventure          -3.5   @  Richmond                6p  
+58.94 Fordham                 -15.0  @  Davidson                6p  
+58.57 Georgia                 -2.5   @  Mississippi             6p  
+57.26 Mercer                  -4.0   @  Samford                 7p  
+55.68 South Dakota            2.0    vs N Dakota St             7p  
+55.46 East Carolina           9.0    vs Houston                 5p  
+54.86 Illinois                2.0    vs Michigan                8p  
+54.63 Minnesota               -4.0   @  Michigan St             6p  
+54.37 Utah State              -4.5   @  Wyoming                 8p  
+54.03 Iowa State              -3.5   @  Oklahoma St             8p  
+53.93 Long Beach State        -6.5   vs Cal St Nrdge            9p  
+53.39 IUPUI                   -5.0   vs Neb Omaha               6p  
+52.9  Saint Louis             -10.0  @  Duquesne                6p  
+52.83 Massachusetts           6.5    vs Dayton                  6p  
+52.45 TCU                     0.0    @  Texas                   7p  
+52.0  Marquette               -5.5   vs Seton Hall              6p  
+51.43 Loyola (CHI)            -15.5  @  Wichita St              6p  
+51.39 Denver                  -6.5   vs W Illinois              8p  
+50.99 NC State                5.5    @  Boston Col              8p  
+50.85 LSU                     -12.0  @  Texas A&M               7p  
+50.51 Indiana State           0.0    @  Drake                   7p  
+50.48 VCU                     -11.5  vs Geo Wshgtn              5p  
+50.44 Bradley                 3.5    vs N Iowa                  8p  
+50.43 South Florida           -5.0   vs Tulane                  6p  

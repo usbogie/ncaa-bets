@@ -55,15 +55,15 @@ def update_all():
 
     get_lines_info()
     get_lines_info(lines=False)
+    # get_lines_info([2016],test=True)
+    # get_lines_info([2016],lines=False,test=True)
 
     get_new_games()
-
-    #get_test_games([2016])
 
     set_team_attributes()
     set_game_attributes()
     set_game_attributes(new = True)
-    # set_game_attributes(data=test_games)
+    # set_game_attributes(test = True)
 
 def get_kp_stats(year_list = [2014,2015,2016,2017]):
     print("Getting kp stats")
@@ -130,7 +130,7 @@ def get_old_games(year_list = [2014,2015,2016,2017]):
             except:
                 continue
 
-def get_lines_info(year_list = [2014,2015,2016,2017],lines = True):
+def get_lines_info(year_list = [2014,2015,2016,2017],lines = True,test=False):
     if lines:
         print("Getting lines data from lines")
     else:
@@ -166,7 +166,10 @@ def get_lines_info(year_list = [2014,2015,2016,2017],lines = True):
                 game = games[key]
                 game["key"] = key
                 try:
-                    regress_dict[key]
+                    if not test:
+                        regress_dict[key]
+                    else:
+                        test_dict[key]
                     continue
                 except:
                     pass
@@ -188,8 +191,13 @@ def get_lines_info(year_list = [2014,2015,2016,2017],lines = True):
                     game["home_cover"] = game["home_cover"] / 2
                 if math.isnan(game["spread"]) or math.isnan(game["total"]):
                     continue
-                tmp_regress_spread.append(game)
-                regress_dict[key] = game
+
+                if not test:
+                    tmp_regress_spread.append(game)
+                    regress_dict[key] = game
+                else:
+                    tmp_test_games.append(game)
+                    test_dict[key] = game
                 if len(teams[game["home"]]["games"]) == 0:
                     teams[game["home"]]["games"].append(game["key"])
                 else:
@@ -228,46 +236,6 @@ def get_lines_info(year_list = [2014,2015,2016,2017],lines = True):
                             teams[game["away"]]["games"].append(game["key"])
             except:
                 continue
-def get_test_games(year_list = [2017]):
-    print("Getting test games")
-    test_dict = {}
-    for key,game in games.items():
-        if int(game["season"]) in year_list:
-            test_dict[key] = game
-    years = []
-    jsons = ['lines2014.json','lines2015.json','lines2016.json','lines2017.json']
-    for i in range(len(jsons)):
-        if i + 2014 in year_list:
-            osdf = pd.read_json('lines_data/' + jsons[i])
-            years.append(osdf)
-    for year in range(len(years)):
-        for i in range(len(years[year].home)):
-            try:
-                h = lines_names[years[year].home[i]]
-                a = lines_names[years[year].away[i]]
-                d = str(years[year].date[i])
-                d = d.split()[0]
-                key = str((h,a,d))
-                game = test_dict[key]
-                if years[year].spread[i] == "Ev":
-                    game["spread"] = 0
-                else:
-                    game["spread"] = float(years[year].spread[i])
-                game["total"] = float(years[year].total[i])
-                if years[year].ats[i] == 'L':
-                    game["cover"] = game["away"][:-4]
-                    game["home_cover"] = -.5
-                elif years[year].ats[i] == 'W':
-                    game["cover"] = game["home"][:-4]
-                    game["home_cover"] = .5
-                else:
-                    game["cover"] = "Tie"
-                    game["home_cover"] = 0
-                if math.isnan(game["spread"]) or math.isnan(game["total"]):
-                    continue
-                test_games.append(game)
-            except:
-                continue
 def get_new_games():
     print("Getting new games")
     gamesdf = pd.read_csv('espn_data/upcoming_games.csv')
@@ -299,6 +267,8 @@ def get_new_games():
             continue
     with open('sb_data/game_lines.json','r') as infile:
         game_lines = json.load(infile)
+    x = 0
+    y = 0
     for game in game_lines:
         try:
             home = sb_names[game['home']]
@@ -331,10 +301,10 @@ def get_new_games():
                 new_game['total_over'] = (float(over[:-6]),float(over[-5:-1]))
                 new_game['total_under'] = (float(under[:-6]),float(under[-5:-1]))
                 new_game['total'] = new_game['total_over'][0]
-            new_games.append(new_game)
+            tmp_new_games.append(new_game)
             print("Found:",home,away)
         except:
-            print("No game matched:",home,away)
+            print("No game matched:",sb_names[game["home"]],sb_names[game["away"]])
 
 def set_team_attributes():
     print("Setting team attributes")
@@ -353,14 +323,17 @@ def set_zscores(stat):
         team[stat_z] = z[i]
         i += 1
 
-def set_game_attributes(new = False):
+def set_game_attributes(new = False,test = False):
     all_games = []
-    if not new:
+    if not new and not test:
         data = tmp_regress_spread
         print("Setting game attributes")
-    else:
-        data = new_games
+    elif new:
+        data = tmp_new_games
         print("Setting game attributes for new games")
+    elif test:
+        data = tmp_test_games
+        print("Setting game attributes for test games")
     for i,game in enumerate(data):
         home = teams[game["home"]]
         away = teams[game["away"]]
@@ -441,8 +414,12 @@ def set_game_attributes(new = False):
             game["away_rec"] /= len(away["games"])
             game["home_home_rec"] = 0 if home_total_games == 0 or away_total_games == 0 else game["home_home_rec"] / home_total_games
             game["away_away_rec"] = 0 if away_total_games == 0 or home_total_games == 0 else game["away_away_rec"] / away_total_games
-            regress_spread.append(game)
-        elif new:
+            if not test:
+                regress_spread.append(game)
+            else:
+                if game["date"].split("-")[0] == game["home"][-4:]:
+                    test_games.append(game)
+        else:
             if len(home["games"]) < 3 or len(away["games"]) < 3:
                 both = False
             for j,key in enumerate(home["games"]):
@@ -485,7 +462,8 @@ def set_game_attributes(new = False):
             game["away_rec"] /= len(away["games"])
             game["home_home_rec"] = 0 if home_total_games == 0 or away_total_games == 0 else game["home_home_rec"] / home_total_games
             game["away_away_rec"] = 0 if away_total_games == 0 or home_total_games == 0 else game["away_away_rec"] / away_total_games
-            new_new_games.append(game)
+            new_games.append(game)
+
 teams = {}
 games = {}
 tmp_regress_spread = []
@@ -497,20 +475,21 @@ with open('games.json','r') as infile:
 #     tmp_regress_spread = json.load(infile)
 regress_spread = []
 regress_dict = {}
+tmp_new_games = []
 new_games = []
-new_new_games = []
+tmp_test_games = []
 test_games = []
-new_test_games = []
+test_dict = {}
 espn_names, kp_names, os_names, sb_names, lines_names = get_names()
 update_all()
 
 with open('teams.json', 'w') as outfile:
     json.dump(teams, outfile)
-with open('games.json','w') as outfile:
-    json.dump(games, outfile)
+# with open('games.json','w') as outfile:
+#     json.dump(games, outfile)
 with open('regress_spread.json','w') as outfile:
     json.dump(regress_spread,outfile)
 with open('new_games.json','w') as outfile:
-    json.dump(new_new_games,outfile)
-with open('test_games.json','w') as outfile:
-    json.dump(new_test_games,outfile)
+    json.dump(new_games,outfile)
+# with open('test_games.json','w') as outfile:
+#     json.dump(test_games,outfile)

@@ -156,15 +156,15 @@ def make_overall_df(start_year):
 	return gen_info
 
 if __name__ == '__main__':
-
-	start_year = 2016
-	info_list = make_overall_df(start_year)
-	final_info = pd.concat(info_list, ignore_index=True).set_index('Game_ID')
-	#final_players = pd.concat(players_list, ignore_index=True)
-	#final_gm_stats = pd.concat(gm_stats_list, ignore_index=True)
-
-	final_info.drop_duplicates().to_csv("game_info2017.csv")
-	#final_players.to_csv("players.csv", index=False)
-	#final_gm_stats.to_csv("game_stats.csv", index=False)
+	for i in range(3):
+		start_year = 2014 + i
+		info_list = make_overall_df(start_year)
+		final_info = pd.concat(info_list, ignore_index=True).set_index('Game_ID')
+		#final_players = pd.concat(players_list, ignore_index=True)
+		#final_gm_stats = pd.concat(gm_stats_list, ignore_index=True)
+		year_str = str(start_year + 1)
+		final_info.drop_duplicates().to_csv("game_info{}.csv".format(year_str))
+		#final_players.to_csv("players.csv", index=False)
+		#final_gm_stats.to_csv("game_stats.csv", index=False)
 
 	print("\n\nFinished uploading to CSVs")

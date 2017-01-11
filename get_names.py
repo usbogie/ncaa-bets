@@ -454,3 +454,6 @@ with open('lines_data/names_dict.json','r') as infile:
     lines_names = json.load(infile)
 get_sb_names(trdf.Name)
 get_lines_names(trdf.Name)
+for key in sorted(sb_names.keys()):
+    if key != sb_names[key]:
+        print(key,sb_names[key])
