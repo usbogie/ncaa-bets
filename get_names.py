@@ -426,6 +426,7 @@ def get_lines_names(name_list):
                 ratio = fuzz.ratio(team,t2)
                 t = t2
     for team,other in check_later:
+        print(team,other)
         if other in trset:
             lines_names[team] = other
         else:

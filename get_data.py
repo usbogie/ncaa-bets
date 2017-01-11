@@ -45,26 +45,6 @@ def get_team_stats(year_list = [2014,2015,2016,2017]):
             teams[team]["tof_poss"] = years[i].TOFP[j]
             teams[team]["games"] = []
 
-def update_all():
-    # year_list = [2017]
-    get_team_stats()
-
-    get_kp_stats()
-
-    # get_old_games()
-
-    get_lines_info()
-    get_lines_info(lines=False)
-    # get_lines_info([2016],test=True)
-    # get_lines_info([2016],lines=False,test=True)
-
-    get_new_games()
-
-    set_team_attributes()
-    set_game_attributes()
-    set_game_attributes(new = True)
-    # set_game_attributes(test = True)
-
 def get_kp_stats(year_list = [2014,2015,2016,2017]):
     print("Getting kp stats")
     years = []
@@ -193,10 +173,10 @@ def get_lines_info(year_list = [2014,2015,2016,2017],lines = True,test=False):
                     continue
 
                 if not test:
-                    tmp_regress_spread.append(game)
+                    regress_spread.append(game)
                     regress_dict[key] = game
                 else:
-                    tmp_test_games.append(game)
+                    test_games.append(game)
                     test_dict[key] = game
                 if len(teams[game["home"]]["games"]) == 0:
                     teams[game["home"]]["games"].append(game["key"])
@@ -301,7 +281,7 @@ def get_new_games():
                 new_game['total_over'] = (float(over[:-6]),float(over[-5:-1]))
                 new_game['total_under'] = (float(under[:-6]),float(under[-5:-1]))
                 new_game['total'] = new_game['total_over'][0]
-            tmp_new_games.append(new_game)
+            new_games.append(new_game)
             print("Found:",home,away)
         except:
             print("No game matched:",sb_names[game["home"]],sb_names[game["away"]])
@@ -326,13 +306,13 @@ def set_zscores(stat):
 def set_game_attributes(new = False,test = False):
     all_games = []
     if not new and not test:
-        data = tmp_regress_spread
+        data = regress_spread
         print("Setting game attributes")
     elif new:
-        data = tmp_new_games
+        data = new_games
         print("Setting game attributes for new games")
     elif test:
-        data = tmp_test_games
+        data = test_games
         print("Setting game attributes for test games")
     for i,game in enumerate(data):
         home = teams[game["home"]]
@@ -414,11 +394,6 @@ def set_game_attributes(new = False,test = False):
             game["away_rec"] /= len(away["games"])
             game["home_home_rec"] = 0 if home_total_games == 0 or away_total_games == 0 else game["home_home_rec"] / home_total_games
             game["away_away_rec"] = 0 if away_total_games == 0 or home_total_games == 0 else game["away_away_rec"] / away_total_games
-            if not test:
-                regress_spread.append(game)
-            else:
-                if game["date"].split("-")[0] == game["home"][-4:]:
-                    test_games.append(game)
         else:
             if len(home["games"]) < 3 or len(away["games"]) < 3:
                 both = False
@@ -462,22 +437,47 @@ def set_game_attributes(new = False,test = False):
             game["away_rec"] /= len(away["games"])
             game["home_home_rec"] = 0 if home_total_games == 0 or away_total_games == 0 else game["home_home_rec"] / home_total_games
             game["away_away_rec"] = 0 if away_total_games == 0 or home_total_games == 0 else game["away_away_rec"] / away_total_games
-            new_games.append(game)
+def update_all():
+    # year_list = [2017]
+
+    # Updates team dictionary
+    get_team_stats()
+
+    # Updates team dictionary
+    get_kp_stats()
+
+    # Updates games dictionary
+    # get_old_games()
+
+    # Updates teams dictionary
+    # Gets games that will be regressed
+    get_lines_info()
+    get_lines_info(lines=False)
+    # get_lines_info([2016],test=True)
+    # get_lines_info([2016],lines=False,test=True)
+
+    get_new_games()
+
+    # Updates team dictionary
+    set_team_attributes()
+
+    # Updates games dictionary
+    # Updates regress games
+    set_game_attributes()
+    set_game_attributes(new = True)
+    # set_game_attributes(test = True)
 
 teams = {}
 games = {}
-tmp_regress_spread = []
+regress_spread = []
 with open('teams.json','r') as infile:
     teams = json.load(infile)
 with open('games.json','r') as infile:
     games = json.load(infile)
 # with open('regress_spread.json','r') as infile:
 #     tmp_regress_spread = json.load(infile)
-regress_spread = []
 regress_dict = {}
-tmp_new_games = []
 new_games = []
-tmp_test_games = []
 test_games = []
 test_dict = {}
 espn_names, kp_names, os_names, sb_names, lines_names = get_names()

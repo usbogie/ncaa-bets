@@ -5,7 +5,7 @@ Dep. Variable:             home_cover   R-squared:                       0.107
 Model:                            OLS   Adj. R-squared:                  0.106
 Method:                 Least Squares   F-statistic:                     111.9
 Date:                Wed, 11 Jan 2017   Prob (F-statistic):          4.27e-286
-Time:                        15:40:10   Log-Likelihood:                -6820.6
+Time:                        16:31:42   Log-Likelihood:                -6820.6
 No. Observations:               12177   AIC:                         1.367e+04
 Df Residuals:                   12164   BIC:                         1.376e+04
 Df Model:                          13                                         

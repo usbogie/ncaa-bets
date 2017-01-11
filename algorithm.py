@@ -67,7 +67,12 @@ def test_strategy(lb = .5,ub = 2,data=regress_spread):
     wins = 0
     profit = 0
     lb = int(1000*lb)/1000
+    spreads = {}
+    correct = {}
     for game in data:
+        spreads[game["spread"]] = spreads.get(game["spread"],0) + 1
+        if game["pick"] == game["cover"]:
+            correct[game["spread"]] = correct.get(game["spread"],0) + 1
         if game["prob"] >= lb and game["prob"] <= ub:
             number_of_games += 1
             if game["pick"] == game["cover"]:
@@ -77,6 +82,10 @@ def test_strategy(lb = .5,ub = 2,data=regress_spread):
                 number_of_games -= 1
             else:
                 profit -= 11
+    # for key in spreads.keys():
+    #     correct[key] = correct.get(game["spread"],0) / spreads[key]
+    # for key in sorted(correct.keys()):
+    #     print(key,correct[key])
     try:
         percent = int(wins / number_of_games * 10000)/100
     except:
@@ -126,5 +135,7 @@ def print_picks(prob = .5,top = 175):
         new_games.remove(nextgame)
 parameters = regress_spreads()
 test_strategy()
+# for i in range(5):
+#     test_strategy(lb=.5+.05*i)
 predict_new_games()
 print_picks()
