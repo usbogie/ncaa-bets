@@ -302,12 +302,17 @@ def get_os_names(name_list):
 
 def get_sb_names(name_list):
     sbdf = pd.read_json('sb_data/game_lines.json')
+    vidf = pd.read_json('vi_data/vegas_2016.json')
     sbset = set()
     teamset = set()
     trset = set()
     for team in sbdf.home:
         sbset.add(team)
     for team in sbdf.away:
+        sbset.add(team)
+    for team in vidf.home:
+        sbset.add(team)
+    for team in vidf.away:
         sbset.add(team)
     for name in name_list:
         teamset.add(name)
@@ -352,7 +357,12 @@ def get_sb_names(name_list):
                 ratio = fuzz.ratio(team,t2)
                 t = t2
         print(team,t,ratio)
-        check_later.add((team,t))
+        s = input("Type 'y' if names match")
+        if s == 'y':
+            check_later.add((team,t))
+        else:
+            tr_name = input("Type tr name:")
+            check_later.add((team,tr_name))
     for team,other in check_later:
         if other in trset:
             sb_names[team] = other
@@ -365,6 +375,8 @@ def get_sb_names(name_list):
                 except:
                     sb_names[team] = os_names[other]
     with open('sb_data/names_dict.json', 'w+') as outfile:
+        json.dump(sb_names, outfile)
+    with open('vi_data/names_dict.json', 'w+') as outfile:
         json.dump(sb_names, outfile)
 def get_lines_names(name_list):
     ldf = pd.read_json('lines_data/lines2017.json')
@@ -455,6 +467,3 @@ with open('lines_data/names_dict.json','r') as infile:
     lines_names = json.load(infile)
 get_sb_names(trdf.Name)
 get_lines_names(trdf.Name)
-for key in sorted(sb_names.keys()):
-    if key != sb_names[key]:
-        print(key,sb_names[key])

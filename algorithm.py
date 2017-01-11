@@ -70,9 +70,16 @@ def test_strategy(lb = .5,ub = 2,data=regress_spread):
     spreads = {}
     correct = {}
     for game in data:
-        spreads[game["spread"]] = spreads.get(game["spread"],0) + 1
+        if game["cover"] != "Tie":
+            if game["spread"] < 0 and game["spread"] > -5:
+                spreads[-.1] = spreads.get(-.1,0) + 1
+            else:
+                spreads[int(game["spread"]/5)] = spreads.get(int(game["spread"]/5),0) + 1
         if game["pick"] == game["cover"]:
-            correct[game["spread"]] = correct.get(game["spread"],0) + 1
+            if game["spread"] < 0 and game["spread"] > -5:
+                correct[-.1] = correct.get(-.1,0) + 1
+            else:
+                correct[int(game["spread"]/5)] = correct.get(int(game["spread"]/5),0) + 1
         if game["prob"] >= lb and game["prob"] <= ub:
             number_of_games += 1
             if game["pick"] == game["cover"]:
@@ -82,10 +89,10 @@ def test_strategy(lb = .5,ub = 2,data=regress_spread):
                 number_of_games -= 1
             else:
                 profit -= 11
-    # for key in spreads.keys():
-    #     correct[key] = correct.get(game["spread"],0) / spreads[key]
-    # for key in sorted(correct.keys()):
-    #     print(key,correct[key])
+    for key in spreads.keys():
+        correct[key] = correct.get(key,0) / spreads[key]
+    for key in sorted(correct.keys()):
+        print(key*5,correct[key],spreads[key])
     try:
         percent = int(wins / number_of_games * 10000)/100
     except:
