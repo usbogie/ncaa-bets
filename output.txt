@@ -5,7 +5,7 @@ Dep. Variable:             home_cover   R-squared:                       0.107
 Model:                            OLS   Adj. R-squared:                  0.106
 Method:                 Least Squares   F-statistic:                     111.9
 Date:                Wed, 11 Jan 2017   Prob (F-statistic):          4.27e-286
-Time:                        15:25:07   Log-Likelihood:                -6820.6
+Time:                        15:40:10   Log-Likelihood:                -6820.6
 No. Observations:               12177   AIC:                         1.367e+04
 Df Residuals:                   12164   BIC:                         1.376e+04
 Df Model:                          13                                         
@@ -38,37 +38,37 @@ Warnings:
 Testing with lower-bound 0.5 won 63.13 percent of 11930 games.
 This would lead to a profit of 2694.2 units.
 Prob  Pick                    Spread Opponent                   Tip
-66.96 Illinois State          4.0    @  S Illinois              7p  
+66.96 Illinois State          -4.0   @  S Illinois              7p  
 66.31 Connecticut             -2.0   vs Temple                  8p  
-64.31 Butler                  -5.5   @  Creighton               8p  
+64.31 Butler                  5.5    @  Creighton               8p  
 63.68 Wake Forest             9.0    vs N Carolina              7p  
 62.72 Tulsa                   5.0    vs Memphis                 7p  
-61.72 The Citadel             -25.5  @  Chattanooga             6p  
+61.72 The Citadel             25.5   @  Chattanooga             6p  
 61.39 Louisville              -11.0  vs Pittsburgh              6p  
 60.74 Tennessee               2.0    vs S Carolina              5p  
-60.31 Evansville              -7.0   @  Missouri St             7p  
+60.31 Evansville              7.0    @  Missouri St             7p  
 59.86 Air Force               2.0    vs Fresno St               8p  
-59.43 St Bonaventure          -3.5   @  Richmond                6p  
-58.94 Fordham                 -15.0  @  Davidson                6p  
-58.57 Georgia                 -2.5   @  Mississippi             6p  
-57.26 Mercer                  -4.0   @  Samford                 7p  
+59.43 St Bonaventure          3.5    @  Richmond                6p  
+58.94 Fordham                 15.0   @  Davidson                6p  
+58.57 Georgia                 2.5    @  Mississippi             6p  
+57.26 Mercer                  4.0    @  Samford                 7p  
 55.68 South Dakota            2.0    vs N Dakota St             7p  
 55.46 East Carolina           9.0    vs Houston                 5p  
 54.86 Illinois                2.0    vs Michigan                8p  
-54.63 Minnesota               -4.0   @  Michigan St             6p  
-54.37 Utah State              -4.5   @  Wyoming                 8p  
-54.03 Iowa State              -3.5   @  Oklahoma St             8p  
+54.63 Minnesota               4.0    @  Michigan St             6p  
+54.37 Utah State              4.5    @  Wyoming                 8p  
+54.03 Iowa State              3.5    @  Oklahoma St             8p  
 53.93 Long Beach State        -6.5   vs Cal St Nrdge            9p  
 53.39 IUPUI                   -5.0   vs Neb Omaha               6p  
-52.9  Saint Louis             -10.0  @  Duquesne                6p  
+52.9  Saint Louis             10.0   @  Duquesne                6p  
 52.83 Massachusetts           6.5    vs Dayton                  6p  
-52.45 TCU                     0.0    @  Texas                   7p  
+52.45 TCU                     -0.0   @  Texas                   7p  
 52.0  Marquette               -5.5   vs Seton Hall              6p  
-51.43 Loyola (CHI)            -15.5  @  Wichita St              6p  
+51.43 Loyola (CHI)            15.5   @  Wichita St              6p  
 51.39 Denver                  -6.5   vs W Illinois              8p  
-50.99 NC State                5.5    @  Boston Col              8p  
-50.85 LSU                     -12.0  @  Texas A&M               7p  
-50.51 Indiana State           0.0    @  Drake                   7p  
+50.99 NC State                -5.5   @  Boston Col              8p  
+50.85 LSU                     12.0   @  Texas A&M               7p  
+50.51 Indiana State           -0.0   @  Drake                   7p  
 50.48 VCU                     -11.5  vs Geo Wshgtn              5p  
 50.44 Bradley                 3.5    vs N Iowa                  8p  
 50.43 South Florida           -5.0   vs Tulane                  6p  

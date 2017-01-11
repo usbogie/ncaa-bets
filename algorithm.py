@@ -109,13 +109,14 @@ def print_picks(prob = .5,top = 175):
         if maxprob < prob:
             break
         prob_str = str(int(nextgame["prob"]*10000)/100).ljust(6)
-        spread_str = str(nextgame["spread"]).ljust(7)
         tip_str = str(nextgame["tipstring"]).ljust(4)
         if nextgame["pick"] == nextgame["home"][:-4]:
             pick_str = nextgame["home_espn"].ljust(24)
+            spread_str = str(nextgame["spread"]).ljust(7)
             opp_str = "vs " + nextgame["away"][:-4].ljust(24)
         else:
             pick_str = nextgame["away_espn"].ljust(24)
+            spread_str = str(-1 * nextgame["spread"]).ljust(7)
             opp_str = "@  " + nextgame["home"][:-4].ljust(24)
         o = "{}{}{}{}{}".format(prob_str,pick_str,spread_str,opp_str,tip_str)
         f.write("\n"+o)
