@@ -26,32 +26,23 @@ def regress_spreads():
             form += " + " + var + ":spread"
     for var in true:
             form += " + " + var + ":true_home_game"
-    result = sm.ols(formula = "home_cover ~ "+form+" -1",data=gamesdf,missing='raise').fit()
+    result = sm.ols(formula = "home_winner ~ "+form+" -1",data=gamesdf,missing='raise').fit()
     o = str(result.summary())
     f.write("\n"+o)
     print(o)
     parameters = list(result.params)
     i = 0
     for game in regress_spread:
-        game["prob"] = result.predict()[i] + .5
+        key = int(abs(game["spread"])+.5)
+        spreadprob = 0 if game["spread"] == 0 else no_cover[key] * game["spread"]/abs(game["spread"])
+        game["prob"] = result.predict()[i] + .5 + spreadprob
         if game["prob"] < .5:
             game["pick"] = game["away"][:-4]
             game["prob"] = 1 - game["prob"]
         else:
             game["pick"] = game["home"][:-4]
         i += 1
-    # games = []
-    # margins = {}
-    # for i in range(len(gamesdf.spread)):
-    #     if abs(gamesdf.margin[i]) <= 8:
-    #         try:
-    #             margins[abs(gamesdf.margin[i])] += 1
-    #         except:
-    #             margins[abs(gamesdf.margin[i])] = 1
-    # for key in sorted(margins.keys()):
-    #     print(key,margins[key]/len(gamesdf.spread))
     return parameters
-
 def predict_new_games(data=new_games):
     gamesdf = pd.DataFrame.from_dict(data)
     for game in new_games:
@@ -66,8 +57,10 @@ def predict_new_games(data=new_games):
         for var in true:
             prob += parameters[i] * game[var] * game["true_home_game"]
             i += 1
-        game["prob"] = prob + .5
-        if prob < 0:
+        key = int(abs(game["spread"])+.5)
+        spreadprob = 0 if game["spread"] == 0 else no_cover[key] * game["spread"]/abs(game["spread"])
+        game["prob"] = prob + .5 + spreadprob
+        if game["prob"] < .5:
             game["pick"] = game["away"][:-4]
             game["prob"] = 1 - game["prob"]
         else:
@@ -103,7 +96,7 @@ def test_strategy(lb = .5,ub = 2,data=regress_spread):
 
 def print_picks(prob = .5,top = 175):
     gamesleft = len(new_games)
-    o = "Pick".ljust(20)+"Spread".ljust(6)+"Prob".ljust(6)+"Tip".ljust(4)+"Opponent"
+    o = "Prob".ljust(6)+"Pick".ljust(24)+"Spread".ljust(7)+"Opponent".ljust(27)+"Tip"
     f.write("\n"+o)
     print(o)
     while gamesleft > 0 and top != 0:
@@ -116,18 +109,49 @@ def print_picks(prob = .5,top = 175):
         if maxprob < prob:
             break
         if nextgame["pick"] == nextgame["home"][:-4]:
-            o = nextgame["home_espn"].ljust(20)+str(nextgame["spread"]).ljust(6)+str(int(nextgame["prob"]*10000)/100).ljust(6)+str(nextgame["tipstring"]).ljust(4)+"vs " + nextgame["away"][:-4]
+            o = str(int(nextgame["prob"]*10000)/100).ljust(6)+nextgame["home_espn"].ljust(24)+str(nextgame["spread"]).ljust(7)+"vs " + nextgame["away"][:-4].ljust(24)+str(nextgame["tipstring"]).ljust(4)
             f.write("\n"+o)
             print(o)
         else:
-            o = nextgame["away_espn"].ljust(20)+str(-1*nextgame["spread"]).ljust(6)+str(int(nextgame["prob"]*10000)/100).ljust(6)+str(nextgame["tipstring"]).ljust(4)+"@  " + nextgame["home"][:-4]
+            o = str(int(nextgame["prob"]*10000)/100).ljust(6)+nextgame["away_espn"].ljust(24)+str(-1*nextgame["spread"]).ljust(7)+"@  " + nextgame["home"][:-4].ljust(24)+str(nextgame["tipstring"]).ljust(4)
             f.write("\n"+o)
             print(o)
         top -= 1
         gamesleft -= 1
         new_games.remove(nextgame)
+def get_spread_likelihood(gamesdf):
+    no_cover = {}
+    total = {}
+    for i in range(len(gamesdf.spread)):
+        spread = gamesdf.spread[i]
+        key = int(abs(spread)+.5)
+        spreadkey = abs(spread)
+        try:
+            total[key] += 1
+        except:
+            total[key] = 1
+        if spread < 0 and gamesdf.home_winner[i] == .5 and gamesdf.home_cover[i] < 0:
+            try:
+                no_cover[key] += 1
+            except:
+                no_cover[key] = 1
+        elif spread > 0 and gamesdf.home_winner[i] == -.5 and gamesdf.home_cover[i] > 0:
+            try:
+                no_cover[key] += 1
+            except:
+                no_cover[key] = 1
+        elif gamesdf.home_cover[i] == 0:
+            total[key] -= 1
+    for key in total.keys():
+        try:
+            no_cover[key] /= total[key]
+        except:
+            no_cover[key] = 0
+    return no_cover
+gamesdf = pd.DataFrame.from_dict(regress_spread)
+no_cover = get_spread_likelihood(gamesdf)
 parameters = regress_spreads()
 for i in range(5):
-    test_strategy(lb=i/20+.5,ub=i/20+.55)
+    test_strategy(lb=i/20+.5)
 predict_new_games()
 print_picks()

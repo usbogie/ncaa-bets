@@ -46,12 +46,12 @@ def get_team_stats(year_list = [2014,2015,2016,2017]):
             teams[team]["games"] = []
 
 def update_all():
-    year_list = [2017]
+    # year_list = [2017]
     get_team_stats()
 
     get_kp_stats()
 
-    get_old_games()
+    # get_old_games()
 
     get_lines_info()
     get_lines_info(lines=False)
@@ -119,8 +119,8 @@ def get_old_games(year_list = [2014,2015,2016,2017]):
                 game["a_score"] = float(years[year].Away_Score[i])
                 game["total_score"] = float(game["h_score"] + game["a_score"])
                 game["margin"] = float(game["h_score"] - game["a_score"])
-                game["home_winner"] = (game["margin"]/abs(game["margin"])) * .5 + .5
-                if game["home_winner"] == 1:
+                game["home_winner"] = (game["margin"]/abs(game["margin"])) * .5
+                if game["home_winner"] == .5:
                     game["winner"] = game["home"][:-4]
                 else:
                     game["winner"] = game["away"][:-4]
@@ -175,19 +175,19 @@ def get_lines_info(year_list = [2014,2015,2016,2017],lines = True):
                 else:
                     game["spread"] = float(years[year].spread[i])
                 game["total"] = float(years[year].total[i])
-                if years[year].ats[i] == 'L':
+                if game["spread"] + game["margin"] < 0:
                     game["cover"] = game["away"][:-4]
                     game["home_cover"] = -.5
-                elif years[year].ats[i] == 'W':
+                elif game["spread"] + game["margin"] > 0:
                     game["cover"] = game["home"][:-4]
                     game["home_cover"] = .5
                 else:
                     game["cover"] = "Tie"
                     game["home_cover"] = 0
-                if math.isnan(game["spread"]) or math.isnan(game["total"]):
-                    continue
                 if abs(game["spread"] + game["margin"]) <= 3:
                     game["home_cover"] = game["home_cover"] / 2
+                if math.isnan(game["spread"]) or math.isnan(game["total"]):
+                    continue
                 tmp_regress_spread.append(game)
                 regress_dict[key] = game
                 if len(teams[game["home"]]["games"]) == 0:
@@ -380,6 +380,10 @@ def set_game_attributes(new = False):
         game["away_ats"] = 0
         game["home_rec"] = 0
         game["away_rec"] = 0
+        game["home_home_rec"] = 0
+        home_total_games = 0
+        game["away_away_rec"] = 0
+        away_total_games = 0
         game["home_prev3"] = 0
         game["away_prev3"] = 0
         both = True
@@ -392,6 +396,10 @@ def set_game_attributes(new = False):
                         both = False
                     for k in range(j):
                         nextgame = games[home["games"][k]]
+                        if game["true_home_game"] and nextgame["true_home_game"] and nextgame["home"][:-4] == home["name"]:
+                            home_total_games += 1
+                            if nextgame["winner"] == home["name"]:
+                                game["home_home_rec"] += 1
                         if nextgame["cover"] == home["name"]:
                             game["home_ats"] += 1
                         elif nextgame["cover"] == "Tie":
@@ -411,6 +419,10 @@ def set_game_attributes(new = False):
                         both = False
                     for k in range(j):
                         nextgame = games[away["games"][k]]
+                        if game["true_home_game"] and nextgame["true_home_game"] and nextgame["away"][:-4] == away["name"]:
+                            away_total_games += 1
+                            if nextgame["winner"] == away["name"]:
+                                game["away_away_rec"] += 1
                         if nextgame["cover"] == away["name"]:
                             game["away_ats"] += 1
                         elif nextgame["cover"] == "Tie":
@@ -427,12 +439,18 @@ def set_game_attributes(new = False):
             game["away_ats"] /= len(away["games"])
             game["home_rec"] /= len(home["games"])
             game["away_rec"] /= len(away["games"])
+            game["home_home_rec"] = 0 if home_total_games == 0 or away_total_games == 0 else game["home_home_rec"] / home_total_games
+            game["away_away_rec"] = 0 if away_total_games == 0 or home_total_games == 0 else game["away_away_rec"] / away_total_games
             regress_spread.append(game)
         elif new:
             if len(home["games"]) < 3 or len(away["games"]) < 3:
                 both = False
             for j,key in enumerate(home["games"]):
                 game2 = games[key]
+                if game["true_home_game"] and game2["true_home_game"] and game2["home"][:-4] == home["name"]:
+                    home_total_games += 1
+                    if game2["winner"] == home["name"]:
+                        game["home_home_rec"] += 1
                 if game2["cover"] == home["name"]:
                     game["home_ats"] += 1
                 elif game2["cover"] == "Tie":
@@ -446,6 +464,10 @@ def set_game_attributes(new = False):
                         game["home_prev3"] += .5
             for j,key in enumerate(away["games"]):
                 game2 = games[key]
+                if game["true_home_game"] and game2["true_home_game"] and game2["away"][:-4] == away["name"]:
+                    away_total_games += 1
+                    if game2["winner"] == away["name"]:
+                        game["away_away_rec"] += 1
                 if game2["cover"] == away["name"]:
                     game["away_ats"] += 1
                 elif game2["cover"] == "Tie":
@@ -461,15 +483,16 @@ def set_game_attributes(new = False):
             game["away_ats"] /= len(away["games"])
             game["home_rec"] /= len(home["games"])
             game["away_rec"] /= len(away["games"])
+            game["home_home_rec"] = 0 if home_total_games == 0 or away_total_games == 0 else game["home_home_rec"] / home_total_games
+            game["away_away_rec"] = 0 if away_total_games == 0 or home_total_games == 0 else game["away_away_rec"] / away_total_games
             new_new_games.append(game)
-
 teams = {}
 games = {}
 tmp_regress_spread = []
-# with open('teams.json','r') as infile:
-#     teams = json.load(infile)
-# with open('games.json','r') as infile:
-#     games = json.load(infile)
+with open('teams.json','r') as infile:
+    teams = json.load(infile)
+with open('games.json','r') as infile:
+    games = json.load(infile)
 # with open('regress_spread.json','r') as infile:
 #     tmp_regress_spread = json.load(infile)
 regress_spread = []
