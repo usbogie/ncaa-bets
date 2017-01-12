@@ -167,8 +167,9 @@ def get_sportsbook_info(year_list=[2014,2015,2016,2017],test=False):
                     regress_spread.append(game)
                     regress_dict[key] = game
                 else:
-                    test_games.append(game)
-                    test_dict[key] = game
+                    if y == year_list[year]:
+                        test_games.append(game)
+                        test_dict[key] = game
                 # if len(teams[game["home"]]["games"]) == 0:
                 #     teams[game["home"]]["games"].append(game["key"])
                 # else:
@@ -210,8 +211,6 @@ def get_sportsbook_info(year_list=[2014,2015,2016,2017],test=False):
 
 def get_new_games():
     print("Getting new games")
-    for game in new_games:
-        new_dict[game["key"]] = game
     gamesdf = pd.read_csv('espn_data/upcoming_games.csv')
     upcoming_games = {}
     for i in range(len(gamesdf.Game_Away)):
@@ -234,7 +233,7 @@ def get_new_games():
             game["true_home_game"] = 1 if not gamesdf.Neutral_Site[i] else 0
             game["conf"] = 1 if gamesdf.Conference_Competition[i] else 0
             game["weekday"] = 0 if gameday.weekday() == 1 or gameday.weekday() == 7 else 1
-            key = str((game["home"][:-4],game["away"][:-4],game["date"]))
+            key = str((game["home"][:-4],game["away"][:-4]))
             upcoming_games[key] = game
         except:
             print(gamesdf.Game_Home[i],gamesdf.Game_Away[i])
@@ -245,19 +244,7 @@ def get_new_games():
         try:
             home = sb_names[game['home']]
             away = sb_names[game['away']]
-            d = game['date'].split()
-            months = ["Jan","Feb","Mar","Apr","Nov","Dec"]
-            j = 0
-            for m in months:
-                j += 1
-                if m == d[0][:3]:
-                    if j > 4:
-                        d[0] = j + 6
-                    else:
-                        d[0] = j
-                    break
-            gameday = str(date(int(d[2]),d[0],int(d[1][:-1])))
-            key = str((home,away,gameday))
+            key = str((home,away))
             new_game = upcoming_games[key]
             try:
                 new_dict[key]
@@ -278,11 +265,28 @@ def get_new_games():
                 new_game['total_over'] = (float(over[:-6]),float(over[-5:-1]))
                 new_game['total_under'] = (float(under[:-6]),float(under[-5:-1]))
                 new_game['total'] = new_game['total_over'][0]
-            new_games.append(new_game)
             new_dict[key] = new_game
+        except:
+            print("In sportsbook, no game matched:",sb_names[game["home"]],sb_names[game["away"]])
+
+    with open('vi_data/vegas_today.json','r') as infile:
+        vegas_info = json.load(infile)
+    for game in vegas_info:
+        try:
+            home = sb_names[game['home']]
+            away = sb_names[game['away']]
+            key = str((home,away))
+            new_game = new_dict[key]
+            new_game["line_movement"] = 0 if game["open_line"] == "" else new_game["spread"] - float(game["open_line"])
+            new_game["home_public_percentage"] = 50 if game["home_side_pct"] == "" else float(game["home_side_pct"])
+            new_game["home_ats"] = game["home_ats"].split("-")
+            new_game["away_ats"] = game["away_ats"].split("-")
+            new_game["home_ats"] = 0 if new_game["home_ats"][0] == "0" and new_game["home_ats"][1] == "0" else int(new_game["home_ats"][0]) / (int(new_game["home_ats"][0])+int(new_game["home_ats"][1]))
+            new_game["away_ats"] = 0 if new_game["away_ats"][0] == "0" and new_game["away_ats"][1] == "0" else int(new_game["away_ats"][0]) / (int(new_game["away_ats"][0])+int(new_game["away_ats"][1]))
+            new_games.append(new_game)
             print("Found:",home,away)
         except:
-            print("No game matched:",sb_names[game["home"]],sb_names[game["away"]])
+            print("In vegas info, no game matched:",sb_names[game["home"]],sb_names[game["away"]])
 
 def set_team_attributes():
     print("Setting team attributes")
@@ -328,7 +332,7 @@ def set_game_attributes(new = False,test = False):
         game["tof"] = 1 if home["tof_poss_z"] > 1 and away["to_poss_z"] > 1 else 0
         game["weekday"] = 0 if game["weekday"] == -1 else game["weekday"]
 def update_all():
-    year_list = [2017]
+    year_list = [2014,2015]
 
     # Updates team dictionary
     # get_team_stats(year_list) # Comment if team_stats hasn't been updated
@@ -338,10 +342,10 @@ def update_all():
     # get_old_games() # Comment if game_info hasn't been updated
 
     # Gets games that will be regressed
-    get_sportsbook_info() # Comment if vegas hasn't been updated
-    # get_sportsbook_info(test=True)
+    get_sportsbook_info(year_list) # Comment if vegas hasn't been updated
+    get_sportsbook_info([2016],test=True)
 
-    # get_new_games() # Comment if upcoming_games and game_lines hasn't been updated
+    get_new_games() # Comment if upcoming_games and game_lines hasn't been updated
 
     # Updates team dictionary
     set_team_attributes() # Comment if teams won't change
@@ -350,7 +354,7 @@ def update_all():
     # Updates regress games
     set_game_attributes() # Always run
     set_game_attributes(new = True) # Comment if new games aren't being added
-    # set_game_attributes(test = True) # Comment if test games aren't being added
+    set_game_attributes(test = True) # Comment if test games aren't being added
 
 teams = {}
 games = {}
@@ -363,8 +367,6 @@ with open('games.json','r') as infile:
     games = json.load(infile)
 # with open('regress_spread.json','r') as infile:
 #     regress_spread = json.load(infile)
-# with open('new_games.json','r') as infile:
-#     new_games = json.load(infile)
 # with open('test_games.json','r') as infile:
 #     test_games = json.load(infile)
 regress_dict = {}
@@ -380,7 +382,7 @@ update_all()
 #     json.dump(games, outfile)
 with open('regress_spread.json','w') as outfile:
     json.dump(regress_spread,outfile)
-# with open('new_games.json','w') as outfile:
-#     json.dump(new_games,outfile)
-# with open('test_games.json','w') as outfile:
-#     json.dump(test_games,outfile)
+with open('new_games.json','w') as outfile:
+    json.dump(new_games,outfile)
+with open('test_games.json','w') as outfile:
+    json.dump(test_games,outfile)

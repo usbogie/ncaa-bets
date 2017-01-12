@@ -137,8 +137,8 @@ def print_picks(prob = .5,top = 175):
         f.write("\n"+o)
         print(o)
 parameters = regress_spreads()
-test_strategy()
-# for i in range(5):
-#     test_strategy(lb=.5+.05*i)
-# predict_new_games()
+for i in range(5):
+    test_strategy(lb=.5+.05*i)
+predict_new_games(data=test_games)
+test_strategy(data=test_games)
 # print_picks()

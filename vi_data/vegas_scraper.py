@@ -47,10 +47,12 @@ def get_data(get_yesterday=False,get_today=False, year=2017):
 	if get_today:
 		today = int((datetime.now()).strftime('%Y-%m-%d').replace('-',''))
 		d = datetime.now()
-		all_dates = ["{}{}{}".format(d.year,d.month,d.day)]
+		month = str(d.month) if d.month >= 10 else "0" + str(d.month)
+		day = str(d.day) if d.day >= 10 else "0" + str(d.day)
+		all_dates = ["{}-{}-{}".format(d.year,month,day)]
 	for day in all_dates:
 		if today < int(day.replace('-','')):
-			break
+			continue
 		if get_yesterday and today - int(day.replace('-','')) != 1:
 			continue
 		if get_today and today - int(day.replace('-','')) != 0:

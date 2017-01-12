@@ -302,7 +302,7 @@ def get_os_names(name_list):
 
 def get_sb_names(name_list):
     sbdf = pd.read_json('sb_data/game_lines.json')
-    vidf = pd.read_json('vi_data/vegas_2016.json')
+    vidf = pd.read_json('vi_data/vegas_today.json')
     sbset = set()
     teamset = set()
     trset = set()
