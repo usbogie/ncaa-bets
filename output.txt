@@ -2,97 +2,87 @@
                             OLS Regression Results                            
 ==============================================================================
 Dep. Variable:             home_cover   R-squared:                       0.090
-Model:                            OLS   Adj. R-squared:                  0.090
-Method:                 Least Squares   F-statistic:                     95.04
-Date:                Thu, 12 Jan 2017   Prob (F-statistic):          7.94e-244
-Time:                        08:35:18   Log-Likelihood:                -8298.2
-No. Observations:               12435   AIC:                         1.662e+04
+Model:                            OLS   Adj. R-squared:                  0.089
+Method:                 Least Squares   F-statistic:                     94.58
+Date:                Thu, 12 Jan 2017   Prob (F-statistic):          1.19e-242
+Time:                        14:12:28   Log-Likelihood:                -8300.9
+No. Observations:               12435   AIC:                         1.663e+04
 Df Residuals:                   12422   BIC:                         1.672e+04
 Df Model:                          13                                         
 Covariance Type:            nonrobust                                         
 ==========================================================================================
                              coef    std err          t      P>|t|      [95.0% Conf. Int.]
 ------------------------------------------------------------------------------------------
-spread                     0.0459      0.001     30.924      0.000         0.043     0.049
-true_home_game             0.1724      0.013     13.235      0.000         0.147     0.198
-home_ats                  -0.0830      0.019     -4.374      0.000        -0.120    -0.046
-away_ats                   0.0651      0.018      3.714      0.000         0.031     0.100
-home_public_percentage     0.0005      0.000      2.503      0.012         0.000     0.001
-line_movement             -0.0149      0.003     -5.226      0.000        -0.021    -0.009
-home_off_adv               0.2251      0.007     31.523      0.000         0.211     0.239
-away_off_adv              -0.2236      0.007    -31.207      0.000        -0.238    -0.210
-away_three_adv            -0.0762      0.030     -2.567      0.010        -0.134    -0.018
-home_three_d_adv           0.0567      0.031      1.816      0.069        -0.004     0.118
-home_tempo_z:spread       -0.0016      0.000     -3.505      0.000        -0.002    -0.001
-away_tempo_z:spread       -0.0008      0.000     -1.816      0.069        -0.002  6.54e-05
-conf:true_home_game       -0.0302      0.010     -2.987      0.003        -0.050    -0.010
+spread                     0.0457      0.001     30.858      0.000         0.043     0.049
+true_home_game             0.1716      0.013     13.174      0.000         0.146     0.197
+home_off_adv               0.2246      0.007     31.479      0.000         0.211     0.239
+away_off_adv              -0.2229      0.007    -31.160      0.000        -0.237    -0.209
+home_ats                  -0.0830      0.019     -4.375      0.000        -0.120    -0.046
+away_ats                   0.0650      0.018      3.705      0.000         0.031     0.099
+home_public_percentage     0.0005      0.000      2.510      0.012         0.000     0.001
+line_movement             -0.0150      0.003     -5.253      0.000        -0.021    -0.009
+away_three_adv            -0.0672      0.029     -2.292      0.022        -0.125    -0.010
+home_three_d_adv           0.0457      0.031      1.481      0.139        -0.015     0.106
+home_tempo_z:spread       -0.0016      0.000     -3.473      0.001        -0.002    -0.001
+away_tempo_z:spread       -0.0009      0.000     -1.881      0.060        -0.002  3.58e-05
+conf:true_home_game       -0.0298      0.010     -2.953      0.003        -0.050    -0.010
 ==============================================================================
-Omnibus:                        1.386   Durbin-Watson:                   1.979
-Prob(Omnibus):                  0.500   Jarque-Bera (JB):             1415.149
-Skew:                           0.026   Prob(JB):                    5.06e-308
-Kurtosis:                       1.348   Cond. No.                         553.
+Omnibus:                        1.382   Durbin-Watson:                   1.979
+Prob(Omnibus):                  0.501   Jarque-Bera (JB):             1417.798
+Skew:                           0.026   Prob(JB):                    1.35e-308
+Kurtosis:                       1.347   Cond. No.                         546.
 ==============================================================================
 
 Warnings:
 [1] Standard Errors assume that the covariance matrix of the errors is correctly specified.
-Testing with lower-bound 0.5 won 63.34 percent of 12163 games.
-This would lead to a profit of 2801.2 units.
-Testing with lower-bound 0.55 won 67.38 percent of 8425 games.
-This would lead to a profit of 2654.2 units.
-Testing with lower-bound 0.6 won 71.14 percent of 5437 games.
-This would lead to a profit of 2142.1 units.
-Testing with lower-bound 0.65 won 73.95 percent of 3302 games.
-This would lead to a profit of 1496.0 units.
-Testing with lower-bound 0.7 won 76.95 percent of 1892 games.
-This would lead to a profit of 976.4 units.
-Testing with lower-bound 0.5 won 63.34 percent of 12163 games.
-This would lead to a profit of 2801.2 units.
+Testing with lower-bound 0.5 won 63.24 percent of 12163 games.
+This would lead to a profit of 2773.9 units.
 Prob   Pick               Spread Opponent                Tip
-60.48  Idaho State        3.5    vs Eastern Washington   8:05 PM CT
-59.94  Purdue             -5.5   @  Iowa                 8:00 PM CT
-59.28  Western Carolina   2.5    @  VMI                  6:00 PM CT
-59.27  USC                5.0    @  Utah                 8:00 PM CT
-58.25  Old Dominion       -17.0  vs Southern Mississippi 6:00 PM CT
-57.64  South Dakota State 5.5    @  Oral Roberts         7:00 PM CT
-57.47  Wright State       4.0    @  Green Bay            7:00 PM CT
-56.67  UNC Greensboro     11.5   @  East Tennessee St.   6:00 PM CT
-55.94  North Dakota       2.0    @  Montana State        8:00 PM CT
-55.68  La Salle           12.5   @  Rhode Island         6:00 PM CT
-55.55  Notre Dame         3.5    @  Miami                6:00 PM CT
-55.26  Northern Colorado  10.0   @  Montana              8:00 PM CT
-55.07  Cal Poly           -4.5   vs Cal State Fullerton  9:00 PM CT
-54.93  UC Santa Barbara   6.0    vs UC Irvine            9:00 PM CT
-54.78  Southern Utah      -3.0   vs Sacramento State     7:30 PM CT
-54.64  Delaware           10.5   @  Towson               6:00 PM CT
-54.51  Pacific            -5.0   vs Pepperdine           9:00 PM CT
-54.48  Elon               -3.5   vs Hofstra              6:00 PM CT
-54.04  Charleston         -3.5   @  James Madison        6:00 PM CT
-53.77  Tennessee State    -5.0   @  Eastern Kentucky     6:00 PM CT
-53.77  Georgia Tech       9.5    vs Clemson              6:00 PM CT
-53.51  Colorado           7.0    vs UCLA                 10:00 PM CT
-53.28  Florida Intl       1.5    @  UTEP                 8:00 PM CT
-53.09  Youngstown State   8.5    vs Valparaiso           6:45 PM CT
-52.97  Rutgers            6.0    vs Northwestern         8:00 PM CT
-52.79  Siena              -8.5   vs Quinnipiac           7:00 PM CT
-52.78  Washington         12.5   @  California           8:00 PM CT
-52.75  UT San Antonio     -3.0   vs Florida Atlantic     7:00 PM CT
-52.74  Ohio State         10.5   @  Wisconsin            6:00 PM CT
-52.42  Cleveland State    -3.5   vs UIC                  6:45 PM CT
-52.41  Stanford           -7.5   vs Washington State     10:00 PM CT
-52.04  Murray State       2.5    @  Eastern Illinois     7:00 PM CT
-51.87  Idaho              9.5    @  Weber State          8:00 PM CT
-51.83  SMU                6.0    @  Cincinnati           8:00 PM CT
-51.78  Belmont            -4.5   @  Morehead State       6:00 PM CT
-51.7   Northeastern       -10.5  vs Drexel               6:00 PM CT
-51.6   SIU Edwardsville   -2.5   vs Austin Peay          8:00 PM CT
-51.5   UNC Wilmington     -12.5  vs William & Mary       6:00 PM CT
-51.35  Saint Mary's       -13.0  @  Portland             10:00 PM CT
-51.32  UC Davis           -2.0   @  UC Riverside         10:00 PM CT
-51.15  Milwaukee          5.0    vs Northern Kentucky    7:00 PM CT
-51.08  Gonzaga            -21.5  vs Loyola Marymount     8:00 PM CT
+71.96  Old Dominion       -13.5  vs Southern Mississippi 6:00 PM CT
+64.33  Western Carolina   4.0    @  VMI                  6:00 PM CT
+62.85  Cal Poly           -2.5   vs Cal State Fullerton  9:00 PM CT
+62.15  Idaho State        4.0    vs Eastern Washington   8:05 PM CT
+60.31  USC                5.5    @  Utah                 8:00 PM CT
+60.09  Notre Dame         4.5    @  Miami                6:00 PM CT
+59.72  Eastern Illinois   0.0    vs Murray State         7:00 PM CT
+59.01  UC Santa Barbara   7.5    vs UC Irvine            9:00 PM CT
+58.26  Purdue             -6.0   @  Iowa                 8:00 PM CT
+57.83  Wright State       5.5    @  Green Bay            7:00 PM CT
+57.72  Gonzaga            -19.5  vs Loyola Marymount     8:00 PM CT
+57.44  Elon               -2.0   vs Hofstra              6:00 PM CT
+57.21  Tennessee State    -4.0   @  Eastern Kentucky     6:00 PM CT
+56.77  Stanford           -6.5   vs Washington State     10:00 PM CT
+56.67  North Dakota       2.0    @  Montana State        8:00 PM CT
+56.32  UT San Antonio     -1.5   vs Florida Atlantic     7:00 PM CT
+55.84  Northeastern       -10.0  vs Drexel               6:00 PM CT
+55.78  Northern Colorado  10.0   @  Montana              8:00 PM CT
+55.43  Youngstown State   9.0    vs Valparaiso           6:45 PM CT
+55.24  Siena              -7.5   vs Quinnipiac           7:00 PM CT
+54.93  Southern Utah      -2.5   vs Sacramento State     7:30 PM CT
+54.87  La Salle           12.5   @  Rhode Island         6:00 PM CT
+54.66  Georgia Tech       9.5    vs Clemson              6:00 PM CT
+54.32  Pacific            -5.5   vs Pepperdine           9:00 PM CT
+53.95  UAB                -8.0   vs Western Kentucky     7:00 PM CT
+53.9   Delaware           10.5   @  Towson               6:00 PM CT
+53.29  Florida Intl       1.5    @  UTEP                 8:00 PM CT
+53.29  Ohio State         11.0   @  Wisconsin            6:00 PM CT
+52.99  South Dakota State 4.5    @  Oral Roberts         7:00 PM CT
+52.98  Cincinnati         -5.5   vs SMU                  8:00 PM CT
+52.9   Northern Kentucky  -4.0   @  Milwaukee            7:00 PM CT
+52.85  Idaho              10.0   @  Weber State          8:00 PM CT
+52.8   SIU Edwardsville   -2.0   vs Austin Peay          8:00 PM CT
+52.49  Rutgers            6.0    vs Northwestern         8:00 PM CT
+52.05  Charleston         -4.0   @  James Madison        6:00 PM CT
+52.02  Cleveland State    -3.5   vs UIC                  6:45 PM CT
+51.59  UNC Wilmington     -12.5  vs William & Mary       6:00 PM CT
+51.28  Arizona State      16.5   @  Arizona              8:00 PM CT
+51.09  Charlotte          4.0    vs Louisiana Tech       6:00 PM CT
+51.08  UC Riverside       3.0    vs UC Davis             10:00 PM CT
 51.05  San Francisco      12.5   @  BYU                  8:00 PM CT
-50.86  San Diego          3.0    vs Santa Clara          9:00 PM CT
-50.78  Charlotte          3.0    vs Louisiana Tech       6:00 PM CT
-50.55  Western Kentucky   9.0    @  UAB                  7:00 PM CT
-50.2   Arizona            -16.0  vs Arizona State        8:00 PM CT
-50.17  Middle Tennessee   -7.5   vs Marshall             7:00 PM CT
+51.03  Belmont            -4.5   @  Morehead State       6:00 PM CT
+50.96  Marshall           8.5    @  Middle Tennessee     7:00 PM CT
+50.91  Santa Clara        -2.5   @  San Diego            9:00 PM CT
+50.84  Saint Mary's       -13.0  @  Portland             10:00 PM CT
+50.59  Colorado           6.0    vs UCLA                 10:00 PM CT
+50.25  Washington         11.5   @  California           8:00 PM CT
+50.02  East Tennessee St. -10.0  vs UNC Greensboro       6:00 PM CT

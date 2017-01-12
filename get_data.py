@@ -58,6 +58,7 @@ def get_kp_stats(year_list = [2014,2015,2016,2017]):
             teams[name]["kp_o"] = years[i].adjO[j]
             teams[name]["kp_d"] = years[i].adjD[j]
             teams[name]["kp_t"] = years[i].adjT[j]
+            teams[name]["kp_em"] = teams[name]["kp_o"] - teams[name]["kp_d"]
 
 def get_old_games(year_list = [2014,2015,2016,2017]):
     print("Getting old games from ESPN")
@@ -121,7 +122,6 @@ def get_sportsbook_info(year_list=[2014,2015,2016,2017],test=False):
     for year in range(len(years)):
         for i in range(len(years[year].home)):
             try:
-                a = ""
                 h = sb_names[years[year].home[i]]
                 a = sb_names[years[year].away[i]]
                 d = years[year].date[i].split("/")
@@ -170,42 +170,20 @@ def get_sportsbook_info(year_list=[2014,2015,2016,2017],test=False):
                     if y == year_list[year]:
                         test_games.append(game)
                         test_dict[key] = game
-                # if len(teams[game["home"]]["games"]) == 0:
-                #     teams[game["home"]]["games"].append(game["key"])
-                # else:
-                #     if game["key"] in teams[game["home"]]["games"]:
-                #         continue
-                #     for index,key in enumerate(teams[game["home"]]["games"]):
-                #         datearray = games[key]["date"].split("-")
-                #         dateobject = date(int(datearray[0]),int(datearray[1]),int(datearray[2]))
-                #         if gamedateobject < dateobject:
-                #             teams[game["home"]]["games"][index] = game["key"]
-                #             for index2 in range(index+1,len(teams[game["home"]]["games"])):
-                #                 tmp = teams[game["home"]]["games"][index2]
-                #                 teams[game["home"]]["games"][index2] = key
-                #                 key = tmp
-                #             teams[game["home"]]["games"].append(key)
-                #             break
-                #         if index == len(teams[game["home"]]["games"]) - 1:
-                #             teams[game["home"]]["games"].append(game["key"])
-                # if len(teams[game["away"]]["games"]) == 0:
-                #     teams[game["away"]]["games"].append(game["key"])
-                # else:
-                #     if game["key"] in teams[game["home"]]["games"]:
-                #         continue
-                #     for index,key in enumerate(teams[game["away"]]["games"]):
-                #         datearray = games[key]["date"].split("-")
-                #         dateobject = date(int(datearray[0]),int(datearray[1]),int(datearray[2]))
-                #         if gamedateobject < dateobject:
-                #             teams[game["away"]]["games"][index] = game["key"]
-                #             for index2 in range(index+1,len(teams[game["away"]]["games"])):
-                #                 tmp = teams[game["away"]]["games"][index2]
-                #                 teams[game["away"]]["games"][index2] = key
-                #                 key = tmp
-                #             teams[game["away"]]["games"].append(key)
-                #             break
-                #         if index == len(teams[game["away"]]["games"]) - 1:
-                #             teams[game["away"]]["games"].append(game["key"])
+                home = teams[h+str(year_list[year])]
+                away = teams[a+str(year_list[year])]
+                gametemp = (home["kp_t"] + away["kp_t"]) / 2
+                #                 Expected margin
+                home_diff = (away["kp_em"] / 100 * gametemp) + game["margin"]
+                away_diff = (home["kp_em"] / 100 * gametemp) - game["margin"]
+                list_dict = {"date": datearray,
+                             "true": game["true_home_game"],
+                             "home": home["name"],
+                             "away": away["name"],
+                             "home_diff": home_diff,
+                             "away_diff": away_diff}
+                teams[game["home"]]["games"].append(list_dict)
+                teams[game["away"]]["games"].append(list_dict)
             except:
                 continue
 
@@ -252,7 +230,6 @@ def get_new_games():
             except:
                 pass
             new_game['key'] = key
-            new_game['spread_away'] = (float(game['spread_away'][:-6]),float(game['spread_away'][-5:-1]))
             new_game['spread_home'] = (float(game['spread_home'][:-6]),float(game['spread_home'][-5:-1]))
             new_game['spread'] = new_game['spread_home'][0]
             if game['total_over'] == "-":
@@ -319,6 +296,8 @@ def set_game_attributes(new = False,test = False):
     for i,game in enumerate(data):
         home = teams[game["home"]]
         away = teams[game["away"]]
+        game["home_em"] = home["kp_em"]
+        game["away_em"] = away["kp_em"]
         game["home_off_adv"] = home["kp_o_z"] + away["kp_d_z"]
         game["away_off_adv"] = home["kp_d_z"] + away["kp_o_z"]
         game["home_tempo_z"] = home["kp_t_z"]
@@ -331,19 +310,79 @@ def set_game_attributes(new = False,test = False):
         game["to"] = 1 if home["to_poss_z"] > 1 and away["tof_poss_z"] > 1 else 0
         game["tof"] = 1 if home["tof_poss_z"] > 1 and away["to_poss_z"] > 1 else 0
         game["weekday"] = 0 if game["weekday"] == -1 else game["weekday"]
+        dsa = game["date"].split("-")
+        datearray = [int(dsa[0]),int(dsa[1]),int(dsa[2])]
+        game["home_diff"] = 0
+        hgames = 0
+        game["home_diff_n"] = 0
+        hngames = 0
+        game["away_diff"] = 0
+        agames = 0
+        game["away_diff_n"] = 0
+        angames = 0
+        for g in home["games"]:
+            for index,d in enumerate(g["date"]):
+                if d < datearray[index]:
+                    if g["true"] == 1 and g["home"] == home["name"]:
+                        hgames += 1
+                        game["home_diff"] += g["home_diff"]
+                        break
+                    elif g["true"] == 0:
+                        hngames += 1
+                        if g["home"] == home["name"]:
+                            game["home_diff_n"] += g["home_diff"]
+                        else:
+                            game["home_diff_n"] += g["away_diff"]
+                        break
+                    else:
+                        break
+                elif d == datearray[index]:
+                    continue
+                else:
+                    break
+        for g in away["games"]:
+            for index,d in enumerate(g["date"]):
+                if d < datearray[index]:
+                    if g["true"] == 1 and g["away"] == away["name"]:
+                        agames += 1
+                        game["away_diff"] += g["away_diff"]
+                        break
+                    elif g["true"] == 0:
+                        angames += 1
+                        if g["home"] == away["name"]:
+                            game["away_diff_n"] += g["home_diff"]
+                        else:
+                            game["away_diff_n"] += g["away_diff"]
+                        break
+                    else:
+                        break
+                elif d == datearray[index]:
+                    continue
+                else:
+                    break
+        game["home_diff"] = 0 if hgames == 0 else game["home_diff"] / hgames
+        game["home_diff_n"] = 0 if hngames == 0 else game["home_diff_n"] / hngames
+        game["away_diff"] = 0 if agames == 0 else game["away_diff"] / agames
+        game["away_diff_n"] = 0 if angames == 0 else game["away_diff_n"] / angames
+        game["diff"] = game["home_diff"] - game["away_diff"] if game["true_home_game"] else game["home_diff_n"] - game["away_diff_n"]
+        game["diff_h"] = game["home_diff"] - game["away_diff"]
+        game["diff_n"] = game["home_diff_n"] - game["away_diff_n"]
 def update_all():
-    year_list = [2014,2015]
+    year_list = [2017]
 
     # Updates team dictionary
-    # get_team_stats(year_list) # Comment if team_stats hasn't been updated
-    # get_kp_stats(year_list) # Comment if kenpom hasn't been updated
+    get_team_stats() # Comment if team_stats hasn't been updated
+    get_kp_stats() # Comment if kenpom hasn't been updated
 
     # Updates games dictionary
     # get_old_games() # Comment if game_info hasn't been updated
+    # get_old_games(year_list)
 
     # Gets games that will be regressed
-    get_sportsbook_info() # Comment if vegas hasn't been updated
-    # get_sportsbook_info([2016],test=True)
+    # get_sportsbook_info() # Comment if vegas hasn't been updated
+    # get_sportsbook_info(year_list)
+    # get_sportsbook_info([2014,2015])
+    # get_sportsbook_info([2017],test=True)
 
     get_new_games() # Comment if upcoming_games and game_lines hasn't been updated
 
@@ -380,9 +419,11 @@ update_all()
 #     json.dump(teams, outfile)
 # with open('games.json','w') as outfile:
 #     json.dump(games, outfile)
-with open('regress_spread.json','w') as outfile:
-    json.dump(regress_spread,outfile)
+# with open('regress_spread.json','w') as outfile:
+#     json.dump(regress_spread,outfile)
 with open('new_games.json','w') as outfile:
     json.dump(new_games,outfile)
 # with open('test_games.json','w') as outfile:
 #     json.dump(test_games,outfile)
+# with open('regress_spread1415.json','w') as outfile:
+#     json.dump(regress_spread,outfile)

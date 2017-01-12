@@ -11,7 +11,6 @@ import record_results
 import json
 import csv
 
-
 games = sb.get_todays_sportsbook_lines()
 with open('sb_data/game_lines.json','w') as outfile:
 	json.dump(games,outfile)

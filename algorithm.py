@@ -10,13 +10,16 @@ with open('regress_spread.json') as infile:
     regress_spread = json.load(infile)
 with open('test_games.json') as infile:
     test_games = json.load(infile)
+with open('regress_spread1415.json') as infile:
+    regress_spread1415 = json.load(infile)
 f = open('output.txt','w')
 # "spread","true_home_game","home_ats","away_ats","home_public_percentage","line_movement","home_off_adv","away_off_adv","away_three_adv","home_three_d_adv","home_tempo_z","away_tempo_z","conf"
-variables = ["spread","true_home_game","home_ats","away_ats","home_public_percentage","line_movement","home_off_adv","away_off_adv","away_three_adv","home_three_d_adv"]
+variables = ["spread","true_home_game","home_off_adv","away_off_adv","home_ats","away_ats","home_public_percentage","line_movement","away_three_adv","home_three_d_adv"]
 spread = ["home_tempo_z","away_tempo_z"]
 true = ["conf"]
-def regress_spreads():
-    gamesdf = pd.DataFrame.from_dict(regress_spread)
+def regress_spreads(data = regress_spread):
+    gamesdf = pd.DataFrame.from_dict(data)
+    gamesdf["neutral"] = abs(gamesdf.true_home_game - 1)
     form = ""
     for var in variables:
         if var == "spread":
@@ -27,13 +30,13 @@ def regress_spreads():
             form += " + {}:spread".format(var)
     for var in true:
             form += " + {}:true_home_game".format(var)
-    result = sm.ols(formula = "home_cover ~ {} -1".format(form),data=gamesdf,missing='raise').fit()
+    result = sm.ols(formula = "home_cover ~ {}-1".format(form),data=gamesdf,missing='raise').fit()
     o = str(result.summary())
     f.write("\n"+o)
     print(o)
     parameters = list(result.params)
     i = 0
-    for game in regress_spread:
+    for game in data:
         game["prob"] = result.predict()[i] + .5
         if game["prob"] < .5:
             game["pick"] = game["away"][:-4]
@@ -137,7 +140,6 @@ def print_picks(prob = .5,top = 175):
         f.write("\n"+o)
         print(o)
 parameters = regress_spreads()
-for i in range(5):
-    test_strategy(lb=.5+.05*i)
 predict_new_games()
+test_strategy()
 print_picks()
