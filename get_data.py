@@ -342,8 +342,8 @@ def update_all():
     # get_old_games() # Comment if game_info hasn't been updated
 
     # Gets games that will be regressed
-    get_sportsbook_info(year_list) # Comment if vegas hasn't been updated
-    get_sportsbook_info([2016],test=True)
+    get_sportsbook_info() # Comment if vegas hasn't been updated
+    # get_sportsbook_info([2016],test=True)
 
     get_new_games() # Comment if upcoming_games and game_lines hasn't been updated
 
@@ -354,7 +354,7 @@ def update_all():
     # Updates regress games
     set_game_attributes() # Always run
     set_game_attributes(new = True) # Comment if new games aren't being added
-    set_game_attributes(test = True) # Comment if test games aren't being added
+    # set_game_attributes(test = True) # Comment if test games aren't being added
 
 teams = {}
 games = {}
@@ -384,5 +384,5 @@ with open('regress_spread.json','w') as outfile:
     json.dump(regress_spread,outfile)
 with open('new_games.json','w') as outfile:
     json.dump(new_games,outfile)
-with open('test_games.json','w') as outfile:
-    json.dump(test_games,outfile)
+# with open('test_games.json','w') as outfile:
+#     json.dump(test_games,outfile)

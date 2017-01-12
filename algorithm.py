@@ -139,6 +139,5 @@ def print_picks(prob = .5,top = 175):
 parameters = regress_spreads()
 for i in range(5):
     test_strategy(lb=.5+.05*i)
-predict_new_games(data=test_games)
-test_strategy(data=test_games)
-# print_picks()
+predict_new_games()
+print_picks()
