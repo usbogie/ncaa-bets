@@ -5,6 +5,7 @@ from kp_data import kp_scraper as kp
 from sb_data import sportsbook_scraper as sb
 from tr_data import tr_scraper as tr
 from vi_data import vegas_scraper as vi
+from lines_data import lines_scraper as lines
 from datetime import datetime, timedelta
 import record_results
 import json
@@ -34,6 +35,15 @@ with open('sb_data/game_lines.json','w') as outfile:
 	json.dump(games,outfile)
 print("Updated new lines")
 
+all_lines = []
+with open('lines_data/lines2017.json', 'r+') as linesfile:
+	gamelines = json.load(linesfile)
+	all_lines = lines.get_data(gamelines, get_yesterday=True)
+	linesfile.seek(0)
+	linesfile.truncate()
+	json.dump(all_lines, linesfile)
+print("Updated Game Lines")
+
 team_list = tr.get_teamrankings([2017])
 with open('tr_data/team_stats17.csv', 'w') as outfile:
 	keys = list(team_list[0].keys())
@@ -43,9 +53,18 @@ with open('tr_data/team_stats17.csv', 'w') as outfile:
 		writer.writerow(team)
 print("Updated team stats")
 
+#get yesterday's vegas_insider info
+with open('vi_data/vegas_2017.json', 'r+') as vegasfile:
+	gamelines = json.load(vegasfile)
+	yesterday_games = vi.get_data(data=gamelines, get_yesterday=True)
+	vegasfile.seek(0)
+	vegasfile.truncate()
+	json.dump(yesterday_games, vegasfile)
+print("Updated Vegas Insider")
+
 data = vi.get_data(get_today = True)
 with open('vi_data/vegas_today.json', 'w') as outfile:
-    json.dump(data, outfile)
+	json.dump(data, outfile)
 print("Updated vegas info")
 
 with open('results.json', 'r+') as resultsfile:

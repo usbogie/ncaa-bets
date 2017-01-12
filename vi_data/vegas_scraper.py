@@ -39,11 +39,10 @@ def ordered(obj):
 	else:
 		return obj
 
-def get_data(get_yesterday=False,get_today=False, year=2017):
+def get_data(data=[],get_yesterday=False,get_today=False, year=2017):
 	all_dates = make_season(year-1)
 	base = "http://www.vegasinsider.com/college-basketball/matchups/matchups.cfm/date/"
 	today = int((datetime.now() - timedelta(1)).strftime('%Y-%m-%d').replace('-',''))
-	data = []
 	if get_today:
 		today = int((datetime.now()).strftime('%Y-%m-%d').replace('-',''))
 		d = datetime.now()
@@ -53,7 +52,7 @@ def get_data(get_yesterday=False,get_today=False, year=2017):
 	for day in all_dates:
 		if today < int(day.replace('-','')):
 			continue
-		if get_yesterday and today - int(day.replace('-','')) != 1:
+		if get_yesterday and today - int(day.replace('-','')) != 0:
 			continue
 		if get_today and today - int(day.replace('-','')) != 0:
 			continue
@@ -126,6 +125,10 @@ def get_data(get_yesterday=False,get_today=False, year=2017):
 						game_info['open_line'] = abs(float(re.sub('\s+','',away_info[4].text)))
 			game_info['away_side_pct'] = re.sub('\s+','',away_info[8].text.replace('%', ''))
 			game_info['home_side_pct'] = re.sub('\s+','',home_info[8].text.replace('%', ''))
-			data.append(game_info)
-			print ("{} @ {} on {}".format(game_info['away'], game_info['home'], game_info['date']), game_info['close_line'])
+			add = True
+			for line in data:
+				if ordered(line) == ordered(game_info):
+					add = False
+			if add:
+				data.append(game_info)
 	return data

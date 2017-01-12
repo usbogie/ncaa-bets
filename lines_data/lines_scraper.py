@@ -42,27 +42,16 @@ def get_data(game_lines, get_yesterday=False, year=2017):
 	data = game_lines
 	all_dates = make_season(year-1)
 	base = "http://www.lines.com/odds/ncaab/spreads-totals/"
-	today = int((datetime.now() - timedelta(1)).strftime('%Y-%m-%d').replace('-',''))
+	yesterday = int((datetime.now() - timedelta(1)).strftime('%Y-%m-%d').replace('-',''))
 	for day in all_dates:
-		if today < int(day.replace('-','')):
+		if yesterday < int(day.replace('-','')):
 			continue
-		if get_yesterday:
-			if today - int(day.replace('-','')) != 1:
-				continue
+		if get_yesterday and yesterday - int(day.replace('-','')) != 0:
+			continue
+			
 		print (day)
 		url = base+day
-		try:
-			page = request.urlopen(request.Request(url, headers = { 'User-Agent' : ua.random }))
-		except error.HTTPError as e:
-			try:
-				wait_time = round(max(10, 12 + random.gauss(0,1)), 2)
-				time.sleep(wait_time)
-				print("First attempt for %s failed. Trying again." % (url))
-				page = request.urlopen(request.Request(url, headers = { 'User-Agent' : ua.random }))
-			except:
-				print(e)
-				sys.exit()
-
+		page = request.urlopen(request.Request(url, headers = { 'User-Agent' : ua.random }))
 		content = page.read()
 		soup = BeautifulSoup(content, "html5lib")
 
