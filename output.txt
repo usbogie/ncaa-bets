@@ -1,74 +1,39 @@
 
                             OLS Regression Results                            
 ==============================================================================
-Dep. Variable:             home_cover   R-squared:                       0.107
-Model:                            OLS   Adj. R-squared:                  0.106
-Method:                 Least Squares   F-statistic:                     111.9
-Date:                Wed, 11 Jan 2017   Prob (F-statistic):          4.27e-286
-Time:                        16:46:54   Log-Likelihood:                -6820.6
-No. Observations:               12177   AIC:                         1.367e+04
-Df Residuals:                   12164   BIC:                         1.376e+04
+Dep. Variable:             home_cover   R-squared:                       0.090
+Model:                            OLS   Adj. R-squared:                  0.090
+Method:                 Least Squares   F-statistic:                     95.04
+Date:                Thu, 12 Jan 2017   Prob (F-statistic):          7.94e-244
+Time:                        01:45:49   Log-Likelihood:                -8298.2
+No. Observations:               12435   AIC:                         1.662e+04
+Df Residuals:                   12422   BIC:                         1.672e+04
 Df Model:                          13                                         
 Covariance Type:            nonrobust                                         
-=======================================================================================
-                          coef    std err          t      P>|t|      [95.0% Conf. Int.]
----------------------------------------------------------------------------------------
-spread                  0.0415      0.001     32.047      0.000         0.039     0.044
-true_home_game          0.1569      0.010     15.511      0.000         0.137     0.177
-home_ats               -0.2297      0.048     -4.797      0.000        -0.324    -0.136
-away_ats                0.1317      0.046      2.890      0.004         0.042     0.221
-home_rec               -0.0900      0.044     -2.036      0.042        -0.177    -0.003
-away_rec                0.2198      0.043      5.142      0.000         0.136     0.304
-home_off_adv            0.2144      0.006     33.639      0.000         0.202     0.227
-away_off_adv           -0.2168      0.006    -33.847      0.000        -0.229    -0.204
-away_three_adv         -0.0672      0.027     -2.515      0.012        -0.120    -0.015
-home_three_d_adv        0.0547      0.028      1.945      0.052        -0.000     0.110
-home_tempo_z:spread    -0.0019      0.000     -4.553      0.000        -0.003    -0.001
-away_tempo_z:spread    -0.0012      0.000     -2.909      0.004        -0.002    -0.000
-conf:true_home_game    -0.0271      0.010     -2.611      0.009        -0.047    -0.007
+==========================================================================================
+                             coef    std err          t      P>|t|      [95.0% Conf. Int.]
+------------------------------------------------------------------------------------------
+spread                     0.0459      0.001     30.924      0.000         0.043     0.049
+true_home_game             0.1724      0.013     13.235      0.000         0.147     0.198
+home_ats                  -0.0830      0.019     -4.374      0.000        -0.120    -0.046
+away_ats                   0.0651      0.018      3.714      0.000         0.031     0.100
+home_public_percentage     0.0005      0.000      2.503      0.012         0.000     0.001
+line_movement             -0.0149      0.003     -5.226      0.000        -0.021    -0.009
+home_off_adv               0.2251      0.007     31.523      0.000         0.211     0.239
+away_off_adv              -0.2236      0.007    -31.207      0.000        -0.238    -0.210
+away_three_adv            -0.0762      0.030     -2.567      0.010        -0.134    -0.018
+home_three_d_adv           0.0567      0.031      1.816      0.069        -0.004     0.118
+home_tempo_z:spread       -0.0016      0.000     -3.505      0.000        -0.002    -0.001
+away_tempo_z:spread       -0.0008      0.000     -1.816      0.069        -0.002  6.54e-05
+conf:true_home_game       -0.0302      0.010     -2.987      0.003        -0.050    -0.010
 ==============================================================================
-Omnibus:                        1.441   Durbin-Watson:                   2.010
-Prob(Omnibus):                  0.486   Jarque-Bera (JB):             1069.012
-Skew:                           0.027   Prob(JB):                    7.36e-233
-Kurtosis:                       1.549   Cond. No.                         189.
+Omnibus:                        1.386   Durbin-Watson:                   1.979
+Prob(Omnibus):                  0.500   Jarque-Bera (JB):             1415.149
+Skew:                           0.026   Prob(JB):                    5.06e-308
+Kurtosis:                       1.348   Cond. No.                         553.
 ==============================================================================
 
 Warnings:
 [1] Standard Errors assume that the covariance matrix of the errors is correctly specified.
-Testing with lower-bound 0.5 won 63.13 percent of 11930 games.
-This would lead to a profit of 2694.2 units.
-Prob  Pick                    Spread Opponent                   Tip
-66.96 Illinois State          -4.0   @  S Illinois              7p  
-66.31 Connecticut             -2.0   vs Temple                  8p  
-64.31 Butler                  5.5    @  Creighton               8p  
-63.68 Wake Forest             9.0    vs N Carolina              7p  
-62.72 Tulsa                   5.0    vs Memphis                 7p  
-61.72 The Citadel             25.5   @  Chattanooga             6p  
-61.39 Louisville              -11.0  vs Pittsburgh              6p  
-60.74 Tennessee               2.0    vs S Carolina              5p  
-60.31 Evansville              7.0    @  Missouri St             7p  
-59.86 Air Force               2.0    vs Fresno St               8p  
-59.43 St Bonaventure          3.5    @  Richmond                6p  
-58.94 Fordham                 15.0   @  Davidson                6p  
-58.57 Georgia                 2.5    @  Mississippi             6p  
-57.26 Mercer                  4.0    @  Samford                 7p  
-55.68 South Dakota            2.0    vs N Dakota St             7p  
-55.46 East Carolina           9.0    vs Houston                 5p  
-54.86 Illinois                2.0    vs Michigan                8p  
-54.63 Minnesota               4.0    @  Michigan St             6p  
-54.37 Utah State              4.5    @  Wyoming                 8p  
-54.03 Iowa State              3.5    @  Oklahoma St             8p  
-53.93 Long Beach State        -6.5   vs Cal St Nrdge            9p  
-53.39 IUPUI                   -5.0   vs Neb Omaha               6p  
-52.9  Saint Louis             10.0   @  Duquesne                6p  
-52.83 Massachusetts           6.5    vs Dayton                  6p  
-52.45 TCU                     -0.0   @  Texas                   7p  
-52.0  Marquette               -5.5   vs Seton Hall              6p  
-51.43 Loyola (CHI)            15.5   @  Wichita St              6p  
-51.39 Denver                  -6.5   vs W Illinois              8p  
-50.99 NC State                -5.5   @  Boston Col              8p  
-50.85 LSU                     12.0   @  Texas A&M               7p  
-50.51 Indiana State           -0.0   @  Drake                   7p  
-50.48 VCU                     -11.5  vs Geo Wshgtn              5p  
-50.44 Bradley                 3.5    vs N Iowa                  8p  
-50.43 South Florida           -5.0   vs Tulane                  6p  
+Testing with lower-bound 0.5 won 63.34 percent of 12163 games.
+This would lead to a profit of 2801.2 units.

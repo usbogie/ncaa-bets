@@ -6,13 +6,11 @@ import json
 
 def get_names():
     print("Getting name_dicts")
-    sites = ['espn','kp','os','sb','lines']
+    sites = ['espn','kp', 'sb']
     espn_names = {}
     kp_names = {}
-    os_names = {}
     sb_names = {}
-    lines_names = {}
-    dicts = [espn_names,kp_names,os_names,sb_names,lines_names]
+    dicts = [espn_names,kp_names,sb_names]
     for i in range(len(sites)):
         with open(sites[i] + '_data/names_dict.json', 'r+') as infile:
             dicts[i] = json.load(infile)
@@ -84,8 +82,6 @@ def get_old_games(year_list = [2014,2015,2016,2017]):
                 hour = int(game["tipoff"].split(":")[0])
                 central = hour-1 if hour != 0 else 23
                 game["tipstring"] = (str(central%12) if central != 12 else str(12)) + ("a" if central/12 == 0 else "p")
-                if hour < 6:
-                    gameday -= timedelta(days=1)
                 game["date"] = str(gameday)
                 key = str((game["home"][:-4],game["away"][:-4],game["date"]))
                 if key not in set(games.keys()):
@@ -109,20 +105,15 @@ def get_old_games(year_list = [2014,2015,2016,2017]):
                 game["weekday"] = 0 if gameday.weekday() == 1 or gameday.weekday() == 7 else 1
             except:
                 continue
-
-def get_lines_info(year_list = [2014,2015,2016,2017],lines = True,test=False):
-    if lines:
-        print("Getting lines data from lines")
-    else:
-        print("Getting lines data from oddsshark")
+def get_sportsbook_info(year_list=[2014,2015,2016,2017],test=False):
+    print("Getting sportsbook info from Vegas Insider")
+    for game in regress_spread:
+        regress_dict[game["key"]] = game
+    for game in test_games:
+        test_dict[game["key"]] = game
     years = []
-    jsons = ['lines2014.json','lines2015.json','lines2016.json','lines2017.json']
-    folder = 'lines_data/'
-    name_dict = lines_names
-    if not lines:
-        folder = 'os_data/'
-        name_dict = os_names
-        jsons = ['oddsshark14.json','oddsshark15.json','oddsshark16.json','oddsshark17.json']
+    jsons = ['vegas_2014.json','vegas_2015.json','vegas_2016.json','vegas_2017.json']
+    folder = 'vi_data/'
     for i in range(len(jsons)):
         if i + 2014 in year_list:
             ldf = pd.read_json(folder + jsons[i])
@@ -130,19 +121,15 @@ def get_lines_info(year_list = [2014,2015,2016,2017],lines = True,test=False):
     for year in range(len(years)):
         for i in range(len(years[year].home)):
             try:
-                h = name_dict[years[year].home[i]]
-                a = name_dict[years[year].away[i]]
-                if lines:
-                    d = years[year].date[i].split('/')
-                    y = year_list[year] if int(d[0]) < 6 else year_list[year] - 1
-                    gamedateobject = date(y,int(d[0]),int(d[1][:2]))
-                    gamedate = str(gamedateobject)
-                else:
-                    d = str(years[year].date[i])
-                    gamedate = d.split()[0]
-                    datearray = gamedate.split("-")
-                    gamedateobject = date(int(datearray[0]),int(datearray[1]),int(datearray[2]))
-                key = str((h,a,gamedate))
+                a = ""
+                h = sb_names[years[year].home[i]]
+                a = sb_names[years[year].away[i]]
+                d = years[year].date[i].split("/")
+                y = year_list[year] if int(d[0]) < 8 else year_list[year] - 1
+                datearray = [y,int(d[0]),int(d[1])]
+                gamedateobject = date(datearray[0],datearray[1],datearray[2])
+                key = str((h,a,str(gamedateobject)))
+                game = {}
                 game = games[key]
                 game["key"] = key
                 try:
@@ -153,11 +140,12 @@ def get_lines_info(year_list = [2014,2015,2016,2017],lines = True,test=False):
                     continue
                 except:
                     pass
-                if years[year].spread[i] == "Ev":
-                    game["spread"] = float(0)
+                if years[year].close_line[i] == "":
+                    continue
                 else:
-                    game["spread"] = float(years[year].spread[i])
-                game["total"] = float(years[year].total[i])
+                    game["spread"] = float(years[year].close_line[i])
+                if game["spread"] > 65:
+                    print("Found an error in vegas insider")
                 if game["spread"] + game["margin"] < 0:
                     game["cover"] = game["away"][:-4]
                     game["home_cover"] = -.5
@@ -167,57 +155,63 @@ def get_lines_info(year_list = [2014,2015,2016,2017],lines = True,test=False):
                 else:
                     game["cover"] = "Tie"
                     game["home_cover"] = 0
-                if abs(game["spread"] + game["margin"]) <= 3:
-                    game["home_cover"] = game["home_cover"] / 2
-                if math.isnan(game["spread"]) or math.isnan(game["total"]):
+                game["line_movement"] = 0 if years[year].open_line[i] == "" else game["spread"] - float(years[year].open_line[i])
+                game["home_public_percentage"] = 50 if years[year].home_side_pct[i] == "" else float(years[year].home_side_pct[i])
+                game["home_ats"] = years[year].home_ats[i].split("-")
+                game["away_ats"] = years[year].away_ats[i].split("-")
+                game["home_ats"] = 0 if game["home_ats"][0] == "0" and game["home_ats"][1] == "0" else int(game["home_ats"][0]) / (int(game["home_ats"][0])+int(game["home_ats"][1]))
+                game["away_ats"] = 0 if game["away_ats"][0] == "0" and game["away_ats"][1] == "0" else int(game["away_ats"][0]) / (int(game["away_ats"][0])+int(game["away_ats"][1]))
+                if math.isnan(game["spread"]):
                     continue
-
                 if not test:
                     regress_spread.append(game)
                     regress_dict[key] = game
                 else:
                     test_games.append(game)
                     test_dict[key] = game
-                if len(teams[game["home"]]["games"]) == 0:
-                    teams[game["home"]]["games"].append(game["key"])
-                else:
-                    for index,key in enumerate(teams[game["home"]]["games"]):
-                        datearray = games[key]["date"].split("-")
-                        dateobject = date(int(datearray[0]),int(datearray[1]),int(datearray[2]))
-                        if gamedateobject < dateobject:
-                            teams[game["home"]]["games"][index] = game["key"]
-                            for index2 in range(index+1,len(teams[game["home"]]["games"])):
-                                tmp = teams[game["home"]]["games"][index2]
-                                teams[game["home"]]["games"][index2] = key
-                                key = tmp
-                            teams[game["home"]]["games"].append(key)
-                            break
-                        elif game["key"] == key:
-                            break
-                        if index == len(teams[game["home"]]["games"]) - 1:
-                            teams[game["home"]]["games"].append(game["key"])
-                if len(teams[game["away"]]["games"]) == 0:
-                    teams[game["away"]]["games"].append(game["key"])
-                else:
-                    for index,key in enumerate(teams[game["away"]]["games"]):
-                        datearray = games[key]["date"].split("-")
-                        dateobject = date(int(datearray[0]),int(datearray[1]),int(datearray[2]))
-                        if gamedateobject < dateobject:
-                            teams[game["away"]]["games"][index] = game["key"]
-                            for index2 in range(index+1,len(teams[game["away"]]["games"])):
-                                tmp = teams[game["away"]]["games"][index2]
-                                teams[game["away"]]["games"][index2] = key
-                                key = tmp
-                            teams[game["away"]]["games"].append(key)
-                            break
-                        elif game["key"] == key:
-                            break
-                        if index == len(teams[game["away"]]["games"]) - 1:
-                            teams[game["away"]]["games"].append(game["key"])
+                # if len(teams[game["home"]]["games"]) == 0:
+                #     teams[game["home"]]["games"].append(game["key"])
+                # else:
+                #     if game["key"] in teams[game["home"]]["games"]:
+                #         continue
+                #     for index,key in enumerate(teams[game["home"]]["games"]):
+                #         datearray = games[key]["date"].split("-")
+                #         dateobject = date(int(datearray[0]),int(datearray[1]),int(datearray[2]))
+                #         if gamedateobject < dateobject:
+                #             teams[game["home"]]["games"][index] = game["key"]
+                #             for index2 in range(index+1,len(teams[game["home"]]["games"])):
+                #                 tmp = teams[game["home"]]["games"][index2]
+                #                 teams[game["home"]]["games"][index2] = key
+                #                 key = tmp
+                #             teams[game["home"]]["games"].append(key)
+                #             break
+                #         if index == len(teams[game["home"]]["games"]) - 1:
+                #             teams[game["home"]]["games"].append(game["key"])
+                # if len(teams[game["away"]]["games"]) == 0:
+                #     teams[game["away"]]["games"].append(game["key"])
+                # else:
+                #     if game["key"] in teams[game["home"]]["games"]:
+                #         continue
+                #     for index,key in enumerate(teams[game["away"]]["games"]):
+                #         datearray = games[key]["date"].split("-")
+                #         dateobject = date(int(datearray[0]),int(datearray[1]),int(datearray[2]))
+                #         if gamedateobject < dateobject:
+                #             teams[game["away"]]["games"][index] = game["key"]
+                #             for index2 in range(index+1,len(teams[game["away"]]["games"])):
+                #                 tmp = teams[game["away"]]["games"][index2]
+                #                 teams[game["away"]]["games"][index2] = key
+                #                 key = tmp
+                #             teams[game["away"]]["games"].append(key)
+                #             break
+                #         if index == len(teams[game["away"]]["games"]) - 1:
+                #             teams[game["away"]]["games"].append(game["key"])
             except:
                 continue
+
 def get_new_games():
     print("Getting new games")
+    for game in new_games:
+        new_dict[game["key"]] = game
     gamesdf = pd.read_csv('espn_data/upcoming_games.csv')
     upcoming_games = {}
     for i in range(len(gamesdf.Game_Away)):
@@ -233,7 +227,7 @@ def get_new_games():
             game["tipoff"] = gamesdf.Game_Tipoff[i]
             hour = int(game["tipoff"].split(":")[0])
             central = hour-1 if hour != 0 else 23
-            game["tipstring"] = (str(central%12) if central != 12 else str(12)) + ("a" if central/12 == 0 else "p")
+            game["tipstring"] = "{}:{} {}M CT".format((str(central%12) if central != 12 else str(12)),game["tipoff"].split(":")[1],("A" if central/12 == 0 else "P"))
             if hour < 6:
                 gameday -= timedelta(days=1)
             game["date"] = str(gameday)
@@ -247,8 +241,6 @@ def get_new_games():
             continue
     with open('sb_data/game_lines.json','r') as infile:
         game_lines = json.load(infile)
-    x = 0
-    y = 0
     for game in game_lines:
         try:
             home = sb_names[game['home']]
@@ -267,6 +259,11 @@ def get_new_games():
             gameday = str(date(int(d[2]),d[0],int(d[1][:-1])))
             key = str((home,away,gameday))
             new_game = upcoming_games[key]
+            try:
+                new_dict[key]
+                continue
+            except:
+                pass
             new_game['key'] = key
             new_game['spread_away'] = (float(game['spread_away'][:-6]),float(game['spread_away'][-5:-1]))
             new_game['spread_home'] = (float(game['spread_home'][:-6]),float(game['spread_home'][-5:-1]))
@@ -282,6 +279,7 @@ def get_new_games():
                 new_game['total_under'] = (float(under[:-6]),float(under[-5:-1]))
                 new_game['total'] = new_game['total_over'][0]
             new_games.append(new_game)
+            new_dict[key] = new_game
             print("Found:",home,away)
         except:
             print("No game matched:",sb_names[game["home"]],sb_names[game["away"]])
@@ -329,167 +327,60 @@ def set_game_attributes(new = False,test = False):
         game["to"] = 1 if home["to_poss_z"] > 1 and away["tof_poss_z"] > 1 else 0
         game["tof"] = 1 if home["tof_poss_z"] > 1 and away["to_poss_z"] > 1 else 0
         game["weekday"] = 0 if game["weekday"] == -1 else game["weekday"]
-        game["home_ats"] = 0
-        game["away_ats"] = 0
-        game["home_rec"] = 0
-        game["away_rec"] = 0
-        game["home_home_rec"] = 0
-        home_total_games = 0
-        game["away_away_rec"] = 0
-        away_total_games = 0
-        game["home_prev3"] = 0
-        game["away_prev3"] = 0
-        both = True
-        if len(home["games"]) == 0 or len(away["games"]) == 0:
-            continue
-        if not new:
-            for j,game2 in enumerate(home["games"]):
-                if game["key"] == game2:
-                    if j < 3:
-                        both = False
-                    for k in range(j):
-                        nextgame = games[home["games"][k]]
-                        if game["true_home_game"] and nextgame["true_home_game"] and nextgame["home"][:-4] == home["name"]:
-                            home_total_games += 1
-                            if nextgame["winner"] == home["name"]:
-                                game["home_home_rec"] += 1
-                        if nextgame["cover"] == home["name"]:
-                            game["home_ats"] += 1
-                        elif nextgame["cover"] == "Tie":
-                            game["home_ats"] += .5
-                        if nextgame["winner"] == home["name"]:
-                            game["home_rec"] += 1
-                        if j - k <= 3 and both:
-                            if nextgame["cover"] == home["name"]:
-                                game["home_prev3"] += 1
-                            elif nextgame["cover"] == "Tie":
-                                game["home_prev3"] += .5
-                    break
-            for j,game2 in enumerate(away["games"]):
-                if game["key"] == game2:
-                    if j < 3:
-                        game["home_prev3"] = 0
-                        both = False
-                    for k in range(j):
-                        nextgame = games[away["games"][k]]
-                        if game["true_home_game"] and nextgame["true_home_game"] and nextgame["away"][:-4] == away["name"]:
-                            away_total_games += 1
-                            if nextgame["winner"] == away["name"]:
-                                game["away_away_rec"] += 1
-                        if nextgame["cover"] == away["name"]:
-                            game["away_ats"] += 1
-                        elif nextgame["cover"] == "Tie":
-                            game["away_ats"] += .5
-                        if nextgame["winner"] == away["name"]:
-                            game["away_rec"] += 1
-                        if j - k <= 3 and both:
-                            if nextgame["cover"] == away["name"]:
-                                game["away_prev3"] += 1
-                            elif nextgame["cover"] == "Tie":
-                                game["away_prev3"] += .5
-                    break
-            game["home_ats"] /= len(home["games"])
-            game["away_ats"] /= len(away["games"])
-            game["home_rec"] /= len(home["games"])
-            game["away_rec"] /= len(away["games"])
-            game["home_home_rec"] = 0 if home_total_games == 0 or away_total_games == 0 else game["home_home_rec"] / home_total_games
-            game["away_away_rec"] = 0 if away_total_games == 0 or home_total_games == 0 else game["away_away_rec"] / away_total_games
-        else:
-            if len(home["games"]) < 3 or len(away["games"]) < 3:
-                both = False
-            for j,key in enumerate(home["games"]):
-                game2 = games[key]
-                if game["true_home_game"] and game2["true_home_game"] and game2["home"][:-4] == home["name"]:
-                    home_total_games += 1
-                    if game2["winner"] == home["name"]:
-                        game["home_home_rec"] += 1
-                if game2["cover"] == home["name"]:
-                    game["home_ats"] += 1
-                elif game2["cover"] == "Tie":
-                    game["home_ats"] += .5
-                if game2["winner"] == home["name"]:
-                    game["home_rec"] += 1
-                if len(home["games"]) - j <= 3 and both:
-                    if game2["cover"] == away["name"]:
-                        game["home_prev3"] += 1
-                    elif game2["cover"] == "Tie":
-                        game["home_prev3"] += .5
-            for j,key in enumerate(away["games"]):
-                game2 = games[key]
-                if game["true_home_game"] and game2["true_home_game"] and game2["away"][:-4] == away["name"]:
-                    away_total_games += 1
-                    if game2["winner"] == away["name"]:
-                        game["away_away_rec"] += 1
-                if game2["cover"] == away["name"]:
-                    game["away_ats"] += 1
-                elif game2["cover"] == "Tie":
-                    game["away_ats"] += .5
-                if game2["winner"] == away["name"]:
-                    game["away_rec"] += 1
-                if len(away["games"]) - j <= 3 and both:
-                    if game2["cover"] == away["name"]:
-                        game["away_prev3"] += 1
-                    elif game2["cover"] == "Tie":
-                        game["away_prev3"] += .5
-            game["home_ats"] /= len(home["games"])
-            game["away_ats"] /= len(away["games"])
-            game["home_rec"] /= len(home["games"])
-            game["away_rec"] /= len(away["games"])
-            game["home_home_rec"] = 0 if home_total_games == 0 or away_total_games == 0 else game["home_home_rec"] / home_total_games
-            game["away_away_rec"] = 0 if away_total_games == 0 or home_total_games == 0 else game["away_away_rec"] / away_total_games
 def update_all():
-    # year_list = [2017]
+    year_list = [2017]
 
     # Updates team dictionary
-    get_team_stats()
-
-    # Updates team dictionary
-    get_kp_stats()
+    # get_team_stats(year_list) # Comment if team_stats hasn't been updated
+    # get_kp_stats(year_list) # Comment if kenpom hasn't been updated
 
     # Updates games dictionary
-    # get_old_games()
+    # get_old_games() # Comment if game_info hasn't been updated
 
-    # Updates teams dictionary
     # Gets games that will be regressed
-    get_lines_info()
-    get_lines_info(lines=False)
-    # get_lines_info([2016],test=True)
-    # get_lines_info([2016],lines=False,test=True)
+    get_sportsbook_info() # Comment if vegas hasn't been updated
+    # get_sportsbook_info(test=True)
 
-    get_new_games()
+    # get_new_games() # Comment if upcoming_games and game_lines hasn't been updated
 
     # Updates team dictionary
-    set_team_attributes()
+    set_team_attributes() # Comment if teams won't change
 
     # Updates games dictionary
     # Updates regress games
-    set_game_attributes()
-    set_game_attributes(new = True)
-    # set_game_attributes(test = True)
+    set_game_attributes() # Always run
+    set_game_attributes(new = True) # Comment if new games aren't being added
+    # set_game_attributes(test = True) # Comment if test games aren't being added
 
 teams = {}
 games = {}
 regress_spread = []
+new_games = []
+test_games = []
 with open('teams.json','r') as infile:
     teams = json.load(infile)
 with open('games.json','r') as infile:
     games = json.load(infile)
 # with open('regress_spread.json','r') as infile:
-#     tmp_regress_spread = json.load(infile)
+#     regress_spread = json.load(infile)
+# with open('new_games.json','r') as infile:
+#     new_games = json.load(infile)
+# with open('test_games.json','r') as infile:
+#     test_games = json.load(infile)
 regress_dict = {}
-new_games = []
-test_games = []
+new_dict = {}
 test_dict = {}
-espn_names, kp_names, os_names, sb_names, lines_names = get_names()
+
+espn_names, kp_names, sb_names = get_names()
 update_all()
 
-with open('teams.json', 'w') as outfile:
-    json.dump(teams, outfile)
+# with open('teams.json', 'w') as outfile:
+#     json.dump(teams, outfile)
 # with open('games.json','w') as outfile:
 #     json.dump(games, outfile)
 with open('regress_spread.json','w') as outfile:
     json.dump(regress_spread,outfile)
-with open('new_games.json','w') as outfile:
-    json.dump(new_games,outfile)
+# with open('new_games.json','w') as outfile:
+#     json.dump(new_games,outfile)
 # with open('test_games.json','w') as outfile:
 #     json.dump(test_games,outfile)

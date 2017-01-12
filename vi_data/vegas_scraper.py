@@ -2,7 +2,7 @@ import urllib.request as request
 import urllib.error as error
 from bs4 import BeautifulSoup
 from fake_useragent import UserAgent
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, date
 import sys
 import re
 import json
@@ -39,16 +39,22 @@ def ordered(obj):
 	else:
 		return obj
 
-def get_data(get_yesterday=False, year=2017):
+def get_data(get_yesterday=False,get_today=False, year=2017):
 	all_dates = make_season(year-1)
 	base = "http://www.vegasinsider.com/college-basketball/matchups/matchups.cfm/date/"
 	today = int((datetime.now() - timedelta(1)).strftime('%Y-%m-%d').replace('-',''))
 	data = []
+	if get_today:
+		today = int((datetime.now()).strftime('%Y-%m-%d').replace('-',''))
+		d = datetime.now()
+		all_dates = ["{}{}{}".format(d.year,d.month,d.day)]
 	for day in all_dates:
 		if today < int(day.replace('-','')):
-			continue
+			break
 		if get_yesterday and today - int(day.replace('-','')) != 1:
-				continue
+			continue
+		if get_today and today - int(day.replace('-','')) != 0:
+			continue
 		print (day)
 		url_day = "-".join(day.split('-')[1:]+day.split('-')[:1])
 		url = base+day
@@ -94,17 +100,30 @@ def get_data(get_yesterday=False, year=2017):
 				game_info['open_line'] = re.sub('\s+','',away_info[4].text)
 				game_info['close_line'] = re.sub('\s+','',away_info[5].text)
 				game_info['over_under'] = re.sub('\s+','',home_info[5].text)
+				if game_info['close_line'] == "":
+					pass
+				elif float(game_info['close_line']) > 0:
+					game_info['close_line'] = ""
+				else:
+					game_info['close_line'] = abs(float(game_info['close_line']))
+				if game_info['open_line'] == "":
+					if '-' in home_info[4]:
+						game_info['open_line'] = float(re.sub('\s+','',home_info[4].text))
+				elif float(game_info['open_line']) > 0:
+					game_info['open_line'] = ""
+				else:
+					game_info['open_line'] = abs(float(game_info['open_line']))
 			else:
 				game_info['open_line'] = re.sub('\s+','',home_info[4].text)
 				game_info['close_line'] = re.sub('\s+','',home_info[5].text)
 				game_info['over_under'] = re.sub('\s+','',away_info[5].text)
+				if game_info['close_line'] != "":
+					game_info['close_line'] = float(game_info['close_line'])
+				if game_info['open_line'] == "":
+					if '-' in away_info[4]:
+						game_info['open_line'] = abs(float(re.sub('\s+','',away_info[4].text)))
 			game_info['away_side_pct'] = re.sub('\s+','',away_info[8].text.replace('%', ''))
 			game_info['home_side_pct'] = re.sub('\s+','',home_info[8].text.replace('%', ''))
 			data.append(game_info)
-			print ("{} @ {} on {}".format(game_info['away'], game_info['home'], game_info['date']))
+			print ("{} @ {} on {}".format(game_info['away'], game_info['home'], game_info['date']), game_info['close_line'])
 	return data
-
-
-data = get_data(year=2017)
-with open('vegas_2017.json', 'w') as outfile:
-    json.dump(data, outfile)

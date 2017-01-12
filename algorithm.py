@@ -11,7 +11,8 @@ with open('regress_spread.json') as infile:
 with open('test_games.json') as infile:
     test_games = json.load(infile)
 f = open('output.txt','w')
-variables = ["spread","true_home_game","home_ats","away_ats","home_rec","away_rec","home_off_adv","away_off_adv","away_three_adv","home_three_d_adv"]
+# "spread","true_home_game","home_ats","away_ats","home_public_percentage","line_movement","home_off_adv","away_off_adv","away_three_adv","home_three_d_adv","home_tempo_z","away_tempo_z","conf"
+variables = ["spread","true_home_game","home_ats","away_ats","home_public_percentage","line_movement","home_off_adv","away_off_adv","away_three_adv","home_three_d_adv"]
 spread = ["home_tempo_z","away_tempo_z"]
 true = ["conf"]
 def regress_spreads():
@@ -70,16 +71,6 @@ def test_strategy(lb = .5,ub = 2,data=regress_spread):
     spreads = {}
     correct = {}
     for game in data:
-        if game["cover"] != "Tie":
-            if game["spread"] < 0 and game["spread"] > -5:
-                spreads[-.1] = spreads.get(-.1,0) + 1
-            else:
-                spreads[int(game["spread"]/5)] = spreads.get(int(game["spread"]/5),0) + 1
-        if game["pick"] == game["cover"]:
-            if game["spread"] < 0 and game["spread"] > -5:
-                correct[-.1] = correct.get(-.1,0) + 1
-            else:
-                correct[int(game["spread"]/5)] = correct.get(int(game["spread"]/5),0) + 1
         if game["prob"] >= lb and game["prob"] <= ub:
             number_of_games += 1
             if game["pick"] == game["cover"]:
@@ -89,10 +80,6 @@ def test_strategy(lb = .5,ub = 2,data=regress_spread):
                 number_of_games -= 1
             else:
                 profit -= 11
-    for key in spreads.keys():
-        correct[key] = correct.get(key,0) / spreads[key]
-    for key in sorted(correct.keys()):
-        print(key*5,correct[key],spreads[key])
     try:
         percent = int(wins / number_of_games * 10000)/100
     except:
@@ -108,13 +95,9 @@ def test_strategy(lb = .5,ub = 2,data=regress_spread):
 
 def print_picks(prob = .5,top = 175):
     gamesleft = len(new_games)
-    o = "Prob".ljust(6)
-    o += "Pick".ljust(24)
-    o += "Spread".ljust(7)
-    o += "Opponent".ljust(27)
-    o += "Tip"
-    f.write("\n"+o)
-    print(o)
+    longpick = 0
+    longopp = 0
+    game_list = []
     while gamesleft > 0 and top != 0:
         maxprob = 0
         nextgame = {}
@@ -124,25 +107,38 @@ def print_picks(prob = .5,top = 175):
                 maxprob = game["prob"]
         if maxprob < prob:
             break
-        prob_str = str(int(nextgame["prob"]*10000)/100).ljust(6)
-        tip_str = str(nextgame["tipstring"]).ljust(4)
-        if nextgame["pick"] == nextgame["home"][:-4]:
-            pick_str = nextgame["home_espn"].ljust(24)
-            spread_str = str(nextgame["spread"]).ljust(7)
-            opp_str = "vs " + nextgame["away"][:-4].ljust(24)
-        else:
-            pick_str = nextgame["away_espn"].ljust(24)
-            spread_str = str(-1 * nextgame["spread"]).ljust(7)
-            opp_str = "@  " + nextgame["home"][:-4].ljust(24)
-        o = "{}{}{}{}{}".format(prob_str,pick_str,spread_str,opp_str,tip_str)
-        f.write("\n"+o)
-        print(o)
+        picklength = len(nextgame["home_espn"]) if nextgame["pick"] == nextgame["home"][:-4] else len(nextgame["away_espn"])
+        longpick = picklength if picklength > longpick else longpick
+        opplength = len(nextgame["away_espn"]) if nextgame["pick"] == nextgame["home"][:-4] else len(nextgame["home_espn"])
+        longopp = opplength if opplength > longopp else longopp
+        game_list.append(nextgame)
         top -= 1
         gamesleft -= 1
         new_games.remove(nextgame)
+    o = "Prob".ljust(7)
+    o += "Pick".ljust(longpick + 1)
+    o += "Spread".ljust(7)
+    o += "Opponent".ljust(longopp + 4)
+    o += "Tip"
+    f.write("\n"+o)
+    print(o)
+    for nextgame in game_list:
+        prob_str = str(int(nextgame["prob"]*10000)/100).ljust(7)
+        tip_str = str(nextgame["tipstring"]).ljust(4)
+        if nextgame["pick"] == nextgame["home"][:-4]:
+            pick_str = nextgame["home_espn"].ljust(longpick + 1)
+            spread_str = str(nextgame["spread"]).ljust(7)
+            opp_str = "vs " + nextgame["away_espn"].ljust(longopp + 1)
+        else:
+            pick_str = nextgame["away_espn"].ljust(longpick + 1)
+            spread_str = str(-1 * nextgame["spread"]).ljust(7)
+            opp_str = "@  " + nextgame["home_espn"].ljust(longopp + 1)
+        o = "{}{}{}{}{}".format(prob_str,pick_str,spread_str,opp_str,tip_str)
+        f.write("\n"+o)
+        print(o)
 parameters = regress_spreads()
 test_strategy()
 # for i in range(5):
 #     test_strategy(lb=.5+.05*i)
-predict_new_games()
-print_picks()
+# predict_new_games()
+# print_picks()

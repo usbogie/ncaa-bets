@@ -2,9 +2,9 @@ from espn_data import espn_daily_scraper as espn
 import pandas as pd
 import numpy as np
 from kp_data import kp_scraper as kp
-from lines_data import lines_scraper as lines
 from sb_data import sportsbook_scraper as sb
 from tr_data import tr_scraper as tr
+from vi_data import vegas_scraper as vi
 from datetime import datetime, timedelta
 import record_results
 import json
@@ -29,36 +29,32 @@ with open('kp_data/kenpom17.json', 'w+') as outfile:
 	json.dump(teams, outfile)
 print("Updated KenPom")
 
-all_lines = []
-with open('lines_data/lines2017.json', 'r+') as linesfile:
-	gamelines = json.load(linesfile)
-	all_lines = lines.get_data(gamelines, get_yesterday=True)
-	linesfile.seek(0)
-	linesfile.truncate()
-	json.dump(all_lines, linesfile)
-print("Updated Game Lines")
-
 games = sb.get_todays_sportsbook_lines()
 with open('sb_data/game_lines.json','w') as outfile:
 	json.dump(games,outfile)
 print("Updated new lines")
 
-team_list = tr.get_teamrankings([2017])
-with open('tr_data/team_stats17.csv', 'w') as outfile:
-	keys = list(team_list[0].keys())
-	writer = csv.DictWriter(outfile,fieldnames=keys)
-	writer.writeheader()
-	for team in team_list:
-		writer.writerow(team)
-print("Updated team stats")
+# team_list = tr.get_teamrankings([2017])
+# with open('tr_data/team_stats17.csv', 'w') as outfile:
+# 	keys = list(team_list[0].keys())
+# 	writer = csv.DictWriter(outfile,fieldnames=keys)
+# 	writer.writeheader()
+# 	for team in team_list:
+# 		writer.writerow(team)
+# print("Updated team stats")
 
-with open('results.json', 'r+') as resultsfile:
-	past_results = json.load(resultsfile)
-	print(past_results)
-	results = record_results.add_yesterday(last_night,all_lines)
-	total = past_results+results
-	print(total)
-	resultsfile.seek(0)
-	resultsfile.truncate()
-	json.dump(total, resultsfile)
-print("Updated record jsons")
+data = vi.get_data(get_today = True)
+with open('vi_data/vegas_today.json', 'w') as outfile:
+    json.dump(data, outfile)
+print("Updated vegas info")
+
+# with open('results.json', 'r+') as resultsfile:
+# 	past_results = json.load(resultsfile)
+# 	print(past_results)
+# 	results = record_results.add_yesterday(last_night,all_lines)
+# 	total = past_results+results
+# 	print(total)
+# 	resultsfile.seek(0)
+# 	resultsfile.truncate()
+# 	json.dump(total, resultsfile)
+# print("Updated record jsons")
