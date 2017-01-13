@@ -39,22 +39,19 @@ def ordered(obj):
 	else:
 		return obj
 
-def get_data(data=[],get_yesterday=False,get_today=False, year=2017):
+def get_data(data=[],get_yesterday=False,get_today=False, year=2017,test=False):
 	all_dates = make_season(year-1)
 	base = "http://www.vegasinsider.com/college-basketball/matchups/matchups.cfm/date/"
 	today = int((datetime.now() - timedelta(1)).strftime('%Y-%m-%d').replace('-',''))
-	if get_today:
-		today = int((datetime.now()).strftime('%Y-%m-%d').replace('-',''))
-		d = datetime.now()
-		month = str(d.month) if d.month >= 10 else "0" + str(d.month)
-		day = str(d.day) if d.day >= 10 else "0" + str(d.day)
-		all_dates = ["{}-{}-{}".format(d.year,month,day)]
+	if test:
+		today = 20161231
 	for day in all_dates:
+
 		if today < int(day.replace('-','')):
 			continue
 		if get_yesterday and today - int(day.replace('-','')) != 0:
 			continue
-		if get_today and today - int(day.replace('-','')) != 0:
+		if get_today and today - int(day.replace('-','')) != -1:
 			continue
 		print (day)
 		url_day = "-".join(day.split('-')[1:]+day.split('-')[:1])
@@ -132,3 +129,7 @@ def get_data(data=[],get_yesterday=False,get_today=False, year=2017):
 			if add:
 				data.append(game_info)
 	return data
+
+data = get_data(test=True)
+with open('vi_data/vegas_2017_test.json','w') as infile:
+	json.dump(data,infile)

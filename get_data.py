@@ -4,6 +4,21 @@ from scipy.stats.mstats import zscore
 import math
 import json
 
+"""
+    information to know about each game:
+        margin
+    >>> rank (start with kp preseason)
+        tempos
+        true home game, start with 3.5
+        conf:true, start with -.5
+    predict before each game, then learn when wrong
+    choose a start date for when to test how well it does
+>>> how to relate rank to margin
+    update ranks for games in previous weeks as you progress
+    use a consistency rating for probability
+    probability percentage could be learned
+"""
+
 def get_names():
     print("Getting name_dicts")
     sites = ['espn','kp', 'sb']
@@ -43,7 +58,7 @@ def get_team_stats(year_list = [2014,2015,2016,2017]):
             teams[team]["tof_poss"] = years[i].TOFP[j]
             teams[team]["games"] = []
 
-def get_kp_stats(year_list = [2014,2015,2016,2017]):
+def get_kp_stats(year_list = [2014,2015,2016,2017],test=False):
     print("Getting kp stats")
     years = []
     jsons = ['kenpom14.json','kenpom15.json','kenpom16.json','kenpom17.json']
@@ -51,6 +66,11 @@ def get_kp_stats(year_list = [2014,2015,2016,2017]):
         if i + 2014 in year_list:
             kpdf = pd.read_json('kp_data/' + jsons[i])
             years.append(kpdf)
+    tests = []
+    test_jsons = ['kenpom17_test.json','kenpom17_test2.json']
+    for j in test_jsons:
+        kpdf = pd.read_json('kp_data/' + j)
+        tests.append(kpdf)
     for i in range(len(years)):
         teams_count = len(years[i])
         for j in range(teams_count):
@@ -59,6 +79,17 @@ def get_kp_stats(year_list = [2014,2015,2016,2017]):
             teams[name]["kp_d"] = years[i].adjD[j]
             teams[name]["kp_t"] = years[i].adjT[j]
             teams[name]["kp_em"] = teams[name]["kp_o"] - teams[name]["kp_d"]
+            if year_list[i] == 2017 and test:
+                name2 = kp_names[tests[0].name[j].replace('&amp','&')] + str(year_list[i])
+                teams[name]["testkp_o"] = tests[0].adjO[j]
+                teams[name]["testkp_d"] = tests[0].adjD[j]
+                teams[name]["testkp_t"] = tests[0].adjT[j]
+                teams[name]["testkp_em"] = teams[name]["testkp_o"] - teams[name]["testkp_d"]
+                name3 = kp_names[tests[1].name[j].replace('&amp','&')] + str(year_list[i])
+                teams[name]["testkp_o2"] = tests[1].adjO[j]
+                teams[name]["testkp_d2"] = tests[1].adjD[j]
+                teams[name]["testkp_t2"] = tests[1].adjT[j]
+                teams[name]["testkp_em2"] = teams[name]["testkp_o2"] - teams[name]["testkp_d2"]
 
 def get_old_games(year_list = [2014,2015,2016,2017]):
     print("Getting old games from ESPN")
@@ -106,7 +137,7 @@ def get_old_games(year_list = [2014,2015,2016,2017]):
                 game["weekday"] = 0 if gameday.weekday() == 1 or gameday.weekday() == 7 else 1
             except:
                 continue
-def get_sportsbook_info(year_list=[2014,2015,2016,2017],test=False):
+def get_sportsbook_info(year_list=[2014,2015,2016,2017],test=False,half=False):
     print("Getting sportsbook info from Vegas Insider")
     for game in regress_spread:
         regress_dict[game["key"]] = game
@@ -126,6 +157,8 @@ def get_sportsbook_info(year_list=[2014,2015,2016,2017],test=False):
                 a = sb_names[years[year].away[i]]
                 d = years[year].date[i].split("/")
                 y = year_list[year] if int(d[0]) < 8 else year_list[year] - 1
+                if half and y == 2017:
+                    continue
                 datearray = [y,int(d[0]),int(d[1])]
                 gamedateobject = date(datearray[0],datearray[1],datearray[2])
                 key = str((h,a,str(gamedateobject)))
@@ -265,24 +298,35 @@ def get_new_games():
         except:
             print("In vegas info, no game matched:",sb_names[game["home"]],sb_names[game["away"]])
 
-def set_team_attributes():
+def set_team_attributes(test=False):
     print("Setting team attributes")
     stat_list = ["kp_o","kp_d","kp_t","fto","ftd","three_o","three_d","rebo","rebd","reb","to_poss","tof_poss"]
     for stat in stat_list:
-        set_zscores(stat)
+        set_zscores(stat,test)
 
-def set_zscores(stat):
+def set_zscores(stat,test):
     l = []
     for name,team in teams.items():
         l.append(team[stat])
+    kpstats = ["kp_o","kp_d","kp_t"]
+    if test and stat in kpstats:
+        for name,team in teams.items():
+            if name[-4:] == '2017':
+                l.append(team["test{}".format(stat)])
+                l.append(team["test{}2".format(stat)])
     z = zscore(l)
     i=0
     stat_z = stat + "_z"
     for name,team in teams.items():
         team[stat_z] = z[i]
         i += 1
+    if test and stat in kpstats:
+        for name,team in teams.items():
+            if name[-4:] == '2017':
+                team["test{}_z".format(stat)] = z[i]
+                team["test{}2_z".format(stat)] = z[i+1]
 
-def set_game_attributes(new = False,test = False):
+def set_game_attributes(new = False,test = False,half = False):
     all_games = []
     if not new and not test:
         data = regress_spread
@@ -296,12 +340,29 @@ def set_game_attributes(new = False,test = False):
     for i,game in enumerate(data):
         home = teams[game["home"]]
         away = teams[game["away"]]
+        dsa = game["date"].split("-")
+        datearray = [int(dsa[0]),int(dsa[1]),int(dsa[2])]
         game["home_em"] = home["kp_em"]
         game["away_em"] = away["kp_em"]
         game["home_off_adv"] = home["kp_o_z"] + away["kp_d_z"]
         game["away_off_adv"] = home["kp_d_z"] + away["kp_o_z"]
         game["home_tempo_z"] = home["kp_t_z"]
         game["away_tempo_z"] = away["kp_t_z"]
+        if half and datearray[0] == 2017:
+            if datearray[1] == 1 and datearray[2] <= 7:
+                game["home_em"] = home["testkp_em"]
+                game["away_em"] = away["testkp_em"]
+                game["home_off_adv"] = home["testkp_o_z"] + away["testkp_d_z"]
+                game["away_off_adv"] = home["testkp_d_z"] + away["testkp_o_z"]
+                game["home_tempo_z"] = home["testkp_t_z"]
+                game["away_tempo_z"] = away["testkp_t_z"]
+            elif datearray[1] == 1:
+                game["home_em"] = home["testkp_em2"]
+                game["away_em"] = away["testkp_em2"]
+                game["home_off_adv"] = home["testkp_o2_z"] + away["testkp_d2_z"]
+                game["away_off_adv"] = home["testkp_d2_z"] + away["testkp_o2_z"]
+                game["home_tempo_z"] = home["testkp_t2_z"]
+                game["away_tempo_z"] = away["testkp_t2_z"]
         game["home_three_adv"] = 1 if home["three_o_z"] > 1 else 0
         game["home_three_d_adv"] = 1 if home["three_d_z"] < 1 and away["three_o_z"] > 1 else 0
         game["away_three_adv"] = 1 if away["three_o_z"] > 1 else 0
@@ -310,8 +371,6 @@ def set_game_attributes(new = False,test = False):
         game["to"] = 1 if home["to_poss_z"] > 1 and away["tof_poss_z"] > 1 else 0
         game["tof"] = 1 if home["tof_poss_z"] > 1 and away["to_poss_z"] > 1 else 0
         game["weekday"] = 0 if game["weekday"] == -1 else game["weekday"]
-        dsa = game["date"].split("-")
-        datearray = [int(dsa[0]),int(dsa[1]),int(dsa[2])]
         game["home_diff"] = 0
         hgames = 0
         game["home_diff_n"] = 0
@@ -379,7 +438,7 @@ def update_all():
     # get_old_games(year_list)
 
     # Gets games that will be regressed
-    # get_sportsbook_info() # Comment if vegas hasn't been updated
+    get_sportsbook_info() # Comment if vegas hasn't been updated
     # get_sportsbook_info(year_list)
     # get_sportsbook_info([2014,2015])
     # get_sportsbook_info([2017],test=True)
@@ -393,7 +452,7 @@ def update_all():
     # Updates regress games
     set_game_attributes() # Always run
     set_game_attributes(new = True) # Comment if new games aren't being added
-    # set_game_attributes(test = True) # Comment if test games aren't being added
+    # set_game_attributes(test = True,half=True) # Comment if test games aren't being added
 
 teams = {}
 games = {}
@@ -417,8 +476,8 @@ update_all()
 
 # with open('teams.json', 'w') as outfile:
 #     json.dump(teams, outfile)
-# with open('games.json','w') as outfile:
-#     json.dump(games, outfile)
+with open('games.json','w') as outfile:
+    json.dump(games, outfile)
 # with open('regress_spread.json','w') as outfile:
 #     json.dump(regress_spread,outfile)
 with open('new_games.json','w') as outfile:

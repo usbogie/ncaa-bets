@@ -14,12 +14,11 @@ with open('regress_spread1415.json') as infile:
     regress_spread1415 = json.load(infile)
 f = open('output.txt','w')
 # "spread","true_home_game","home_ats","away_ats","home_public_percentage","line_movement","home_off_adv","away_off_adv","away_three_adv","home_three_d_adv","home_tempo_z","away_tempo_z","conf"
-variables = ["spread","true_home_game","home_off_adv","away_off_adv","home_ats","away_ats","home_public_percentage","line_movement","away_three_adv","home_three_d_adv"]
+variables = ["spread","true_home_game","home_off_adv","away_off_adv","home_ats","away_ats","away_three_adv","home_three_d_adv"]
 spread = ["home_tempo_z","away_tempo_z"]
 true = ["conf"]
 def regress_spreads(data = regress_spread):
     gamesdf = pd.DataFrame.from_dict(data)
-    gamesdf["neutral"] = abs(gamesdf.true_home_game - 1)
     form = ""
     for var in variables:
         if var == "spread":
@@ -30,7 +29,7 @@ def regress_spreads(data = regress_spread):
             form += " + {}:spread".format(var)
     for var in true:
             form += " + {}:true_home_game".format(var)
-    result = sm.ols(formula = "home_cover ~ {}-1".format(form),data=gamesdf,missing='raise').fit()
+    result = sm.ols(formula = "home_cover ~ {} -1".format(form),data=gamesdf,missing='raise').fit()
     o = str(result.summary())
     f.write("\n"+o)
     print(o)
@@ -60,7 +59,7 @@ def predict_new_games(data=new_games):
             prob += parameters[i] * game[var] * game["true_home_game"]
             i += 1
         game["prob"] = prob + .5
-        if game["prob"] < .5:
+        if prob < 0:
             game["pick"] = game["away"][:-4]
             game["prob"] = 1 - game["prob"]
         else:
@@ -118,13 +117,14 @@ def print_picks(prob = .5,top = 175):
         top -= 1
         gamesleft -= 1
         new_games.remove(nextgame)
-    o = "Prob".ljust(7)
+    o = "iProb".ljust(7)
     o += "Pick".ljust(longpick + 1)
     o += "Spread".ljust(7)
     o += "Opponent".ljust(longopp + 4)
     o += "Tip"
     f.write("\n"+o)
     print(o)
+    i = 1
     for nextgame in game_list:
         prob_str = str(int(nextgame["prob"]*10000)/100).ljust(7)
         tip_str = str(nextgame["tipstring"]).ljust(4)
@@ -139,6 +139,7 @@ def print_picks(prob = .5,top = 175):
         o = "{}{}{}{}{}".format(prob_str,pick_str,spread_str,opp_str,tip_str)
         f.write("\n"+o)
         print(o)
+        i += 1
 parameters = regress_spreads()
 predict_new_games()
 test_strategy()
