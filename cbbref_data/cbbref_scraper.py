@@ -1,6 +1,6 @@
 import urllib.request as request
 import urllib.error as error
-from bs4 import BeautifulSoup, Comment, Tag
+from bs4 import BeautifulSoup, Comment, Tag, NavigableString
 from fake_useragent import UserAgent
 from datetime import datetime, timedelta
 import pandas as pd
@@ -27,7 +27,7 @@ def get_soup(url):
 
 def make_season(start_year=2016):
 	months = ['11', '12', '01', '02', '03', '04']
-	dates ={'11': list(range(31)[1:]), '12': list(range(32)[1:]),
+	dates = {'11': list(range(31)[1:]), '12': list(range(32)[1:]),
 			'01': list(range(32)[1:]), '02': list(range(29)[1:]),
 			'03': list(range(32)[1:]), '04': list(range(9)[1:])}
 	all_season = []
@@ -55,7 +55,7 @@ def get_team_links(soup):
 			links.append(school_attrs[1].a['href'])
 	return links
 
-def get_games_statistics(game_log_soup):
+def get_games_statistics(game_log_soup, year):
 	info = ['team','opponent','team_score','opp_score','date','OT',
 			'neutral', 'home_game', 'ORtg','DRtg','Pace','FTr','3PAr','TS%',
 			'TRB%','AST%','STL%','BLK%','eFG%','TOV%','ORB%','FT/FGA',
@@ -63,19 +63,20 @@ def get_games_statistics(game_log_soup):
 	team_name = game_log_soup.find('li', {'class': 'index '}).a.string.split(' School')[0]
 	print(team_name)
 	rows = []
-	for row in game_log_soup.find('table', {'id': 'sgl-advanced'}).tbody.contents[1::2]:
-		if row.find('tr',{'class':'over_header thead'}) or row.find('tr',{'class':'thead'}):
+	game_rows = game_log_soup.find('table', {'id': 'sgl-advanced'}).tbody.contents
+	for row in game_rows:
+		if isinstance(row,NavigableString) or 'Offensive Four Factors' in row.text or 'Date' in row.text:
 			continue
 		data = np.array([np.arange(len(info))])
 		game_df = pd.DataFrame(data, columns=info)
 		data = row.contents
 		game_df['team']=team_name
-		game_df['opponent']=data[3].a.text
+		game_df['opponent']=data[3].text
 		game_df['team_score']=data[5].text
 		game_df['opp_score']=data[6].text
-		game_df['date']=data[1].a.text
+		game_df['date']=data[1].text
 		game_df['neutral'] = True if data[2].text == 'N' else False
-		game_df['home_game'] = False if data[2].text == '@' else True
+		game_df['home_game'] = True if data[2].text != '@' else False
 		game_df['ORtg']=data[7].text
 		game_df['DRtg']=data[8].text
 		game_df['Pace']=data[9].text
@@ -114,8 +115,8 @@ def get_games(year=2017):
 	for link in links:
 		game_log_url = base+link+"{}-gamelogs-advanced.html".format(year)
 		game_log_soup = get_soup(game_log_url)
-		team_info = get_games_statistics(game_log_soup)
+		team_info = get_games_statistics(game_log_soup, year)
 		all_team_logs.append(team_info)
 	all_teams_df = pd.concat(all_team_logs,ignore_index=True)
-	all_teams_df.to_csv("game_info{}.csv".format(year))
-get_games()
+	all_teams_df.to_csv("game_info{}.csv".format(year), index=False)
+get_games(year=2016)
