@@ -45,13 +45,13 @@ def make_season(start_year=2016):
 			all_season.append("{}-{}-{}".format(str(year),month,day))
 	return all_season
 
-def get_team_links(soup):
+def get_team_links(soup, year):
 	links = []
 	for school in soup.find('table', {'id': 'schools'}).tbody.contents[1::2]:
 		if school.find('tr', {'class': 'thead'}) is not None:
 			continue
 		school_attrs = school.contents
-		if school_attrs[4].string in "2017":
+		if school_attrs[4].string in "2017" and int(school_attrs[3].string)<=year:
 			links.append(school_attrs[1].a['href'])
 	return links
 
@@ -108,7 +108,7 @@ def get_games_statistics(game_log_soup, year):
 def get_games(year=2017):
 	soup = get_soup("http://www.sports-reference.com/cbb/schools/")
 
-	links = get_team_links(soup)
+	links = get_team_links(soup, year)
 	base = 'http://www.sports-reference.com'
 
 	all_team_logs = []
@@ -119,4 +119,4 @@ def get_games(year=2017):
 		all_team_logs.append(team_info)
 	all_teams_df = pd.concat(all_team_logs,ignore_index=True)
 	all_teams_df.to_csv("game_info{}.csv".format(year), index=False)
-get_games(year=2016)
+get_games(year=2017)
