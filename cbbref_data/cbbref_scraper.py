@@ -119,6 +119,6 @@ def get_games(year=2017):
 		all_team_logs.append(team_info)
 	all_teams_df = pd.concat(all_team_logs,ignore_index=True)
 	all_teams_df.to_csv("game_info{}.csv".format(year), index=False)
-	
-__name__ == '__main__':
+
+if __name__ == '__main__':
 	get_games(year=2017)

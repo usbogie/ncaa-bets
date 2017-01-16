@@ -130,6 +130,7 @@ def get_data(data=[],get_yesterday=False,get_today=False, year=2017,test=False):
 				data.append(game_info)
 	return data
 
-data = get_data(test=True)
-with open('vi_data/vegas_2017_test.json','w') as infile:
-	json.dump(data,infile)
+if __name__ == '__main__':
+	data = get_data(test=True)
+	with open('vi_data/vegas_2017_test.json','w') as infile:
+		json.dump(data,infile)
