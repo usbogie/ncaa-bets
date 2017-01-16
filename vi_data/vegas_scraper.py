@@ -42,16 +42,15 @@ def ordered(obj):
 def get_data(data=[],get_yesterday=False,get_today=False, year=2017,test=False):
 	all_dates = make_season(year-1)
 	base = "http://www.vegasinsider.com/college-basketball/matchups/matchups.cfm/date/"
-	today = int((datetime.now() - timedelta(1)).strftime('%Y-%m-%d').replace('-',''))
+	today = int((datetime.now()).strftime('%Y-%m-%d').replace('-',''))
 	if test:
 		today = 20161231
 	for day in all_dates:
-
 		if today < int(day.replace('-','')):
 			continue
-		if get_yesterday and today - int(day.replace('-','')) != 0:
+		if get_yesterday and today - int(day.replace('-','')) != 1:
 			continue
-		if get_today and today - int(day.replace('-','')) != -1:
+		if get_today and today - int(day.replace('-','')) != 0:
 			continue
 		print (day)
 		url_day = "-".join(day.split('-')[1:]+day.split('-')[:1])
