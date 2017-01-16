@@ -435,11 +435,11 @@ def update_all():
 
     # Updates games dictionary
     # get_old_games() # Comment if game_info hasn't been updated
-    # get_old_games(year_list)
+    get_old_games(year_list)
 
     # Gets games that will be regressed
-    get_sportsbook_info() # Comment if vegas hasn't been updated
-    # get_sportsbook_info(year_list)
+    # get_sportsbook_info() # Comment if vegas hasn't been updated
+    get_sportsbook_info(year_list)
     # get_sportsbook_info([2014,2015])
     # get_sportsbook_info([2017],test=True)
 
@@ -474,12 +474,12 @@ test_dict = {}
 espn_names, kp_names, sb_names = get_names()
 update_all()
 
-# with open('teams.json', 'w') as outfile:
-#     json.dump(teams, outfile)
+with open('teams.json', 'w') as outfile:
+    json.dump(teams, outfile)
 with open('games.json','w') as outfile:
     json.dump(games, outfile)
-# with open('regress_spread.json','w') as outfile:
-#     json.dump(regress_spread,outfile)
+with open('regress_spread.json','w') as outfile:
+    json.dump(regress_spread,outfile)
 with open('new_games.json','w') as outfile:
     json.dump(new_games,outfile)
 # with open('test_games.json','w') as outfile:
