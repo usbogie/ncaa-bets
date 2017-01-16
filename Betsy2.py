@@ -51,6 +51,7 @@ def betsy():
     # Trying to iterate through all of the games chronologically
     year_list = []
     while gamedate < date.today():
+        print(gamedate)
         try:
             key_list = game_date_dict[str(gamedate)]
         except:
@@ -62,8 +63,6 @@ def betsy():
         if year not in year_list:
             year_list.append(year)
             print(year)
-            print("==================================")
-        print(gamedate,len(key_list))
         averages = get_averages(year)
         for key in key_list:
             game = game_dict[key]
@@ -124,7 +123,8 @@ def betsy():
                 data["spread"] = Decimal(str(game["spread"]))
             except:
                 pass
-            data_list.append(data)
+            if game["true_home_game"] == 1:
+                data_list.append(data)
             try:
                 if pmargin + Decimal(str(game["spread"])) >= 0:
                     game["pick"] = game["home"]
@@ -189,9 +189,9 @@ def betsy():
     #         continue
     #     # data_list.append(data)
     #     print(str(key).rjust(5),str(data["margmed"]).rjust(5),str(data["diffmed"]).rjust(15),str(len(margins[key])).rjust(6))
-    # gamesdf = pd.DataFrame.from_dict(data_list)
-    # reg = sm.ols(formula = "margin ~ pmargin",data=gamesdf,missing='drop').fit()
-    # print(reg.summary())
+    gamesdf = pd.DataFrame.from_dict(data_list)
+    reg = sm.ols(formula = "margin ~ pmargin",data=gamesdf,missing='drop').fit()
+    print(reg.summary())
     print(x,y)
 def get_averages(year):
     averages = {}
