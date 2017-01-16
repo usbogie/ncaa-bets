@@ -76,25 +76,25 @@ def get_games_statistics(game_log_soup, year):
 		game_df['opp_score']=data[6].text
 		game_df['date']=data[1].text
 		game_df['neutral'] = True if data[2].text == 'N' else False
-		game_df['home_game'] = True if data[2].text != '@' else False
+		game_df['road_game'] = True if data[2].text == '@' else False
 		game_df['ORtg']=data[7].text
 		game_df['DRtg']=data[8].text
 		game_df['Pace']=data[9].text
 		game_df['FTr']=data[10].text
-		game_df['3PAr']=data[11].text
-		game_df['TS%']=data[12].text
-		game_df['TRB%']=data[13].text
-		game_df['AST%']=data[14].text
-		game_df['STL%']=data[15].text
-		game_df['BLK%']=data[16].text
-		game_df['eFG%']=data[18].text
-		game_df['TOV%']=data[19].text
-		game_df['ORB%']=data[20].text
-		game_df['FT/FGA']=data[21].text
-		game_df['Opp-eFG%']=data[23].text
-		game_df['Opp-TOV%']=data[24].text
-		game_df['Opp-ORB%']=data[25].text
-		game_df['Opp-FT/FGA']=data[26].text
+		game_df['tPAr']=data[11].text
+		game_df['TSP']=data[12].text
+		game_df['TRBP']=data[13].text
+		game_df['ASTP']=data[14].text
+		game_df['STLP']=data[15].text
+		game_df['BLKP']=data[16].text
+		game_df['eFGP']=data[18].text
+		game_df['TOVP']=data[19].text
+		game_df['ORBP']=data[20].text
+		game_df['FT']=data[21].text
+		game_df['OeFGP']=data[23].text
+		game_df['OTOVP']=data[24].text
+		game_df['OORBP']=data[25].text
+		game_df['OFT']=data[26].text
 
 		result = data[4].text
 		if len(result) > 1:
