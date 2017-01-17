@@ -34,17 +34,16 @@ with open('new_teams.json','r') as infile:
     teams = json.load(infile)
 with open('new_game_dict.json','r') as infile:
     game_dict = json.load(infile)
-with open('spread_dict.json','r') as infile:
-    spread_dict = json.load(infile)
 with open('vi_data/new_names_dict.json','r') as infile:
     sb_names = json.load(infile)
 with open('kp_data/new_names_dict.json','r') as infile:
     kp_names = json.load(infile)
 with open('cbbref_data/new_names_dict.json','r') as infile:
     cbbr_names = json.load(infile)
-spread_dict = {}
-teams = {}
-game_dict = {}
+with open('tr_data/new_names_dict.json','r') as infile:
+    tr_names = json.load(infile)
+with open('espn_data/names_dict.json') as infile:
+    espn_names = json.load(infile)
 def get_sports_ref_data(year_list=[2014,2015,2016,2017]):
     years = []
     csvs = ["game_info2014.csv","game_info2015.csv","game_info2016.csv","game_info2017.csv"]
@@ -130,11 +129,6 @@ def get_spreads(year_list=[2014,2015,2016,2017]):
                 datearray = [game_year,int(d[0]),int(d[1])]
                 gamedate = date(datearray[0],datearray[1],datearray[2])
                 key = str((home,away,str(gamedate)))
-                try:
-                    spread_dict[key]
-                    continue
-                except:
-                    pass
                 game = game_dict[key]
                 if years[year].close_line[i] == "":
                     continue
@@ -143,14 +137,22 @@ def get_spreads(year_list=[2014,2015,2016,2017]):
                     print("Found big spread, probably an over/under")
                 if game["spread"] + game["margin"] < 0:
                     game["cover"] = game["away"]
+                    game["home_cover"] = -.5
                 elif game["spread"] + game["margin"] > 0:
                     game["cover"] = game["home"]
+                    game["home_cover"] = .5
                 else:
                     game["cover"] = "Tie"
+                    game["home_cover"] = 0
+                game["line_movement"] = 0 if years[year].open_line[i] == "" else game["spread"] - float(years[year].open_line[i])
+                game["home_public_percentage"] = 50 if years[year].home_side_pct[i] == "" else float(years[year].home_side_pct[i])
+                game["home_ats"] = years[year].home_ats[i].split("-")
+                game["away_ats"] = years[year].away_ats[i].split("-")
+                game["home_ats"] = 0 if game["home_ats"][0] == "0" and game["home_ats"][1] == "0" else int(game["home_ats"][0]) / (int(game["home_ats"][0])+int(game["home_ats"][1]))
+                game["away_ats"] = 0 if game["away_ats"][0] == "0" and game["away_ats"][1] == "0" else int(game["away_ats"][0]) / (int(game["away_ats"][0])+int(game["away_ats"][1]))
                 if math.isnan(game["spread"]):
                     print("Found spread nan that wasn't \"\"")
                     continue
-                spread_dict[key] = game
             except:
                 continue
 def get_old_games(year_list = [2014,2015,2016,2017]):
@@ -236,16 +238,54 @@ def get_kp_stats(year_list = [2014,2015,2016,2017]):
             teams[name]["kp_t"] = years[i].adjT[j]
             teams[name]["kp_em"] = teams[name]["kp_o"] - teams[name]["kp_d"]
 
-make_teams_dict()
-get_kp_stats()
-get_old_games()
+def get_home_splits(year_list = [2014,2015,2016]):
+    print("Getting home splits")
+    years = []
+    jsons = ['eff_splits2014.json','eff_splits2015.json','eff_splits2016.json','eff_splits2017.json']
+    for i in range(len(jsons)):
+        if i + 2014 in year_list:
+            trdf = pd.read_json('tr_data/' + jsons[i])
+            years.append(trdf)
+    for i in range(len(years)):
+        teams_count = len(years[i])
+        for j in range(teams_count):
+            name = tr_names[years[i].Name[j]] + str(year_list[i])
+            teams[name]["ORTG"] = years[i].ORTG[i]
+            teams[name]["DRTG"] = years[i].DRTG[i]
+            teams[name]["home_ORTG"] = years[i].home_ORTG[i]
+            teams[name]["away_ORTG"] = years[i].away_ORTG[i]
+            teams[name]["home_DRTG"] = years[i].home_DRTG[i]
+            teams[name]["away_DRTG"] = years[i].away_DRTG[i]
+            teams[name]["home_o_adv"] = teams[name]["home_ORTG"] - teams[name]["ORTG"]
+            teams[name]["home_d_adv"] = teams[name]["home_DRTG"] - teams[name]["DRTG"]
+            teams[name]["away_o_adv"] = teams[name]["away_ORTG"] - teams[name]["ORTG"]
+            teams[name]["away_d_adv"] = teams[name]["away_DRTG"] - teams[name]["DRTG"]
+    for name in espn_names.keys():
+        home_o_adv = 0
+        home_d_adv = 0
+        away_o_adv = 0
+        away_d_adv = 0
+        for i in range(3):
+            team = teams[name+str(year_list[i])]
+            home_o_adv += team["home_o_adv"] / 3
+            home_d_adv += team["home_d_adv"] / 3
+            away_o_adv += team["away_o_adv"] / 3
+            away_d_adv += team["away_d_adv"] / 3
+        for i in range(4):
+            team = teams[name+str(2014+i)]
+            team["home_o_adv"] = home_o_adv * 100
+            team["home_d_adv"] = home_d_adv * 100
+            team["away_o_adv"] = away_o_adv * 100
+            team["away_d_adv"] = away_d_adv * 100
+# make_teams_dict()
+# get_kp_stats()
+# get_old_games()
 get_spreads()
-get_sports_ref_data()
-set_game_attributes()
+# get_sports_ref_data()
+# set_game_attributes()
+# get_home_splits()
 
-with open('new_teams.json', 'w') as outfile:
-    json.dump(teams,outfile)
+# with open('new_teams.json', 'w') as outfile:
+#     json.dump(teams,outfile)
 with open('new_game_dict.json','w') as outfile:
     json.dump(game_dict,outfile)
-with open('spread_dict.json','w') as outfile:
-    json.dump(spread_dict,outfile)

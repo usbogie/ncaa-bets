@@ -73,11 +73,12 @@ def get_cbbr_names():
     print(len(cbbr_names.keys()))
     with open('cbbref_data/new_names_dict.json', 'w+') as outfile:
         json.dump(cbbr_names, outfile)
+
 with open('kp_data/new_names_dict.json','r') as infile:
     kp_names = json.load(infile)
 with open('sb_data/new_names_dict.json','r') as infile:
     sb_names = json.load(infile)
 with open('cbbref_data/new_names_dict.json','r') as infile:
     cbbr_names = json.load(infile)
-for name in sorted(cbbr_names.keys()):
-    print(name,cbbr_names[name])
+with open('tr_data/new_names_dict.json','r') as infile:
+    tr_names = json.load(infile)
