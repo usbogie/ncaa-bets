@@ -143,6 +143,11 @@ def betsy():
                         game["vprob"] = (pmargin + Decimal(str(game["spread"]))) / (game["std_range"] * 2) + Decimal(str(.5))
                     else:
                         game["vprob"] = -1 * (pmargin + Decimal(str(game["spread"]))) / (game["std_range"] * 2) + Decimal(str(.5))
+                game["fem_diff"] = float(game["em_diff"])
+                game["ftempo"] = float(game["tempo"])
+                game["home_ats"]
+                game["away_ats"]
+                game["line_movement"]
                 regress_games.append(game)
             except:
                 pass
@@ -298,7 +303,8 @@ def calc_kp_averages():
 def test_betsy():
     print("Testing")
     gamesdf = pd.DataFrame.from_dict(regress_games)
-    reg = sm.ols(formula = "home_cover ~ spread + em_diff + home_ats + away_ats + line_movement + home_public_percentage + tempo:spread -1",data=gamesdf,missing='drop').fit()
+    print(len(gamesdf.spread))
+    reg = sm.ols(formula = "home_cover ~ spread + fem_diff + home_ats + away_ats + line_movement + ftempo:spread -1",data=gamesdf,missing='drop').fit()
     print(reg.summary())
     for index,game in enumerate(regress_games):
         game["prob"] = reg.predict()[index]
