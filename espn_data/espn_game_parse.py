@@ -54,7 +54,10 @@ class Game(object):
 		self.info_df['Game_Year'] = self.year
 		self.info_df['Game_Date'] = self.date
 		self.info_df['Game_Tipoff'] = self.tipoff
-		self.info_df['Game_Location'] = self.game_info['venue']
+		try:
+			self.info_df['Game_Location'] = self.game_info['venue']
+		except:
+			self.info_df['Game_Location'] = None
 		self.info_df['Neutral_Site'] = self.game_info['neutral_site']
 		self.info_df['Conference_Competition'] = self.game_info['conferenceCompetition']
 		self.info_df['Attendance'] = self.game_info['attendance']

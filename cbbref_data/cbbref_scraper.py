@@ -21,7 +21,7 @@ def get_soup(url):
 			page = request.urlopen(request.Request(url, headers = { 'User-Agent' : ua.random }))
 		except:
 			print(e)
-			sys.exit()
+			return None
 	content = page.read()
 	return BeautifulSoup(content, "html5lib")
 
@@ -115,10 +115,12 @@ def get_games(year=2017):
 	for link in links:
 		game_log_url = base+link+"{}-gamelogs-advanced.html".format(year)
 		game_log_soup = get_soup(game_log_url)
+		if game_log_soup is None:
+			continue
 		team_info = get_games_statistics(game_log_soup, year)
 		all_team_logs.append(team_info)
 	all_teams_df = pd.concat(all_team_logs,ignore_index=True)
 	all_teams_df.to_csv("game_info{}.csv".format(year), index=False)
 
 if __name__ == '__main__':
-	get_games(year=2017)
+	get_games(year=2012)

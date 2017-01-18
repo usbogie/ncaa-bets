@@ -91,3 +91,8 @@ def extract_kenpom(year):
         p.pprint(teams)
     year_str2 = str(year%100)
     return teams
+
+if __name__ == '__main__':
+    teams = extract_kenpom(2012)
+    with open('kenpom12.json', 'w+') as outfile:
+    	json.dump(teams, outfile)

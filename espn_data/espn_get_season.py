@@ -62,7 +62,7 @@ def make_overall_df(start_year):
 
 	gen_info = []
 	date_list = make_season(start_year)
-	
+
 	base_url = "http://scores.espn.com/mens-college-basketball/scoreboard/_/group/50/date/"
 	for day in date_list:
 		if (datetime.now() - timedelta(1)).strftime('%Y-%m-%d').replace('-','') < day:
@@ -113,12 +113,13 @@ def make_overall_df(start_year):
 				game_info['attendance']				= competition['attendance']
 				game_info['conferenceCompetition']	= competition['conferenceCompetition']
 				game_info['tipoff']					= competition['startDate']
-				venueJSON							= competition['venue']
-
-				game_info['venue'] = venueJSON['fullName']
-				if 'address' in venueJSON.keys():
-					game_info['venue']+="|"+"|".join([venueJSON['address']['city'],venueJSON['address']['state']])
-
+				try:
+					venueJSON							= competition['venue']
+					game_info['venue'] = venueJSON['fullName']
+					if 'address' in venueJSON.keys():
+						game_info['venue']+="|"+"|".join([venueJSON['address']['city'],venueJSON['address']['state']])
+				except:
+					pass
 				away = 0
 				home = 1
 				competitors	= competition['competitors']
@@ -156,7 +157,7 @@ def make_overall_df(start_year):
 	return gen_info
 
 if __name__ == '__main__':
-	start_year = 2016
+	start_year = 2011
 	info_list = make_overall_df(start_year)
 	final_info = pd.concat(info_list, ignore_index=True).set_index('Game_ID')
 	#final_players = pd.concat(players_list, ignore_index=True)

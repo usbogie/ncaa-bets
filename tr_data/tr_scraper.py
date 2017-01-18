@@ -7,7 +7,7 @@ import sys
 import json
 import csv
 
-def get_teamrankings(year_list = [2014,2015,2016,2017]):
+def get_teamrankings(year_list = [2012,2013,2014,2015,2016,2017]):
     url = 'https://www.teamrankings.com/ncaa-basketball/stat/'
     links = ['ftm-per-100-possessions',
              'opponent-free-throw-rate',
@@ -19,7 +19,9 @@ def get_teamrankings(year_list = [2014,2015,2016,2017]):
              'turnover-pct',
              'opponent-turnover-pct',
              'possessions-per-game']
-    year_links = {2014: '?date=2014-04-07',
+    year_links = {2012: '?date=2012-04-02',
+                  2013: '?date=2013-04-08',
+                  2014: '?date=2014-04-07',
                   2015: '?date=2015-04-06',
                   2016: '?date=2016-04-05',
                   2017: ''}
@@ -54,11 +56,13 @@ def get_teamrankings(year_list = [2014,2015,2016,2017]):
             team_list.append(value)
         return team_list
 
-def get_home_away(year_list = [2014,2015,2016,2017]):
+def get_home_away(year_list = [2012,2013,2014,2015,2016,2017]):
     url = 'https://www.teamrankings.com/ncaa-basketball/stat/'
     links = ['offensive-efficiency',
              'defensive-efficiency']
-    year_links = {2014: '?date=2014-04-07',
+    year_links = {2012: '?date=2012-04-02',
+                  2013: '?date=2013-04-08',
+                  2014: '?date=2014-04-07',
                   2015: '?date=2015-04-06',
                   2016: '?date=2016-04-05',
                   2017: ''}
@@ -103,4 +107,10 @@ def get_home_away(year_list = [2014,2015,2016,2017]):
             team_list.append(value)
         with open('eff_splits{}.json'.format(str(year)),'w') as outfile:
             json.dump(team_list,outfile)
-get_home_away()
+team_list = get_teamrankings([2013])
+with open('team_stats13.csv', 'w') as outfile:
+	keys = list(team_list[0].keys())
+	writer = csv.DictWriter(outfile,fieldnames=keys)
+	writer.writeheader()
+	for team in team_list:
+		writer.writerow(team)

@@ -52,7 +52,7 @@ def get_data(data=[],get_yesterday=False,get_today=False, year=2017):
 			continue
 		print (day)
 		url_day = "-".join(day.split('-')[1:]+day.split('-')[:1])
-		url = base+day
+		url = base+url_day
 
 		try:
 			page = request.urlopen(request.Request(url, headers = { 'User-Agent' : ua.random }))
@@ -81,9 +81,11 @@ def get_data(data=[],get_yesterday=False,get_today=False, year=2017):
 			game_info['date'] = "/".join(day.split('-')[1:])
 
 			try:
-				game_info['away'] = away_info[0].find('a', {'class': 'tableText'}).text
-				game_info['home'] = home_info[0].find('a', {'class': 'tableText'}).text
+				game_info['away'] = away_info[0].a.text
+				game_info['home'] = home_info[0].a.text
+				print(game_info['away'], game_info['home'])
 			except:
+				print('continuing')
 				continue
 
 			game_info['away_ats'] = re.sub('\s+','',away_info[3].text)
@@ -128,6 +130,11 @@ def get_data(data=[],get_yesterday=False,get_today=False, year=2017):
 	return data
 
 if __name__ == '__main__':
+<<<<<<< HEAD
 	data = get_data()
 	with open('vegas_2017.json','w') as infile:
+=======
+	data = get_data(year=2013)
+	with open('vegas_2013.json','w') as infile:
+>>>>>>> adding new data
 		json.dump(data,infile)
