@@ -14,7 +14,7 @@ with open('regress_spread1415.json') as infile:
     regress_spread1415 = json.load(infile)
 f = open('output.txt','w')
 # "spread","true_home_game","home_ats","away_ats","home_public_percentage","line_movement","home_off_adv","away_off_adv","away_three_adv","home_three_d_adv","home_tempo_z","away_tempo_z","conf"
-variables = ["spread","true_home_game","home_off_adv","away_off_adv","home_ats","away_ats","away_three_adv","home_three_d_adv"]
+variables = ["spread","true_home_game","home_em","away_em","home_ats","away_ats"]
 spread = ["home_tempo_z","away_tempo_z"]
 true = ["conf"]
 def regress_spreads(data = regress_spread):
@@ -117,7 +117,7 @@ def print_picks(prob = .5,top = 175):
         top -= 1
         gamesleft -= 1
         new_games.remove(nextgame)
-    o = "iProb".ljust(7)
+    o = "Prob".ljust(7)
     o += "Pick".ljust(longpick + 1)
     o += "Spread".ljust(7)
     o += "Opponent".ljust(longopp + 4)

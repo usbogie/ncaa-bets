@@ -216,11 +216,6 @@ def make_teams_dict():
             teams[name+str(2014+i)]["games"] = []
             teams[name+str(2014+i)]["prev_games"] = []
 
-def set_game_attributes():
-    for key,game in game_dict.items():
-        game["home_tempo"] = teams[game["home"]+game["season"]]["kp_t"]
-        game["away_tempo"] = teams[game["away"]+game["season"]]["kp_t"]
-
 def get_kp_stats(year_list = [2014,2015,2016,2017]):
     print("Getting kp stats")
     years = []
@@ -279,13 +274,12 @@ def get_home_splits(year_list = [2014,2015,2016]):
             team["away_d_adv"] = away_d_adv * 100
 # make_teams_dict()
 # get_kp_stats()
-# get_old_games()
-get_spreads()
-# get_sports_ref_data()
-# set_game_attributes()
+get_old_games([2017])
+get_spreads([2017])
+get_sports_ref_data([2017])
 # get_home_splits()
 
-# with open('new_teams.json', 'w') as outfile:
-#     json.dump(teams,outfile)
+with open('new_teams.json', 'w') as outfile:
+    json.dump(teams,outfile)
 with open('new_game_dict.json','w') as outfile:
     json.dump(game_dict,outfile)
