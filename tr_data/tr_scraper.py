@@ -24,7 +24,7 @@ def get_season_dates(start_year):
         all_season.append('{}-{}-{}'.format(year, date[:2], date[-2:]))
     return all_season
 
-def get_teamrankings(year=2017):
+def get_teamrankings(year=2017, get_today=False):
     url = 'https://www.teamrankings.com/ncaa-basketball/stat/'
     links = ['ftm-per-100-possessions',
              'opponent-free-throw-rate',
@@ -41,6 +41,7 @@ def get_teamrankings(year=2017):
     team_stats = []
     season_dates = get_season_dates(year-1)
     for date in season_dates:
+        datestr = "/".join(date.split('-')[1:]+date.split('-')[:1])
         teams={}
         for i in range(len(links)): #TODO figure out how to get all matchup links, and also key entries by AWAY @ HOME
             s = str(bs(request.urlopen(request.Request('{}{}?date={}'.format(url,links[i],date))),"html5lib"))
@@ -56,6 +57,7 @@ def get_teamrankings(year=2017):
                                 if i == 0:
                                     teams[name] = {}
                                     teams[name]['Name'] = name
+                                    teams[name]['date'] = datestr
                                 break
                     if index % 8 == 2:
                         for k in range(len(s)-j):
@@ -121,10 +123,9 @@ def get_home_away(year_list = [2012,2013,2014,2015,2016,2017]):
         with open('eff_splits{}.json'.format(str(year)),'w') as outfile:
             json.dump(team_list,outfile)
 team_list = get_teamrankings(2017)
-print(team_list)
-# with open('team_stats13.csv', 'w') as outfile:
-# 	keys = list(team_list[0].keys())
-# 	writer = csv.DictWriter(outfile,fieldnames=keys)
-# 	writer.writeheader()
-# 	for team in team_list:
-# 		writer.writerow(team)
+with open('xteam_stats17.csv', 'w') as outfile:
+    keys = list(team_list[0].keys())
+    writer = csv.DictWriter(outfile,fieldnames=keys)
+    writer.writeheader()
+    for team in team_list:
+        writer.writerow(team)
