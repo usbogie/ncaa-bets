@@ -275,10 +275,10 @@ def get_home_splits(year_list = [2014,2015,2016]):
             team["away_d_adv"] = away_d_adv * 100
 # make_teams_dict()
 # get_kp_stats()
-get_old_games([2017])
-get_spreads([2017])
-get_sports_ref_data([2017])
-# get_home_splits()
+# get_old_games([2017])
+# get_spreads([2017])
+# get_sports_ref_data([2017])
+get_home_splits()
 
 with open('new_teams.json', 'w') as outfile:
     json.dump(teams,outfile)

@@ -8,31 +8,26 @@ from decimal import *
 getcontext().prec = 10
 getcontext().traps[FloatOperation] = True
 
+# Teams dictionary: all teams since 2014, contains list of games, HCA values, etc
+# Keyed by name+season
 with open('new_teams.json','r') as infile:
     teams = json.load(infile)
+# Game dictionary: all games between two D1 teams on ESPN since 2014, may contain advanced stats, may contain spread
+# Keyed by str((home,away,date))
 with open('new_game_dict.json','r') as infile:
     game_dict = json.load(infile)
-with open('spread_dict.json','r') as infile:
-    spread_dict = json.load(infile)
-with open('kp_data/new_names_dict.json','r') as infile:
-    kp_names = json.load(infile)
+
+# Number of games used to create starting stats for teams
 preseason_length = 5
-
-game_date_dict = {}
-for key,game in game_dict.items():
-    try:
-        if game["key"] not in game_date_dict[game["date"]]:
-            game_date_dict[game["date"]].append(game["key"])
-    except:
-        game_date_dict[game["date"]] = [game["key"]]
-
-for key,team in teams.items():
-    team["variance"] = []
 
 regress_games = []
 new_games = []
 
 def betsy():
+    home_ortg_std_list = []
+    away_ortg_std_list = []
+    home_score_std_list = []
+    away_score_std_list = []
     spread_std_list = []
     pmargin_std_list = []
     diff_std_list = []
@@ -42,6 +37,8 @@ def betsy():
     for key,team in teams.items():
         for i in range(preseason_length):
             del team["games"][0]
+    for key,team in teams.items():
+        team["variance"] = []
     gamedate = date(2013,11,8)
     margins = {}
     diffs = {}
@@ -111,43 +108,47 @@ def betsy():
                 game["std_range"] = game["home_variance"] + game["away_variance"]
 
             # Prediction
-            home_o = home["home_o_adv"] if game["true_home_game"] == 1 else 0
-            away_o = away["away_o_adv"] if game["true_home_game"] == 1 else 0
-            home_em = home["adj_ortg"][-1] - home["adj_drtg"][-1] + home_o
-            away_em = away["adj_ortg"][-1] - away["adj_drtg"][-1] + away_o
-            tempo = (home["adj_temp"][-1] + away["adj_temp"][-1]) / 2
-            em_diff = (home_em - away_em) / 100
-            pmargin = em_diff * tempo * .4
-            game["em_diff"] = em_diff
-            game["tempo"] = tempo
-            game["pmargin"] = pmargin
+            game["home_o"] = home["home_o_adv"] if game["true_home_game"] == 1 else 0
+            game["away_o"] = away["away_o_adv"] if game["true_home_game"] == 1 else 0
+            game["home_em"] = home["adj_ortg"][-1] - home["adj_drtg"][-1] + game["home_o"]
+            game["away_em"] = away["adj_ortg"][-1] - away["adj_drtg"][-1] + game["away_o"]
+            game["tempo"] = (home["adj_temp"][-1] + away["adj_temp"][-1]) / 2
+            game["em_diff"] = (game["home_em"] - game["away_em"]) / 100
+            game["pmargin"] = game["em_diff"] * game["tempo"] * .4
 
+            # Data collection for testing
+            h_proj_o = (home["adj_ortg"][-1] + away["adj_drtg"][-1]) / 2 + game["home_o"]
+            a_proj_o = (away["adj_ortg"][-1] + home["adj_drtg"][-1]) / 2 + game["away_o"]
             try:
+                home_ortg_std_list.append(h_proj_o - game["home_ORtg"])
+                away_ortg_std_list.append(a_proj_o - game["away_ORtg"])
+                home_score_std_list.append(h_proj_o * game["tempo"] / 100 - game["home_score"])
+                away_score_std_list.append(a_proj_o * game["tempo"] / 100 - game["away_score"])
                 spread_std_list.append(game["spread"] + game["margin"])
-                pmargin_std_list.append(pmargin - game["margin"])
-                diff_std_list.append(game["spread"] + pmargin)
+                pmargin_std_list.append(game["pmargin"] - game["margin"])
+                diff_std_list.append(game["spread"] + game["pmargin"])
             except:
                 pass
-            # Data collection for testing
+
             data = {}
-            data["pmargin"] = float(pmargin)
-            data["home_em"] = float(home_em) / 100
-            data["away_em"] = float(away_em) / 100
-            data["Pace"] = float(game["Pace"])
-            data["home_adj_o"] = float(home["adj_ortg"][-1])
-            data["home_adj_d"] = float(home["adj_drtg"][-1])
-            data["away_adj_o"] = float(home["adj_ortg"][-1])
-            data["away_adj_d"] = float(home["adj_drtg"][-1])
-            data["home_proj_o"] = data["home_adj_o"] * .5 + data["away_adj_d"] * .5 + home_o
-            data["away_proj_o"] = data["away_adj_o"] * .5 + data["home_adj_d"] * .5 + away_o
+            data["pmargin"] = game["pmargin"]
+            data["home_em"] = game["home_em"] / 100
+            data["away_em"] = game["away_em"] / 100
+            data["Pace"] = game["Pace"]
+            data["home_adj_o"] = home["adj_ortg"][-1]
+            data["home_adj_d"] = home["adj_drtg"][-1]
+            data["away_adj_o"] = home["adj_ortg"][-1]
+            data["away_adj_d"] = home["adj_drtg"][-1]
+            data["home_proj_o"] = data["home_adj_o"] * .5 + data["away_adj_d"] * .5 + game["home_o"]
+            data["away_proj_o"] = data["away_adj_o"] * .5 + data["home_adj_d"] * .5 + game["away_o"]
             data["home_o"] = game["home_ORtg"]
             data["away_o"] = game["away_ORtg"]
-            data["home_adj_temp"] = float(home["adj_temp"][-1])
-            data["away_adj_temp"] = float(away["adj_temp"][-1])
-            data["home_temp_diff"] = float(home["adj_temp"][-1]) - float(averages["t"+game["season"]])
-            data["away_temp_diff"] = float(away["adj_temp"][-1]) - float(averages["t"+game["season"]])
-            data["Pace_diff"] = float(game["Pace"]) - float(averages["t"+game["season"]])
-            data["avg_pace"] = float(averages["t"+game["season"]])
+            data["home_adj_temp"] = home["adj_temp"][-1]
+            data["away_adj_temp"] = away["adj_temp"][-1]
+            data["home_temp_diff"] = home["adj_temp"][-1] - averages["t"+game["season"]]
+            data["away_temp_diff"] = away["adj_temp"][-1] - averages["t"+game["season"]]
+            data["Pace_diff"] = game["Pace"] - averages["t"+game["season"]]
+            data["avg_pace"] = averages["t"+game["season"]]
             data["margin"] = game["margin"]
             data["ptemp"] = game["tempo"]
             data["true_home_game"] = game["true_home_game"]
@@ -159,20 +160,17 @@ def betsy():
                 pass
             if game["true_home_game"] == 1:
                 try:
-                    margins[int(pmargin)].append(game["margin"])
-                    diffs[int(pmargin)].append(pmargin - game["margin"])
+                    margins[int(game["pmargin"])].append(game["margin"])
+                    diffs[int(game["pmargin"])].append(game["pmargin"] - game["margin"])
                 except:
-                    margins[int(pmargin)] = [game["margin"]]
-                    diffs[int(pmargin)] = [pmargin - game["margin"]]
+                    margins[int(game["pmargin"])] = [game["margin"]]
+                    diffs[int(game["pmargin"])] = [game["pmargin"] - game["margin"]]
             try:
                 if len(home["prev_games"]) > 2 and len(away["prev_games"]) > 2:
                     if pmargin + game["spread"] >= 0:
                         game["vprob"] = (pmargin + game["spread"]) / (game["std_range"] * 2) + .5
                     else:
                         game["vprob"] = -1 * (pmargin + game["spread"]) / (game["std_range"] * 2) + .5
-                game["fem_diff"] = float(game["em_diff"])
-                game["home_em"] = float(home["adj_ortg"][-1]) - float(home["adj_drtg"][-1]) + home_o
-                game["away_em"] = float(away["adj_ortg"][-1]) - float(away["adj_drtg"][-1]) + away_o
                 game["home_ats"]
                 game["away_ats"]
                 if game["season"] != "2017":
@@ -185,31 +183,31 @@ def betsy():
             # Store results
             home_results = {}
             home_results["key"] = game["key"]
-            home_results["adj_ortg"] = 2 * game["home_ORtg"] - away["adj_drtg"][-1] - home_o
-            home_results["adj_drtg"] = 2 * game["home_DRtg"] - away["adj_ortg"][-1] - away_o
+            home_results["adj_ortg"] = 2 * game["home_ORtg"] - away["adj_drtg"][-1] - game["home_o"]
+            home_results["adj_drtg"] = 2 * game["home_DRtg"] - away["adj_ortg"][-1] - game["away_o"]
             home_results["adj_temp"] = 2 * game["Pace"] - away["adj_temp"][-1]
             away_results = {}
             away_results["key"] = game["key"]
-            away_results["adj_ortg"] = 2 * game["away_ORtg"] - home["adj_drtg"][-1] - home_o
-            away_results["adj_drtg"] = 2 * game["away_DRtg"] - home["adj_ortg"][-1] - away_o
+            away_results["adj_ortg"] = 2 * game["away_ORtg"] - home["adj_drtg"][-1] - game["home_o"]
+            away_results["adj_drtg"] = 2 * game["away_DRtg"] - home["adj_ortg"][-1] - game["away_o"]
             away_results["adj_temp"] = 2 * game["Pace"] - home["adj_temp"][-1]
             if game["key"] in home["games"]:
                 home["prev_games"].append(home_results)
                 if home["games"][0] == game["key"]:
-                    home["variance"].append(game["margin"] - pmargin)
+                    home["variance"].append(game["margin"] - game["pmargin"])
                     del home["games"][0]
             else:
-                # Game in this teams preseason
+                # Game in this team's preseason
                 del home["adj_ortg"][-1]
                 del home["adj_drtg"][-1]
                 del home["adj_temp"][-1]
             if game["key"] in away["games"]:
                 away["prev_games"].append(away_results)
                 if away["games"][0] == game["key"]:
-                    away["variance"].append(pmargin - game["margin"])
+                    away["variance"].append(game["pmargin"] - game["margin"])
                     del away["games"][0]
             else:
-                # Game in this teams preseason
+                # Game in this team's preseason
                 del away["adj_ortg"][-1]
                 del away["adj_drtg"][-1]
                 del away["adj_temp"][-1]
@@ -221,6 +219,21 @@ def betsy():
     #     data["diffmed"] = np.median(diffs[key])
     #     data["count"] = len(margins[key])
     #     print(str(key).rjust(5),str(data["margmed"]).rjust(5),str(data["diffmed"]).rjust(15),str(len(margins[key])).rjust(6))
+
+    compare_strategies(data_list)
+
+    print("Standard deviation of Home Offensive Rating prediction:".ljust(60),np.std(home_ortg_std_list))
+    print("Standard deviation of Away Offensive Rating prediction:".ljust(60),np.std(away_ortg_std_list))
+    print("Standard deviation of Home Score prediction:".ljust(60),np.std(home_score_std_list))
+    print("Standard deviation of Away Score prediction:".ljust(60),np.std(away_score_std_list))
+    print("Standard deviation of Scoring Margin prediction:".ljust(60),np.std(pmargin_std_list))
+    print("Standard deviation of Scoring Margin and Spread:".ljust(60),np.std(spread_std_list))
+    print("Standard deviation of Predicted Scoring Margin and Spread:".ljust(60),np.std(diff_std_list))
+
+    # print(teams["Kentucky2015"]["adj_temp"][-1],teams["Villanova2015"]["adj_temp"][-1])
+
+# Compare strategies for projecting Pace and Margin
+def compare_strategies(data_list):
     gamesdf = pd.DataFrame.from_dict(data_list)
     # temp_reg = sm.ols(formula = "Pace ~ home_adj_temp + away_adj_temp -1",data=gamesdf,missing='drop').fit()
     # diff_list = []
@@ -234,6 +247,7 @@ def betsy():
     # print(temp_reg2.summary())
     # print(np.std(diff_list))
     # print(np.std(diff_list2))
+
     # em_reg = sm.ols(formula = "margin ~ home_em:ptemp + away_em:ptemp -1",data=gamesdf,missing='drop').fit()
     # diff_list_em = []
     # for i in range(len(em_reg.predict())):
@@ -246,11 +260,9 @@ def betsy():
     # print(spread_reg.summary())
     # print(np.std(diff_list_em))
     # print(np.std(diff_list_sp))
-    print(np.std(pmargin_std_list))
-    print(np.std(spread_std_list))
-    print(np.std(diff_std_list))
-    print(teams["Kentucky2015"]["adj_temp"][-1],teams["Villanova2015"]["adj_temp"][-1])
 
+# Get averages for a certain point in the year
+# Used in "kenpom" style computations for comparison
 def get_averages(year):
     averages = {}
     for key,team in teams.items():
@@ -261,6 +273,8 @@ def get_averages(year):
         averages["t"+team_year] = averages.get("t"+team_year,0) + team["adj_temp"][-1] / 351
     return averages
 
+# Gets starting stats for a team in the year
+# These games will not be predicted
 def run_preseason():
     if not check_chron():
         print("Preseason won't work")
@@ -269,7 +283,9 @@ def run_preseason():
         team["adj_drtg"] = []
         team["adj_temp"] = []
         if len(team["games"]) < preseason_length:
-            print(team+" doesn't have {} games in ".format(preseason_length)+key[-4:])
+            print("{} doesn't have {} games in ".format(team,preseason_length)+key[-4:])
+
+        # Get average of each stat for each team
         for i in range(preseason_length):
             game = game_dict[team["games"][i]]
             home = teams[game["home"]+game["season"]]
@@ -281,13 +297,12 @@ def run_preseason():
             else:
                 team["pre_adj_ortg"] = team.get("pre_adj_ortg",0) + game["away_ORtg"] / preseason_length
                 team["pre_adj_drtg"] = team.get("pre_adj_drtg",0) + game["away_DRtg"] / preseason_length
+        # Averages will be initial stats before we level them off
         team["adj_ortg"].append(team["pre_adj_ortg"])
         team["adj_drtg"].append(team["pre_adj_drtg"])
         team["adj_temp"].append(team["pre_adj_temp"])
-    year_averages = {}
-    for key,team in teams.items():
-        year_averages["ortg"+key[-4:]] = year_averages.get("ortg"+key[-4:],0) + team["adj_ortg"][-1] / 351
-        year_averages["temp"+key[-4:]] = year_averages.get("temp"+key[-4:],0) + team["adj_temp"][-1] / 351
+
+    # Run five times to try to level off each teams's stats to correct values
     for j in range(5):
         for key,team in teams.items():
             game_list = team["games"]
@@ -298,8 +313,10 @@ def run_preseason():
                 game = game_dict[game_list[i]]
                 home = teams[game["home"]+game["season"]]
                 away = teams[game["away"]+game["season"]]
+                # Home court advantage values taken into account only if true home game
                 home_o = home["home_o_adv"] if game["true_home_game"] == 1 else 0
                 away_o = away["away_o_adv"] if game["true_home_game"] == 1 else 0
+                # Best predictor of Ratings and Pace is an average of the two, so must reverse calculate a team's adjusted rating for the game
                 if game["home"] == team["name"]:
                     pre_adj_off += (2 * game["home_ORtg"] - away["adj_drtg"][-1] - home_o) / preseason_length
                     pre_adj_def += (2 * game["home_DRtg"] - away["adj_ortg"][-1] - away_o) / preseason_length # Positive drtg good, amount of points fewer they gave up than expected
@@ -311,7 +328,7 @@ def run_preseason():
             team["adj_ortg"].append(pre_adj_off)
             team["adj_drtg"].append(pre_adj_def)
             team["adj_temp"].append(pre_adj_tempo)
-        #print(teams["Vanderbilt2014"]["adj_ortg"][-1],teams["Vanderbilt2014"]["adj_drtg"][-1],teams["Vanderbilt2014"]["adj_temp"][-1])
+        # print(teams["Vanderbilt2014"]["adj_ortg"][-1],teams["Vanderbilt2014"]["adj_drtg"][-1],teams["Vanderbilt2014"]["adj_temp"][-1])
     team["pre_adj_ortg"] = team["adj_ortg"][-1]
     team["pre_adj_drtg"] = team["adj_drtg"][-1]
     team["pre_adj_temp"] = team["adj_temp"][-1]
@@ -339,80 +356,82 @@ def check_chron():
             break
     return flag
 
-def calc_kp_averages():
-    for key,team in teams.items():
-        year = key[-4:]
-        kp_averages["kp_o"+year] = kp_averages.get("kp_o"+year,0) + team["kp_o"] / 351
-        kp_averages["kp_t"+year] = kp_averages.get("kp_t"+year,0) + team["kp_t"] / 351
-        kp_averages["kp_o"] = kp_averages.get("kp_o",0) + team["kp_o"] / 1404
-        kp_averages["kp_t"] = kp_averages.get("kp_t",0) + team["kp_t"] / 1404
-
 def test_betsy():
     print("Testing")
     gamesdf = pd.DataFrame.from_dict(regress_games)
     print(len(gamesdf.spread))
-    variables = ["home_em","away_em"]
-    temp_variables = ["true_home_game"]
+
+    # Variables used in regression
+    variables = ["spread","home_ats","away_ats"]
+    temp_variables = ["home_em","away_em"]
+
+    # Create formula string
     form = ""
     for var in variables:
         form += "{} + ".format(var)
     for var in temp_variables:
         form += "{}:tempo + ".format(var)
     form = form[:-2] + "-1"
-    reg = sm.ols(formula = "margin ~ " + form,data=gamesdf,missing='drop').fit()
+
+    # Fit teams that covered the spread with the variables
+    reg = sm.ols(formula = "home_cover ~ " + form,data=gamesdf,missing='drop').fit()
     print(reg.summary())
     for index,game in enumerate(regress_games):
         game["prob"] = reg.predict()[index]
-        #game["prob"] += .5
-        #if game["prob"] >= .5:
-        if game["prob"] + game["spread"] >= 0:
+        game["prob"] += .5
+        if game["prob"] >= .5:
            game["pick"] = game["home"]
         else:
             game["pick"] = game["away"]
-            #game["prob"] = 1 - game["prob"]
+            game["prob"] = 1 - game["prob"]
+
+    # Predict games that were not used in the regression
     for game in new_games:
         game["prob"] = 0
         for index,var in enumerate(variables):
             game["prob"] += reg.params[index] * game[var]
         for index,var in enumerate(temp_variables):
             game["prob"] += reg.params[index + len(variables)] * game[var] * game["tempo"]
-        #game["prob"] += .5
-        if game["prob"] + game["spread"] >= 0:
+        game["prob"] += .5
+        if game["prob"] >= .5:
             game["pick"] = game["home"]
         else:
             game["pick"] = game["away"]
-            #game["prob"] = 1 - game["prob"]
+            game["prob"] = 1 - game["prob"]
+
+    # Get the results
     wins = 0
     total = 0
     profit = 0
     for game in regress_games:
-        #if game["prob"] > .5:
-        if game["pick"] == game["cover"]:
-            profit += 1
-            wins += 1
-            total += 1
-        elif game["cover"] == "Tie":
-            pass
-        else:
-            profit -= Decimal('1.1')
-            total += 1
+        if game["prob"] > .5:
+            if game["pick"] == game["cover"]:
+                profit += 1
+                wins += 1
+                total += 1
+            elif game["cover"] == "Tie":
+                pass
+            else:
+                profit -= Decimal('1.1')
+                total += 1
     newwins = 0
     newtotal = 0
     newprofit = 0
     for game in new_games:
-        #if game["prob"] > .5:
-        if game["pick"] == game["cover"]:
-            newprofit += 1
-            newwins += 1
-            newtotal += 1
-        elif game["cover"] == "Tie":
-            pass
-        else:
-            newprofit -= Decimal('1.1')
-            newtotal += 1
+        if game["prob"] > .5:
+            if game["pick"] == game["cover"]:
+                newprofit += 1
+                newwins += 1
+                newtotal += 1
+            elif game["cover"] == "Tie":
+                pass
+            else:
+                newprofit -= Decimal('1.1')
+                newtotal += 1
     print(profit,wins,total)
     print(newprofit,newwins,newtotal)
 
+# Eliminates games that don't have Offensive Rating stats for both teams, or Pace
 def eliminate_games_missing_data():
     for key,team in teams.items():
         for key in team["games"]:
@@ -424,10 +443,19 @@ def eliminate_games_missing_data():
             except:
                 team["games"].remove(key)
 
+# Creates game dictionary that facilitates getting games played on the same date
+def get_game_date_dict():
+    game_date_dict = {}
+    for key,game in game_dict.items():
+        try:
+            if game["key"] not in game_date_dict[game["date"]]:
+                game_date_dict[game["date"]].append(game["key"])
+        except:
+            game_date_dict[game["date"]] = [game["key"]]
+    return game_date_dict
 
-kp_averages = {}
 eliminate_games_missing_data()
-calc_kp_averages()
+game_date_dict = get_game_date_dict()
 betsy()
 #test_betsy()
 
