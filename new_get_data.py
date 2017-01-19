@@ -44,39 +44,40 @@ with open('tr_data/new_names_dict.json','r') as infile:
     tr_names = json.load(infile)
 with open('espn_data/names_dict.json') as infile:
     espn_names = json.load(infile)
+
 def get_sports_ref_data(year_list=[2014,2015,2016,2017]):
     years = []
     csvs = ["game_info2014.csv","game_info2015.csv","game_info2016.csv","game_info2017.csv"]
-    for i in range(len(csvs)):
+    for i, csv in enumerate(csvs):
         if i + 2014 in year_list:
-            gamesdf = pd.read_csv('cbbref_data/' + csvs[i])
+            gamesdf = pd.read_csv('cbbref_data/' + csv)
             years.append(gamesdf)
     x = 0
     y = 0
-    for year in range(len(years)):
-        for i in range(len(years[year].team)):
+    for year in years:
+        for i, row in year.iterrows():
             try:
                 home_game = True
-                if not years[year].home_game[i]:
+                if not row.home_game:
                     home_game = False
-                    away = cbbr_names[years[year].team[i].strip()]
-                    home = cbbr_names[years[year].opponent[i].strip()]
+                    away = cbbr_names[row.team.strip()]
+                    home = cbbr_names[row.opponent.strip()]
                 else:
-                    home = cbbr_names[years[year].team[i].strip()]
-                    away = cbbr_names[years[year].opponent[i].strip()]
-                gamedate = years[year].date[i].split("/")
+                    home = cbbr_names[row.team.strip()]
+                    away = cbbr_names[row.opponent.strip()]
+                gamedate = row.date.split("/")
                 gamedate = date(int(gamedate[2]),int(gamedate[0]),int(gamedate[1]))
                 key = str((home,away,str(gamedate)))
                 try:
                     game = game_dict[key]
                 except:
                     try:
-                        if years[year].neutral[i] == True:
+                        if row.neutral == True:
                             home_game = False
                             key = str((away,home,str(gamedate)))
                             game = game_dict[key]
                         else:
-                            game_dict[key]
+                            game = game_dict[key]
                     except:
                         try:
                             gamedate -= timedelta(1)
@@ -89,23 +90,21 @@ def get_sports_ref_data(year_list=[2014,2015,2016,2017]):
                             except:
                                 x += 1
                                 continue
-                loc = "home_"
-                if not home_game:
-                    loc = "away_"
-                game[loc+'ORtg'] = years[year].ORtg[i]
-                game[loc+'DRtg'] = years[year].DRtg[i]
-                game['Pace'] = years[year].Pace[i]
-                game[loc+'FTr'] = years[year].FTr[i]
-                game[loc+'tPAr'] = years[year].tPAr[i]
-                game[loc+'TSP'] = years[year].TSP[i]
-                game[loc+'TRBP'] = years[year].TRBP[i]
-                game[loc+'ASTP'] = years[year].ASTP[i]
-                game[loc+'STLP'] = years[year].STLP[i]
-                game[loc+'BLKP'] = years[year].BLKP[i]
-                game[loc+'eFGP'] = years[year].eFGP[i]
-                game[loc+'TOVP'] = years[year].TOVP[i]
-                game[loc+'ORBP'] = years[year].ORBP[i]
-                game[loc+'FT'] = years[year].FT[i]
+                loc = "home_" if home_game else "away_"
+                game[loc+'ORtg'] = row.ORtg
+                game[loc+'DRtg'] = row.DRtg
+                game['Pace'] = row.Pace
+                game[loc+'FTr'] = row.FTr
+                game[loc+'tPAr'] = row.tPAr
+                game[loc+'TSP'] = row.TSP
+                game[loc+'TRBP'] = row.TRBP
+                game[loc+'ASTP'] = row.ASTP
+                game[loc+'STLP'] = row.STLP
+                game[loc+'BLKP'] = row.BLKP
+                game[loc+'eFGP'] = row.eFGP
+                game[loc+'TOVP'] = row.TOVP
+                game[loc+'ORBP'] = row.ORBP
+                game[loc+'FT'] = row.FT
             except:
                 continue
     print(x)
@@ -115,24 +114,25 @@ def get_spreads(year_list=[2014,2015,2016,2017]):
     years = []
     jsons = ['vegas_2014.json','vegas_2015.json','vegas_2016.json','vegas_2017.json']
     folder = 'vi_data/'
-    for i in range(len(jsons)):
+    for i, json in enumerate(jsons):
         if i + 2014 in year_list:
-            vdf = pd.read_json(folder + jsons[i])
+            vdf = pd.read_json(folder + json)
             years.append(vdf)
-    for year in range(len(years)):
-        for i in range(len(years[year].home)):
+
+    for idx, year in enumerate(years):
+        for i, row in year.iterrows():
             try:
-                home = sb_names[years[year].home[i]]
-                away = sb_names[years[year].away[i]]
-                d = years[year].date[i].split("/")
-                game_year = year_list[year] if int(d[0]) < 8 else year_list[year] - 1
+                home = sb_names[row.home]
+                away = sb_names[row.away]
+                d = row.date.split("/")
+                game_year = year_list[idx] if int(d[0]) < 8 else year_list[idx] - 1
                 datearray = [game_year,int(d[0]),int(d[1])]
                 gamedate = date(datearray[0],datearray[1],datearray[2])
                 key = str((home,away,str(gamedate)))
                 game = game_dict[key]
-                if years[year].close_line[i] == "":
+                if rowclose_line == "":
                     continue
-                game["spread"] = float(years[year].close_line[i])
+                game["spread"] = float(row.close_line)
                 if game["spread"] > 65 or game["spread"] < -65:
                     print("Found big spread, probably an over/under")
                 if game["spread"] + game["margin"] < 0:
@@ -144,10 +144,10 @@ def get_spreads(year_list=[2014,2015,2016,2017]):
                 else:
                     game["cover"] = "Tie"
                     game["home_cover"] = 0
-                game["line_movement"] = 0 if years[year].open_line[i] == "" else game["spread"] - float(years[year].open_line[i])
-                game["home_public_percentage"] = 50 if years[year].home_side_pct[i] == "" else float(years[year].home_side_pct[i])
-                game["home_ats"] = years[year].home_ats[i].split("-")
-                game["away_ats"] = years[year].away_ats[i].split("-")
+                game["line_movement"] = 0 if row.open_line == "" else game["spread"] - float(row.open_line)
+                game["home_public_percentage"] = 50 if row.home_side_pct == "" else float(row.home_side_pct)
+                game["home_ats"] = row.home_ats.split("-")
+                game["away_ats"] = row.away_ats.split("-")
                 game["home_ats"] = 0 if game["home_ats"][0] == "0" and game["home_ats"][1] == "0" else int(game["home_ats"][0]) / (int(game["home_ats"][0])+int(game["home_ats"][1]))
                 game["away_ats"] = 0 if game["away_ats"][0] == "0" and game["away_ats"][1] == "0" else int(game["away_ats"][0]) / (int(game["away_ats"][0])+int(game["away_ats"][1]))
                 if math.isnan(game["spread"]):
@@ -155,27 +155,26 @@ def get_spreads(year_list=[2014,2015,2016,2017]):
                     continue
             except:
                 continue
+
 def get_old_games(year_list = [2014,2015,2016,2017]):
     print("Getting old games from ESPN")
     years = []
     csvs = ["game_info2014.csv","game_info2015.csv","game_info2016.csv","game_info2017.csv"]
-    for i in range(len(csvs)):
+    for i, csv in enumerate(csvs):
         if i + 2014 in year_list:
-            gamesdf = pd.read_csv('espn_data/' + csvs[i])
+            gamesdf = pd.read_csv('espn_data/' + csv)
             years.append(gamesdf)
-    for year in range(len(years)):
-        for i in range(len(years[year].Game_Away)):
+    for idx, year in enumerate(years):
+        for i, row in year.iterrows():
             try:
                 game = {}
-                game["home"] = years[year].Game_Home[i].strip()
-                game["away"] = years[year].Game_Away[i].strip()
-                game["season"] = str(year_list[year])
-                home = teams[game["home"]+game["season"]]
-                away = teams[game["away"]+game["season"]]
-                d = years[year].Game_Date[i].split("/")
-                d.append(years[year].Game_Year[i])
+                game["home"] = row.Game_Home.strip()
+                game["away"] = row.Game_Away.strip()
+                game["season"] = str(year_list[idx])
+                d = row.Game_Date.split("/")
+                d.append(row.Game_Year)
                 gameday = date(int(d[2]),int(d[0]),int(d[1]))
-                game["tipoff"] = years[year].Game_Tipoff[i]
+                game["tipoff"] = row.Game_Tipoff
                 hour = int(game["tipoff"].split(":")[0])
                 if hour < 5:
                     gameday -= timedelta(1)
@@ -188,15 +187,17 @@ def get_old_games(year_list = [2014,2015,2016,2017]):
                 else:
                     continue
                 game["key"] = key
-                game["home_score"] = float(years[year].Home_Score[i])
-                game["away_score"] = float(years[year].Away_Score[i])
+                game["home_score"] = float(row.Home_Score)
+                game["away_score"] = float(row.Away_Score)
                 game["margin"] = float(game["home_score"] - game["away_score"])
                 if game["margin"] > 0:
                     game["winner"] = game["home"]
                 else:
                     game["winner"] = game["away"]
-                game["true_home_game"] = 1 if not years[year].Neutral_Site[i] else 0
-                game["conf"] = 1 if years[year].Conference_Competition[i] else 0
+                game["true_home_game"] = 1 if not row.Neutral_Site else 0
+                game["conf"] = 1 if row.Conference_Competition else 0
+                home = teams[game["home"]+game["season"]]
+                away = teams[game["away"]+game["season"]]
                 if key not in home["games"]:
                     home["games"].append(key)
                 if key not in away["games"]:
@@ -220,41 +221,41 @@ def get_kp_stats(year_list = [2014,2015,2016,2017]):
     print("Getting kp stats")
     years = []
     jsons = ['kenpom14.json','kenpom15.json','kenpom16.json','kenpom17.json']
-    for i in range(len(jsons)):
+    for i, json in enumerate(jsons):
         if i + 2014 in year_list:
-            kpdf = pd.read_json('kp_data/' + jsons[i])
+            kpdf = pd.read_json('kp_data/' + json)
             years.append(kpdf)
-    for i in range(len(years)):
-        teams_count = len(years[i])
-        for j in range(teams_count):
-            name = kp_names[years[i].name[j]] + str(year_list[i])
-            teams[name]["kp_o"] = years[i].adjO[j]
-            teams[name]["kp_d"] = years[i].adjD[j]
-            teams[name]["kp_t"] = years[i].adjT[j]
-            teams[name]["kp_em"] = teams[name]["kp_o"] - teams[name]["kp_d"]
+    for i, year in enumerate(years):
+        for j, row in year.iterrows():
+            name = kp_names[row.name] + str(year_list[i])
+            teams[name]["kp_o"] = row.adjO
+            teams[name]["kp_d"] = row.adjD
+            teams[name]["kp_t"] = row.adjT
+            teams[name]["kp_em"] = row.adjO - row.adjD
 
 def get_home_splits(year_list = [2014,2015,2016]):
     print("Getting home splits")
     years = []
     jsons = ['eff_splits2014.json','eff_splits2015.json','eff_splits2016.json','eff_splits2017.json']
-    for i in range(len(jsons)):
+    for i, json in enumerate(jsons):
         if i + 2014 in year_list:
-            trdf = pd.read_json('tr_data/' + jsons[i])
+            trdf = pd.read_json('tr_data/' + json)
             years.append(trdf)
-    for i in range(len(years)):
-        teams_count = len(years[i])
-        for j in range(teams_count):
-            name = tr_names[years[i].Name[j]] + str(year_list[i])
-            teams[name]["ORTG"] = years[i].ORTG[i]
-            teams[name]["DRTG"] = years[i].DRTG[i]
-            teams[name]["home_ORTG"] = years[i].home_ORTG[i]
-            teams[name]["away_ORTG"] = years[i].away_ORTG[i]
-            teams[name]["home_DRTG"] = years[i].home_DRTG[i]
-            teams[name]["away_DRTG"] = years[i].away_DRTG[i]
+
+    for i, year in enumerate(years):
+        for j, row in year.iterrows():
+            name = tr_names[row.Name] + str(year_list[i])
+            teams[name]["ORTG"] = row.ORTG
+            teams[name]["DRTG"] = row.DRTG
+            teams[name]["home_ORTG"] = row.home_ORTG
+            teams[name]["away_ORTG"] = row.away_ORTG
+            teams[name]["home_DRTG"] = row.home_DRTG
+            teams[name]["away_DRTG"] = row.away_DRTG
             teams[name]["home_o_adv"] = teams[name]["home_ORTG"] - teams[name]["ORTG"]
             teams[name]["home_d_adv"] = teams[name]["home_DRTG"] - teams[name]["DRTG"]
             teams[name]["away_o_adv"] = teams[name]["away_ORTG"] - teams[name]["ORTG"]
             teams[name]["away_d_adv"] = teams[name]["away_DRTG"] - teams[name]["DRTG"]
+
     for name in espn_names.keys():
         home_o_adv = 0
         home_d_adv = 0

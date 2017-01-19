@@ -4,6 +4,7 @@ import statsmodels.formula.api as sm
 from datetime import date,timedelta
 import json
 from decimal import *
+
 getcontext().prec = 10
 getcontext().traps[FloatOperation] = True
 
@@ -120,8 +121,8 @@ def betsy():
             game["em_diff"] = em_diff
             game["tempo"] = tempo
             game["pmargin"] = pmargin
-            
-            try:    
+
+            try:
                 spread_std_list.append(game["spread"] + game["margin"])
                 pmargin_std_list.append(pmargin - game["margin"])
                 diff_std_list.append(game["spread"] + pmargin)

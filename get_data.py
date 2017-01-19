@@ -1,4 +1,5 @@
 import pandas as pd
+from pandas.io.json import json_normalize
 from datetime import date, timedelta
 from scipy.stats.mstats import zscore
 import math
@@ -71,13 +72,13 @@ def get_kp_stats(year_list = [2014,2015,2016,2017],test=False):
     for j in test_jsons:
         kpdf = pd.read_json('kp_data/' + j)
         tests.append(kpdf)
-    for i in range(len(years)):
-        teams_count = len(years[i])
+    for i, year_df in enumerate(years):
+        teams_count = len(year_df)
         for j in range(teams_count):
-            name = kp_names[years[i].name[j]] + str(year_list[i])
-            teams[name]["kp_o"] = years[i].adjO[j]
-            teams[name]["kp_d"] = years[i].adjD[j]
-            teams[name]["kp_t"] = years[i].adjT[j]
+            name = kp_names[year_df.name[j]] + str(year_list[i])
+            teams[name]["kp_o"] = year_df.adjO[j]
+            teams[name]["kp_d"] = year_df.adjD[j]
+            teams[name]["kp_t"] = year_df.adjT[j]
             teams[name]["kp_em"] = teams[name]["kp_o"] - teams[name]["kp_d"]
             if year_list[i] == 2017 and test:
                 name2 = kp_names[tests[0].name[j].replace('&amp','&')] + str(year_list[i])
