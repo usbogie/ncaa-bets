@@ -61,6 +61,8 @@ class Game(object):
 		self.info_df['Neutral_Site'] = self.game_info['neutral_site']
 		self.info_df['Conference_Competition'] = self.game_info['conferenceCompetition']
 		self.info_df['Attendance'] = self.game_info['attendance']
+		self.info_df['Away_Games_Played'] = self.game_info['Away_Games_Played']
+		self.info_df['Home_Games_Played'] = self.game_info['Home_Games_Played']
 		#self.info_df['Away_Rank'] = self.away_rank
 		#self.info_df['Home_Rank'] = self.home_rank
 		#self.info_df['Away_Rec'] = self.away_rec

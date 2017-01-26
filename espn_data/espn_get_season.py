@@ -54,7 +54,7 @@ def get_data(game_url, game_info):
 
 	gen_info = game.info_df
 
-	print("Just finished: {} vs {} on {}".format(gen_info['Away_Abbrv'].values[0],gen_info['Home_Abbrv'].values[0],gen_info['Game_Date'].values[0]))
+	#print("Just finished: {} vs {} on {}".format(gen_info['Away_Abbrv'].values[0],gen_info['Home_Abbrv'].values[0],gen_info['Game_Date'].values[0]))
 	return gen_info
 
 
@@ -114,7 +114,7 @@ def make_overall_df(start_year):
 				game_info['conferenceCompetition']	= competition['conferenceCompetition']
 				game_info['tipoff']					= competition['startDate']
 				try:
-					venueJSON							= competition['venue']
+					venueJSON						= competition['venue']
 					game_info['venue'] = venueJSON['fullName']
 					if 'address' in venueJSON.keys():
 						game_info['venue']+="|"+"|".join([venueJSON['address']['city'],venueJSON['address']['state']])
@@ -134,9 +134,15 @@ def make_overall_df(start_year):
 				game_info['Home_Abbrv'] = competitors[home]['team']['abbreviation']
 				game_info['Game_Away'] = html.unescape(competitors[away]['team']['location']).replace('\u00E9', 'e')
 				game_info['Game_Home'] = html.unescape(competitors[home]['team']['location']).replace('\u00E9', 'e')
+				print(game_info['Game_Away'], game_info['Game_Home'], day)
 				game_info['Away_Score'] = competitors[away]['score']
 				game_info['Home_Score'] = competitors[home]['score']
-
+				try:
+					game_info['Away_Games_Played'] = sum([int(item) for item in competitors[away]['records'][0]['summary'].split('-')])
+					game_info['Home_Games_Played'] = sum([int(item) for item in competitors[home]['records'][0]['summary'].split('-')])
+				except:
+					print("No record for a team. Not D1")
+					continue
 				links.append(game_info)
 
 				try:
@@ -160,11 +166,6 @@ if __name__ == '__main__':
 	start_year = 2011
 	info_list = make_overall_df(start_year)
 	final_info = pd.concat(info_list, ignore_index=True).set_index('Game_ID')
-	#final_players = pd.concat(players_list, ignore_index=True)
-	#final_gm_stats = pd.concat(gm_stats_list, ignore_index=True)
-	year_str = str(start_year + 1)
-	final_info.drop_duplicates().to_csv("game_info{}.csv".format(year_str))
-	#final_players.to_csv("players.csv", index=False)
-	#final_gm_stats.to_csv("game_stats.csv", index=False)
+	final_info.drop_duplicates().to_csv("game_info{}.csv".format(start_year + 1))
 
 	print("\n\nFinished uploading to CSVs")

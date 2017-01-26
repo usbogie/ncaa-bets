@@ -93,6 +93,6 @@ def extract_kenpom(year):
     return teams
 
 if __name__ == '__main__':
-    teams = extract_kenpom(2012)
-    with open('kenpom12.json', 'w+') as outfile:
+    teams = extract_kenpom(2017)
+    with open('kenpom17.json', 'w+') as outfile:
     	json.dump(teams, outfile)

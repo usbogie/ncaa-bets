@@ -1,16 +1,20 @@
 import urllib.request as request
 from bs4 import BeautifulSoup as bs
 from pprint import PrettyPrinter as pp
+from datetime import datetime, timedelta, date
 import re
-from subprocess import call
+from subprocess import call 
 import pandas as pd
 import time
 import sys
 import json
 import csv
 
+with open('new_names_dict.json','r') as infile:
+    names_dict = json.load(infile)
+
 def get_season_dates(start_year):
-    games = pd.read_json('../vi_data/vegas_{}.json'.format(start_year+1))
+    games = pd.read_json('../vi_data/vegas_{}.json'.format(start_year+1), convert_dates=False)
 
     dates = games['date']
     seen = set()
@@ -20,9 +24,9 @@ def get_season_dates(start_year):
     all_season = []
     for date in dates_list:
         year = start_year
-        if date[:2] in ['01','02','03','04']:
+        if date.split('-')[1] in ['01','02','03','04']:
             year += 1
-        all_season.append('{}-{}-{}'.format(year, date[:2], date[-2:]))
+        all_season.append(date)
     return all_season
 
 def get_teamrankings(year=2017, get_today=False):
@@ -42,7 +46,8 @@ def get_teamrankings(year=2017, get_today=False):
     team_stats = []
     season_dates = get_season_dates(year-1)
     for date in season_dates:
-        datestr = "/".join(date.split('-')[1:]+date.split('-')[:1])
+        if (datetime.now() - timedelta(1)).strftime('%Y-%m-%d').replace('-','') < date:
+            continue
         teams={}
         for i in range(len(links)):
             try:
@@ -54,11 +59,14 @@ def get_teamrankings(year=2017, get_today=False):
             table_contents = soup.find('table', {'class': 'tr-table datatable scrollable'}).tbody.contents[1::2]
             for row in table_contents:
                 row_contents = row.contents[1::2]
-                name = row_contents[1].text.replace("amp;","")
+                try:
+                    name = names_dict[row_contents[1].text.replace("amp;","")]
+                except:
+                    continue
                 if i == 0:
                     teams[name] = {}
                     teams[name]['Name'] = name
-                    teams[name]['date'] = datestr
+                    teams[name]['date'] = date
                 teams[name][stats[i]] = row_contents[2]['data-sort']
                 teams[name][stats[i]+'last3'] = row_contents[3]['data-sort']
                 teams[name][stats[i]+'prevSeason'] = row_contents[7]['data-sort']
@@ -68,7 +76,7 @@ def get_teamrankings(year=2017, get_today=False):
             print(value['Name'], value['date'])
     return team_stats
 
-def get_home_away(year=2017,get_today=False):
+def get_home_away(year, get_today=False):
     url = 'https://www.teamrankings.com/ncaa-basketball/stat/'
     links = ['offensive-efficiency',
              'defensive-efficiency']
@@ -77,7 +85,8 @@ def get_home_away(year=2017,get_today=False):
     team_list = []
     season_dates = get_season_dates(year-1)
     for date in season_dates:
-        datestr = "/".join(date.split('-')[1:]+date.split('-')[:1])
+        if (datetime.now() - timedelta(1)).strftime('%Y-%m-%d').replace('-','') < date:
+            continue
         teams={}
         for i in range(len(links)):
             try:
@@ -89,11 +98,14 @@ def get_home_away(year=2017,get_today=False):
             table_contents = soup.find('table', {'class': 'tr-table datatable scrollable'}).tbody.contents[1::2]
             for row in table_contents:
                 row_contents = row.contents[1::2]
-                name = row_contents[1].text.replace("amp;","")
+                try:
+                    name = names_dict[row_contents[1].text.replace("amp;","")]
+                except:
+                    continue
                 if i == 0:
                     teams[name] = {}
                     teams[name]['Name'] = name
-                    teams[name]['date'] = datestr
+                    teams[name]['date'] = date
                 teams[name][stats[i]] = row_contents[2]['data-sort']
                 teams[name][stats[i]+'last3'] = row_contents[3]['data-sort']
                 teams[name]['home_'+stats[i]] = row_contents[5]['data-sort']
@@ -105,8 +117,8 @@ def get_home_away(year=2017,get_today=False):
             print(value['Name'], value['date'])
     return team_list
 
-team_list = get_home_away(2012)
-with open('xeff_splits2012.csv', 'w') as outfile:
+team_list = get_teamrankings(2017)
+with open('xteam_stats{}.csv'.format(2017), 'w') as outfile:
     keys = list(team_list[0].keys())
     writer = csv.DictWriter(outfile,fieldnames=keys)
     writer.writeheader()

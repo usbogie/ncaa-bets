@@ -25,6 +25,7 @@
 """
 import numpy as np
 import json
+import ast
 import pandas as pd
 from datetime import date,timedelta
 import math
@@ -273,12 +274,53 @@ def get_home_splits(year_list = [2014,2015,2016]):
             team["home_d_adv"] = home_d_adv * 100
             team["away_o_adv"] = away_o_adv * 100
             team["away_d_adv"] = away_d_adv * 100
+
+def new_get_home_splits(year_list = [2014,2015,2016,2017]):
+    split_list = []
+    csvs = ['xeff_splits2014.csv','xeff_splits2015.csv','xeff_splits2016.csv','xeff_splits2017.csv']
+    for i, csv in enumerate(csvs):
+        if i + 2014 in year_list:
+            split_list.append(pd.read_csv('tr_data/' + csv))
+    all_splits = pd.concat(split_list, ignore_index=True)
+
+    for idx, team_date in all_splits.iterrows():
+        game = {}
+        team_name = tr_names[team_date.Name]
+        date = team_date['date']
+        date = '-'.join(date.split('/')[2:]+date.split('/')[:2])
+
+        key = None
+        i = 0
+        for game_key in game_dict.keys():
+            game_key = ast.literal_eval(game_key)
+            if team_name in game_key and date == game_key[2]:
+                key = str(game_key)
+                break
+        print(key)
+        try:
+            game = game_dict[key]
+        except:
+            print("Continuing {} on {}".format(team_name, date))
+            continue
+        team_home_game = True if game_key[1] == team_name else False
+        pre = 'home_' if team_home_game else 'away_'
+        game[pre+'ORTG'] = team_date['ORTG']
+        game[pre+'home_ORTG'] = team_date['home_ORTG']
+        game[pre+'away_ORTG'] = team_date['away_ORTG']
+        game[pre+'ORTGlast3'] = team_date['ORTGlast3']
+        game[pre+'ORTGprevSeason'] = team_date['ORTGprevSeason']
+        game[pre+'DRTG'] = team_date['DRTG']
+        game[pre+'home_DRTG'] = team_date['home_DRTG']
+        game[pre+'away_DRTG'] = team_date['away_DRTG']
+        game[pre+'DRTGprevSeason'] = team_date['DRTGprevSeason']
+
 # make_teams_dict()
 # get_kp_stats()
 # get_old_games([2017])
 # get_spreads([2017])
 # get_sports_ref_data([2017])
-get_home_splits()
+# get_home_splits
+new_get_home_splits()
 
 with open('new_teams.json', 'w') as outfile:
     json.dump(teams,outfile)

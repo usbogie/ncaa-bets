@@ -9,6 +9,9 @@ import json
 
 ua = UserAgent()
 
+with open('new_names_dict.json','r') as infile:
+	names_dict = json.load(infile)
+
 def make_season(start_year=2016):
 	months = ['11', '12', '01', '02', '03', '04']
 
@@ -39,12 +42,12 @@ def ordered(obj):
 	else:
 		return obj
 
-def get_data(data=[],get_yesterday=False,get_today=False, year=2017):
+def get_data(data=[],get_yesterday=False,get_today=False,year=2017):
 	all_dates = make_season(year-1)
 	base = "http://www.vegasinsider.com/college-basketball/matchups/matchups.cfm/date/"
 	today = int((datetime.now()).strftime('%Y-%m-%d').replace('-',''))
 	for day in all_dates:
-		if today < int(day.replace('-','')):
+		if (datetime.now() - timedelta(1)).strftime('%Y%m%d') < day:
 			continue
 		if get_yesterday and today - int(day.replace('-','')) != 1:
 			continue
@@ -56,6 +59,24 @@ def get_data(data=[],get_yesterday=False,get_today=False, year=2017):
 
 		try:
 			page = request.urlopen(request.Request(url, headers = { 'User-Agent' : ua.random }))
+		except ConnectionResetError as e:
+			try:
+				wait_time = round(max(10, 12 + random.gauss(0,1)), 2)
+				time.sleep(wait_time)
+				print("First attempt for %s failed. Trying again." % (url))
+				page = request.urlopen(request.Request(url, headers = { 'User-Agent' : ua.random }))
+			except:
+				print(e)
+				sys.exit()
+		except error.URLError as e:
+			try:
+				wait_time = round(max(10, 12 + random.gauss(0,1)), 2)
+				time.sleep(wait_time)
+				print("First attempt for %s failed. Trying again." % (url))
+				page = request.urlopen(request.Request(url, headers = { 'User-Agent' : ua.random }))
+			except:
+				print(e)
+				sys.exit()
 		except error.HTTPError as e:
 			try:
 				wait_time = round(max(10, 12 + random.gauss(0,1)), 2)
@@ -75,14 +96,26 @@ def get_data(data=[],get_yesterday=False,get_today=False, year=2017):
 
 		for table in game_tables:
 			game_info = {}
+			time = table.find('td', {'class': 'viSubHeader1 cellBorderL1 headerTextHot padLeft'}).text
+
+			if time.startswith('12:') and 'AM' in time:
+				date = datetime.strptime(day, '%Y-%m-%d')
+				newdate = date - timedelta(1)
+				game_info['date'] = newdate.strftime('%Y-%m-%d')
+			elif time == 'Postponed':
+				continue
+			else:
+				game_info['date'] = day
+
 			info = table.find('td', {'class': 'viBodyBorderNorm'}).table.tbody.contents
 			away_info = info[4].contents[1::2]
 			home_info = info[6].contents[1::2]
-			game_info['date'] = "/".join(day.split('-')[1:])
+
 
 			try:
-				game_info['away'] = away_info[0].a.text
-				game_info['home'] = home_info[0].a.text
+				class_search = 'tabletext' if year < 2014 else 'tableText'
+				game_info['away'] = names_dict[away_info[0].find('a', {'class': class_search}).text]
+				game_info['home'] = names_dict[home_info[0].find('a', {'class': class_search}).text]
 				print(game_info['away'], game_info['home'])
 			except:
 				print('continuing')
@@ -130,11 +163,6 @@ def get_data(data=[],get_yesterday=False,get_today=False, year=2017):
 	return data
 
 if __name__ == '__main__':
-<<<<<<< HEAD
-	data = get_data()
-	with open('vegas_2017.json','w') as infile:
-=======
-	data = get_data(year=2013)
-	with open('vegas_2013.json','w') as infile:
->>>>>>> adding new data
-		json.dump(data,infile)
+	data = get_data(year=2012)
+	# with open('vegas_{}.json'.format(2017),'w') as infile:
+	# 	json.dump(data,infile)

@@ -10,6 +10,9 @@ import json
 
 ua = UserAgent()
 
+with open('new_names_dict.json','r') as infile:
+	names_dict = json.load(infile)
+
 def get_soup(url):
 	try:
 		page = request.urlopen(request.Request(url, headers = { 'User-Agent' : ua.random }))
@@ -57,12 +60,12 @@ def get_team_links(soup, year):
 
 def get_games_statistics(game_log_soup, year):
 	info = ['team','opponent','team_score','opp_score','date','OT',
-			'neutral', 'home_game', 'ORtg','DRtg','Pace','FTr','3PAr','TS%',
-			'TRB%','AST%','STL%','BLK%','eFG%','TOV%','ORB%','FT/FGA',
-			'Opp-eFG%','Opp-TOV%','Opp-ORB%','Opp-FT/FGA']
-	team_name = game_log_soup.find('li', {'class': 'index '}).a.string.split(' School')[0]
-	print(team_name)
+			'neutral', 'road_game', 'ORtg','DRtg','Pace','FTr','3PAr','TSP',
+			'TRBP','ASTP','STLP','BLKP','eFGP','TOVP','ORBP','FT',
+			'OeFGP','OTOVP','OORBP','OFT']
+	team_name = names_dict[game_log_soup.find('li', {'class': 'index '}).a.string.split(' School')[0]]
 	rows = []
+	print(team_name)
 	game_rows = game_log_soup.find('table', {'id': 'sgl-advanced'}).tbody.contents
 	for row in game_rows:
 		if isinstance(row,NavigableString) or 'Offensive Four Factors' in row.text or 'Date' in row.text:
@@ -71,7 +74,10 @@ def get_games_statistics(game_log_soup, year):
 		game_df = pd.DataFrame(data, columns=info)
 		data = row.contents
 		game_df['team']=team_name
-		game_df['opponent']=data[3].text
+		try:
+			game_df['opponent']=names_dict[data[3].text]
+		except KeyError as e:
+			continue
 		game_df['team_score']=data[5].text
 		game_df['opp_score']=data[6].text
 		game_df['date']=data[1].text
@@ -81,7 +87,7 @@ def get_games_statistics(game_log_soup, year):
 		game_df['DRtg']=data[8].text
 		game_df['Pace']=data[9].text
 		game_df['FTr']=data[10].text
-		game_df['tPAr']=data[11].text
+		game_df['3PAr']=data[11].text
 		game_df['TSP']=data[12].text
 		game_df['TRBP']=data[13].text
 		game_df['ASTP']=data[14].text
@@ -123,4 +129,4 @@ def get_games(year=2017):
 	all_teams_df.to_csv("game_info{}.csv".format(year), index=False)
 
 if __name__ == '__main__':
-	get_games(year=2012)
+	get_games(year=2017)
