@@ -1,4 +1,5 @@
 import pandas as pd
+import numpy as np
 import json
 import csv
 import math
@@ -150,6 +151,15 @@ def add_prior_team_splits(all_games):
 		home_team_stats = date_stats.ix[date_stats['Name']==home]
 		home_team_cbbref = date_cbbref.ix[date_cbbref['team']==home]
 
+		if away_team_split.isnull().values.any():
+			print(away_team_split)
+		if away_team_stats.isnull().values.any():
+			print(away_team_stats)
+		if home_team_split.isnull().values.any():
+			print(home_team_split)
+		if home_team_stats.isnull().values.any():
+			print(home_team_stats)
+
 		if len(away_team_split.index)==0 or len(home_team_split.index)==0 or \
 		   len(away_team_stats.index)==0 or len(home_team_stats.index)==0 or \
 		   len(away_team_cbbref.index)==0 or len(home_team_cbbref.index)==0:
@@ -178,8 +188,32 @@ def add_prior_team_splits(all_games):
 		if len(home_team_cbbref.index) > 1:
 			home_team_cbbref = home_team_cbbref.iloc[0]
 
-		split_indices = ['home_ORTG','away_ORTG','ORTGlast3','ORTGprevSeason',
-						'DRTG','home_DRTG','away_DRTG','DRTGprevSeason']
+		if game['true_home_game'] == 1:
+			home_split_indices = ['home_ORTG','ORTGlast3','ORTGprevSeason','home_DRTG','DRTGlast3','DRTGprevSeason']
+
+			for stat in home_split_indices:
+				if stat.startswith('home'):
+					game[stat] = float(home_team_split[stat])
+				else:
+					game["home_"+stat] = float(home_team_split[stat])
+
+			away_split_indices = ['away_ORTG','ORTGlast3','ORTGprevSeason','away_DRTG','DRTGlast3','DRTGprevSeason']
+
+			for stat in away_split_indices:
+				if stat.startswith('away'):
+					game[stat] = float(away_team_split[stat])
+				else:
+					game["away_"+stat] = float(away_team_split[stat])
+		else:
+			neutral_split_indices = ['ORTG','ORTGlast3','ORTGprevSeason','DRTG','DRTGlast3','DRTGprevSeason']
+			for stat in neutral_split_indices:
+				try:
+					game["away_"+stat] = float(away_team_split[stat])
+					game["home_"+stat] = float(home_team_split[stat])
+				except:
+					print(away_team_stats)
+					game["away_"+stat] = float(away_team_split[stat])
+					game["home_"+stat] = float(home_team_split[stat])
 
 		stat_indices = ['FTO','FTOlast3','FTOprevSeason','FTD','FTDlast3','FTDprevSeason',
 						'Three_O','Three_Olast3','Three_OprevSeason','Three_D','Three_Dlast3',
@@ -191,9 +225,6 @@ def add_prior_team_splits(all_games):
 		cbbref_indices = ['ORtg','DRtg','Pace','FTr','3PAr','TSP','TRBP',
 						'ASTP','STLP','BLKP','eFGP','TOVP','ORBP','FT']
 
-		for stat in split_indices:
-			game["away_"+stat] = float(away_team_split[stat])
-			game["home_"+stat] = float(home_team_split[stat])
 		for stat in stat_indices:
 			game["away_"+stat] = float(away_team_stats[stat])
 			game["home_"+stat] = float(home_team_stats[stat])
