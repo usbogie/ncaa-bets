@@ -16,6 +16,8 @@ with open('new_teams.json','r') as infile:
 # Keyed by str((home,away,date))
 with open('new_game_dict.json','r') as infile:
     game_dict = json.load(infile)
+with open('espn_data/names_dict.json','r') as infile:
+    espn_names = json.load(infile)
 
 # Number of games used to create starting stats for teams
 preseason_length = 5
@@ -108,17 +110,29 @@ def betsy():
                 game["std_range"] = game["home_variance"] + game["away_variance"]
 
             # Prediction
-            game["home_o"] = home["home_o_adv"] if game["true_home_game"] == 1 else 0
-            game["away_o"] = away["away_o_adv"] if game["true_home_game"] == 1 else 0
-            game["home_em"] = home["adj_ortg"][-1] - home["adj_drtg"][-1] + game["home_o"]
-            game["away_em"] = away["adj_ortg"][-1] - away["adj_drtg"][-1] + game["away_o"]
+            game["home_o"] = 3 if game["true_home_game"] == 1 else 0
+            game["home_em"] = home["adj_ortg"][-1] - home["adj_drtg"][-1]
+            game["away_em"] = away["adj_ortg"][-1] - away["adj_drtg"][-1]
             game["tempo"] = (home["adj_temp"][-1] + away["adj_temp"][-1]) / 2
-            game["em_diff"] = (game["home_em"] - game["away_em"]) / 100
-            game["pmargin"] = game["em_diff"] * game["tempo"] * .4
+            game["em_diff"] = (4 * game["home_o"] + game["home_em"] - game["away_em"]) / 100
+            game["pmargin"] = game["em_diff"] * game["tempo"] * .5
+            if game["pmargin"] > 0 and game["true_home_game"] == 1:
+                game["pmargin"] = game["pmargin"] * .9
+            if game["pmargin"] > 0 and game["pmargin"] <= 6 and game["true_home_game"] == 0:
+                game["pmargin"] += 1
+            if game["pmargin"] < 0 and game["pmargin"] >= -6:
+                game["pmargin"] -= 1
+            if abs(game["pmargin"]) <= .5:
+                if game["pmargin"] < 0:
+                    game["pmargin"] = -1
+                else:
+                    game["pmargin"] = 1
+            game["pmargin"] = round(game["pmargin"])
+
 
             # Data collection for testing
             h_proj_o = (home["adj_ortg"][-1] + away["adj_drtg"][-1]) / 2 + game["home_o"]
-            a_proj_o = (away["adj_ortg"][-1] + home["adj_drtg"][-1]) / 2 + game["away_o"]
+            a_proj_o = (away["adj_ortg"][-1] + home["adj_drtg"][-1]) / 2 + game["home_o"]
             try:
                 home_ortg_std_list.append(h_proj_o - game["home_ORtg"])
                 away_ortg_std_list.append(a_proj_o - game["away_ORtg"])
@@ -140,7 +154,7 @@ def betsy():
             data["away_adj_o"] = home["adj_ortg"][-1]
             data["away_adj_d"] = home["adj_drtg"][-1]
             data["home_proj_o"] = data["home_adj_o"] * .5 + data["away_adj_d"] * .5 + game["home_o"]
-            data["away_proj_o"] = data["away_adj_o"] * .5 + data["home_adj_d"] * .5 + game["away_o"]
+            data["away_proj_o"] = data["away_adj_o"] * .5 + data["home_adj_d"] * .5 + game["home_o"]
             data["home_o"] = game["home_ORtg"]
             data["away_o"] = game["away_ORtg"]
             data["home_adj_temp"] = home["adj_temp"][-1]
@@ -158,13 +172,12 @@ def betsy():
                 data_list.append(data)
             except:
                 pass
-            if game["true_home_game"] == 1:
-                try:
-                    margins[int(game["pmargin"])].append(game["margin"])
-                    diffs[int(game["pmargin"])].append(game["pmargin"] - game["margin"])
-                except:
-                    margins[int(game["pmargin"])] = [game["margin"]]
-                    diffs[int(game["pmargin"])] = [game["pmargin"] - game["margin"]]
+            try:
+                margins[game["pmargin"] // 5].append(game["margin"])
+                diffs[game["pmargin"] // 5].append(game["pmargin"] - game["margin"])
+            except:
+                margins[game["pmargin"] // 5] = [game["margin"]]
+                diffs[game["pmargin"] // 5] = [game["pmargin"] - game["margin"]]
             try:
                 if len(home["prev_games"]) > 2 and len(away["prev_games"]) > 2:
                     if pmargin + game["spread"] >= 0:
@@ -182,15 +195,18 @@ def betsy():
 
             # Store results
             home_results = {}
+            home_o_diff = (home["adj_ortg"][-1] - away["adj_drtg"][-1]) / 2
+            away_o_diff = (away["adj_ortg"][-1] - home["adj_drtg"][-1]) / 2
+            temp_diff = (home["adj_temp"][-1] - away["adj_temp"][-1]) / 2
             home_results["key"] = game["key"]
-            home_results["adj_ortg"] = 2 * game["home_ORtg"] - away["adj_drtg"][-1] - game["home_o"]
-            home_results["adj_drtg"] = 2 * game["home_DRtg"] - away["adj_ortg"][-1] - game["away_o"]
-            home_results["adj_temp"] = 2 * game["Pace"] - away["adj_temp"][-1]
+            home_results["adj_ortg"] = game["home_ORtg"] + home_o_diff - game["home_o"]
+            home_results["adj_drtg"] = game["home_DRtg"] - away_o_diff + game["home_o"]
+            home_results["adj_temp"] = game["Pace"] + temp_diff
             away_results = {}
             away_results["key"] = game["key"]
-            away_results["adj_ortg"] = 2 * game["away_ORtg"] - home["adj_drtg"][-1] - game["home_o"]
-            away_results["adj_drtg"] = 2 * game["away_DRtg"] - home["adj_ortg"][-1] - game["away_o"]
-            away_results["adj_temp"] = 2 * game["Pace"] - home["adj_temp"][-1]
+            away_results["adj_ortg"] = game["away_ORtg"] + away_o_diff + game["home_o"]
+            away_results["adj_drtg"] = game["away_DRtg"] - home_o_diff - game["home_o"]
+            away_results["adj_temp"] = game["Pace"] - temp_diff
             if game["key"] in home["games"]:
                 home["prev_games"].append(home_results)
                 if home["games"][0] == game["key"]:
@@ -212,13 +228,13 @@ def betsy():
                 del away["adj_drtg"][-1]
                 del away["adj_temp"][-1]
         gamedate += timedelta(1)
-    # for key in sorted(margins.keys()):
-    #     data = {}
-    #     data["pred"] = key
-    #     data["margmed"] = np.median(margins[key])
-    #     data["diffmed"] = np.median(diffs[key])
-    #     data["count"] = len(margins[key])
-    #     print(str(key).rjust(5),str(data["margmed"]).rjust(5),str(data["diffmed"]).rjust(15),str(len(margins[key])).rjust(6))
+    for key in sorted(margins.keys()):
+        data = {}
+        data["pred"] = key
+        data["margmed"] = np.median(margins[key])
+        data["diffmed"] = np.median(diffs[key])
+        data["count"] = len(margins[key])
+        print(str(key * 5).rjust(5),str(data["margmed"]).rjust(5),str(data["diffmed"]).rjust(15),str(len(margins[key])).rjust(6))
 
     compare_strategies(data_list)
 
@@ -230,7 +246,7 @@ def betsy():
     print("Standard deviation of Scoring Margin and Spread:".ljust(60),np.std(spread_std_list))
     print("Standard deviation of Predicted Scoring Margin and Spread:".ljust(60),np.std(diff_std_list))
 
-    # print(teams["Kentucky2015"]["adj_temp"][-1],teams["Villanova2015"]["adj_temp"][-1])
+    # print(teams["The Citadel2017"])
 
 # Compare strategies for projecting Pace and Margin
 def compare_strategies(data_list):
@@ -248,7 +264,7 @@ def compare_strategies(data_list):
     # print(np.std(diff_list))
     # print(np.std(diff_list2))
 
-    # em_reg = sm.ols(formula = "margin ~ home_em:ptemp + away_em:ptemp -1",data=gamesdf,missing='drop').fit()
+    # em_reg = sm.ols(formula = "margin ~ pmargin",data=gamesdf,missing='drop').fit()
     # diff_list_em = []
     # for i in range(len(em_reg.predict())):
     #     diff_list_em.append(em_reg.predict()[i] - gamesdf.margin[i])
@@ -258,6 +274,7 @@ def compare_strategies(data_list):
     #     diff_list_sp.append(spread_reg.predict()[i] - gamesdf.margin[i])
     # print(em_reg.summary())
     # print(spread_reg.summary())
+    print(np.std(gamesdf.margin))
     # print(np.std(diff_list_em))
     # print(np.std(diff_list_sp))
 
@@ -314,17 +331,19 @@ def run_preseason():
                 home = teams[game["home"]+game["season"]]
                 away = teams[game["away"]+game["season"]]
                 # Home court advantage values taken into account only if true home game
-                home_o = home["home_o_adv"] if game["true_home_game"] == 1 else 0
-                away_o = away["away_o_adv"] if game["true_home_game"] == 1 else 0
+                home_o = 3 if game["true_home_game"] == 1 else 0
+                home_o_diff = (home["adj_ortg"][-1] - away["adj_drtg"][-1]) / 2
+                away_o_diff = (away["adj_ortg"][-1] - home["adj_drtg"][-1]) / 2
+                temp_diff = (home["adj_temp"][-1] - away["adj_temp"][-1]) / 2
                 # Best predictor of Ratings and Pace is an average of the two, so must reverse calculate a team's adjusted rating for the game
                 if game["home"] == team["name"]:
-                    pre_adj_off += (2 * game["home_ORtg"] - away["adj_drtg"][-1] - home_o) / preseason_length
-                    pre_adj_def += (2 * game["home_DRtg"] - away["adj_ortg"][-1] - away_o) / preseason_length # Positive drtg good, amount of points fewer they gave up than expected
-                    pre_adj_tempo += (2 * game["Pace"] - home["adj_temp"][-1]) / preseason_length
+                    pre_adj_off += (game["home_ORtg"] + home_o_diff - home_o) / preseason_length
+                    pre_adj_def += (game["home_DRtg"] - away_o_diff + home_o) / preseason_length # Positive drtg good, amount of points fewer they gave up than expected
+                    pre_adj_tempo += (game["Pace"] - home["adj_temp"][-1]) / preseason_length
                 else:
-                    pre_adj_off += (2 * game["away_ORtg"] - home["adj_drtg"][-1] - away_o) / preseason_length
-                    pre_adj_def += (2 * game["away_DRtg"] - home["adj_ortg"][-1] - home_o) / preseason_length # Positive drtg good, amount of points fewer they gave up than expected
-                    pre_adj_tempo += (2 * game["Pace"] - home["adj_temp"][-1]) / preseason_length
+                    pre_adj_off += (game["away_ORtg"] + away_o_diff + home_o) / preseason_length
+                    pre_adj_def += (game["away_DRtg"] - home_o_diff - home_o) / preseason_length # Positive drtg good, amount of points fewer they gave up than expected
+                    pre_adj_tempo += (game["Pace"] - home["adj_temp"][-1]) / preseason_length
             team["adj_ortg"].append(pre_adj_off)
             team["adj_drtg"].append(pre_adj_def)
             team["adj_temp"].append(pre_adj_tempo)
@@ -454,9 +473,26 @@ def get_game_date_dict():
             game_date_dict[game["date"]] = [game["key"]]
     return game_date_dict
 
+def get_overall_hca():
+    home_o_adv = 0
+    home_d_adv = 0
+    away_o_adv = 0
+    away_d_adv = 0
+    for name in espn_names.keys():
+        home_o_adv += teams[name+'2014']["home_o_adv"] / 351
+        home_d_adv += teams[name+'2014']["home_d_adv"] / 351
+        away_o_adv += teams[name+'2014']["away_o_adv"] / 351
+        away_d_adv += teams[name+'2014']["away_d_adv"] / 351
+    return [home_o_adv,home_d_adv,away_o_adv,away_d_adv]
+
 eliminate_games_missing_data()
 game_date_dict = get_game_date_dict()
 betsy()
+for i,key in enumerate(game_dict.keys()):
+    if i == 0:
+        game = game_dict[key]
+        for key in game.keys():
+            print(key,game[key])
 #test_betsy()
 
 #with open('new_teams.json','w') as outfile:
