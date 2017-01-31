@@ -4,11 +4,10 @@ from datetime import date,timedelta
 from pprint import pprint
 import json
 from sklearn import tree, svm, preprocessing
+from sklearn.decomposition import PCA
 from sklearn.model_selection import cross_val_score, GridSearchCV
 from sklearn.metrics import r2_score
 import matplotlib.pyplot as plt
-
-import decision_tree
 
 
 def make_season(start_year):
@@ -39,7 +38,7 @@ def get_initial_years_train_data(all_games, all_dates):
 	return pd.concat(training_games_list, ignore_index=True)
 
 def pick_features(initial_training_games):
-	features = ['spread','home_public_percentage','home_ORTG','away_ORTG','home_DRTG','away_DRTG']
+	features = ['spread','true_home_game','home_public_percentage','ats_home','ats_away']
 	# feature_dict keeps track of which numbered feature corresponds to which data set
 	feature_dict={idx:feature for idx, feature in enumerate(features)}
 	y = np.array(initial_training_games['home_cover'].tolist())
@@ -72,55 +71,65 @@ def main():
 	initial_training_games = get_initial_years_train_data(all_games,all_dates)
 	X_train,y,features = pick_features(initial_training_games)
 
-	tuned_parameters = [{'kernel': ['rbf'], 'gamma': [1e-5], 'C': [1], 'epsilon': [.5,.7,.9,1.1,1.3]}]
+	#tuned_parameters = [{'kernel': ['rbf'], 'gamma': [1e-5], 'C': [1], 'epsilon': [.5,.7,.9,1.1,1.3]}]
 
-	scores = ['r2']
+	#scores = ['r2']
 
 	test_days = []
 	for day in make_season(2017):
 		test_days.append(all_games.ix[all_games['date']==day])
 	test_data = pd.concat(test_days,ignore_index=True)
 
-	X_test, y_test, features = pick_features(test_data)
+	pca = PCA(n_components=5)
+	pca.fit(X_train)
+	X_train = pca.transform(X_train,y=y)
+	print(pca.explained_variance_ratio_)
+	print(pca.components_)
 
-	for score in scores:
-		print("# Tuning hyper-parameters for %s" % score)
-		print()
+	# X_test, y_test, features = pick_features(test_data)
 
-		clf = GridSearchCV(svm.SVR(), tuned_parameters, verbose=1, cv=5, scoring='%s' % score, n_jobs=4)
-		clf.fit(X_train, y)
-		print("Best parameters set found on development set:")
-		print(clf.best_params_)
-		print()
-		print("Grid scores on development set:")
-		print()
-		means = clf.cv_results_['mean_test_score']
-		stds = clf.cv_results_['std_test_score']
-		for mean, std, params in zip(means, stds, clf.cv_results_['params']):
-			print("%0.3f (+/-%0.03f) for %r" % (mean, std * 2, params))
-		print()
-
-		print("Detailed classification report:")
-		print()
-		print("The model is trained on the full development set.")
-		print("The scores are computed on the full evaluation set.")
-		print()
-		y_true, y_pred = y_test, clf.predict(X_test)
-		print(r2_score(y_true, y_pred))
-		print()
+	# for score in scores:
+	# 	print("# Tuning hyper-parameters for %s" % score)
+	# 	print()
+	#
+	# 	clf = GridSearchCV(svm.SVR(), tuned_parameters, verbose=1, cv=5, scoring='%s' % score, n_jobs=4)
+	# 	clf.fit(X_train, y)
+	# 	print("Best parameters set found on development set:")
+	# 	print(clf.best_params_)
+	# 	print()
+	# 	print("Grid scores on development set:")
+	# 	print()
+	# 	means = clf.cv_results_['mean_test_score']
+	# 	stds = clf.cv_results_['std_test_score']
+	# 	for mean, std, params in zip(means, stds, clf.cv_results_['params']):
+	# 		print("%0.3f (+/-%0.03f) for %r" % (mean, std * 2, params))
+	# 	print()
+	#
+	# 	print("Detailed classification report:")
+	# 	print()
+	# 	print("The model is trained on the full development set.")
+	# 	print("The scores are computed on the full evaluation set.")
+	# 	print()
+	# 	y_true, y_pred = y_test, clf.predict(X_test)
+	# 	print(r2_score(y_true, y_pred))
+	# 	print()
 
 	right = 0
 	wrong = 0
+	days = []
+	percentages = []
+	sizes = []
 	for day in make_season(2017):
 		test_games = all_games.ix[all_games['date']==day]
 		if len(test_games.index) == 0:
 			continue
+		days.append(day)
 		print (day, len(test_games.index))
 
 		clf = svm.SVR()
 		clf = clf.fit(X_train, y)
 
-		test_matrix = test_games.as_matrix(features)
+		test_matrix = pca.transform(test_games.as_matrix(features))
 
 		# try:
 		# 	scoresSVM = cross_val_score(clfSVM,test_matrix,y=np.array(test_games['home_cover'].tolist()),cv=5)
@@ -139,6 +148,8 @@ def main():
 		right += day_right
 		wrong += day_wrong
 		# print("SVM Accuracy: {}f (+/- {})".format(round(scoresSVM.mean(),3),round(scoresSVM.std() * 2,3)))
+		percentages.append(round(float(day_right)/(day_right + day_wrong),3))
+		sizes.append(len(test_games.index))
 		print("SVM Daily Percentage: {}".format(round(float(day_right)/(day_right + day_wrong),3)))
 
 
@@ -146,6 +157,9 @@ def main():
 		y = np.concatenate((y, np.array(test_games['home_cover'].tolist())), axis=0)
 	print("SVM final")
 	print(float(right)/(right+wrong))
+
+	plt.scatter(days, percentages, s=sizes, alpha=0.5)
+	plt.show()
 
 
 if __name__ == '__main__':

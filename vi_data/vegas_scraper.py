@@ -163,6 +163,6 @@ def get_data(data=[],get_yesterday=False,get_today=False,year=2017):
 	return data
 
 if __name__ == '__main__':
-	data = get_data(year=2012)
-	# with open('vegas_{}.json'.format(2017),'w') as infile:
-	# 	json.dump(data,infile)
+	data = get_data(year=2017)
+	with open('vegas_{}.json'.format(2017),'w') as infile:
+		json.dump(data,infile)

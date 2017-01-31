@@ -3,7 +3,7 @@ from bs4 import BeautifulSoup as bs
 from pprint import PrettyPrinter as pp
 from datetime import datetime, timedelta, date
 import re
-from subprocess import call 
+from subprocess import call
 import pandas as pd
 import time
 import sys
@@ -46,7 +46,7 @@ def get_teamrankings(year=2017, get_today=False):
     team_stats = []
     season_dates = get_season_dates(year-1)
     for date in season_dates:
-        if (datetime.now() - timedelta(1)).strftime('%Y-%m-%d').replace('-','') < date:
+        if int((datetime.now() - timedelta(1)).strftime('%Y-%m-%d').replace('-','')) < int(date.replace('-','')):
             continue
         teams={}
         for i in range(len(links)):
@@ -85,7 +85,7 @@ def get_home_away(year, get_today=False):
     team_list = []
     season_dates = get_season_dates(year-1)
     for date in season_dates:
-        if (datetime.now() - timedelta(1)).strftime('%Y-%m-%d').replace('-','') < date:
+        if int((datetime.now() - timedelta(1)).strftime('%Y-%m-%d').replace('-','')) < int(date.replace('-','')):
             continue
         teams={}
         for i in range(len(links)):

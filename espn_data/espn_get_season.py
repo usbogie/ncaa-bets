@@ -163,7 +163,7 @@ def make_overall_df(start_year):
 	return gen_info
 
 if __name__ == '__main__':
-	start_year = 2011
+	start_year = 2016
 	info_list = make_overall_df(start_year)
 	final_info = pd.concat(info_list, ignore_index=True).set_index('Game_ID')
 	final_info.drop_duplicates().to_csv("game_info{}.csv".format(start_year + 1))
