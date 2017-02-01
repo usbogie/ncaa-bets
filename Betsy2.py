@@ -41,7 +41,7 @@ def betsy():
             del team["games"][0]
     for key,team in teams.items():
         team["variance"] = []
-    gamedate = date(2013,11,8)
+    gamedate = date(2011,11,1)
     margins = {}
     diffs = {}
     data_list = []
@@ -289,7 +289,7 @@ def get_averages(year):
 # Gets starting stats for a team in the year
 # These games will not be predicted
 def run_preseason():
-    if not check_chron():
+    if not check_chronological():
         print("Preseason won't work")
     for key,team in teams.items():
         team["adj_ortg"] = []
@@ -349,7 +349,7 @@ def run_preseason():
     team["pre_adj_temp"] = team["adj_temp"][-1]
 
 # Checks the chronological ordering of games in the game lists
-def check_chron():
+def check_chronological():
     flag = True
     for key,team in teams.items():
         game_list = team["games"]
@@ -515,5 +515,5 @@ for key, game in game_dict.items():
 
 #with open('new_teams.json','w') as outfile:
 #    json.dump(teams,outfile)
-#with open('new_game_dict.json','w') as outfile:
-#    json.dump(game_dict,outfile)
+with open('new_game_dict.json','w') as outfile:
+   json.dump(new_game_dict,outfile)

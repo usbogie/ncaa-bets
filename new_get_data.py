@@ -46,11 +46,11 @@ with open('tr_data/new_names_dict.json','r') as infile:
 with open('espn_data/names_dict.json') as infile:
     espn_names = json.load(infile)
 
-def get_sports_ref_data(year_list=[2014,2015,2016,2017]):
+def get_sports_ref_data(year_list=[2012,2013,2014,2015,2016,2017]):
     years = []
-    csvs = ["game_info2014.csv","game_info2015.csv","game_info2016.csv","game_info2017.csv"]
+    csvs = ["game_info2012.csv","game_info2013.csv","game_info2014.csv","game_info2015.csv","game_info2016.csv","game_info2017.csv"]
     for i, csv in enumerate(csvs):
-        if i + 2014 in year_list:
+        if i + 2012 in year_list:
             gamesdf = pd.read_csv('cbbref_data/' + csv)
             years.append(gamesdf)
     x = 0
@@ -110,13 +110,13 @@ def get_sports_ref_data(year_list=[2014,2015,2016,2017]):
                 continue
     print(x)
 
-def get_spreads(year_list=[2014,2015,2016,2017]):
+def get_spreads(year_list=[2012,2013,2014,2015,2016,2017]):
     print("Getting sportsbook info from Vegas Insider")
     years = []
-    jsons = ['vegas_2014.json','vegas_2015.json','vegas_2016.json','vegas_2017.json']
+    jsons = ['vegas_2012.json','vegas_2013.json','vegas_2014.json','vegas_2015.json','vegas_2016.json','vegas_2017.json']
     folder = 'vi_data/'
     for i, json in enumerate(jsons):
-        if i + 2014 in year_list:
+        if i + 2012 in year_list:
             vdf = pd.read_json(folder + json)
             years.append(vdf)
 
@@ -157,15 +157,16 @@ def get_spreads(year_list=[2014,2015,2016,2017]):
             except:
                 continue
 
-def get_old_games(year_list = [2014,2015,2016,2017]):
+def get_old_games(year_list = [2012,2013,2014,2015,2016,2017]):
     print("Getting old games from ESPN")
     years = []
-    csvs = ["game_info2014.csv","game_info2015.csv","game_info2016.csv","game_info2017.csv"]
+    csvs = ["game_info2012.csv","game_info2013.csv","game_info2014.csv","game_info2015.csv","game_info2016.csv","game_info2017.csv"]
     for i, csv in enumerate(csvs):
-        if i + 2014 in year_list:
+        if i + 2012 in year_list:
             gamesdf = pd.read_csv('espn_data/' + csv)
             years.append(gamesdf)
     for idx, year in enumerate(years):
+        print(str(idx + 2012))
         for i, row in year.iterrows():
             try:
                 game = {}
@@ -211,12 +212,12 @@ def make_teams_dict():
     for kp,espn in kp_names.items():
         nameset.add(espn)
     for name in nameset:
-        for i in range(4):
-            teams[name+str(2014+i)] = {}
-            teams[name+str(2014+i)]["name"] = name
-            teams[name+str(2014+i)]["year"] = 2014+i
-            teams[name+str(2014+i)]["games"] = []
-            teams[name+str(2014+i)]["prev_games"] = []
+        for i in range(6):
+            teams[name+str(2012+i)] = {}
+            teams[name+str(2012+i)]["name"] = name
+            teams[name+str(2012+i)]["year"] = 2012+i
+            teams[name+str(2012+i)]["games"] = []
+            teams[name+str(2012+i)]["prev_games"] = []
 
 def get_kp_stats(year_list = [2014,2015,2016,2017]):
     print("Getting kp stats")
@@ -275,17 +276,20 @@ def get_home_splits(year_list = [2014,2015,2016]):
             team["away_o_adv"] = away_o_adv * 100
             team["away_d_adv"] = away_d_adv * 100
 
-def new_get_home_splits(year_list = [2014,2015,2016,2017]):
+def new_get_home_splits(year_list = [2012,2013,2014,2015,2016,2017]):
     split_list = []
-    csvs = ['xeff_splits2014.csv','xeff_splits2015.csv','xeff_splits2016.csv','xeff_splits2017.csv']
+    csvs = ['xeff_splits2012.csv','xeff_splits2013.csv','xeff_splits2014.csv','xeff_splits2015.csv','xeff_splits2016.csv','xeff_splits2017.csv']
     for i, csv in enumerate(csvs):
-        if i + 2014 in year_list:
+        if i + 2012 in year_list:
             split_list.append(pd.read_csv('tr_data/' + csv))
     all_splits = pd.concat(split_list, ignore_index=True)
 
     for idx, team_date in all_splits.iterrows():
         game = {}
-        team_name = tr_names[team_date.Name]
+        try:
+            team_name = tr_names[team_date.Name]
+        except:
+            continue
         date = team_date['date']
         date = '-'.join(date.split('/')[2:]+date.split('/')[:2])
 
@@ -316,9 +320,13 @@ def new_get_home_splits(year_list = [2014,2015,2016,2017]):
 
 # make_teams_dict()
 # get_kp_stats()
-# get_old_games([2017])
-# get_spreads([2017])
-# get_sports_ref_data([2017])
+# get_old_games()
+# with open('new_teams.json', 'w') as outfile:
+#     json.dump(teams,outfile)
+# with open('new_game_dict.json','w') as outfile:
+#     json.dump(game_dict,outfile)
+# get_spreads()
+# get_sports_ref_data()
 # get_home_splits
 new_get_home_splits()
 
