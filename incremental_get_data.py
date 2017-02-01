@@ -22,7 +22,7 @@ def create_games_with_espn():
 		game_dict["score_home"] = game.Home_Score
 		game_dict["score_away"] = game.Away_Score
 		game_dict["margin_home"] = game.Home_Score - game.Away_Score
-		game_dict["winner"] = game.Game_Home if game_dict["margin_home"] > 0 else game.Game_Away
+		game_dict["home_winner"] = 1 if game_dict["margin_home"] > 0 else 0
 
 		game_dict['true_home_game'] = int(not game.Neutral_Site)
 		game_dict['conference_competition'] = int(game.Conference_Competition)
@@ -188,32 +188,7 @@ def add_prior_team_splits(all_games):
 		if len(home_team_cbbref.index) > 1:
 			home_team_cbbref = home_team_cbbref.iloc[0]
 
-		if game['true_home_game'] == 1:
-			home_split_indices = ['home_ORTG','ORTGlast3','ORTGprevSeason','home_DRTG','DRTGlast3','DRTGprevSeason']
-
-			for stat in home_split_indices:
-				if stat.startswith('home'):
-					game[stat] = float(home_team_split[stat])
-				else:
-					game["home_"+stat] = float(home_team_split[stat])
-
-			away_split_indices = ['away_ORTG','ORTGlast3','ORTGprevSeason','away_DRTG','DRTGlast3','DRTGprevSeason']
-
-			for stat in away_split_indices:
-				if stat.startswith('away'):
-					game[stat] = float(away_team_split[stat])
-				else:
-					game["away_"+stat] = float(away_team_split[stat])
-		else:
-			neutral_split_indices = ['ORTG','ORTGlast3','ORTGprevSeason','DRTG','DRTGlast3','DRTGprevSeason']
-			for stat in neutral_split_indices:
-				try:
-					game["away_"+stat] = float(away_team_split[stat])
-					game["home_"+stat] = float(home_team_split[stat])
-				except:
-					print(away_team_stats)
-					game["away_"+stat] = float(away_team_split[stat])
-					game["home_"+stat] = float(home_team_split[stat])
+		split_indices = ['ORTG','ORTGlast3','ORTGprevSeason','DRTG','DRTGlast3','DRTGprevSeason']
 
 		stat_indices = ['FTO','FTOlast3','FTOprevSeason','FTD','FTDlast3','FTDprevSeason',
 						'Three_O','Three_Olast3','Three_OprevSeason','Three_D','Three_Dlast3',
@@ -225,6 +200,9 @@ def add_prior_team_splits(all_games):
 		cbbref_indices = ['ORtg','DRtg','Pace','FTr','3PAr','TSP','TRBP',
 						'ASTP','STLP','BLKP','eFGP','TOVP','ORBP','FT']
 
+		for stat in split_indices:
+			game["away_"+stat] = float(away_team_split[stat])
+			game["home_"+stat] = float(home_team_split[stat])
 		for stat in stat_indices:
 			game["away_"+stat] = float(away_team_stats[stat])
 			game["home_"+stat] = float(home_team_stats[stat])
@@ -258,7 +236,7 @@ def main():
 	with open('incremental_data.csv','w') as outfile:
 		keys = list(all_games_list[0].keys())
 		#removing and re-adding the keys is for the sake of readability of the csv files
-		front_keys = ['date','tipstring','team_away','team_home','true_home_game','score_away','score_home','winner',
+		front_keys = ['date','tipstring','team_away','team_home','true_home_game','score_away','score_home','home_winner',
 					'spread','margin_home','cover_team','home_cover']
 		for key in front_keys:
 			keys.remove(key)
