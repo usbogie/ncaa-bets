@@ -192,6 +192,16 @@ def betsy():
             #     pass
 
             # Store results
+            home["FT"].append(game["home_FT"])
+            home["tPAr"].append(game["home_tPAr"])
+            home["TRBP"].append(game["home_TRBP"])
+            home["TOVP"].append(game["home_TOVP"])
+            home["opp_TOVP"].append(game["away_TOVP"])
+            away["FT"].append(game["away_FT"])
+            away["tPAr"].append(game["away_tPAr"])
+            away["TRBP"].append(game["away_TRBP"])
+            away["TOVP"].append(game["away_TOVP"])
+            away["opp_TOVP"].append(game["home_TOVP"])
             home_results = {}
             home_o_diff = (home["adj_ortg"][-1] - away["adj_drtg"][-1]) / 2
             away_o_diff = (away["adj_ortg"][-1] - home["adj_drtg"][-1]) / 2
@@ -295,6 +305,11 @@ def run_preseason():
         team["adj_ortg"] = []
         team["adj_drtg"] = []
         team["adj_temp"] = []
+        team["FT"] = []
+        team["tPAr"] = []
+        team["TRBP"] = []
+        team["TOVP"] = []
+        team["opp_TOVP"] = []
         if len(team["games"]) < preseason_length:
             print("{} doesn't have {} games in ".format(team,preseason_length)+key[-4:])
 
@@ -307,9 +322,19 @@ def run_preseason():
             if game["home"] == team["name"]:
                 team["pre_adj_ortg"] = team.get("pre_adj_ortg",0) + game["home_ORtg"] / preseason_length
                 team["pre_adj_drtg"] = team.get("pre_adj_drtg",0) + game["home_DRtg"] / preseason_length
+                team["FT"].append(game["home_FT"])
+                team["tPAr"].append(game["home_tPAr"])
+                team["TRBP"].append(game["home_TRBP"])
+                team["TOVP"].append(game["home_TOVP"])
+                team["opp_TOVP"].append(game["away_TOVP"])
             else:
                 team["pre_adj_ortg"] = team.get("pre_adj_ortg",0) + game["away_ORtg"] / preseason_length
                 team["pre_adj_drtg"] = team.get("pre_adj_drtg",0) + game["away_DRtg"] / preseason_length
+                team["FT"].append(game["away_FT"])
+                team["tPAr"].append(game["away_tPAr"])
+                team["TRBP"].append(game["away_TRBP"])
+                team["TOVP"].append(game["away_TOVP"])
+                team["opp_TOVP"].append(game["home_TOVP"])
         # Averages will be initial stats before we level them off
         team["adj_ortg"].append(team["pre_adj_ortg"])
         team["adj_drtg"].append(team["pre_adj_drtg"])
@@ -490,6 +515,8 @@ new_game_dict = {}
 for key, game in game_dict.items():
     try:
         game['home_adj_o']
+        game['line_movement']
+        game['home_public_percentage']
         csv_game = all_games.ix[all_games['team_home'] = game['home'] & all_games['date']=games['date']]
         new_game_dict[key] = game
         new_game_dict[key]['home_FTO'] = csv_game['home_FTO']
