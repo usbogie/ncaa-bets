@@ -45,9 +45,9 @@ def ordered(obj):
 def get_data(data=[],get_yesterday=False,get_today=False,year=2017):
 	all_dates = make_season(year-1)
 	base = "http://www.vegasinsider.com/college-basketball/matchups/matchups.cfm/date/"
-	today = int((datetime.now()).strftime('%Y-%m-%d').replace('-',''))
+	today = int(datetime.now().strftime('%Y-%m-%d').replace('-',''))
 	for day in all_dates:
-		if (datetime.now() - timedelta(1)).strftime('%Y%m%d') < day:
+		if int((datetime.now() - timedelta(1)).strftime('%Y%m%d')) < int(day.replace('-','')):
 			continue
 		if get_yesterday and today - int(day.replace('-','')) != 1:
 			continue
@@ -114,8 +114,8 @@ def get_data(data=[],get_yesterday=False,get_today=False,year=2017):
 
 			try:
 				class_search = 'tabletext' if year < 2014 else 'tableText'
-				game_info['away'] = names_dict[away_info[0].find('a', {'class': class_search}).text]
-				game_info['home'] = names_dict[home_info[0].find('a', {'class': class_search}).text]
+				game_info['away'] = names_dict[away_info[0].a.text]
+				game_info['home'] = names_dict[home_info[0].a.text]
 				print(game_info['away'], game_info['home'])
 			except:
 				print('continuing')
@@ -123,35 +123,56 @@ def get_data(data=[],get_yesterday=False,get_today=False,year=2017):
 
 			game_info['away_ats'] = re.sub('\s+','',away_info[3].text)
 			game_info['home_ats'] = re.sub('\s+','',home_info[3].text)
-			favorite = 'away'
-			if '-' in home_info[5].text:
-				favorite = 'home'
-			if favorite == 'away':
+
+			initial_favorite = 'away'
+			if "-" in home_info[4].text or ("-" not in away_info[4].text and "-" in home_info[5].text):
+				initial_favorite = 'home'
+
+			if initial_favorite == 'away':
 				game_info['open_line'] = re.sub('\s+','',away_info[4].text)
 				game_info['close_line'] = re.sub('\s+','',away_info[5].text)
 				game_info['over_under'] = re.sub('\s+','',home_info[5].text)
-				if game_info['close_line'] == "":
-					pass
-				elif float(game_info['close_line']) > 0:
-					game_info['close_line'] = ""
+
+				if game_info['close_line'] == "" or float(game_info['close_line']) > 0:
+					if '-' in home_info[5].text:
+						game_info['close_line'] = float(re.sub('\s+','',home_info[5].text))
+						game_info['over_under'] = re.sub('\s+','',away_info[5].text)
 				else:
 					game_info['close_line'] = abs(float(game_info['close_line']))
-				if game_info['open_line'] == "":
-					if '-' in home_info[4]:
-						game_info['open_line'] = float(re.sub('\s+','',home_info[4].text))
-				elif float(game_info['open_line']) > 0:
-					game_info['open_line'] = ""
-				else:
+
+				if game_info['open_line'] != "":
 					game_info['open_line'] = abs(float(game_info['open_line']))
 			else:
 				game_info['open_line'] = re.sub('\s+','',home_info[4].text)
 				game_info['close_line'] = re.sub('\s+','',home_info[5].text)
 				game_info['over_under'] = re.sub('\s+','',away_info[5].text)
-				if game_info['close_line'] != "":
+
+				if game_info['close_line'] == "" or float(game_info['close_line']) > 0:
+					if '-' in away_info[5].text:
+						game_info['close_line'] = abs(float(re.sub('\s+','',away_info[5].text)))
+						game_info['over_under'] = re.sub('\s+','',home_info[5].text)
+				else:
 					game_info['close_line'] = float(game_info['close_line'])
-				if game_info['open_line'] == "":
-					if '-' in away_info[4]:
-						game_info['open_line'] = abs(float(re.sub('\s+','',away_info[4].text)))
+
+				if game_info['open_line'] != "":
+					game_info['open_line'] = float(game_info['open_line'])
+
+			if game_info['open_line'] == "":
+				game_info['open_line'] = game_info['close_line']
+
+			if str(game_info['open_line']) == str(game_info['close_line']) and \
+					str(game_info['close_line']) == str(game_info['over_under']) and \
+					game_info['over_under'] != "":
+				game_info['open_line'] = 0.0
+				game_info['close_line'] = 0.0
+
+			if str(game_info['close_line'])==str(game_info['over_under']) and \
+					game_info['over_under'] != "":
+				game_info['close_line'] = 0.0
+
+			if game_info['over_under'] != "":
+				game_info['over_under'] = float(game_info['over_under'])
+
 			game_info['away_side_pct'] = re.sub('\s+','',away_info[8].text.replace('%', ''))
 			game_info['home_side_pct'] = re.sub('\s+','',home_info[8].text.replace('%', ''))
 			add = True
@@ -163,6 +184,7 @@ def get_data(data=[],get_yesterday=False,get_today=False,year=2017):
 	return data
 
 if __name__ == '__main__':
-	data = get_data(year=2017)
-	with open('vegas_{}.json'.format(2017),'w') as infile:
+	cur_year = 2017
+	data = get_data(year=cur_year)
+	with open('vegas_{}.json'.format(cur_year),'w') as infile:
 		json.dump(data,infile)
