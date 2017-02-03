@@ -4,6 +4,7 @@ import json
 
 def get_cbbr_names():
     cbbrdf = pd.read_csv('cbbref_data/game_info2017.csv')
+    cbbrdf2 = pd.read_csv('cbbref_data/game_info2013.csv')
     cbbrset = set()
     teamset = set()
     espnset = set()
@@ -11,6 +12,8 @@ def get_cbbr_names():
         teamset.add(espn)
         espnset.add(espn)
     for team in cbbrdf.team:
+        cbbrset.add(team)
+    for team in cbbrdf2.team:
         cbbrset.add(team)
     tmp = set()
     for team in cbbrset:
@@ -160,4 +163,4 @@ with open('cbbref_data/new_names_dict.json','r') as infile:
 with open('tr_data/new_names_dict.json','r') as infile:
     tr_names = json.load(infile)
 
-get_tr_names()
+get_cbbr_names()

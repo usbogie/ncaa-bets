@@ -31,8 +31,10 @@ from datetime import date,timedelta
 import math
 from scipy.stats.mstats import zscore
 
+teams = {}
 with open('new_teams.json','r') as infile:
     teams = json.load(infile)
+game_dict = {}
 with open('new_game_dict.json','r') as infile:
     game_dict = json.load(infile)
 with open('vi_data/new_names_dict.json','r') as infile:
@@ -59,34 +61,32 @@ def get_sports_ref_data(year_list=[2012,2013,2014,2015,2016,2017]):
         for i, row in year.iterrows():
             try:
                 home_game = True
-                if not row.home_game:
+                if row.road_game:
                     home_game = False
                     away = cbbr_names[row.team.strip()]
                     home = cbbr_names[row.opponent.strip()]
                 else:
                     home = cbbr_names[row.team.strip()]
                     away = cbbr_names[row.opponent.strip()]
-                gamedate = row.date.split("/")
-                gamedate = date(int(gamedate[2]),int(gamedate[0]),int(gamedate[1]))
-                key = str((home,away,str(gamedate)))
+                key = str((home,away,row.date))
                 try:
                     game = game_dict[key]
                 except:
                     try:
                         if row.neutral == True:
                             home_game = False
-                            key = str((away,home,str(gamedate)))
+                            key = str((away,home,row.date))
                             game = game_dict[key]
                         else:
                             game = game_dict[key]
                     except:
                         try:
                             gamedate -= timedelta(1)
-                            key = str((home,away,str(gamedate)))
+                            key = str((home,away,row.date))
                             game = game_dict[key]
                         except:
                             try:
-                                key = str((away,home,str(gamedate)))
+                                key = str((away,home,row.date))
                                 game = game_dict[key]
                             except:
                                 x += 1
@@ -96,7 +96,7 @@ def get_sports_ref_data(year_list=[2012,2013,2014,2015,2016,2017]):
                 game[loc+'DRtg'] = row.DRtg
                 game['Pace'] = row.Pace
                 game[loc+'FTr'] = row.FTr
-                game[loc+'tPAr'] = row.tPAr
+                game[loc+'tPAr'] = row['3PAr']
                 game[loc+'TSP'] = row.TSP
                 game[loc+'TRBP'] = row.TRBP
                 game[loc+'ASTP'] = row.ASTP
@@ -125,13 +125,13 @@ def get_spreads(year_list=[2012,2013,2014,2015,2016,2017]):
             try:
                 home = sb_names[row.home]
                 away = sb_names[row.away]
-                d = row.date.split("/")
-                game_year = year_list[idx] if int(d[0]) < 8 else year_list[idx] - 1
-                datearray = [game_year,int(d[0]),int(d[1])]
-                gamedate = date(datearray[0],datearray[1],datearray[2])
-                key = str((home,away,str(gamedate)))
+                d = str(row.date).split(' ')
+                d = d[0].split('-')
+                game_year = year_list[idx] if int(d[1]) < 8 else year_list[idx] - 1
+                datearray = [game_year,int(d[1]),int(d[2])]
+                key = str((home,away,str(row.date).split(' ')[0]))
                 game = game_dict[key]
-                if rowclose_line == "":
+                if row.close_line == "":
                     continue
                 game["spread"] = float(row.close_line)
                 if game["spread"] > 65 or game["spread"] < -65:
@@ -209,10 +209,16 @@ def get_old_games(year_list = [2012,2013,2014,2015,2016,2017]):
 
 def make_teams_dict():
     nameset = set()
+    new_teams = ["Grand Canyon", "UMass Lowell", "New Orleans", "Incarnate Word", "Abilene Christian", "Northern Kentucky", "Omaha"]
     for kp,espn in kp_names.items():
         nameset.add(espn)
     for name in nameset:
         for i in range(6):
+            if i < 2 and name in new_teams:
+                if i == 1 and name in ["Northern Kentucky", "Omaha"]:
+                    pass
+                else:
+                    continue
             teams[name+str(2012+i)] = {}
             teams[name+str(2012+i)]["name"] = name
             teams[name+str(2012+i)]["year"] = 2012+i
@@ -321,14 +327,10 @@ def new_get_home_splits(year_list = [2012,2013,2014,2015,2016,2017]):
 # make_teams_dict()
 # get_kp_stats()
 # get_old_games()
-# with open('new_teams.json', 'w') as outfile:
-#     json.dump(teams,outfile)
-# with open('new_game_dict.json','w') as outfile:
-#     json.dump(game_dict,outfile)
-# get_spreads()
+get_spreads()
 # get_sports_ref_data()
 # get_home_splits
-new_get_home_splits()
+# new_get_home_splits()
 
 with open('new_teams.json', 'w') as outfile:
     json.dump(teams,outfile)

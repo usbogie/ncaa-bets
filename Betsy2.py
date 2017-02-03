@@ -3,10 +3,7 @@ import pandas as pd
 import statsmodels.formula.api as sm
 from datetime import date,timedelta
 import json
-from decimal import *
-
-getcontext().prec = 10
-getcontext().traps[FloatOperation] = True
+import csv
 
 # Teams dictionary: all teams since 2014, contains list of games, HCA values, etc
 # Keyed by name+season
@@ -63,6 +60,7 @@ def betsy():
             year_list.append(year)
             print(year)
         averages = get_averages(year)
+        FT_std,tPAr_std,TRBP_std,TOVP_std,opp_TOVP_std,FT_avg,tPAr_avg,TRBP_avg,TOVP_avg,opp_TOVP_avg = get_standard_deviations_averages()
         for key in key_list:
             game = game_dict[key]
             try:
@@ -71,8 +69,11 @@ def betsy():
                 game["Pace"]
             except:
                 continue
-            home = teams[game["home"]+game["season"]]
-            away = teams[game["away"]+game["season"]]
+            try:
+                home = teams[game["home"]+game["season"]]
+                away = teams[game["away"]+game["season"]]
+            except:
+                continue
             team_list = [home,away]
             try:
                 home_regseason = True if home["games"][0] == game["key"] else False
@@ -132,6 +133,23 @@ def betsy():
                     game["pmargin"] = 1
             game["pmargin"] = round(game["pmargin"])
 
+            # Decision Tree Stuff
+            try:
+                game["DT_home_winner"] = 1 if game["pmargin"] > 0 else 0
+                game["DT_spread"] = 1 if abs(game["pmargin"] - game["spread"]) > 4 else 0
+                game["DT_line_movement"] = 1 if game["line_movement"] <= -1 else (-1 if game["line_movement"] >= 1 else 0)
+                game["DT_home_public_percentage"] = 1 if game["home_public_percentage"] >= 60 else (-1 if game["home_public_percentage"] <= 40 else 0)
+                game["DT_home_ats"] = 1 if game["home_ats"] > .55 else 0
+                game["DT_away_ats"] = 1 if game["away_ats"] > .55 else 0
+                game["DT_home_FT"] = 1 if np.mean(home["FT"]) > FT_avg + FT_std / 2 else 0
+                game["DT_away_FT"] = 1 if np.mean(away["FT"]) > FT_avg + FT_std / 2 else 0
+                game["DT_home_tPAr"] = 1 if np.mean(home["tPAr"]) > tPAr_avg + tPAr_std / 2 else 0
+                game["DT_away_tPAr"] = 1 if np.mean(away["tPAr"]) > tPAr_avg + tPAr_std / 2 else 0
+                game["DT_TRBP"] = 1 if np.mean(home["TRBP"]) > np.mean(away["TRBP"]) + TRBP_std/2 else (-1 if np.mean(away["TRBP"]) > np.mean(home["TRBP"]) + TRBP_std/2 else 0)
+                game["DT_home_TOVP"] = 1 if np.mean(home["TOVP"]) > TOVP_avg and np.mean(away["opp_TOVP"]) > opp_TOVP_avg + opp_TOVP_std/2 else 0
+                game["DT_away_TOVP"] = 1 if np.mean(away["TOVP"]) > TOVP_avg and np.mean(home["opp_TOVP"]) > opp_TOVP_avg + opp_TOVP_std/2 else 0
+            except:
+                pass
 
             # # Data collection for testing
             # h_proj_o = (home["adj_ortg"][-1] + away["adj_drtg"][-1]) / 2 + game["home_o"]
@@ -242,7 +260,7 @@ def betsy():
         data["count"] = len(margins[key])
         print(str(key * 5).rjust(5),str(data["margmed"]).rjust(5),str(data["diffmed"]).rjust(15),str(len(margins[key])).rjust(6))
 
-    compare_strategies(data_list)
+    # compare_strategies(data_list)
 
     print("Standard deviation of Home Offensive Rating prediction:".ljust(60),np.std(home_ortg_std_list))
     print("Standard deviation of Away Offensive Rating prediction:".ljust(60),np.std(away_ortg_std_list))
@@ -253,6 +271,20 @@ def betsy():
     print("Standard deviation of Predicted Scoring Margin and Spread:".ljust(60),np.std(diff_std_list))
 
     # print(teams["The Citadel2017"])
+
+def get_standard_deviations_averages():
+    FT_list = []
+    tPAr_list = []
+    TRBP_list = []
+    TOVP_list = []
+    opp_TOVP_list = []
+    for key,team in teams.items():
+        FT_list.append(np.mean(team["FT"]))
+        tPAr_list.append(np.mean(team["tPAr"]))
+        TRBP_list.append(np.mean(team["TRBP"]))
+        TOVP_list.append(np.mean(team["TOVP"]))
+        opp_TOVP_list.append(np.mean(team["opp_TOVP"]))
+    return (np.std(FT_list),np.std(tPAr_list),np.std(TRBP_list),np.std(TOVP_list),np.std(opp_TOVP_list),np.mean(FT_list),np.mean(tPAr_list),np.mean(TRBP_list),np.mean(TOVP_list),np.mean(opp_TOVP_list))
 
 # Compare strategies for projecting Pace and Margin
 def compare_strategies(data_list):
@@ -280,7 +312,7 @@ def compare_strategies(data_list):
     #     diff_list_sp.append(spread_reg.predict()[i] - gamesdf.margin[i])
     # print(em_reg.summary())
     # print(spread_reg.summary())
-    print(np.std(gamesdf.margin))
+    # print(np.std(gamesdf.margin))
     # print(np.std(diff_list_em))
     # print(np.std(diff_list_sp))
 
@@ -312,7 +344,6 @@ def run_preseason():
         team["opp_TOVP"] = []
         if len(team["games"]) < preseason_length:
             print("{} doesn't have {} games in ".format(team,preseason_length)+key[-4:])
-
         # Get average of each stat for each team
         for i in range(preseason_length):
             game = game_dict[team["games"][i]]
@@ -473,15 +504,26 @@ def test_betsy():
 
 # Eliminates games that don't have Offensive Rating stats for both teams, or Pace
 def eliminate_games_missing_data():
+    keys_to_remove = set()
     for key,team in teams.items():
         for key in team["games"]:
             game = game_dict[key]
             try:
-                game["home_ORtg"]
-                game["away_ORtg"]
-                game["Pace"]
+                dummy1 = game["home_ORtg"]
+                dummy2 = game["away_ORtg"]
+                dummy3 = game["Pace"]
             except:
-                team["games"].remove(key)
+                keys_to_remove.add(key)
+    for key in keys_to_remove:
+        game = game_dict[key]
+        try:
+            teams[game["home"]+game["season"]]["games"].remove(key)
+            teams[game["away"]+game["season"]]["games"].remove(key)
+        except:
+            print("just curious")
+    for key,team in teams.items():
+        if len(team["games"]) <= 5:
+            print(team)
 
 # Creates game dictionary that facilitates getting games played on the same date
 def get_game_date_dict():
@@ -509,38 +551,22 @@ def get_overall_hca():
 eliminate_games_missing_data()
 game_date_dict = get_game_date_dict()
 betsy()
-all_games = pd.read_csv('incremental_data.csv')
-new_stats = []
-new_game_dict = {}
+game_list = []
 for key, game in game_dict.items():
     try:
-        game['home_adj_o']
-        game['line_movement']
-        game['home_public_percentage']
-        csv_game = all_games.ix[all_games['team_home'] = game['home'] & all_games['date']=games['date']]
-        new_game_dict[key] = game
-        new_game_dict[key]['home_FTO'] = csv_game['home_FTO']
-        new_game_dict[key]['away_FTO'] = csv_game['away_FTO']
-        new_game_dict[key]['home_FTD'] = csv_game['home_FTD']
-        new_game_dict[key]['away_FTD'] = csv_game['away_FTD']
-        new_game_dict[key]['home_Three_O'] = csv_game['home_Three_O']
-        new_game_dict[key]['away_Three_O'] = csv_game['away_Three_O']
-        new_game_dict[key]['home_Three_D'] = csv_game['home_Three_D']
-        new_game_dict[key]['away_Three_D'] = csv_game['away_Three_D']
-        new_game_dict[key]['home_REBO'] = csv_game['home_REBO']
-        new_game_dict[key]['away_REBO'] = csv_game['away_REBO']
-        new_game_dict[key]['home_REBD'] = csv_game['home_REBD']
-        new_game_dict[key]['away_REBD'] = csv_game['away_REBD']
-        new_game_dict[key]['home_REB'] = csv_game['home_REB']
-        new_game_dict[key]['away_REB'] = csv_game['away_REB']
-        new_game_dict[key]['home_TOP'] = csv_game['home_TOP']
-        new_game_dict[key]['away_TOP'] = csv_game['away_TOP']
-        new_game_dict[key]['home_TOFP'] = csv_game['home_TOFP']
-        new_game_dict[key]['away_TOFP'] = csv_game['away_TOFP']
+        game['DT_away_TOVP']
+        game_list.append(game)
+    except:
+        continue
+print(len(game_list))
 
 #test_betsy()
 
 #with open('new_teams.json','w') as outfile:
 #    json.dump(teams,outfile)
-with open('new_game_dict.json','w') as outfile:
-   json.dump(new_game_dict,outfile)
+with open('games.csv','w') as outfile:
+    keys = list(game_list[0].keys())
+    writer = csv.DictWriter(outfile,fieldnames = keys)
+    writer.writeheader()
+    for game in game_list:
+        writer.writerow(game)
