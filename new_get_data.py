@@ -136,12 +136,13 @@ def get_spreads(year_list=[2012,2013,2014,2015,2016,2017]):
                 game["spread"] = float(row.close_line)
                 if game["spread"] > 65 or game["spread"] < -65:
                     print("Found big spread, probably an over/under")
+                    continue
                 if game["spread"] + game["margin"] < 0:
                     game["cover"] = game["away"]
-                    game["home_cover"] = -.5
+                    game["home_cover"] = -1
                 elif game["spread"] + game["margin"] > 0:
                     game["cover"] = game["home"]
-                    game["home_cover"] = .5
+                    game["home_cover"] = 1
                 else:
                     game["cover"] = "Tie"
                     game["home_cover"] = 0

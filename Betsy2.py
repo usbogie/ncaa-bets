@@ -135,19 +135,21 @@ def betsy():
 
             # Decision Tree Stuff
             try:
-                game["DT_home_winner"] = 1 if game["pmargin"] > 0 else 0
-                game["DT_spread"] = 1 if abs(game["pmargin"] - game["spread"]) > 4 else 0
-                game["DT_line_movement"] = 1 if game["line_movement"] <= -1 else (-1 if game["line_movement"] >= 1 else 0)
-                game["DT_home_public_percentage"] = 1 if game["home_public_percentage"] >= 60 else (-1 if game["home_public_percentage"] <= 40 else 0)
-                game["DT_home_ats"] = 1 if game["home_ats"] > .55 else 0
-                game["DT_away_ats"] = 1 if game["away_ats"] > .55 else 0
-                game["DT_home_FT"] = 1 if np.mean(home["FT"]) > FT_avg + FT_std / 2 else 0
-                game["DT_away_FT"] = 1 if np.mean(away["FT"]) > FT_avg + FT_std / 2 else 0
-                game["DT_home_tPAr"] = 1 if np.mean(home["tPAr"]) > tPAr_avg + tPAr_std / 2 else 0
-                game["DT_away_tPAr"] = 1 if np.mean(away["tPAr"]) > tPAr_avg + tPAr_std / 2 else 0
-                game["DT_TRBP"] = 1 if np.mean(home["TRBP"]) > np.mean(away["TRBP"]) + TRBP_std/2 else (-1 if np.mean(away["TRBP"]) > np.mean(home["TRBP"]) + TRBP_std/2 else 0)
-                game["DT_home_TOVP"] = 1 if np.mean(home["TOVP"]) > TOVP_avg and np.mean(away["opp_TOVP"]) > opp_TOVP_avg + opp_TOVP_std/2 else 0
-                game["DT_away_TOVP"] = 1 if np.mean(away["TOVP"]) > TOVP_avg and np.mean(home["opp_TOVP"]) > opp_TOVP_avg + opp_TOVP_std/2 else 0
+                if game["home_cover"] != 0:
+                    game["DT_home_winner"] = 1 if game["pmargin"] + game["spread"] > 0 else 0
+                    game["DT_spread"] = 1 if game["spread"] < -10 else (-1 if game["spread"] > 10 else 0)
+                    game["DT_spread_diff"] = 1 if abs(game["pmargin"] + game["spread"]) > 4 else 0
+                    game["DT_line_movement"] = 1 if game["line_movement"] <= -1 else (-1 if game["line_movement"] >= 1 else 0)
+                    game["DT_home_public_percentage"] = 1 if game["home_public_percentage"] >= 60 else (-1 if game["home_public_percentage"] <= 40 else 0)
+                    game["DT_home_ats"] = 1 if game["home_ats"] > .55 else 0
+                    game["DT_away_ats"] = 1 if game["away_ats"] > .55 else 0
+                    game["DT_home_FT"] = 1 if np.mean(home["FT"]) > FT_avg + FT_std / 2 else 0
+                    game["DT_away_FT"] = 1 if np.mean(away["FT"]) > FT_avg + FT_std / 2 else 0
+                    game["DT_home_tPAr"] = 1 if np.mean(home["tPAr"]) > tPAr_avg + tPAr_std / 2 else 0
+                    game["DT_away_tPAr"] = 1 if np.mean(away["tPAr"]) > tPAr_avg + tPAr_std / 2 else 0
+                    game["DT_TRBP"] = 1 if np.mean(home["TRBP"]) > np.mean(away["TRBP"]) + TRBP_std/2 else (-1 if np.mean(away["TRBP"]) > np.mean(home["TRBP"]) + TRBP_std/2 else 0)
+                    game["DT_home_TOVP"] = 1 if np.mean(home["TOVP"]) > TOVP_avg and np.mean(away["opp_TOVP"]) > opp_TOVP_avg + opp_TOVP_std/2 else 0
+                    game["DT_away_TOVP"] = 1 if np.mean(away["TOVP"]) > TOVP_avg and np.mean(home["opp_TOVP"]) > opp_TOVP_avg + opp_TOVP_std/2 else 0
             except:
                 pass
 
