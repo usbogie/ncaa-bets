@@ -60,7 +60,7 @@ def betsy():
             year_list.append(year)
             print(year)
         averages = get_averages(year)
-        FT_std,tPAr_std,TRBP_std,TOVP_std,opp_TOVP_std,FT_avg,tPAr_avg,TRBP_avg,TOVP_avg,opp_TOVP_avg = get_standard_deviations_averages()
+        FT_std,tPAr_std,TRBP_std,TOVP_std,opp_TOVP_std,FT_avg,tPAr_avg,TRBP_avg,TOVP_avg,opp_TOVP_avg = get_standard_deviations_averages(year)
         for key in key_list:
             game = game_dict[key]
             try:
@@ -274,18 +274,19 @@ def betsy():
 
     # print(teams["The Citadel2017"])
 
-def get_standard_deviations_averages():
+def get_standard_deviations_averages(year):
     FT_list = []
     tPAr_list = []
     TRBP_list = []
     TOVP_list = []
     opp_TOVP_list = []
     for key,team in teams.items():
-        FT_list.append(np.mean(team["FT"]))
-        tPAr_list.append(np.mean(team["tPAr"]))
-        TRBP_list.append(np.mean(team["TRBP"]))
-        TOVP_list.append(np.mean(team["TOVP"]))
-        opp_TOVP_list.append(np.mean(team["opp_TOVP"]))
+        if team["year"] == year:
+            FT_list.append(np.mean(team["FT"]))
+            tPAr_list.append(np.mean(team["tPAr"]))
+            TRBP_list.append(np.mean(team["TRBP"]))
+            TOVP_list.append(np.mean(team["TOVP"]))
+            opp_TOVP_list.append(np.mean(team["opp_TOVP"]))
     return (np.std(FT_list),np.std(tPAr_list),np.std(TRBP_list),np.std(TOVP_list),np.std(opp_TOVP_list),np.mean(FT_list),np.mean(tPAr_list),np.mean(TRBP_list),np.mean(TOVP_list),np.mean(opp_TOVP_list))
 
 # Compare strategies for projecting Pace and Margin

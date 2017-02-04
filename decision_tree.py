@@ -80,17 +80,17 @@ def get_initial_years_train_data(all_games, all_dates):
 
     return pd.concat(training_games_list, ignore_index=True)
 
-def track_today(results_df):
+def track_today(results_df,prob = .5):
     right = 0
     wrong = 0
     for idx, row in results_df.iterrows():
-        if float(row['results']) < 0 and row['home_cover'] < 0:
+        if float(row['results']) < 0 and row['home_cover'] < 0 and float(row['prob']) >= prob:
             right += 1
-        elif float(row['results']) < 0 and row['home_cover'] > 0:
+        elif float(row['results']) < 0 and row['home_cover'] > 0 and float(row['prob']) >= prob:
             wrong += 1
-        elif float(row['results']) > 0 and row['home_cover'] < 0:
+        elif float(row['results']) > 0 and row['home_cover'] < 0 and float(row['prob']) >= prob:
             wrong += 1
-        elif float(row['results']) > 0 and row['home_cover'] > 0:
+        elif float(row['results']) > 0 and row['home_cover'] > 0 and float(row['prob']) >= prob:
             right += 1
     return right,wrong
 
@@ -111,20 +111,28 @@ if __name__ == '__main__':
     X_test, y_test = pick_features(test_data,features)
 
     score = 1
-    i = 0
-    while score > .523:
+    i = 1
+    positive = False
+    for i in range(40):
         min_samples = i * 25
         if i == 0:
             min_samples = 1
         clf = tree.DecisionTreeClassifier(min_samples_leaf=min_samples)
         clf = clf.fit(X_train,y)
-        print("Training accuracy: ", clf.score(X_train,y))
         score = clf.score(X_train,y)
 
         resultstree = clf.predict(X_test)
+        probs = []
+        for j in range(len(X_test)):
+            probs.append(max(max(clf.predict_proba(X_test[j].reshape(1,-1)))))
 
         results_df = test_data[['away','home','margin','spread','home_cover']]
         results_df.insert(5, 'results', resultstree)
-        right,wrong = track_today(results_df)
-        print("Profit: ", right - 1.1 * wrong, "\nTotal Games: ", right + wrong, "\nGames won - lost: ", right - wrong,"\nmin_samples_leaf: ",min_samples,"\n")
-        i += 1
+        results_df.insert(6, 'prob', probs)
+        right,wrong = track_today(results_df,prob = .6)
+        profit = right - 1.1 * wrong
+        if profit > 0:
+            positive = True
+            print("min_samples_leaf: ",min_samples,"\nProfit: ", profit, "\nTotal Games: ", right + wrong, "\nGames won - lost: ", right - wrong,"\n")
+    if not positive:
+        print("No samples minimum leads to a profit")
