@@ -13,8 +13,8 @@ with open('new_teams.json','r') as infile:
 # Keyed by str((home,away,date))
 with open('new_game_dict.json','r') as infile:
     game_dict = json.load(infile)
-with open('espn_data/names_dict.json','r') as infile:
-    espn_names = json.load(infile)
+with open('sb_data/new_names_dict.json','r') as infile:
+    sb_names = json.load(infile)
 
 # Number of games used to create starting stats for teams
 preseason_length = 5
@@ -137,17 +137,21 @@ def betsy():
             try:
                 if game["home_cover"] != 0:
                     game["DT_home_winner"] = 1 if game["pmargin"] + game["spread"] > 0 else 0
-                    game["DT_spread"] = 1 if game["spread"] < -10 else (-1 if game["spread"] > 10 else 0)
+                    game["DT_home_big"] = 1 if game["spread"] < -10 else 0
+                    game["DT_away_big"] = 1 if game["spread"] > 10 else 0
                     game["DT_spread_diff"] = 1 if abs(game["pmargin"] + game["spread"]) > 4 else 0
-                    game["DT_line_movement"] = 1 if game["line_movement"] <= -1 else (-1 if game["line_movement"] >= 1 else 0)
-                    game["DT_home_public_percentage"] = 1 if game["home_public_percentage"] >= 60 else (-1 if game["home_public_percentage"] <= 40 else 0)
+                    game["DT_home_movement"] = 1 if game["line_movement"] <= -1 else 0
+                    game["DT_away_movement"] = 1 if game["line_movement"] >= 1 else 0
+                    game["DT_home_public"] = 1 if game["home_public_percentage"] >= 60 else 0
+                    game["DT_away_public"] = 1 if game["home_public_percentage"] <= 40 else 0
                     game["DT_home_ats"] = 1 if game["home_ats"] > .55 else 0
                     game["DT_away_ats"] = 1 if game["away_ats"] > .55 else 0
                     game["DT_home_FT"] = 1 if np.mean(home["FT"]) > FT_avg + FT_std / 2 else 0
                     game["DT_away_FT"] = 1 if np.mean(away["FT"]) > FT_avg + FT_std / 2 else 0
                     game["DT_home_tPAr"] = 1 if np.mean(home["tPAr"]) > tPAr_avg + tPAr_std / 2 else 0
                     game["DT_away_tPAr"] = 1 if np.mean(away["tPAr"]) > tPAr_avg + tPAr_std / 2 else 0
-                    game["DT_TRBP"] = 1 if np.mean(home["TRBP"]) > np.mean(away["TRBP"]) + TRBP_std/2 else (-1 if np.mean(away["TRBP"]) > np.mean(home["TRBP"]) + TRBP_std/2 else 0)
+                    game["DT_home_reb"] = 1 if np.mean(home["TRBP"]) > np.mean(away["TRBP"]) + TRBP_std/2 else 0
+                    game["DT_away_reb"] = 1 if np.mean(away["TRBP"]) > np.mean(home["TRBP"]) + TRBP_std/2 else 0
                     game["DT_home_TOVP"] = 1 if np.mean(home["TOVP"]) > TOVP_avg and np.mean(away["opp_TOVP"]) > opp_TOVP_avg + opp_TOVP_std/2 else 0
                     game["DT_away_TOVP"] = 1 if np.mean(away["TOVP"]) > TOVP_avg and np.mean(home["opp_TOVP"]) > opp_TOVP_avg + opp_TOVP_std/2 else 0
             except:
@@ -539,17 +543,142 @@ def get_game_date_dict():
             game_date_dict[game["date"]] = [game["key"]]
     return game_date_dict
 
-def get_overall_hca():
-    home_o_adv = 0
-    home_d_adv = 0
-    away_o_adv = 0
-    away_d_adv = 0
-    for name in espn_names.keys():
-        home_o_adv += teams[name+'2014']["home_o_adv"] / 351
-        home_d_adv += teams[name+'2014']["home_d_adv"] / 351
-        away_o_adv += teams[name+'2014']["away_o_adv"] / 351
-        away_d_adv += teams[name+'2014']["away_d_adv"] / 351
-    return [home_o_adv,home_d_adv,away_o_adv,away_d_adv]
+def get_new_games(season='2017'):
+    print("Getting new games")
+    gamesdf = pd.read_csv('espn_data/upcoming_games.csv')
+    upcoming_games = {}
+    new_games = []
+    for i, row in gamesdf.iterrows():
+        try:
+            game = {}
+            game["home"] = row.Game_Home.strip()
+            game["away"] = row.Game_Away.strip()
+            game["tipoff"] = row.Game_Tipoff
+            hour = int(game["tipoff"].split(":")[0])
+            central = hour-1 if hour != 0 else 23
+            game["tipstring"] = "{}:{} {}M CT".format((str(central%12) if central != 12 else str(12)),game["tipoff"].split(":")[1],("A" if central//12 == 0 else "P"))
+            key = str((game["home"],game["away"]))
+            if key not in set(upcoming_games.keys()):
+                upcoming_games[key] = game
+            else:
+                continue
+            game["true_home_game"] = 1 if not row.Neutral_Site else 0
+            game["conf"] = 1 if row.Conference_Competition else 0
+        except:
+            print(row.Game_Home,row.Game_Away)
+            continue
+    with open('sb_data/game_lines.json','r') as infile:
+        game_lines = json.load(infile)
+    for game in game_lines:
+        try:
+            home = sb_names[game['home']]
+            away = sb_names[game['away']]
+            key = str((home,away))
+            new_game = upcoming_games[key]
+            new_game['key'] = key
+            new_game['spread_home'] = (float(game['spread_home'][:-6]),float(game['spread_home'][-5:-1]))
+            new_game['spread'] = new_game['spread_home'][0]
+        except:
+            continue
+
+    with open('vi_data/vegas_today.json','r') as infile:
+        vegas_info = json.load(infile)
+    for game in vegas_info:
+        try:
+            home = sb_names[game['home']]
+            away = sb_names[game['away']]
+            key = str((home,away))
+            new_game = upcoming_games[key]
+            new_game["line_movement"] = 0 if game["open_line"] == "" else new_game["spread"] - float(game["open_line"])
+            new_game["home_public_percentage"] = 50 if game["home_side_pct"] == "" else float(game["home_side_pct"])
+            new_game["home_ats"] = game["home_ats"].split("-")
+            new_game["away_ats"] = game["away_ats"].split("-")
+            new_game["home_ats"] = 0 if new_game["home_ats"][0] == "0" and new_game["home_ats"][1] == "0" else int(new_game["home_ats"][0]) / (int(new_game["home_ats"][0])+int(new_game["home_ats"][1]))
+            new_game["away_ats"] = 0 if new_game["away_ats"][0] == "0" and new_game["away_ats"][1] == "0" else int(new_game["away_ats"][0]) / (int(new_game["away_ats"][0])+int(new_game["away_ats"][1]))
+            new_games.append(new_game)
+            print("Found:",game["home"],game["away"])
+        except:
+            print("In vegas info, no game matched:",game["home"],game["away"])
+
+    for game in new_games:
+        home = teams[game["home"]+season]
+        away = teams[game["away"]+season]
+
+        team_list = [home,away]
+        home_dict = {}
+        away_dict = {}
+        dicts = [home_dict,away_dict]
+        # Update stats
+        for index,d in enumerate(dicts):
+            d["adj_ortg"] = team_list[index]["pre_adj_ortg"]
+            d["adj_drtg"] = team_list[index]["pre_adj_drtg"]
+            d["adj_temp"] = team_list[index]["pre_adj_temp"]
+            i = 0
+            for result in team_list[index]["prev_games"]:
+                i += 1
+                d["adj_ortg"] += result["adj_ortg"] * (1 + .1 * i)
+                d["adj_drtg"] += result["adj_drtg"] * (1 + .1 * i)
+                d["adj_temp"] += result["adj_temp"] * (1 + .1 * i)
+            if len(team_list[index]["prev_games"]) > 0:
+                d["adj_ortg"] /= 1 + i + (i * (i + 1) / 20)
+                d["adj_drtg"] /= 1 + i + (i * (i + 1) / 20)
+                d["adj_temp"] /= 1 + i + (i * (i + 1) / 20)
+        for index,d in enumerate(dicts):
+            for key,value in d.items():
+                team_list[index][key].append(value)
+
+        game["home_adj_o"] = home["adj_ortg"][-1]
+        game["home_adj_d"] = home["adj_drtg"][-1]
+        game["away_adj_o"] = away["adj_ortg"][-1]
+        game["away_adj_d"] = away["adj_drtg"][-1]
+        game["home_temp"] = home["adj_temp"][-1]
+        game["away_temp"] = away["adj_temp"][-1]
+
+        game["home_o"] = 3 if game["true_home_game"] == 1 else 0
+        game["home_em"] = home["adj_ortg"][-1] - home["adj_drtg"][-1]
+        game["away_em"] = away["adj_ortg"][-1] - away["adj_drtg"][-1]
+        game["tempo"] = (home["adj_temp"][-1] + away["adj_temp"][-1]) / 2
+        game["em_diff"] = (4 * game["home_o"] + game["home_em"] - game["away_em"]) / 100
+        game["pmargin"] = game["em_diff"] * game["tempo"] * .5
+        if game["pmargin"] > 0 and game["true_home_game"] == 1:
+            game["pmargin"] = game["pmargin"] * .9
+        if game["pmargin"] > 0 and game["pmargin"] <= 6 and game["true_home_game"] == 0:
+            game["pmargin"] += 1
+        if game["pmargin"] < 0 and game["pmargin"] >= -6:
+            game["pmargin"] -= 1
+        if abs(game["pmargin"]) <= .5:
+            if game["pmargin"] < 0:
+                game["pmargin"] = -1
+            else:
+                game["pmargin"] = 1
+        game["pmargin"] = round(game["pmargin"])
+
+        FT_std,tPAr_std,TRBP_std,TOVP_std,opp_TOVP_std,FT_avg,tPAr_avg,TRBP_avg,TOVP_avg,opp_TOVP_avg = get_standard_deviations_averages(int(season))
+        game["DT_home_winner"] = 1 if game["pmargin"] + game["spread"] > 0 else 0
+        game["DT_home_big"] = 1 if game["spread"] < -10 else 0
+        game["DT_away_big"] = 1 if game["spread"] > 10 else 0
+        game["DT_spread_diff"] = 1 if abs(game["pmargin"] + game["spread"]) > 4 else 0
+        game["DT_home_movement"] = 1 if game["line_movement"] <= -1 else 0
+        game["DT_away_movement"] = 1 if game["line_movement"] >= 1 else 0
+        game["DT_home_public"] = 1 if game["home_public_percentage"] >= 60 else 0
+        game["DT_away_public"] = 1 if game["home_public_percentage"] <= 40 else 0
+        game["DT_home_ats"] = 1 if game["home_ats"] > .55 else 0
+        game["DT_away_ats"] = 1 if game["away_ats"] > .55 else 0
+        game["DT_home_FT"] = 1 if np.mean(home["FT"]) > FT_avg + FT_std / 2 else 0
+        game["DT_away_FT"] = 1 if np.mean(away["FT"]) > FT_avg + FT_std / 2 else 0
+        game["DT_home_tPAr"] = 1 if np.mean(home["tPAr"]) > tPAr_avg + tPAr_std / 2 else 0
+        game["DT_away_tPAr"] = 1 if np.mean(away["tPAr"]) > tPAr_avg + tPAr_std / 2 else 0
+        game["DT_home_reb"] = 1 if np.mean(home["TRBP"]) > np.mean(away["TRBP"]) + TRBP_std/2 else 0
+        game["DT_away_reb"] = 1 if np.mean(away["TRBP"]) > np.mean(home["TRBP"]) + TRBP_std/2 else 0
+        game["DT_home_TOVP"] = 1 if np.mean(home["TOVP"]) > TOVP_avg and np.mean(away["opp_TOVP"]) > opp_TOVP_avg + opp_TOVP_std/2 else 0
+        game["DT_away_TOVP"] = 1 if np.mean(away["TOVP"]) > TOVP_avg and np.mean(home["opp_TOVP"]) > opp_TOVP_avg + opp_TOVP_std/2 else 0
+
+    with open('todays_games.csv','w') as outfile:
+        keys = list(new_games[0].keys())
+        writer = csv.DictWriter(outfile,fieldnames = keys)
+        writer.writeheader()
+        for game in new_games:
+            writer.writerow(game)
 
 eliminate_games_missing_data()
 game_date_dict = get_game_date_dict()
@@ -563,6 +692,7 @@ for key, game in game_dict.items():
         continue
 print(len(game_list))
 
+get_new_games()
 #test_betsy()
 
 #with open('new_teams.json','w') as outfile:

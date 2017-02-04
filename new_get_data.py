@@ -167,7 +167,7 @@ def get_old_games(year_list = [2012,2013,2014,2015,2016,2017]):
             gamesdf = pd.read_csv('espn_data/' + csv)
             years.append(gamesdf)
     for idx, year in enumerate(years):
-        print(str(idx + 2012))
+        print(str(year_list[idx]))
         for i, row in year.iterrows():
             try:
                 game = {}
@@ -326,12 +326,9 @@ def new_get_home_splits(year_list = [2012,2013,2014,2015,2016,2017]):
         game[pre+'DRTGprevSeason'] = team_date['DRTGprevSeason']
 
 # make_teams_dict()
-# get_kp_stats()
-# get_old_games()
-get_spreads()
-# get_sports_ref_data()
-# get_home_splits
-# new_get_home_splits()
+get_old_games(year_list = [2017])
+get_spreads(year_list = [2017])
+get_sports_ref_data(year_list = [2017])
 
 with open('new_teams.json', 'w') as outfile:
     json.dump(teams,outfile)

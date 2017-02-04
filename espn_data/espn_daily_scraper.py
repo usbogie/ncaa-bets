@@ -221,3 +221,6 @@ def get_tonight_info():
 		gen_info.append(game_info)
 
 	return pd.concat(gen_info, ignore_index=True).set_index('Game_ID')
+today_data = get_tonight_info()
+today_data.drop_duplicates().to_csv('upcoming_games.csv', index_label='Game_ID')
+print("Updated ESPN Data")

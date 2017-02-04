@@ -47,7 +47,7 @@ def get_data(data=[],get_yesterday=False,get_today=False,year=2017):
 	base = "http://www.vegasinsider.com/college-basketball/matchups/matchups.cfm/date/"
 	today = int(datetime.now().strftime('%Y-%m-%d').replace('-',''))
 	for day in all_dates:
-		if int((datetime.now() - timedelta(1)).strftime('%Y%m%d')) < int(day.replace('-','')):
+		if int(datetime.now().strftime('%Y%m%d')) < int(day.replace('-','')):
 			continue
 		if get_yesterday and today - int(day.replace('-','')) != 1:
 			continue
@@ -184,7 +184,11 @@ def get_data(data=[],get_yesterday=False,get_today=False,year=2017):
 	return data
 
 if __name__ == '__main__':
-	cur_year = 2017
-	data = get_data(year=cur_year)
-	with open('vegas_{}.json'.format(cur_year),'w') as infile:
-		json.dump(data,infile)
+	# cur_year = 2017
+	# data = get_data(year=cur_year)
+	# with open('vegas_{}.json'.format(cur_year),'w') as infile:
+	# 	json.dump(data,infile)
+	data = get_data(get_today = True)
+	with open('vegas_today.json', 'w') as outfile:
+		json.dump(data, outfile)
+	print("Updated vegas info for today")

@@ -154,6 +154,85 @@ def get_tr_names():
     with open('tr_data/new_names_dict.json', 'w+') as outfile:
         json.dump(tr_names, outfile)
 
+def get_sb_names():
+    sbdf = pd.read_json('sb_data/game_lines.json')
+    sbset = set()
+    teamset = set()
+    espnset = set()
+    for sb,espn in sb_names.items():
+        teamset.add(espn)
+        espnset.add(espn)
+    for team in sbdf.home:
+        sbset.add(team)
+    for team in sbdf.away:
+        sbset.add(team)
+    tmp = set()
+    for team in sbset:
+        if team in espnset:
+            sb_names[team] = team
+            tmp.add(team)
+        else:
+            dicts = [sb_names,tr_names,kp_names,cbbr_names]
+            for d in dicts:
+                try:
+                    sb_names[team] = d[team]
+                    tmp.add(team)
+                    break
+                except:
+                    pass
+    for team in tmp:
+        sbset.remove(team)
+    tmp.clear()
+    for team in list(kp_names.keys()):
+        teamset.add(team)
+    for team in list(tr_names.keys()):
+        teamset.add(team)
+    for team in list(cbbr_names.keys()):
+        teamset.add(team)
+    check_later = set()
+    # for team in sbset:
+    #     p = team.replace('.','')
+    #     ut = p.replace('Texas','UT')
+    #     chi = ut.replace('IL','CHI')
+    #     d = chi.replace('-',' ')
+    #     u = d.replace(' University','')
+    #     pa = u.replace(' (PA)','')
+    #     s = pa.replace('Virginia','VA')
+    #     if s in teamset:
+    #         check_later.add((team,s))
+    #         tmp.add(team)
+    # for team in tmp:
+    #     sbset.remove(team)
+    # tmp.clear()
+    for team in sorted(sbset):
+        ratio = 0
+        t = ""
+        for t2 in teamset:
+            if fuzz.ratio(team,t2) > ratio:
+                ratio = fuzz.ratio(team,t2)
+                t = t2
+        print(team,t,ratio)
+        s = input("Type 'y' if names match")
+        if s == 'y':
+            check_later.add((team,t))
+        else:
+            espn_name = input("Type ESPN name:")
+            check_later.add((team,espn_name))
+    for team,other in check_later:
+        if other in espnset:
+            sb_names[team] = other
+        else:
+            try:
+                sb_names[team] = kp_names[other]
+            except:
+                try:
+                    sb_names[team] = tr_names[other]
+                except:
+                    sb_names[team] = cbbr_names[other]
+    print(len(sb_names.keys()))
+    with open('sb_data/new_names_dict.json', 'w+') as outfile:
+        json.dump(sb_names, outfile)
+
 with open('kp_data/new_names_dict.json','r') as infile:
     kp_names = json.load(infile)
 with open('sb_data/new_names_dict.json','r') as infile:
@@ -163,4 +242,4 @@ with open('cbbref_data/new_names_dict.json','r') as infile:
 with open('tr_data/new_names_dict.json','r') as infile:
     tr_names = json.load(infile)
 
-get_cbbr_names()
+get_sb_names()

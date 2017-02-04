@@ -36,3 +36,8 @@ def get_todays_sportsbook_lines():
         game['date'] = date
         games.append(game)
     return games
+
+games = get_todays_sportsbook_lines()
+with open('game_lines.json','w') as outfile:
+    json.dump(games,outfile)
+print("Updated new lines for today")
