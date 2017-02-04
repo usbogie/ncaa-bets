@@ -3,7 +3,7 @@ import numpy as np
 from datetime import date,timedelta
 from pprint import pprint
 import json
-from sklearn import tree, svm, preprocessing, linear_model
+from sklearn import tree, svm, preprocessing
 from sklearn.decomposition import PCA
 from sklearn.model_selection import cross_val_score, GridSearchCV
 from sklearn.metrics import r2_score
@@ -74,8 +74,7 @@ def main():
 	for day in make_season(2017):
 		test_days.append(all_games.ix[all_games['date']==day])
 	test_data = pd.concat(test_days,ignore_index=True)
-	features = ['spread','true_home_game','home_public_percentage',
-				'home_ORTG','away_ORTG']
+	features = ['spread','true_home_game','home_public_percentage']
 	X_train,y = pick_features(initial_training_games,features)
 	X_test, y_test = pick_features(test_data,features)
 

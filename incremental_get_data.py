@@ -3,6 +3,8 @@ import numpy as np
 import json
 import csv
 import math
+import sys
+from datetime import datetime, timedelta
 
 
 def create_games_with_espn():
@@ -55,31 +57,40 @@ def add_spread_information(all_games):
 
 		vegas_game = vegas_date.ix[(vegas_date['away']==away) & (vegas_date['home']==home)]
 
+		switched = False
 		if len(vegas_game.index)==0:
-			keys_to_remove.append(game_key)
-			continue
+			vegas_game = vegas_date.ix[(vegas_date['away']==home) & (vegas_date['home']==away)]
+			if len(vegas_game.index)==0:
+				keys_to_remove.append(game_key)
+				continue
+			else:
+				switched = True
+
 
 		if len(vegas_game.index)>1:
 			vegas_game=vegas_game.iloc[0]
 
 		try:
 			game['spread'] = vegas_game.iloc[0]['close_line']
+			away_team = vegas_game.iloc[0]['away']
+			home_team = vegas_game.iloc[0]['home']
+			open_line = vegas_game.iloc[0]['open_line']
 		except:
 			game['spread'] = vegas_game['close_line']
+			away_team = vegas_game['away']
+			home_team = vegas_game['home']
+			open_line = vegas_game['open_line']
+
+		if switched:
+			tmp = away_team
+			away_team = home_team
+			home_team = tmp
 
 		if not isinstance(game['spread'], float) and not isinstance(game['spread'], int):
 			keys_to_remove.append(game_key)
+			print("continuing {} @ {} on {}".format(away,home,date))
 			continue
 
-		if game['spread'] > 65 or game['spread'] < -65:
-			print("Found big spread, probably an over/under")
-
-		try:
-			away_team = vegas_game.iloc[0]['away']
-			home_team = vegas_game.iloc[0]['home']
-		except:
-			away_team = vegas_game['away']
-			home_team = vegas_game['home']
 		if game['spread'] + game['margin_home'] < 0:
 			game['cover_team'] = away_team
 			game['home_cover'] = -1
@@ -90,7 +101,7 @@ def add_spread_information(all_games):
 			game['cover_team'] = 'Push'
 			game['home_cover'] = 0
 		try:
-			game['line_movement'] = 0 if vegas_game.iloc[0]['open_line'] == "" else game['spread'] - vegas_game.iloc[0]['open_line']
+			game['line_movement'] = 0 if open_line == "" else game['spread'] - open_line
 		except:
 			game['line_movement'] = None
 		try:
@@ -160,10 +171,38 @@ def add_prior_team_splits(all_games):
 		if home_team_stats.isnull().values.any():
 			print(home_team_stats)
 
-		if len(away_team_split.index)==0 or len(home_team_split.index)==0 or \
-		   len(away_team_stats.index)==0 or len(home_team_stats.index)==0 or \
-		   len(away_team_cbbref.index)==0 or len(home_team_cbbref.index)==0:
+		if len(away_team_cbbref.index)==0 or len(home_team_cbbref.index)==0:
+			# game happens really late at night, try previous day.
+			tomorrow_date = (datetime.strptime(date,'%Y-%m-%d')+timedelta(1)).strftime('%Y-%m-%d')
+			home_team_cbbref = all_cbbref.ix[(all_cbbref['date'] == tomorrow_date) & (all_cbbref['team'] == home)]
+			away_team_cbbref = all_cbbref.ix[(all_cbbref['date'] == tomorrow_date) & (all_cbbref['team'] == away)]
+			print(away_team_cbbref.to_string())
+			print(home_team_cbbref.to_string())
+			if len(away_team_cbbref.index) > 1:
+				away_team_cbbref = away_team_cbbref.iloc[1:2]
+			if len(home_team_cbbref.index) > 1:
+				home_team_cbbref = home_team_cbbref.iloc[1:2]
+			try:
+				home_team_cbbref.iloc[0, home_team_cbbref.columns.get_loc('date')] = date
+				away_team_cbbref.iloc[0, away_team_cbbref.columns.get_loc('date')] = date
+			except:
+				print(away_team_cbbref.to_string())
+				print(home_team_cbbref.to_string())
+				print(game_key)
+				sys.exit()
+			print(away_team_cbbref.to_string())
+			print(home_team_cbbref.to_string())
+
+
+		if len(away_team_split.index)==0 or len(home_team_split.index)==0 or len(away_team_stats.index)==0 or len(home_team_stats.index)==0 or len(away_team_cbbref.index)==0 or len(home_team_cbbref.index)==0:
+			print(len(away_team_split.index))
+			print(len(away_team_stats.index))
+			print(len(away_team_cbbref.index))
+			print(len(home_team_split.index))
+			print(len(home_team_stats.index))
+			print(len(home_team_cbbref.index))
 			keys_to_remove.append(game_key)
+			print('continuing ' + game_key)
 			continue
 
 		if str(away_team_stats.iloc[0][1]) != date or \
@@ -221,6 +260,7 @@ def main():
 	print("Got ESPN data")
 	all_games = add_spread_information(all_games)
 	print("Got Vegas Info")
+	print(json.dumps(all_games, indent=2))
 	all_games = add_prior_team_splits(all_games)
 	print("Got team ranks info")
 

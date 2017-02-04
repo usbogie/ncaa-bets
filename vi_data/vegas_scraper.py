@@ -98,7 +98,7 @@ def get_data(data=[],get_yesterday=False,get_today=False,year=2017):
 			game_info = {}
 			time = table.find('td', {'class': 'viSubHeader1 cellBorderL1 headerTextHot padLeft'}).text
 
-			if time.startswith('12:') and 'AM' in time:
+			if time.startswith('12:') or time.startswith('1:') or time.startswith('4:') or time.startswith('2:') and 'AM' in time :
 				date = datetime.strptime(day, '%Y-%m-%d')
 				newdate = date - timedelta(1)
 				game_info['date'] = newdate.strftime('%Y-%m-%d')

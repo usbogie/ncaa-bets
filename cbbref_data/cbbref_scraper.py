@@ -2,7 +2,6 @@ import urllib.request as request
 import urllib.error as error
 from bs4 import BeautifulSoup, Comment, Tag, NavigableString
 from fake_useragent import UserAgent
-from datetime import datetime, timedelta
 import pandas as pd
 import numpy as np
 import sys

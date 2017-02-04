@@ -117,8 +117,9 @@ def get_home_away(year, get_today=False):
             print(value['Name'], value['date'])
     return team_list
 
-team_list = get_teamrankings(2017)
-with open('xteam_stats{}.csv'.format(2017), 'w') as outfile:
+year=2017
+team_list = get_teamrankings(year)
+with open('xteam_stats{}.csv'.format(year), 'w') as outfile:
     keys = list(team_list[0].keys())
     writer = csv.DictWriter(outfile,fieldnames=keys)
     writer.writeheader()
