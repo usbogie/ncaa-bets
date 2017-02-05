@@ -80,7 +80,7 @@ def get_initial_years_train_data(all_games, all_dates):
         season_dates = make_season(year)
         for day in season_dates:
             training_games_list.append(all_games.ix[all_games['date']==day])
-	return pd.concat(training_games_list, ignore_index=True)
+    return pd.concat(training_games_list, ignore_index=True)
 
 def track_today(results_df,prob = .5,print_picks = False):
     right = 0
@@ -96,20 +96,28 @@ def track_today(results_df,prob = .5,print_picks = False):
             right += 1
     return right,wrong
 
-def print_picks(games,prob=.5):
+def print_picks(games,prob=.5,check_pmargin=False):
     for idx, row in games.iterrows():
+        print_game = True
         if row['prob'] >= prob:
             if float(row['results']) > 0:
+                if check_pmargin and row['pmargin'] + row['spread'] <= 1:
+                    print_game = False
+                    continue
                 winner = row['home']
                 loser = row['away']
                 spread = str(row['spread'])
                 pmargin = str(row['pmargin'])
             else:
+                if check_pmargin and row['pmargin'] + row['spread'] >= -1:
+                    print_game = False
+                    continue
                 winner = row['away']
                 loser = row['home']
                 spread = str(float(row['spread']) * -1)
                 pmargin = str(row['pmargin'] * -1)
-        print(winner.ljust(20),spread.ljust(5),pmargin.ljust(5),loser.ljust(20),str(round(row['prob'],2)),row['tipstring'])
+        if print_game:
+            print(winner.ljust(20),spread.ljust(5),pmargin.ljust(5),loser.ljust(20),str(round(row['prob'],2)),row['tipstring'])
 
 if __name__ == '__main__':
     all_games = pd.read_csv('games.csv')
@@ -173,4 +181,4 @@ if __name__ == '__main__':
     today_resultsdf = todays_games[['away','home','pmargin','spread','tipstring']]
     today_resultsdf.insert(5, 'results', today_results)
     today_resultsdf.insert(6, 'prob', probs)
-    print_picks(today_resultsdf,prob=.6)
+    print_picks(today_resultsdf)
