@@ -74,7 +74,7 @@ def pick_features(initial_training_games,features):
 
 def get_initial_years_train_data(all_games, all_dates):
     training_games_list = []
-    for year in range(2012,2017):
+    for year in range(2012,2016):
         season_dates = make_season(year)
         for day in season_dates:
             training_games_list.append(all_games.ix[all_games['date']==day])
@@ -102,11 +102,13 @@ def print_picks(games,prob=.5):
                 winner = row['home']
                 loser = row['away']
                 spread = str(row['spread'])
+                pmargin = str(row['pmargin'])
             else:
                 winner = row['away']
                 loser = row['home']
                 spread = str(float(row['spread']) * -1)
-            print(winner.ljust(20),spread.ljust(5),loser.ljust(20),str(round(row['prob'],2)))
+                pmargin = str(row['pmargin'] * -1)
+            print(winner.ljust(20),spread.ljust(5),pmargin.ljust(5),loser.ljust(20),str(round(row['prob'],2)),row['tipstring'])
 
 if __name__ == '__main__':
     all_games = pd.read_csv('games.csv')
@@ -114,7 +116,7 @@ if __name__ == '__main__':
     initial_training_games = get_initial_years_train_data(all_games,all_dates)
 
     test_days = []
-    for day in make_season(2017):
+    for day in make_season(2016):
         test_days.append(all_games.ix[all_games['date']==day])
     test_data = pd.concat(test_days,ignore_index=True)
     features = ["true_home_game","DT_home_winner","DT_home_big","DT_away_big","DT_spread_diff","DT_home_movement",
@@ -157,7 +159,37 @@ if __name__ == '__main__':
     for j in range(len(game_matrix)):
         probs.append(max(max(clf.predict_proba(game_matrix[j].reshape(1,-1)))))
 
-    today_resultsdf = todays_games[['away','home','pmargin','spread']]
-    today_resultsdf.insert(4, 'results', today_results)
-    today_resultsdf.insert(5, 'prob', probs)
-    print_picks(today_resultsdf,prob=.6)
+    today_resultsdf = todays_games[['away','home','pmargin','spread','tipstring']]
+    today_resultsdf.insert(5, 'results', today_results)
+    today_resultsdf.insert(6, 'prob', probs)
+    print_picks(today_resultsdf,prob=.57)
+
+'''
+SMU -9
+Oklahoma 6
+La Salle 3.5
+Princeton -3
+Detroit 3*
+UNC Wilmington -21*
+Manhattan -5.5
+Canisius 3.5*
+Florida -2
+Utah State 8.5
+Washington State 8
+Alabama -7*
+LSU 6.5
+LMU 6*
+Long Beach State 3.5*
+
+Wins:
+Northern Illinois 1
+South Alabama 6.5
+
+Losses:
+George Washington 5.5
+Creighton -5
+Baylor -7.5
+Air Force -1.5
+Northeastern -2.5
+SIU Edwardsville 8
+'''
