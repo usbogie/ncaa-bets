@@ -569,28 +569,18 @@ def get_new_games(season='2017'):
         except:
             print(row.Game_Home,row.Game_Away)
             continue
-    with open('sb_data/game_lines.json','r') as infile:
-        game_lines = json.load(infile)
-    for game in game_lines:
-        try:
-            home = sb_names[game['home']]
-            away = sb_names[game['away']]
-            key = str((home,away))
-            new_game = upcoming_games[key]
-            new_game['key'] = key
-            new_game['spread_home'] = (float(game['spread_home'][:-6]),float(game['spread_home'][-5:-1]))
-            new_game['spread'] = new_game['spread_home'][0]
-        except:
-            continue
 
     with open('vi_data/vegas_today.json','r') as infile:
         vegas_info = json.load(infile)
     for game in vegas_info:
         try:
-            home = sb_names[game['home']]
-            away = sb_names[game['away']]
+            home = game['home']
+            away = game['away']
             key = str((home,away))
             new_game = upcoming_games[key]
+            new_game['key'] = key
+            new_game['spread_home'] = (float(game['close_line']),-110)
+            new_game['spread'] = new_game['spread_home'][0]
             new_game["line_movement"] = 0 if game["open_line"] == "" else new_game["spread"] - float(game["open_line"])
             new_game["home_public_percentage"] = 50 if game["home_side_pct"] == "" else float(game["home_side_pct"])
             new_game["home_ats"] = game["home_ats"].split("-")
