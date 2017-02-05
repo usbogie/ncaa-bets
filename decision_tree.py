@@ -73,131 +73,104 @@ def pick_features(initial_training_games,features):
 	return X,y
 
 def get_initial_years_train_data(all_games, all_dates):
-	training_games_list = []
-	for year in range(2012,2016):
-		season_dates = make_season(year)
-		for day in season_dates:
-			training_games_list.append(all_games.ix[all_games['date']==day])
-
+    training_games_list = []
+    for year in range(2012,2018):
+        if year == test_year:
+            continue
+        season_dates = make_season(year)
+        for day in season_dates:
+            training_games_list.append(all_games.ix[all_games['date']==day])
 	return pd.concat(training_games_list, ignore_index=True)
 
 def track_today(results_df,prob = .5,print_picks = False):
-	right = 0
-	wrong = 0
-	for idx, row in results_df.iterrows():
-		if float(row['results']) < 0 and row['home_cover'] < 0 and float(row['prob']) >= prob:
-			right += 1
-		elif float(row['results']) < 0 and row['home_cover'] > 0 and float(row['prob']) >= prob:
-			wrong += 1
-		elif float(row['results']) > 0 and row['home_cover'] < 0 and float(row['prob']) >= prob:
-			wrong += 1
-		elif float(row['results']) > 0 and row['home_cover'] > 0 and float(row['prob']) >= prob:
-			right += 1
-	return right,wrong
+    right = 0
+    wrong = 0
+    for idx, row in results_df.iterrows():
+        if float(row['results']) < 0 and row['home_cover'] < 0 and float(row['prob']) >= prob and row['pmargin'] + row['spread'] < -1:
+            right += 1
+        elif float(row['results']) < 0 and row['home_cover'] > 0 and float(row['prob']) >= prob and row['pmargin'] + row['spread'] < -1:
+            wrong += 1
+        elif float(row['results']) > 0 and row['home_cover'] < 0 and float(row['prob']) >= prob and row['pmargin'] + row['spread'] > 1:
+            wrong += 1
+        elif float(row['results']) > 0 and row['home_cover'] > 0 and float(row['prob']) >= prob and row['pmargin'] + row['spread'] > 1:
+            right += 1
+    return right,wrong
 
 def print_picks(games,prob=.5):
-	for idx, row in games.iterrows():
-		if row['prob'] >= prob:
-			if float(row['results']) > 0:
-				winner = row['home']
-				loser = row['away']
-				spread = str(row['spread'])
-				pmargin = str(row['pmargin'])
-			else:
-				winner = row['away']
-				loser = row['home']
-				spread = str(float(row['spread']) * -1)
-				pmargin = str(row['pmargin'] * -1)
-			print(winner.ljust(20),spread.ljust(5),pmargin.ljust(5),loser.ljust(20),str(round(row['prob'],2)),row['tipstring'])
+    for idx, row in games.iterrows():
+        if row['prob'] >= prob:
+            if float(row['results']) > 0:
+                winner = row['home']
+                loser = row['away']
+                spread = str(row['spread'])
+                pmargin = str(row['pmargin'])
+            else:
+                winner = row['away']
+                loser = row['home']
+                spread = str(float(row['spread']) * -1)
+                pmargin = str(row['pmargin'] * -1)
+        print(winner.ljust(20),spread.ljust(5),pmargin.ljust(5),loser.ljust(20),str(round(row['prob'],2)),row['tipstring'])
 
 if __name__ == '__main__':
-	all_games = pd.read_csv('games.csv')
-	all_dates = all_games.date.unique().tolist()
-	initial_training_games = get_initial_years_train_data(all_games,all_dates)
+    all_games = pd.read_csv('games.csv')
+    all_dates = all_games.date.unique().tolist()
+    for i in range(6):
+        test_year = 2012 + i
+        initial_training_games = get_initial_years_train_data(all_games,all_dates)
 
-	test_days = []
-	for day in make_season(2016):
-		test_days.append(all_games.ix[all_games['date']==day])
-	test_data = pd.concat(test_days,ignore_index=True)
-	features = ["true_home_game","DT_home_winner","DT_home_big","DT_away_big","DT_spread_diff","DT_home_movement",
-				"DT_away_movement","DT_home_public","DT_away_public","DT_home_ats","DT_away_ats","DT_home_FT",
-				"DT_away_FT","DT_home_tPAr","DT_away_tPAr","DT_home_reb","DT_away_reb","DT_home_TOVP","DT_away_TOVP"]
-	X_train,y = pick_features(initial_training_games,features)
-	X_test, y_test = pick_features(test_data,features)
+        test_days = []
+        for day in make_season(test_year):
+            test_days.append(all_games.ix[all_games['date']==day])
+        test_data = pd.concat(test_days,ignore_index=True)
+        features = ["true_home_game","DT_home_winner","DT_home_big","DT_away_big","DT_spread_diff","DT_home_movement",
+                    "DT_away_movement","DT_home_public","DT_away_public","DT_home_ats","DT_away_ats",
+                    "DT_home_FT","DT_away_FT","DT_home_tPAr","DT_away_tPAr","DT_home_reb","DT_away_reb","DT_home_TOVP","DT_away_TOVP"]
+        # X_train,y = pick_features(initial_training_games,features)
+        # X_test, y_test = pick_features(test_data,features)
+        #
+        # print(test_year)
+        # for i in range(7):
+        #     min_samples = i * 25
+        #     if i == 0:
+        #         min_samples = 1
+        #     clf = tree.DecisionTreeClassifier(min_samples_leaf=min_samples)
+        #     clf = clf.fit(X_train,y)
+        #
+        #     resultstree = clf.predict(X_test)
+        #     probs = []
+        #     for j in range(len(X_test)):
+        #         probs.append(max(max(clf.predict_proba(X_test[j].reshape(1,-1)))))
+        #
+        #     results_df = test_data[['away','home','pmargin','spread','home_cover']]
+        #     results_df.insert(5, 'results', resultstree)
+        #     results_df.insert(6, 'prob', probs)
+        #     right,wrong = track_today(results_df,prob=.55)
+        #     profit = right - 1.1 * wrong
+        #     if right + wrong == 0:
+        #         break
+        #     print("min_samples_leaf: ",min_samples,"\nProfit: ", profit, "\nTotal Games: ", right + wrong, "\nPercentage: ", right / (right + wrong),"\n")
 
-	score = 1
-	positive = False
-	min_samples = 100
-	# clf = tree.DecisionTreeClassifier(min_samples_leaf=min_samples)
-	# clf = clf.fit(X_train,y)
-	# score = clf.score(X_train,y)
-	#
-	# resultstree = clf.predict(X_test)
-	# probs = []
-	# for j in range(len(X_test)):
-	#     probs.append(max(max(clf.predict_proba(X_test[j].reshape(1,-1)))))
-	#
-	# results_df = test_data[['away','home','margin','spread','home_cover']]
-	# results_df.insert(5, 'results', resultstree)
-	# results_df.insert(6, 'prob', probs)
-	# right,wrong = track_today(results_df,prob = .6)
-	# profit = right - 1.1 * wrong
-	# if profit > 0:
-	#     positive = True
-	#     print("min_samples_leaf: ",min_samples,"\nProfit: ", profit, "\nTotal Games: ", right + wrong, "\nPercentage: ", right / (right + wrong),"\n")
-	# if not positive:
-	#     print("No samples minimum leads to a profit")
+    # Today's Games
+    X_train,y = pick_features(all_games,features)
+    min_samples = 125
+    clf = tree.DecisionTreeClassifier(min_samples_leaf=min_samples)
+    clf = clf.fit(X_train,y)
+    filename = 'tree'
+    tree.export_graphviz(clf, out_file='{}.dot'.format(filename),
+                        feature_names=features,
+                        class_names=True,
+                        filled=True,
+                        rounded=True,
+                        special_characters=True)
+    os.system('dot -Tpng {}.dot -o {}.png'.format(filename,filename))
+    todays_games = pd.read_csv('todays_games.csv')
+    game_matrix = todays_games.as_matrix(features)
+    today_results = clf.predict(game_matrix)
+    probs = []
+    for j in range(len(game_matrix)):
+        probs.append(max(max(clf.predict_proba(game_matrix[j].reshape(1,-1)))))
 
-	# Today's Games
-	X_train,y = pick_features(all_games,features)
-	clf = tree.DecisionTreeClassifier(min_samples_leaf=min_samples)
-	clf = clf.fit(X_train,y)
-	filename = 'tree'
-	tree.export_graphviz(clf, out_file='{}.dot'.format(filename),
-						feature_names=features,
-						class_names=True,
-						filled=True,
-						rounded=True,
-						special_characters=True)
-	os.system('dot -Tpng {}.dot -o {}.png'.format(filename,filename))
-	todays_games = pd.read_csv('todays_games.csv')
-	game_matrix = todays_games.as_matrix(features)
-	today_results = clf.predict(game_matrix)
-	probs = []
-	for j in range(len(game_matrix)):
-		probs.append(max(max(clf.predict_proba(game_matrix[j].reshape(1,-1)))))
-
-	today_resultsdf = todays_games[['away','home','pmargin','spread','tipstring']]
-	today_resultsdf.insert(5, 'results', today_results)
-	today_resultsdf.insert(6, 'prob', probs)
-	print_picks(today_resultsdf,prob=.525)
-
-'''
-SMU -9
-Oklahoma 6
-La Salle 3.5
-Princeton -3
-Detroit 3*
-UNC Wilmington -21*
-Manhattan -5.5
-Canisius 3.5*
-Florida -2
-Utah State 8.5
-Washington State 8
-Alabama -7*
-LSU 6.5
-LMU 6*
-Long Beach State 3.5*
-
-Wins:
-Northern Illinois 1
-South Alabama 6.5
-
-Losses:
-George Washington 5.5
-Creighton -5
-Baylor -7.5
-Air Force -1.5
-Northeastern -2.5
-SIU Edwardsville 8
-'''
+    today_resultsdf = todays_games[['away','home','pmargin','spread','tipstring']]
+    today_resultsdf.insert(5, 'results', today_results)
+    today_resultsdf.insert(6, 'prob', probs)
+    print_picks(today_resultsdf,prob=.6)

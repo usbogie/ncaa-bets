@@ -136,16 +136,18 @@ def betsy():
             # Decision Tree Stuff
             try:
                 if game["home_cover"] != 0:
-                    game["DT_home_winner"] = 1 if game["pmargin"] + game["spread"] > 0 else 0
-                    game["DT_home_big"] = 1 if game["spread"] < -10 else 0
-                    game["DT_away_big"] = 1 if game["spread"] > 10 else 0
-                    game["DT_spread_diff"] = 1 if abs(game["pmargin"] + game["spread"]) > 4 else 0
+                    game["DT_home_winner"] = 1 if game["pmargin"] + game["spread"] >= 0 else 0
+                    game["DT_home_big"] = 1 if game["spread"] <= -10 else 0
+                    game["DT_away_big"] = 1 if game["spread"] >= 10 else 0
+                    game["DT_spread_diff"] = 1 if abs(game["pmargin"] + game["spread"]) >= 4 else 0
                     game["DT_home_movement"] = 1 if game["line_movement"] <= -1 else 0
                     game["DT_away_movement"] = 1 if game["line_movement"] >= 1 else 0
                     game["DT_home_public"] = 1 if game["home_public_percentage"] >= 60 else 0
                     game["DT_away_public"] = 1 if game["home_public_percentage"] <= 40 else 0
                     game["DT_home_ats"] = 1 if game["home_ats"] > .55 else 0
                     game["DT_away_ats"] = 1 if game["away_ats"] > .55 else 0
+                    game["DT_home_ats_diff"] = 1 if game["home_ats"] >= .6 and game["away_ats"] <= .4 else 0
+                    game["DT_away_ats_diff"] = 1 if game["away_ats"] >= .6 and game["away_ats"] <= .4 else 0
                     game["DT_home_FT"] = 1 if np.mean(home["FT"]) > FT_avg + FT_std / 2 else 0
                     game["DT_away_FT"] = 1 if np.mean(away["FT"]) > FT_avg + FT_std / 2 else 0
                     game["DT_home_tPAr"] = 1 if np.mean(home["tPAr"]) > tPAr_avg + tPAr_std / 2 else 0
@@ -654,16 +656,18 @@ def get_new_games(season='2017'):
         game["pmargin"] = round(game["pmargin"])
 
         FT_std,tPAr_std,TRBP_std,TOVP_std,opp_TOVP_std,FT_avg,tPAr_avg,TRBP_avg,TOVP_avg,opp_TOVP_avg = get_standard_deviations_averages(int(season))
-        game["DT_home_winner"] = 1 if game["pmargin"] + game["spread"] > 0 else 0
-        game["DT_home_big"] = 1 if game["spread"] < -10 else 0
-        game["DT_away_big"] = 1 if game["spread"] > 10 else 0
-        game["DT_spread_diff"] = 1 if abs(game["pmargin"] + game["spread"]) > 4 else 0
+        game["DT_home_winner"] = 1 if game["pmargin"] + game["spread"] >= 0 else 0
+        game["DT_home_big"] = 1 if game["spread"] <= -10 else 0
+        game["DT_away_big"] = 1 if game["spread"] >= 10 else 0
+        game["DT_spread_diff"] = 1 if abs(game["pmargin"] + game["spread"]) >= 4 else 0
         game["DT_home_movement"] = 1 if game["line_movement"] <= -1 else 0
         game["DT_away_movement"] = 1 if game["line_movement"] >= 1 else 0
         game["DT_home_public"] = 1 if game["home_public_percentage"] >= 60 else 0
         game["DT_away_public"] = 1 if game["home_public_percentage"] <= 40 else 0
         game["DT_home_ats"] = 1 if game["home_ats"] > .55 else 0
         game["DT_away_ats"] = 1 if game["away_ats"] > .55 else 0
+        game["DT_home_ats_diff"] = 1 if game["home_ats"] >= .6 and game["away_ats"] <= .4 else 0
+        game["DT_away_ats_diff"] = 1 if game["away_ats"] >= .6 and game["away_ats"] <= .4 else 0
         game["DT_home_FT"] = 1 if np.mean(home["FT"]) > FT_avg + FT_std / 2 else 0
         game["DT_away_FT"] = 1 if np.mean(away["FT"]) > FT_avg + FT_std / 2 else 0
         game["DT_home_tPAr"] = 1 if np.mean(home["tPAr"]) > tPAr_avg + tPAr_std / 2 else 0
