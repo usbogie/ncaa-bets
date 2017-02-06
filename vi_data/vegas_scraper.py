@@ -9,7 +9,7 @@ import json
 
 ua = UserAgent()
 
-with open('new_names_dict.json','r') as infile:
+with open('vi_data/new_names_dict.json','r') as infile:
 	names_dict = json.load(infile)
 
 def make_season(start_year=2016):
@@ -47,7 +47,7 @@ def get_data(data=[],get_yesterday=False,get_today=False,year=2017):
 	base = "http://www.vegasinsider.com/college-basketball/matchups/matchups.cfm/date/"
 	today = int(datetime.now().strftime('%Y-%m-%d').replace('-',''))
 	for day in all_dates:
-		if int(datetime.now().strftime('%Y%m%d')) < int(day.replace('-','')):
+		if today < int(day.replace('-','')):
 			continue
 		if get_yesterday and today - int(day.replace('-','')) != 1:
 			continue
