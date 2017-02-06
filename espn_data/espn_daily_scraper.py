@@ -223,6 +223,15 @@ def get_tonight_info():
 	return pd.concat(gen_info, ignore_index=True).set_index('Game_ID')
 
 if __name__ == '__main__':
-	today_data = get_tonight_info()
-	today_data.drop_duplicates().to_csv('upcoming_games.csv', index_label='Game_ID')
-	print("Updated ESPN Data")
+	# today_data = get_tonight_info()
+	# today_data.drop_duplicates().to_csv('upcoming_games.csv', index_label='Game_ID')
+	# print("Updated ESPN Data")
+
+	last_night = update_espn_data()
+	cur_season = pd.read_csv('game_info2017.csv', index_col='Game_ID')
+	cur_season_indices = [str(idx) for idx in list(cur_season.index.values)]
+	for index, row in last_night.iterrows():
+		if index not in cur_season_indices:
+			cur_season = cur_season.append(row)
+	cur_season = cur_season[~cur_season.index.duplicated(keep='first')]
+	cur_season.to_csv('game_info2017.csv', index_label='Game_ID')

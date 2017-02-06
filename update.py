@@ -25,7 +25,7 @@ cur_season = pd.read_csv('espn_data/game_info2017.csv', index_col='Game_ID')
 cur_season_indices = [str(idx) for idx in list(cur_season.index.values)]
 for index, row in last_night.iterrows():
 	if index not in cur_season_indices:
-		cur_season.append(row)
+		cur_season = cur_season.append(row)
 cur_season = cur_season[~cur_season.index.duplicated(keep='first')]
 cur_season.to_csv('espn_data/game_info2017.csv', index_label='Game_ID')
 

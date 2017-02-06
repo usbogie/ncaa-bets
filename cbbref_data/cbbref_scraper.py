@@ -9,7 +9,7 @@ import json
 
 ua = UserAgent()
 
-with open('cbbref_data/new_names_dict.json','r') as infile:
+with open('new_names_dict.json','r') as infile:
 	names_dict = json.load(infile)
 
 def get_soup(url):
@@ -128,5 +128,6 @@ def get_games(year=2017):
 	return all_teams_df
 
 if __name__ == '__main__':
-	get_games(year=2017)
-	all_teams_df.to_csv("game_info{}.csv".format(year), index=False)
+	cur_season = get_games(year=2017)
+	cur_season.to_csv('game_info2017.csv', index=False)
+	print("Updated cbbref")

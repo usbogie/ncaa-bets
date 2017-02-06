@@ -45,7 +45,7 @@ with open('cbbref_data/new_names_dict.json','r') as infile:
     cbbr_names = json.load(infile)
 with open('tr_data/new_names_dict.json','r') as infile:
     tr_names = json.load(infile)
-with open('espn_data/names_dict.json') as infile:
+with open('espn_data/new_names_dict.json') as infile:
     espn_names = json.load(infile)
 
 def get_sports_ref_data(year_list=[2012,2013,2014,2015,2016,2017]):
@@ -63,11 +63,19 @@ def get_sports_ref_data(year_list=[2012,2013,2014,2015,2016,2017]):
                 home_game = True
                 if row.road_game:
                     home_game = False
-                    away = cbbr_names[row.team.strip()]
-                    home = cbbr_names[row.opponent.strip()]
+                    try:
+                        away = cbbr_names[row.team.strip()]
+                        home = cbbr_names[row.opponent.strip()]
+                    except:
+                        away = row.team.strip()
+                        home = row.opponent.strip()
                 else:
-                    home = cbbr_names[row.team.strip()]
-                    away = cbbr_names[row.opponent.strip()]
+                    try:
+                        home = cbbr_names[row.team.strip()]
+                        away = cbbr_names[row.opponent.strip()]
+                    except:
+                        home = row.team.strip()
+                        away = row.opponent.strip()
                 key = str((home,away,row.date))
                 try:
                     game = game_dict[key]
@@ -123,8 +131,12 @@ def get_spreads(year_list=[2012,2013,2014,2015,2016,2017]):
     for idx, year in enumerate(years):
         for i, row in year.iterrows():
             try:
-                home = sb_names[row.home]
-                away = sb_names[row.away]
+                try:
+                    home = sb_names[row.home]
+                    away = sb_names[row.away]
+                except:
+                    home = espn_names[row.home]
+                    away = espn_names[row.away]
                 d = str(row.date).split(' ')
                 d = d[0].split('-')
                 game_year = year_list[idx] if int(d[1]) < 8 else year_list[idx] - 1
@@ -171,8 +183,8 @@ def get_old_games(year_list = [2012,2013,2014,2015,2016,2017]):
         for i, row in year.iterrows():
             try:
                 game = {}
-                game["home"] = row.Game_Home.strip()
-                game["away"] = row.Game_Away.strip()
+                game["home"] = espn_names[row.Game_Home.strip()]
+                game["away"] = espn_names[row.Game_Away.strip()]
                 game["season"] = str(year_list[idx])
                 d = row.Game_Date.split("/")
                 d.append(row.Game_Year)

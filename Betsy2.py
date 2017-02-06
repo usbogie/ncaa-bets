@@ -13,8 +13,8 @@ with open('new_teams.json','r') as infile:
 # Keyed by str((home,away,date))
 with open('new_game_dict.json','r') as infile:
     game_dict = json.load(infile)
-with open('sb_data/new_names_dict.json','r') as infile:
-    sb_names = json.load(infile)
+with open('espn_data/new_names_dict.json','r') as infile:
+    espn_names = json.load(infile)
 
 # Number of games used to create starting stats for teams
 preseason_length = 5
@@ -588,13 +588,12 @@ def get_new_games(season='2017'):
             new_game["home_ats"] = 0 if new_game["home_ats"][0] == "0" and new_game["home_ats"][1] == "0" else int(new_game["home_ats"][0]) / (int(new_game["home_ats"][0])+int(new_game["home_ats"][1]))
             new_game["away_ats"] = 0 if new_game["away_ats"][0] == "0" and new_game["away_ats"][1] == "0" else int(new_game["away_ats"][0]) / (int(new_game["away_ats"][0])+int(new_game["away_ats"][1]))
             new_games.append(new_game)
-            print("Found:",game["home"],game["away"])
         except:
             print("In vegas info, no game matched:",game["home"],game["away"])
 
     for game in new_games:
-        home = teams[game["home"]+season]
-        away = teams[game["away"]+season]
+        home = teams[espn_names[game["home"]]+season]
+        away = teams[espn_names[game["away"]]+season]
 
         team_list = [home,away]
         home_dict = {}
@@ -667,6 +666,7 @@ def get_new_games(season='2017'):
         game["DT_home_TOVP"] = 1 if np.mean(home["TOVP"]) > TOVP_avg and np.mean(away["opp_TOVP"]) > opp_TOVP_avg + opp_TOVP_std/2 else 0
         game["DT_away_TOVP"] = 1 if np.mean(away["TOVP"]) > TOVP_avg and np.mean(home["opp_TOVP"]) > opp_TOVP_avg + opp_TOVP_std/2 else 0
 
+        print("Found:",game["home"],game["away"])
     with open('todays_games.csv','w') as outfile:
         keys = list(new_games[0].keys())
         writer = csv.DictWriter(outfile,fieldnames = keys)

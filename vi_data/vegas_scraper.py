@@ -9,7 +9,7 @@ import json
 
 ua = UserAgent()
 
-with open('vi_data/new_names_dict.json','r') as infile:
+with open('new_names_dict.json','r') as infile:
 	names_dict = json.load(infile)
 
 def make_season(start_year=2016):
