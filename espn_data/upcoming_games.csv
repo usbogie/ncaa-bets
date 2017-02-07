@@ -1,25 +1,29 @@
 Game_ID,Away_Abbrv,Home_Abbrv,Away_Score,Home_Score,Game_Away,Game_Home,Game_Year,Game_Date,Game_Tipoff,Game_Location,Neutral_Site,Conference_Competition,Attendance
-400915425,LOU,UVA,0,0,Louisville,Virginia,2017,02/06,19:00:00,John Paul Jones Arena|Charlottesville|Virginia,False,True,0
-400916070,ULM,GAST,0,0,Louisiana Monroe,Georgia State,2017,02/06,19:00:00,GSU Sports Arena|Atlanta|Georgia,False,True,0
-400916073,ULL,GASO,0,0,UL Lafayette,Georgia Southern,2017,02/06,19:00:00,W. S. Hanner Fieldhouse|Statesboro|Georgia,False,True,0
-400916960,ETSU,WOF,0,0,East Tennessee State,Wofford,2017,02/06,19:00:00,Benjamin Johnson Arena|Spartanburg|South Carolina,False,True,0
-400917620,CAN,SPU,0,0,Canisius,Saint Peter's,2017,02/06,19:00:00,Yanitelli Center|Jersey City|New Jersey,False,True,0
-400917621,QU,FAIR,0,0,Quinnipiac,Fairfield,2017,02/06,19:00:00,Webster Bank Arena|Bridgeport|Connecticut,False,True,0
-400917622,MONM,RID,0,0,Monmouth,Rider,2017,02/06,19:00:00,Alumni Gymnasium (Rider)|Lawrenceville|New Jersey,False,True,0
-400918623,ALBY,UNH,0,0,Albany,New Hampshire,2017,02/06,19:00:00,Lundholm Gymnasium|Durham|New Hampshire,False,True,0
-400918653,BING,UVM,0,0,Binghamton,Vermont,2017,02/06,19:00:00,Patrick Gymnasium|Burlington|Vermont,False,True,0
-400918673,HART,MAINE,0,0,Hartford,Maine,2017,02/06,19:00:00,Cross Insurance Center|Bangor|Maine,False,True,0
-400918714,UML,STON,0,0,UMass Lowell,Stony Brook,2017,02/06,19:00:00,Island FCU Arena|Stony Brook|New York,False,True,0
-400919100,HC,BUCK,0,0,Holy Cross,Bucknell,2017,02/06,19:00:00,Sojka Pavilion|Lewisburg|Pennsylvania,False,True,0
-400920372,HOW,BCU,0,0,Howard,Bethune-Cookman,2017,02/06,19:30:00,Moore Gymnasium|Daytona Beach|Florida,False,True,0
-400920409,NCCU,COPP,0,0,North Carolina Central,Coppin State,2017,02/06,19:30:00,Physical Education Complex|Baltimore|Maryland,False,True,0
-400920442,HAMP,SCST,0,0,Hampton,South Carolina State,2017,02/06,19:30:00,S-H-M Memorial Center|Orangeburg|South Carolina,False,True,0
-400916072,CCU,ARST,0,0,Coastal Carolina,Arkansas State,2017,02/06,20:00:00,ASU Convocation Center|Jonesboro|Arkansas,False,True,0
-400920428,DSU,FAMU,0,0,Delaware State,Florida A&M,2017,02/06,20:00:00,Al Lawson Center|Tallahassee|Florida,False,True,0
-400920527,NSU,SAV,0,0,Norfolk State,Savannah State,2017,02/06,20:00:00,Tiger Arena|Savannah|Georgia,False,True,0
-400922206,GRAM,ALCN,0,0,Grambling,Alcorn State,2017,02/06,20:00:00,Davey Whitney Complex|Lorman|Mississippi,False,True,0
-400922223,UAPB,AAMU,0,0,Arkansas-Pine Bluff,Alabama A&M,2017,02/06,20:30:00,T.M. Elmore Gymnasium|Normal|Alabama,False,True,0
-400922252,MVSU,ALST,0,0,Mississippi Valley State,Alabama State,2017,02/06,20:30:00,Dunn-Oliver Acadome|Montgomery|Alabama,False,True,0
-400916071,APP,UALR,0,0,Appalachian St,Little Rock,2017,02/06,21:00:00,Jack Stephens Center|Little Rock|Arkansas,False,True,0
-400916234,KU,KSU,0,0,Kansas,Kansas State,2017,02/06,21:00:00,Bramlage Coliseum|Manhattan|Kansas,False,True,0
-400920041,JKST,SOU,0,0,Jackson State,Southern,2017,02/06,21:00:00,F. G. Clark Activity Center|Baton Rouge|Louisiana,False,True,0
+400915036,MD,PSU,0,0,Maryland,Penn State,2017,02/07,18:00:00,Bryce Jordan Center|University Park|Pennsylvania,False,True,0
+400917159,BALL,AKR,0,0,Ball State,Akron,2017,02/07,18:00:00,James A. Rhodes Arena|Akron|Ohio,False,True,0
+400910561,ALA,SC,0,0,Alabama,South Carolina,2017,02/07,18:30:00,Colonial Life Arena|Columbia|South Carolina,False,True,0
+400910651,FLA,UGA,0,0,Florida,Georgia,2017,02/07,19:00:00,Stegeman Coliseum|Athens|Georgia,False,True,0
+400910698,LSU,UK,0,0,LSU,Kentucky,2017,02/07,19:00:00,Rupp Arena|Lexington|Kentucky,False,True,0
+400915427,WAKE,ND,0,0,Wake Forest,Notre Dame,2017,02/07,19:00:00,Purcell Pavilion|South Bend|Indiana,False,True,0
+400916618,TLSA,MEM,0,0,Tulsa,Memphis,2017,02/07,19:00:00,FedExForum|Memphis|Tennessee,False,True,0
+400917160,BGSU,KENT,0,0,Bowling Green,Kent State,2017,02/07,19:00:00,MAC Center|Kent|Ohio,False,True,0
+400917161,CMU,OHIO,0,0,Central Michigan,Ohio,2017,02/07,19:00:00,Convocation Center (OH)|Athens|Ohio,False,True,0
+400917162,EMU,TOL,0,0,Eastern Michigan,Toledo,2017,02/07,19:00:00,Savage Arena|Toledo|Ohio,False,True,0
+400917163,NIU,BUFF,0,0,Northern Illinois,Buffalo,2017,02/07,19:00:00,Alumni Arena|Buffalo|New York,False,True,0
+400917164,WMU,M-OH,0,0,Western Michigan,Miami (OH),2017,02/07,19:00:00,Millett Hall|Oxford|Ohio,False,True,0
+400917623,SIE,IONA,0,0,Siena,Iona,2017,02/07,19:00:00,Hynes Athletics Center|New Rochelle|New York,False,True,0
+400918426,URI,UMASS,0,0,Rhode Island,Massachusetts,2017,02/07,19:00:00,William D. Mullins Memorial Center|Amherst|Massachusetts,False,True,0
+400919335,PRIN,PENN,0,0,Princeton,Penn,2017,02/07,19:00:00,The Palestra|Philadelphia|Pennsylvania,False,True,0
+400919711,GTWN,NOVA,0,0,Georgetown,Villanova,2017,02/07,19:00:00,The Pavilion (Villanova)|Villanova|Pennsylvania,False,True,0
+400914967,ILL,NW,0,0,Illinois,Northwestern,2017,02/07,20:00:00,Welsh-Ryan Arena|Evanston|Illinois,False,True,0
+400915426,SYR,CLEM,0,0,Syracuse,Clemson,2017,02/07,20:00:00,Littlejohn Coliseum|Clemson|South Carolina,False,True,0
+400918230,ILST,DRKE,0,0,Illinois State,Drake,2017,02/07,20:00:00,The Knapp Center|Des Moines|Iowa,False,True,0
+400918312,JOES,DAY,0,0,Saint Joseph's,Dayton,2017,02/07,20:00:00,University of Dayton Arena|Dayton|Ohio,False,True,0
+400910597,VAN,ARK,0,0,Vanderbilt,Arkansas,2017,02/07,20:30:00,Bud Walton Arena|Fayetteville|Arkansas,False,True,0
+400910625,MSST,AUB,0,0,Mississippi State,Auburn,2017,02/07,21:00:00,Auburn Arena|Auburn|Alabama,False,True,0
+400911039,ISU,TEX,0,0,Iowa State,Texas,2017,02/07,21:00:00,Frank Erwin Center|Austin|Texas,False,True,0
+400915056,MSU,MICH,0,0,Michigan State,Michigan,2017,02/07,21:00:00,Crisler Center|Ann Arbor|Michigan,False,True,0
+400916235,TTU,TCU,0,0,Texas Tech,TCU,2017,02/07,21:00:00,Ed and Rae Schollmaier Arena|Fort Worth|Texas,False,True,0
+400919712,BUT,MARQ,0,0,Butler,Marquette,2017,02/07,21:00:00,BMO Harris Bradley Center|Milwaukee|Wisconsin,False,True,0
+400919849,USU,CSU,0,0,Utah State,Colorado State,2017,02/07,21:00:00,Moby Arena|Fort Collins|Colorado,False,True,0
+400919928,SDSU,SJSU,0,0,San Diego State,San Jose State,2017,02/07,23:00:00,Event Center (San Jose St.)|San Jose|California,False,True,0

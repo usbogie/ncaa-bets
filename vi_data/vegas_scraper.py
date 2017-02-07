@@ -9,8 +9,12 @@ import json
 
 ua = UserAgent()
 
-with open('new_names_dict.json','r') as infile:
-	names_dict = json.load(infile)
+try:
+	with open('new_names_dict.json','r') as infile:
+		names_dict = json.load(infile)
+except:
+	with open('vi_data/new_names_dict.json','r') as infile:
+		names_dict = json.load(infile)
 
 def make_season(start_year=2016):
 	months = ['11', '12', '01', '02', '03', '04']
@@ -45,13 +49,14 @@ def ordered(obj):
 def get_data(data=[],get_yesterday=False,get_today=False,year=2017):
 	all_dates = make_season(year-1)
 	base = "http://www.vegasinsider.com/college-basketball/matchups/matchups.cfm/date/"
-	today = int(datetime.now().strftime('%Y-%m-%d').replace('-',''))
+	today = int(datetime.now().strftime('%Y%m%d'))
+	yesterday = int((datetime.now()-timedelta(1)).strftime('%Y%m%d'))
 	for day in all_dates:
 		if today < int(day.replace('-','')):
 			continue
-		if get_yesterday and today - int(day.replace('-','')) != 1:
+		if get_yesterday and yesterday != int(day.replace('-','')):
 			continue
-		if get_today and today - int(day.replace('-','')) != 0:
+		if get_today and today != int(day.replace('-','')):
 			continue
 		print (day)
 		url_day = "-".join(day.split('-')[1:]+day.split('-')[:1])

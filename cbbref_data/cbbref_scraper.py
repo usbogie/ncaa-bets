@@ -8,9 +8,12 @@ import sys
 import json
 
 ua = UserAgent()
-
-with open('new_names_dict.json','r') as infile:
-	names_dict = json.load(infile)
+try:
+	with open('new_names_dict.json','r') as infile:
+		names_dict = json.load(infile)
+except:
+	with open('cbbref_data/new_names_dict.json','r') as infile:
+		names_dict = json.load(infile)
 
 def get_soup(url):
 	try:

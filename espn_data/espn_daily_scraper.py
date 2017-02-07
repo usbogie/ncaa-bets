@@ -11,13 +11,20 @@ import random
 import time
 import html
 
-
-
 ua = UserAgent()
+
+try:
+	with open('new_names_dict.json','r') as infile:
+		names_dict = json.load(infile)
+except:
+	with open('espn_data/new_names_dict.json','r') as infile:
+		names_dict = json.load(infile)
+
 info = ['Game_ID', 'Away_Abbrv', 'Home_Abbrv', 'Away_Score',
 		'Home_Score', 'Game_Away', 'Game_Home','Game_Year',
 		'Game_Date','Game_Tipoff', 'Game_Location', 'Neutral_Site',
 		'Conference_Competition', 'Attendance']
+
 base_url = "http://scores.espn.com/mens-college-basketball/scoreboard/_/group/50/date/"
 
 class Game(object):
@@ -56,19 +63,6 @@ class Game(object):
 		self.info_df['Neutral_Site'] = self.game_info['neutral_site']
 		self.info_df['Conference_Competition'] = self.game_info['conferenceCompetition']
 		self.info_df['Attendance'] = self.game_info['attendance']
-		#self.info_df['Away_Rank'] = self.away_rank
-		#self.info_df['Home_Rank'] = self.home_rank
-		#self.info_df['Away_Rec'] = self.away_rec
-		#self.info_df['Home_Rec'] = self.home_rec
-		#self.info_df['Away_1st'] = self.away_1st
-		#self.info_df['Away_2nd'] = self.away_2nd
-		#self.info_df['Away_OT'] = self.away_ot
-		#self.info_df['Home_1st'] = self.home_1st
-		#self.info_df['Home_2nd'] = self.home_2nd
-		#self.info_df['Home_OT'] = self.home_ot
-		#self.info_df['Officials'] = self.officials
-		#self.info_df = pd.concat([self.info_df, self.tourney_df], axis=1)
-
 
 def get_json(soup):
 	for link in soup.find_all('script'):
@@ -103,8 +97,13 @@ def get_data(game_url, game_info):
 	return gen_info
 
 def update_espn_data():
-	date = (datetime.now() - timedelta(1)).strftime('%Y-%m-%d').replace('-','')
+	date = (datetime.now() - timedelta(1)).strftime('%Y%m%d')
 	url = base_url + date
+	# ncaa_base = 'http://scores.espn.com/mens-college-basketball/scoreboard/_/date/'
+	# url_ncaa = base + date
+	# if date[4:6] == '03' or date[4:6] == '04':
+	# 	tourney_url = ncaa_base + date
+	# 	box_urls.append(tourney_url)
 
 	page = get_page(url)
 
@@ -149,8 +148,12 @@ def update_espn_data():
 			home = 0
 		game_info['Away_Abbrv'] = competitors[away]['team']['abbreviation']
 		game_info['Home_Abbrv'] = competitors[home]['team']['abbreviation']
-		game_info['Game_Away']  = html.unescape(competitors[away]['team']['location'])
-		game_info['Game_Home']  = html.unescape(competitors[home]['team']['location'])
+		try:
+			game_info['Game_Away'] = names_dict[html.unescape(competitors[away]['team']['location']).replace('\u00E9', 'e')]
+			game_info['Game_Home'] = names_dict[html.unescape(competitors[home]['team']['location']).replace('\u00E9', 'e')]
+		except:
+			print("Continue on {} vs {}".format(html.unescape(competitors[away]['team']['location']),))
+			continue
 		game_info['Away_Score'] = competitors[away]['score']
 		game_info['Home_Score'] = competitors[home]['score']
 
@@ -173,7 +176,7 @@ def update_espn_data():
 	return pd.concat(gen_info, ignore_index=True).set_index('Game_ID')
 
 def get_tonight_info():
-	date = datetime.now().strftime('%Y-%m-%d').replace('-','')
+	date = datetime.now().strftime('%Y%m%d')
 	url = base_url + date
 
 	content = get_page(url).read()
@@ -202,8 +205,12 @@ def get_tonight_info():
 			home = 0
 		game_info['Away_Abbrv'] = competitors[away]['team']['abbreviation']
 		game_info['Home_Abbrv'] = competitors[home]['team']['abbreviation']
-		game_info['Game_Away'] = html.unescape(competitors[away]['team']['location']).replace('\u00E9', 'e')
-		game_info['Game_Home'] = html.unescape(competitors[home]['team']['location']).replace('\u00E9', 'e')
+		try:
+			game_info['Game_Away'] = names_dict[html.unescape(competitors[away]['team']['location']).replace('\u00E9', 'e')]
+			game_info['Game_Home'] = names_dict[html.unescape(competitors[home]['team']['location']).replace('\u00E9', 'e')]
+		except:
+			print("Continue on {} vs {}".format(html.unescape(competitors[away]['team']['location']),html.unescape(competitors[home]['team']['location'])))
+			continue
 		game_info['Away_Score'] = competitors[away]['score']
 		game_info['Home_Score'] = competitors[home]['score']
 

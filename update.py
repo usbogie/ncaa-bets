@@ -10,15 +10,15 @@ from datetime import datetime, timedelta
 import json
 import csv
 
-games = sb.get_todays_sportsbook_lines()
-with open('sb_data/game_lines.json','w') as outfile:
-	json.dump(games,outfile)
-print("Updated new lines for today")
+# games = sb.get_todays_sportsbook_lines()
+# with open('sb_data/game_lines.json','w') as outfile:
+# 	json.dump(games,outfile)
+# print("Updated new lines for today")
 
 data = vi.get_data(get_today = True)
 with open('vi_data/vegas_today.json', 'w') as outfile:
 	json.dump(data, outfile)
-print("Updated vegas info for today")
+print("Updated Vegas info for today")
 
 last_night = espn.update_espn_data()
 cur_season = pd.read_csv('espn_data/game_info2017.csv', index_col='Game_ID')
@@ -33,25 +33,14 @@ today_data = espn.get_tonight_info()
 today_data.drop_duplicates().to_csv('espn_data/upcoming_games.csv', index_label='Game_ID')
 print("Updated ESPN Data")
 
-teams = kp.extract_kenpom(2017)
-with open('kp_data/kenpom17.json', 'w+') as outfile:
-	json.dump(teams, outfile)
-print("Updated KenPom")
-
-# team_list = tr.get_teamrankings([2017])
-# with open('tr_data/team_stats17.csv', 'w') as outfile:
-# 	keys = list(team_list[0].keys())
-# 	writer = csv.DictWriter(outfile,fieldnames=keys)
-# 	writer.writeheader()
-# 	for team in team_list:
-# 		writer.writerow(team)
-# print("Updated team stats")
-
 #get yesterday's vegas_insider info
-with open('vi_data/vegas_2017.json', 'w') as vegasfile:
-	yesterday_games = vi.get_data(year=2017)
+with open('vi_data/vegas_2017.json', 'r+') as vegasfile:
+	gamelines = json.load(vegasfile)
+	yesterday_games = vi.get_data(data=gamelines, get_yesterday=True)
+	vegasfile.seek(0)
+	vegasfile.truncate()
 	json.dump(yesterday_games, vegasfile)
-print("Updated Vegas Insider")
+print("Updated Yesterday Vegas Insider")
 
 cur_season = cbbref.get_games(year=2017)
 cur_season.to_csv('cbbref_data/game_info2017.csv', index=False)
