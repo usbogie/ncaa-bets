@@ -129,14 +129,14 @@ if __name__ == '__main__':
     # for i in range(6):
     #     test_year = 2012 + i
     #     initial_training_games = get_initial_years_train_data(all_games,all_dates)
-    #
+	#
     #     test_days = []
     #     for day in make_season(test_year):
     #         test_days.append(all_games.ix[all_games['date']==day])
     #     test_data = pd.concat(test_days,ignore_index=True)
     #     X_train,y = pick_features(initial_training_games,features)
     #     X_test, y_test = pick_features(test_data,features)
-    #
+	#
     #     print(test_year)
     #     for i in range(7):
     #         min_samples = i * 25
@@ -144,12 +144,12 @@ if __name__ == '__main__':
     #             min_samples = 1
     #         clf = tree.DecisionTreeClassifier(min_samples_leaf=min_samples)
     #         clf = clf.fit(X_train,y)
-    #
+	#
     #         resultstree = clf.predict(X_test)
     #         probs = []
     #         for j in range(len(X_test)):
     #             probs.append(max(max(clf.predict_proba(X_test[j].reshape(1,-1)))))
-    #
+	#
     #         results_df = test_data[['away','home','pmargin','spread','home_cover']]
     #         results_df.insert(5, 'results', resultstree)
     #         results_df.insert(6, 'prob', probs)
@@ -161,7 +161,7 @@ if __name__ == '__main__':
 
     # Today's Games
     X_train,y = pick_features(all_games,features)
-    min_samples = 125
+    min_samples = 100
     clf = tree.DecisionTreeClassifier(min_samples_leaf=min_samples)
     clf = clf.fit(X_train,y)
     # filename = 'tree'
@@ -182,4 +182,4 @@ if __name__ == '__main__':
     today_resultsdf = todays_games[['away','home','pmargin','spread','tipstring']]
     today_resultsdf.insert(5, 'results', today_results)
     today_resultsdf.insert(6, 'prob', probs)
-    print_picks(today_resultsdf,prob=.55,check_pmargin=True)
+    print_picks(today_resultsdf,prob=.5)

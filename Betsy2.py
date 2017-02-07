@@ -553,8 +553,8 @@ def get_new_games(season='2017'):
     for i, row in gamesdf.iterrows():
         try:
             game = {}
-            game["home"] = row.Game_Home.strip()
-            game["away"] = row.Game_Away.strip()
+            game["home"] = espn_names[row.Game_Home.strip()]
+            game["away"] = espn_names[row.Game_Away.strip()]
             game["tipoff"] = row.Game_Tipoff
             hour = int(game["tipoff"].split(":")[0])
             central = hour-1 if hour != 0 else 23
@@ -574,8 +574,8 @@ def get_new_games(season='2017'):
         vegas_info = json.load(infile)
     for game in vegas_info:
         try:
-            home = game['home']
-            away = game['away']
+            home = espn_names[game['home']]
+            away = espn_names[game['away']]
             key = str((home,away))
             new_game = upcoming_games[key]
             new_game['key'] = key
