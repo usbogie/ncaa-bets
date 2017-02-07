@@ -2,6 +2,9 @@ from pprint import pprint
 import numpy as np
 import pandas as pd
 from sklearn import tree
+from sklearn.model_selection import GridSearchCV
+from time import time
+from operator import itemgetter
 import os
 
 def partition(a):
@@ -48,6 +51,38 @@ def recursive_split(x, y, feature_dict):
 
 		res["{} = {}".format(feature_dict[selected_attr], k)] = recursive_split(x_subset, y_subset, feature_dict)
 	return res
+
+def run_gridsearch(X_train, y, game_matrix):
+	param_grid = {"criterion": ["gini", "entropy"],
+			  "max_depth": [None,2,3,4,5,6,7,8,9,10,11,12,13,14,15],
+			  "min_samples_leaf": [50,100,150,200,250,300,350,400,450,500,550,600,650,750,800]}
+	clf = GridSearchCV(tree.DecisionTreeClassifier(), param_grid=param_grid,cv=10)
+	start = time()
+	clf.fit(X_train, y)
+	print(("\nGridSearchCV took {:.2f} "
+		   "seconds for {:d} candidate "
+		   "parameter settings.").format(time() - start,
+				len(clf.grid_scores_)))
+	top_scores = sorted(clf.grid_scores_, key=itemgetter(1), reverse=True)[:10]
+	for i, score in enumerate(top_scores):
+		print("Model with rank: {0}".format(i + 1))
+		print(("Mean validation score: "
+			   "{0:.3f} (std: {1:.3f})").format(
+			   score.mean_validation_score,
+			   np.std(score.cv_validation_scores)))
+		print("Parameters: {0}".format(score.parameters))
+		print("")
+
+	today_results = clf.predict(game_matrix)
+	probs = []
+	for j in range(len(game_matrix)):
+		probs.append(max(max(clf.predict_proba(game_matrix[j].reshape(1,-1)))))
+
+	today_resultsdf = todays_games[['away','home','pmargin','spread','tipstring']]
+	today_resultsdf.insert(5, 'results', today_results)
+	today_resultsdf.insert(6, 'prob', probs)
+	print_picks(today_resultsdf,prob=.5)
+
 
 def make_season(start_year):
 	dates = {'11': list(range(31)[1:]), '12': list(range(32)[1:]), '01': list(range(32)[1:]),
@@ -163,19 +198,22 @@ if __name__ == '__main__':
 
 	# Today's Games
 	X_train,y = pick_features(all_games,features)
+
 	min_samples = 100
 	clf = tree.DecisionTreeClassifier(min_samples_leaf=min_samples)
 	clf = clf.fit(X_train,y)
 	filename = 'tree'
 	tree.export_graphviz(clf, out_file='{}.dot'.format(filename),
-	                    feature_names=features,
-	                    class_names=True,
-	                    filled=True,
-	                    rounded=True,
-	                    special_characters=True)
+						feature_names=features,
+						class_names=True,
+						filled=True,
+						rounded=True,
+						special_characters=True)
 	os.system('dot -Tpng {}.dot -o {}.png'.format(filename,filename))
 	todays_games = pd.read_csv('todays_games.csv')
 	game_matrix = todays_games.as_matrix(features)
+	run_gridsearch(X_train,y,game_matrix)
+	print("\n\n~~~~~~~~~~Regular Desicion Tree Results~~~~~~~~~~~~~~~~\n\n")
 	today_results = clf.predict(game_matrix)
 	probs = []
 	for j in range(len(game_matrix)):
