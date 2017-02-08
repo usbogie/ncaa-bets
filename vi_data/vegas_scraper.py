@@ -180,6 +180,7 @@ def get_data(data=[],get_yesterday=False,get_today=False,year=2017):
 
 			game_info['away_side_pct'] = re.sub('\s+','',away_info[8].text.replace('%', ''))
 			game_info['home_side_pct'] = re.sub('\s+','',home_info[8].text.replace('%', ''))
+			game_info['over_pct'] = re.sub('\s+','',away_info[10].text.replace('%', ''))
 			add = True
 			for line in data:
 				if ordered(line) == ordered(game_info):
@@ -189,11 +190,11 @@ def get_data(data=[],get_yesterday=False,get_today=False,year=2017):
 	return data
 
 if __name__ == '__main__':
-	# cur_year = 2017
-	# data = get_data(year=cur_year)
-	# with open('vegas_{}.json'.format(cur_year),'w') as infile:
-	# 	json.dump(data,infile)
-	data = get_data(get_today = True)
-	with open('vegas_today.json', 'w') as outfile:
-		json.dump(data, outfile)
-	print("Updated vegas info for today")
+	cur_year = 2017
+	data = get_data(year=cur_year)
+	with open('vegas_{}.json'.format(cur_year),'w') as infile:
+		json.dump(data,infile)
+	# data = get_data(get_today = True)
+	# with open('vegas_today.json', 'w') as outfile:
+	# 	json.dump(data, outfile)
+	# print("Updated vegas info for today")

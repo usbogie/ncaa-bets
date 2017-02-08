@@ -164,6 +164,10 @@ def get_spreads(year_list=[2012,2013,2014,2015,2016,2017]):
                 game["away_ats"] = row.away_ats.split("-")
                 game["home_ats"] = 0 if game["home_ats"][0] == "0" and game["home_ats"][1] == "0" else int(game["home_ats"][0]) / (int(game["home_ats"][0])+int(game["home_ats"][1]))
                 game["away_ats"] = 0 if game["away_ats"][0] == "0" and game["away_ats"][1] == "0" else int(game["away_ats"][0]) / (int(game["away_ats"][0])+int(game["away_ats"][1]))
+                game["total"] = float(row.over_under)
+                game["over"] = .5 if game["home_score"] + game["away_score"] > game["total"] else -.5
+                game["over"] = 0 if game["home_score"] + game["away_score"] == game["total"] else game["over"]
+                game["over_pct"] = float(row.over_pct)
                 if math.isnan(game["spread"]):
                     print("Found spread nan that wasn't \"\"")
                     continue
@@ -338,9 +342,7 @@ def new_get_home_splits(year_list = [2012,2013,2014,2015,2016,2017]):
         game[pre+'DRTGprevSeason'] = team_date['DRTGprevSeason']
 
 # make_teams_dict()
-get_old_games(year_list = [2017])
-get_spreads(year_list = [2017])
-get_sports_ref_data(year_list = [2017])
+get_spreads()
 
 with open('new_teams.json', 'w') as outfile:
     json.dump(teams,outfile)

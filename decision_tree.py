@@ -145,6 +145,7 @@ def print_picks(games,prob=.5,check_pmargin=False):
 				loser = row['away']
 				spread = str(row['spread'])
 				pmargin = str(row['pmargin'])
+				loc = "v "
 			else:
 				if check_pmargin and row['pmargin'] + row['spread'] >= -1:
 					print_game = False
@@ -153,9 +154,10 @@ def print_picks(games,prob=.5,check_pmargin=False):
 				loser = row['home']
 				spread = str(float(row['spread']) * -1)
 				pmargin = str(row['pmargin'] * -1)
+				loc = "@ "
 			bet_string = 'Bet' if float(spread)+float(pmargin)>=1.0 and row['prob']>.523 else 'Caution'
 			if print_game:
-				print(winner.ljust(20),spread.ljust(5),pmargin.ljust(5),loser.ljust(20),str(round(row['prob'],2)).ljust(5),row['tipstring'].ljust(12),bet_string)
+				print(bet_string,winner.ljust(20),spread.ljust(5),pmargin.ljust(5),loc,loser.ljust(20),str(round(row['prob'],2)).ljust(5),row['tipstring'].ljust(12))
 
 if __name__ == '__main__':
 	all_games = pd.read_csv('games.csv')
@@ -175,7 +177,7 @@ if __name__ == '__main__':
 	#     X_test, y_test = pick_features(test_data,features)
 	#
 	#     print(test_year)
-	#     for i in range(7):
+	#     for i in range(4,6):
 	#         min_samples = i * 25
 	#         if i == 0:
 	#             min_samples = 1
@@ -222,4 +224,4 @@ if __name__ == '__main__':
 	today_resultsdf = todays_games[['away','home','pmargin','spread','tipstring']]
 	today_resultsdf.insert(5, 'results', today_results)
 	today_resultsdf.insert(6, 'prob', probs)
-	print_picks(today_resultsdf,prob=.5)
+	print_picks(today_resultsdf,prob=.5,check_pmargin=True)
