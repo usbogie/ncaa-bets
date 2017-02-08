@@ -152,7 +152,7 @@ def update_espn_data():
 			game_info['Game_Away'] = names_dict[html.unescape(competitors[away]['team']['location']).replace('\u00E9', 'e')]
 			game_info['Game_Home'] = names_dict[html.unescape(competitors[home]['team']['location']).replace('\u00E9', 'e')]
 		except:
-			print("Continue on {} vs {}".format(html.unescape(competitors[away]['team']['location']),))
+			print("Continue on {} vs {}".format(html.unescape(competitors[away]['team']['location']),html.unescape(competitors[home]['team']['location']).replace('\u00E9', 'e')))
 			continue
 		game_info['Away_Score'] = competitors[away]['score']
 		game_info['Home_Score'] = competitors[home]['score']
