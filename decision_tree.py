@@ -9,7 +9,7 @@ from operator import itemgetter
 import matplotlib.pyplot as plt
 import os
 
-def run_gridsearch(X_train, y, game_matrix):
+def run_gridsearch(X_train, y):
     param_grid = {"estimator__criterion": ["gini", "entropy"],
               "estimator__max_depth": [None,2,3,4,5,6,7,8,9,10,11,12,13,14,15],
               "estimator__min_samples_leaf": [50,100,150,200,250,300,350,400,450,500,550,600,650,750,800]}
@@ -21,32 +21,21 @@ def run_gridsearch(X_train, y, game_matrix):
     print(rfe.ranking_)
 
 
-    # clf = GridSearchCV(selector, param_grid=param_grid, cv=5, verbose=100)
-    # start = time()
-    # clf.fit(X_train, y)
-    # print(("\nGridSearchCV took {:.2f} "
-    # 	   "seconds for {:d} candidate "
-    # 	   "parameter settings.").format(time() - start, len(clf.grid_scores_)))
-    # top_scores = sorted(clf.grid_scores_, key=itemgetter(1), reverse=True)[:10]
-    # for i, score in enumerate(top_scores):
-    # 	print("Model with rank: {0}".format(i + 1))
-    # 	print(("Mean validation score: "
-    # 		   "{0:.3f} (std: {1:.3f})").format(
-    # 		   score.mean_validation_score,
-    # 		   np.std(score.cv_validation_scores)))
-    # 	print("Parameters: {0}".format(score.parameters))
-    # 	print("")
-
-    today_results = clf.predict(game_matrix)
-    probs = []
-    for j in range(len(game_matrix)):
-        probs.append(max(max(clf.predict_proba(game_matrix[j].reshape(1,-1)))))
-
-    today_resultsdf = todays_games[['away','home','pmargin','spread','tipstring']]
-    today_resultsdf.insert(5, 'results', today_results)
-    today_resultsdf.insert(6, 'prob', probs)
-    print_picks(today_resultsdf,prob=.5)
-
+    clf = GridSearchCV(selector, param_grid=param_grid, cv=5, verbose=100)
+    start = time()
+    clf.fit(X_train, y)
+    print(("\nGridSearchCV took {:.2f} "
+    	   "seconds for {:d} candidate "
+    	   "parameter settings.").format(time() - start, len(clf.grid_scores_)))
+    top_scores = sorted(clf.grid_scores_, key=itemgetter(1), reverse=True)[:10]
+    for i, score in enumerate(top_scores):
+    	print("Model with rank: {0}".format(i + 1))
+    	print(("Mean validation score: "
+    		   "{0:.3f} (std: {1:.3f})").format(
+    		   score.mean_validation_score,
+    		   np.std(score.cv_validation_scores)))
+    	print("Parameters: {0}".format(score.parameters))
+    	print("")
 
 def make_season(start_year):
     dates = {'11': list(range(31)[1:]), '12': list(range(32)[1:]), '01': list(range(32)[1:]),
@@ -73,7 +62,7 @@ def pick_features(initial_training_games,features):
 
 def get_initial_years_train_data(all_games, all_dates,test_year):
     training_games_list = []
-    for year in range(2012,2018):
+    for year in range(2011,2018):
         if year == test_year:
             continue
         season_dates = make_season(year)
@@ -142,8 +131,8 @@ def test_over_under(over_games,ou_features):
 
     min_samp_dict = {}
     feature_dict = {}
-    for i in range(6):
-        test_year = 2012 + i
+    for i in range(7):
+        test_year = 2011 + i
         initial_training_games = get_initial_years_train_data(over_games,all_dates)
 
         test_days = []
@@ -190,8 +179,8 @@ def test_over_under(over_games,ou_features):
 def test_spread(all_games,all_dates,features):
     min_samp_dict = {}
     feature_dict = {}
-    for i in range(6):
-        test_year = 2012 + i
+    for i in range(7):
+        test_year = 2011 + i
         initial_training_games = get_initial_years_train_data(all_games,all_dates,test_year)
 
         test_days = []
@@ -287,11 +276,14 @@ if __name__ == '__main__':
     all_games = pd.read_csv('games.csv')
     all_dates = all_games.date.unique().tolist()
 
-    features = ["true_home_game","DT_home_winner","DT_spread_diff",
+    features = ["true_home_game","DT_home_winner","DT_spread_diff","DT_home_fav","DT_away_fav",
                 "DT_away_movement","DT_home_public","DT_away_public","DT_home_ats","DT_away_ats",
                 "DT_home_tPAr","DT_away_tPAr","DT_home_reb","DT_away_reb","DT_home_TOVP"]
 
-    test_spread(all_games,all_dates,features)
+    X_train,y = pick_features(all_games,features)
+    run_gridsearch(X_train,y)
+    
+    # test_spread(all_games,all_dates,features)
 
     # predict_today_spreads(all_games,features)
 

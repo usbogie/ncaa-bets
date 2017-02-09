@@ -10,11 +10,11 @@ import math
 from scipy.stats.mstats import zscore
 
 teams = {}
-# with open('new_teams.json','r') as infile:
-#     teams = json.load(infile)
+with open('new_teams.json','r') as infile:
+    teams = json.load(infile)
 game_dict = {}
-# with open('new_game_dict.json','r') as infile:
-#     game_dict = json.load(infile)
+with open('new_game_dict.json','r') as infile:
+    game_dict = json.load(infile)
 with open('vi_data/new_names_dict.json','r') as infile:
     sb_names = json.load(infile)
 with open('kp_data/new_names_dict.json','r') as infile:
@@ -26,11 +26,11 @@ with open('tr_data/new_names_dict.json','r') as infile:
 with open('espn_data/new_names_dict.json') as infile:
     espn_names = json.load(infile)
 
-def get_sports_ref_data(year_list=[2012,2013,2014,2015,2016,2017]):
+def get_sports_ref_data(year_list=[2011,2012,2013,2014,2015,2016,2017]):
     years = []
-    csvs = ["game_info2012.csv","game_info2013.csv","game_info2014.csv","game_info2015.csv","game_info2016.csv","game_info2017.csv"]
+    csvs = ["game_info2011.csv","game_info2012.csv","game_info2013.csv","game_info2014.csv","game_info2015.csv","game_info2016.csv","game_info2017.csv"]
     for i, csv in enumerate(csvs):
-        if i + 2012 in year_list:
+        if i + 2011 in year_list:
             gamesdf = pd.read_csv('cbbref_data/' + csv)
             years.append(gamesdf)
     x = 0
@@ -45,15 +45,15 @@ def get_sports_ref_data(year_list=[2012,2013,2014,2015,2016,2017]):
                         away = cbbr_names[row.team.strip()]
                         home = cbbr_names[row.opponent.strip()]
                     except:
-                        away = row.team.strip()
-                        home = row.opponent.strip()
+                        away = espn_names[row.team.strip()]
+                        home = espn_names[row.opponent.strip()]
                 else:
                     try:
                         home = cbbr_names[row.team.strip()]
                         away = cbbr_names[row.opponent.strip()]
                     except:
-                        home = row.team.strip()
-                        away = row.opponent.strip()
+                        home = espn_names[row.team.strip()]
+                        away = espn_names[row.opponent.strip()]
                 key = str((home,away,row.date))
                 try:
                     game = game_dict[key]
@@ -93,19 +93,19 @@ def get_sports_ref_data(year_list=[2012,2013,2014,2015,2016,2017]):
                 game[loc+'ORBP'] = row.ORBP
                 game[loc+'FT'] = row.FT
             except:
+                print(row.team.strip(),row.opponent.strip())
                 continue
     print(x)
 
-def get_spreads(year_list=[2012,2013,2014,2015,2016,2017]):
+def get_spreads(year_list=[2011,2012,2013,2014,2015,2016,2017]):
     print("Getting sportsbook info from Vegas Insider")
     years = []
-    jsons = ['vegas_2012.json','vegas_2013.json','vegas_2014.json','vegas_2015.json','vegas_2016.json','vegas_2017.json']
+    jsons = ['vegas_2011.json','vegas_2012.json','vegas_2013.json','vegas_2014.json','vegas_2015.json','vegas_2016.json','vegas_2017.json']
     folder = 'vi_data/'
     for i, json in enumerate(jsons):
-        if i + 2012 in year_list:
+        if i + 2011 in year_list:
             vdf = pd.read_json(folder + json)
             years.append(vdf)
-
     for idx, year in enumerate(years):
         for i, row in year.iterrows():
             try:
@@ -118,12 +118,22 @@ def get_spreads(year_list=[2012,2013,2014,2015,2016,2017]):
                 d = str(row.date).split(' ')
                 d = d[0].split('-')
                 game_year = year_list[idx] if int(d[1]) < 8 else year_list[idx] - 1
-                datearray = [game_year,int(d[1]),int(d[2])]
                 key = str((home,away,str(row.date).split(' ')[0]))
-                game = game_dict[key]
+                switch = 1
+                try:
+                    game = game_dict[key]
+                except:
+                    try:
+                        switch = -1
+                        key = str((away,home,str(row.date).split(' ')[0]))
+                        game = game_dict[key]
+                    except:
+                        switch = 1
+                        key = str((home,away,str(row.date+timedelta(1)).split(' ')[0]))
+                        game = game_dict[key]
                 if row.close_line == "":
                     continue
-                game["spread"] = float(row.close_line)
+                game["spread"] = float(row.close_line) * switch
                 if game["spread"] > 65 or game["spread"] < -65:
                     print("Found big spread, probably an over/under")
                     continue
@@ -136,28 +146,36 @@ def get_spreads(year_list=[2012,2013,2014,2015,2016,2017]):
                 else:
                     game["cover"] = "Tie"
                     game["home_cover"] = 0
-                game["line_movement"] = 0 if row.open_line == "" else game["spread"] - float(row.open_line)
+                game["line_movement"] = 0 if row.open_line == "" else game["spread"] - float(row.open_line) * switch
                 game["home_public_percentage"] = 50 if row.home_side_pct == "" else float(row.home_side_pct)
                 game["home_ats"] = row.home_ats.split("-")
                 game["away_ats"] = row.away_ats.split("-")
                 game["home_ats"] = 0 if game["home_ats"][0] == "0" and game["home_ats"][1] == "0" else int(game["home_ats"][0]) / (int(game["home_ats"][0])+int(game["home_ats"][1]))
                 game["away_ats"] = 0 if game["away_ats"][0] == "0" and game["away_ats"][1] == "0" else int(game["away_ats"][0]) / (int(game["away_ats"][0])+int(game["away_ats"][1]))
-                game["total"] = float(row.over_under)
-                game["over"] = .5 if game["home_score"] + game["away_score"] > game["total"] else -.5
-                game["over"] = 0 if game["home_score"] + game["away_score"] == game["total"] else game["over"]
-                game["over_pct"] = float(row.over_pct)
+                if switch == -1:
+                    game["home_public_percentage"] = 100 - game["home_public_percentage"]
+                    tmp = game["home_ats"]
+                    game["home_ats"] = game["away_ats"]
+                    game["away_ats"] = tmp
+                try:
+                    game["total"] = float(row.over_under)
+                    game["over"] = .5 if game["home_score"] + game["away_score"] > game["total"] else -.5
+                    game["over"] = 0 if game["home_score"] + game["away_score"] == game["total"] else game["over"]
+                    game["over_pct"] = float(row.over_pct)
+                except:
+                    pass
                 if math.isnan(game["spread"]):
                     print("Found spread nan that wasn't \"\"")
                     continue
             except:
                 continue
 
-def get_old_games(year_list = [2012,2013,2014,2015,2016,2017]):
+def get_old_games(year_list = [2011,2012,2013,2014,2015,2016,2017]):
     print("Getting old games from ESPN")
     years = []
-    csvs = ["game_info2012.csv","game_info2013.csv","game_info2014.csv","game_info2015.csv","game_info2016.csv","game_info2017.csv"]
+    csvs = ["game_info2011.csv","game_info2012.csv","game_info2013.csv","game_info2014.csv","game_info2015.csv","game_info2016.csv","game_info2017.csv"]
     for i, csv in enumerate(csvs):
-        if i + 2012 in year_list:
+        if i + 2011 in year_list:
             gamesdf = pd.read_csv('espn_data/' + csv)
             years.append(gamesdf)
     for idx, year in enumerate(years):
@@ -202,23 +220,23 @@ def get_old_games(year_list = [2012,2013,2014,2015,2016,2017]):
             except:
                 continue
 
-def make_teams_dict():
+def make_teams_dict(year_list = [2011,2012,2013,2014,2015,2016,2017]):
     nameset = set()
     new_teams = ["Grand Canyon", "UMass Lowell", "New Orleans", "Incarnate Word", "Abilene Christian", "Northern Kentucky", "Omaha"]
     for kp,espn in kp_names.items():
         nameset.add(espn)
     for name in nameset:
-        for i in range(6):
-            if i < 2 and name in new_teams:
-                if i == 1 and name in ["Northern Kentucky", "Omaha"]:
+        for i in year_list:
+            if i <= 2013 and name in new_teams:
+                if i == 2013 and name in ["Northern Kentucky", "Omaha"]:
                     pass
                 else:
                     continue
-            teams[name+str(2012+i)] = {}
-            teams[name+str(2012+i)]["name"] = name
-            teams[name+str(2012+i)]["year"] = 2012+i
-            teams[name+str(2012+i)]["games"] = []
-            teams[name+str(2012+i)]["prev_games"] = []
+            teams[name+str(i)] = {}
+            teams[name+str(i)]["name"] = name
+            teams[name+str(i)]["year"] = i
+            teams[name+str(i)]["games"] = []
+            teams[name+str(i)]["prev_games"] = []
 
 def betsy():
     home_ortg_std_list = []
@@ -236,7 +254,7 @@ def betsy():
             del team["games"][0]
     for key,team in teams.items():
         team["variance"] = []
-    gamedate = date(2011,11,1)
+    gamedate = date(2010,11,1)
     margins = {}
     diffs = {}
     data_list = []
@@ -340,7 +358,9 @@ def betsy():
                     game["DT_home_winner"] = 1 if game["pmargin"] + game["spread"] >= 0 else 0
                     game["DT_home_big"] = 1 if game["spread"] <= -10 else 0
                     game["DT_away_big"] = 1 if game["spread"] >= 7 else 0
-                    game["DT_spread_diff"] = 1 if abs(game["pmargin"] + game["spread"]) >= 4 else 0
+                    game["DT_spread_diff"] = 1 if abs(game["pmargin"] + game["spread"]) >= 3 else 0
+                    game["DT_home_fav"] = 1 if game["pmargin"] + game["spread"] >= 2 else 0
+                    game["DT_away_fav"] = 1 if game["pmargin"] + game["spread"] <= -2 else 0
                     game["DT_home_movement"] = 1 if game["line_movement"] <= -1 else 0
                     game["DT_away_movement"] = 1 if game["line_movement"] >= 1 else 0
                     game["DT_home_public"] = 1 if game["home_public_percentage"] >= 60 else 0
@@ -806,7 +826,9 @@ def get_new_games(season='2017'):
         game["DT_home_winner"] = 1 if game["pmargin"] + game["spread"] >= 0 else 0
         game["DT_home_big"] = 1 if game["spread"] <= -10 else 0
         game["DT_away_big"] = 1 if game["spread"] >= 7 else 0
-        game["DT_spread_diff"] = 1 if abs(game["pmargin"] + game["spread"]) >= 4 else 0
+        game["DT_spread_diff"] = 1 if abs(game["pmargin"] + game["spread"]) >= 3 else 0
+        game["DT_home_fav"] = 1 if game["pmargin"] + game["spread"] >= 2 else 0
+        game["DT_away_fav"] = 1 if game["pmargin"] + game["spread"] <= -2 else 0
         game["DT_home_movement"] = 1 if game["line_movement"] <= -1 else 0
         game["DT_away_movement"] = 1 if game["line_movement"] >= 1 else 0
         game["DT_home_public"] = 1 if game["home_public_percentage"] >= 60 else 0
@@ -848,8 +870,14 @@ def get_new_games(season='2017'):
 
 make_teams_dict()
 get_old_games()
-get_sports_ref_data()
+
 get_spreads()
+get_sports_ref_data()
+
+with open('new_teams.json','w') as outfile:
+    json.dump(teams,outfile)
+with open('new_game_dict.json','w') as outfile:
+    json.dump(game_dict,outfile)
 
 # Number of games used to create starting stats for teams
 preseason_length = 5
