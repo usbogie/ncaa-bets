@@ -157,11 +157,16 @@ def betsy():
                     game["DT_away_reb"] = 1 if np.mean(away["TRBP"]) > np.mean(home["TRBP"]) + TRBP_std/2 else 0
                     game["DT_home_TOVP"] = 1 if np.mean(home["TOVP"]) > TOVP_avg and np.mean(away["opp_TOVP"]) > opp_TOVP_avg else 0
                     game["DT_away_TOVP"] = 1 if np.mean(away["TOVP"]) > TOVP_avg and np.mean(home["opp_TOVP"]) > opp_TOVP_avg else 0
-                    # game["DT_over_pct"] = 1 if game["over_pct"] >= 50 else 0
-                    # game["DT_home_over"] = home["over_rec"][0] / (home["over_rec"][0] + home["over_rec"][1])
-                    # game["DT_away_over"] = away["over_rec"][0] / (away["over_rec"][0] + away["over_rec"][1])
-                    # game["DT_pover"] = 1 if game["ptotal"] > game["total"] else 0
-                    # game["DT_total_diff"] = 1 if abs(game["ptotal"] - game["total"]) > 4 else 0
+                    game_list.append(game)
+                    try:
+                        game["DT_over_pct"] = 1 if game["over_pct"] >= 50 else 0
+                        game["DT_home_over"] = home["over_rec"][0] / (home["over_rec"][0] + home["over_rec"][1])
+                        game["DT_away_over"] = away["over_rec"][0] / (away["over_rec"][0] + away["over_rec"][1])
+                        game["DT_pover"] = 1 if game["ptotal"] > game["total"] else 0
+                        game["DT_total_diff"] = 1 if abs(game["ptotal"] - game["total"]) > 4 else 0
+                        over_games.append(game)
+                    except:
+                        pass
             except:
                 pass
 
@@ -571,6 +576,7 @@ def get_new_games(season='2017'):
     gamesdf = pd.read_csv('espn_data/upcoming_games.csv')
     upcoming_games = {}
     new_games = []
+    new_over_games = []
     for i, row in gamesdf.iterrows():
         try:
             game = {}
@@ -608,11 +614,11 @@ def get_new_games(season='2017'):
             new_game["away_ats"] = game["away_ats"].split("-")
             new_game["home_ats"] = 0 if new_game["home_ats"][0] == "0" and new_game["home_ats"][1] == "0" else int(new_game["home_ats"][0]) / (int(new_game["home_ats"][0])+int(new_game["home_ats"][1]))
             new_game["away_ats"] = 0 if new_game["away_ats"][0] == "0" and new_game["away_ats"][1] == "0" else int(new_game["away_ats"][0]) / (int(new_game["away_ats"][0])+int(new_game["away_ats"][1]))
-            # new_game["total"] = float(game["over_under"])
-            # try:
-            #     new_game["over_pct"] = float(game["over_pct"])
-            # except:
-            #     new_game["over_pct"] = 50
+            try:
+                new_game["total"] = float(game["over_under"])
+                new_game["over_pct"] = float(game["over_pct"])
+            except:
+                new_game["over_pct"] = 50
             new_games.append(new_game)
         except:
             print("In vegas info, no game matched:",game["home"],game["away"])
@@ -692,11 +698,15 @@ def get_new_games(season='2017'):
         game["DT_away_reb"] = 1 if np.mean(away["TRBP"]) > np.mean(home["TRBP"]) + TRBP_std/2 else 0
         game["DT_home_TOVP"] = 1 if np.mean(home["TOVP"]) > TOVP_avg and np.mean(away["opp_TOVP"]) > opp_TOVP_avg else 0
         game["DT_away_TOVP"] = 1 if np.mean(away["TOVP"]) > TOVP_avg and np.mean(home["opp_TOVP"]) > opp_TOVP_avg else 0
-        # game["DT_home_over"] = home["over_rec"][0] / (home["over_rec"][0] + home["over_rec"][1])
-        # game["DT_away_over"] = away["over_rec"][0] / (away["over_rec"][0] + away["over_rec"][1])
-        # game["DT_pover"] = 1 if game["ptotal"] > game["total"] else 0
-        # game["DT_total_diff"] = 1 if abs(game["ptotal"] - game["total"]) > 4 else 0
-        # game["DT_over_pct"] = 1 if game["over_pct"] >= 50 else 0
+        try:
+            game["DT_home_over"] = home["over_rec"][0] / (home["over_rec"][0] + home["over_rec"][1])
+            game["DT_away_over"] = away["over_rec"][0] / (away["over_rec"][0] + away["over_rec"][1])
+            game["DT_pover"] = 1 if game["ptotal"] > game["total"] else 0
+            game["DT_total_diff"] = 1 if abs(game["ptotal"] - game["total"]) > 4 else 0
+            game["DT_over_pct"] = 1 if game["over_pct"] >= 50 else 0
+            new_over_games.append(game)
+        except:
+            pass
 
         print("Found:",game["home"],game["away"])
     with open('todays_games.csv','w') as outfile:
@@ -706,19 +716,22 @@ def get_new_games(season='2017'):
         for game in new_games:
             writer.writerow(game)
 
+    with open('todays_over_games.csv','w') as outfile:
+        keys = list(new_over_games[0].keys())
+        writer = csv.DictWriter(outfile,fieldnames = keys)
+        writer.writeheader()
+        for game in new_over_games:
+            writer.writerow(game)
+
 eliminate_games_missing_data()
 game_date_dict = get_game_date_dict()
-betsy()
+over_games = []
 game_list = []
+betsy()
 key_list = set()
 for key, game in game_dict.items():
-    try:
-        game['DT_away_TOVP']
-        game_list.append(game)
-        for k in game.keys():
-            key_list.add(k)
-    except:
-        continue
+    for k in game.keys():
+        key_list.add(k)
 print(len(game_list))
 
 get_new_games()
@@ -730,4 +743,11 @@ with open('games.csv','w') as outfile:
     writer = csv.DictWriter(outfile,fieldnames = list(key_list))
     writer.writeheader()
     for game in game_list:
+        writer.writerow(game)
+
+with open('over_games.csv','w') as outfile:
+    keys = list(over_games[0].keys())
+    writer = csv.DictWriter(outfile,fieldnames = keys)
+    writer.writeheader()
+    for game in over_games:
         writer.writerow(game)
