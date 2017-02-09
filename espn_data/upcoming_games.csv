@@ -1,4 +1,5 @@
 Game_ID,Away_Abbrv,Home_Abbrv,Away_Score,Home_Score,Game_Away,Game_Home,Game_Year,Game_Date,Game_Tipoff,Game_Location,Neutral_Site,Conference_Competition,Attendance
+400918086,SEA,CHS,0,0,Seattle,Chicago State,2017,02/09,15:00:00,Quest Multisport|Chicago|Illinois,False,True,0
 400919233,CCSU,FDU,0,0,Central Connecticut,Fairleigh Dickinson,2017,02/09,17:00:00,Rothman Center|Teaneck|New Jersey,False,True,0
 400914984,PUR,IND,0,0,Purdue,Indiana,2017,02/09,19:00:00,Assembly Hall (Indiana)|Bloomington|Indiana,False,True,0
 400916808,LONG,CAM,0,0,Longwood,Campbell,2017,02/09,19:00:00,Pope Convocation Center|Buies Creek|North Carolina,False,True,0
@@ -25,6 +26,7 @@ Game_ID,Away_Abbrv,Home_Abbrv,Away_Score,Home_Score,Game_Away,Game_Home,Game_Yea
 400919230,MSM,RMU,0,0,Mount St Mary's,Robert Morris,2017,02/09,19:00:00,Charles L. Sewall Center|Moon Township|Pennsylvania,False,True,0
 400919231,LIU,BRY,0,0,LIU Brooklyn,Bryant,2017,02/09,19:00:00,Chace Athletic Center|Smithfield|Rhode Island,False,True,0
 400919377,UNT,FAU,0,0,North Texas,Florida Atlantic,2017,02/09,19:00:00,FAU Arena|Boca Raton|Florida,False,True,0
+400919395,RICE,FIU,0,0,Rice,Florida Intl,2017,02/09,19:00:00,FIU Arena|Miami|Florida,False,True,0
 400919575,NE,COFC,0,0,Northeastern,Charleston,2017,02/09,19:00:00,TD Arena|Charleston|South Carolina,False,True,0
 400919596,ELON,DEL,0,0,Elon,Delaware,2017,02/09,19:00:00,Bob Carpenter Center|Newark|Delaware,False,True,0
 400919612,W&M,DREX,0,0,William & Mary,Drexel,2017,02/09,19:00:00,Daskalakis Athletic Center|Philadelphia|Pennsylvania,False,True,0
@@ -41,9 +43,9 @@ Game_ID,Away_Abbrv,Home_Abbrv,Away_Score,Home_Score,Game_Away,Game_Home,Game_Yea
 400918560,YSU,UIC,0,0,Youngstown State,UIC,2017,02/09,20:00:00,UIC Pavilion|Chicago|Illinois,False,True,0
 400919358,CHAR,UAB,0,0,Charlotte,UAB,2017,02/09,20:00:00,Bartow Arena|Birmingham|Alabama,False,True,0
 400919451,ODU,MTSU,0,0,Old Dominion,Middle Tennessee,2017,02/09,20:00:00,Murphy Athletic Center|Murfreesboro|Tennessee,False,True,0
+400919506,USM,UTSA,0,0,Southern Mississippi,UT San Antonio,2017,02/09,20:00:00,UTSA Convocation Center|San Antonio|Texas,False,True,0
 400921980,ACU,UCA,0,0,Abilene Christian,Central Arkansas,2017,02/09,20:00:00,Farris Center|Conway|Arkansas,False,True,0
 400922131,UNO,MCNS,0,0,New Orleans,McNeese,2017,02/09,20:00:00,Burton Coliseum|Lake Charles|Louisiana,False,True,0
-400918086,SEA,CHS,0,0,Seattle,Chicago State,2017,02/09,20:05:00,Jones Convocation Center|Chicago|Illinois,False,True,0
 400916423,MONT,SUU,0,0,Montana,Southern Utah,2017,02/09,20:30:00,Centrum Arena|Cedar City|Utah,False,True,0
 400916424,MTST,NAU,0,0,Montana State,Northern Arizona,2017,02/09,20:30:00,J. Lawrence Walkup Skydome|Flagstaff|Arizona,False,True,0
 400922056,HBU,NWST,0,0,Houston Baptist,Northwestern State,2017,02/09,20:30:00,Prather Coliseum|Natchitoches|Louisiana,False,True,0
@@ -53,6 +55,7 @@ Game_ID,Away_Abbrv,Home_Abbrv,Away_Score,Home_Score,Game_Away,Game_Home,Game_Yea
 400916426,IDHO,UNCO,0,0,Idaho,Northern Colorado,2017,02/09,21:00:00,Bank of Colorado Arena|Greeley|Colorado,False,True,0
 400916622,SMU,TEM,0,0,SMU,Temple,2017,02/09,21:00:00,Liacouras Center|Philadelphia|Pennsylvania,False,True,0
 400918084,TRGV,GCU,0,0,UT Rio Grande Valley,Grand Canyon,2017,02/09,21:00:00,GCU Arena|Phoenix|Arizona,False,True,0
+400918126,MOST,WICH,0,0,Missouri State,Wichita St,2017,02/09,21:00:00,Charles Koch Arena|Wichita|Kansas,False,True,0
 400918732,UNH,UVM,0,0,New Hampshire,Vermont,2017,02/09,21:00:00,Patrick Gymnasium|Burlington|Vermont,False,True,0
 400919232,SFNY,SHU,0,0,St Francis (BKN),Sacred Heart,2017,02/09,21:00:00,William H. Pitt Center|Fairfield|Connecticut,False,True,0
 400919421,LT,UTEP,0,0,Louisiana Tech,UTEP,2017,02/09,21:00:00,Don Haskins Center|El Paso|Texas,False,True,0
