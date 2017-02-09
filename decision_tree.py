@@ -192,85 +192,85 @@ if __name__ == '__main__':
     #     print(key,feature_dict[key])
 
     # Today's Games
-    # X_train,y = pick_features(all_games,features)
-    #
-    # min_samples = 300
-    # clf = tree.DecisionTreeClassifier(min_samples_leaf=min_samples,max_depth=7)
-    # clf = clf.fit(X_train,y)
-    # # filename = 'tree'
-    # # tree.export_graphviz(clf, out_file='{}.dot'.format(filename),
-    # #                     feature_names=features,
-    # #                     class_names=True,
-    # #                     filled=True,
-    # #                     rounded=True,
-    # #                     special_characters=True)
-    # # os.system('dot -Tpng {}.dot -o {}.png'.format(filename,filename))
-    # todays_games = pd.read_csv('todays_games.csv')
-    # game_matrix = todays_games.as_matrix(features)
-    # # run_gridsearch(X_train,y,game_matrix)
-    # print("\n\n~~~~~~~~~~Regular Desicion Tree Results~~~~~~~~~~~~~~~~\n\n")
-    # today_results = clf.predict(game_matrix)
-    # probs = []
-    # for j in range(len(game_matrix)):
-    #     probs.append(max(max(clf.predict_proba(game_matrix[j].reshape(1,-1)))))
-    #
-    # today_resultsdf = todays_games[['away','home','pmargin','spread','tipstring']]
-    # today_resultsdf.insert(5, 'results', today_results)
-    # today_resultsdf.insert(6, 'prob', probs)
-    # print_picks(today_resultsdf,prob=.5)
+    X_train,y = pick_features(all_games,features)
+
+    min_samples = 300
+    clf = tree.DecisionTreeClassifier(min_samples_leaf=min_samples,max_depth=7)
+    clf = clf.fit(X_train,y)
+    # filename = 'tree'
+    # tree.export_graphviz(clf, out_file='{}.dot'.format(filename),
+    #                     feature_names=features,
+    #                     class_names=True,
+    #                     filled=True,
+    #                     rounded=True,
+    #                     special_characters=True)
+    # os.system('dot -Tpng {}.dot -o {}.png'.format(filename,filename))
+    todays_games = pd.read_csv('todays_games.csv')
+    game_matrix = todays_games.as_matrix(features)
+    # run_gridsearch(X_train,y,game_matrix)
+    print("\n\n~~~~~~~~~~Regular Desicion Tree Results~~~~~~~~~~~~~~~~\n\n")
+    today_results = clf.predict(game_matrix)
+    probs = []
+    for j in range(len(game_matrix)):
+        probs.append(max(max(clf.predict_proba(game_matrix[j].reshape(1,-1)))))
+
+    today_resultsdf = todays_games[['away','home','pmargin','spread','tipstring']]
+    today_resultsdf.insert(5, 'results', today_results)
+    today_resultsdf.insert(6, 'prob', probs)
+    print_picks(today_resultsdf,prob=.5)
 
     # Over Under
-    ou_features = ["true_home_game","DT_pover","DT_home_over","DT_away_over",
-                   "DT_home_tPAr","DT_away_tPAr"]
-    over_games = pd.read_csv("over_games.csv")
-    X_train,y = pick_features(over_games,ou_features)
-
-    min_samp_dict = {}
-    feature_dict = {}
-    for i in range(6):
-        test_year = 2012 + i
-        initial_training_games = get_initial_years_train_data(over_games,all_dates)
-
-        test_days = []
-        for day in make_season(test_year):
-            test_days.append(over_games.ix[over_games['date']==day])
-        test_data = pd.concat(test_days,ignore_index=True)
-        X_train,y = pick_features(initial_training_games,ou_features)
-        X_test, y_test = pick_features(test_data,ou_features)
-
-        print(test_year)
-        for j in range(30):
-            min_samples = j * 25
-            if j == 0:
-                min_samples = 1
-            clf = tree.DecisionTreeClassifier(min_samples_leaf=min_samples,max_depth=3)
-            clf = clf.fit(X_train,y)
-
-            resultstree = clf.predict(X_test)
-            probs = []
-            for j in range(len(X_test)):
-                probs.append(max(max(clf.predict_proba(X_test[j].reshape(1,-1)))))
-
-            results_df = test_data[['away','home','ptotal','total','over']]
-            results_df.insert(5, 'results', resultstree)
-            results_df.insert(6, 'prob', probs)
-            right,wrong = ou_track_today(results_df,prob=.523)
-            profit = right - 1.1 * wrong
-            if i == 0:
-            	min_samp_dict[min_samples] = [profit]
-            else:
-                min_samp_dict[min_samples].append(profit)
-            if right + wrong == 0:
-                break
-            for idx,feat in enumerate(clf.feature_importances_):
-                if feat == 0:
-                    print(ou_features[idx])
-                    feature_dict[ou_features[idx]] = feature_dict.get(ou_features[idx],0) + 1
-            print("min_samples_leaf: ",min_samples,"\nProfit: ", profit, "\nTotal Games: ", right + wrong, "\nPercentage: ", right / (right + wrong),"\n")
-    for key in sorted(list(min_samp_dict.keys())):
-        print(key,sum(min_samp_dict[key]))
-    for key in sorted(list(feature_dict.keys())):
-        print(key,feature_dict[key])
+    # ou_features = ["true_home_game","DT_pover","DT_home_over","DT_away_over",
+    #                "DT_home_tPAr","DT_away_tPAr"]
+    # over_games = pd.read_csv("over_games.csv")
+    # X_train,y = pick_features(over_games,ou_features)
+	#
+    # min_samp_dict = {}
+    # feature_dict = {}
+    # for i in range(6):
+    #     test_year = 2012 + i
+    #     initial_training_games = get_initial_years_train_data(over_games,all_dates)
+	#
+    #     test_days = []
+    #     for day in make_season(test_year):
+    #         test_days.append(over_games.ix[over_games['date']==day])
+    #     test_data = pd.concat(test_days,ignore_index=True)
+    #     X_train,y = pick_features(initial_training_games,ou_features)
+    #     X_test, y_test = pick_features(test_data,ou_features)
+	#
+    #     print(test_year)
+    #     for j in range(30):
+    #         min_samples = j * 25
+    #         if j == 0:
+    #             min_samples = 1
+    #         clf = tree.DecisionTreeClassifier(min_samples_leaf=min_samples,max_depth=3)
+    #         clf = clf.fit(X_train,y)
+	#
+    #         resultstree = clf.predict(X_test)
+    #         probs = []
+    #         for j in range(len(X_test)):
+    #             probs.append(max(max(clf.predict_proba(X_test[j].reshape(1,-1)))))
+	#
+    #         results_df = test_data[['away','home','ptotal','total','over']]
+    #         results_df.insert(5, 'results', resultstree)
+    #         results_df.insert(6, 'prob', probs)
+    #         right,wrong = ou_track_today(results_df,prob=.523)
+    #         profit = right - 1.1 * wrong
+    #         if i == 0:
+    #         	min_samp_dict[min_samples] = [profit]
+    #         else:
+    #             min_samp_dict[min_samples].append(profit)
+    #         if right + wrong == 0:
+    #             break
+    #         for idx,feat in enumerate(clf.feature_importances_):
+    #             if feat == 0:
+    #                 print(ou_features[idx])
+    #                 feature_dict[ou_features[idx]] = feature_dict.get(ou_features[idx],0) + 1
+    #         print("min_samples_leaf: ",min_samples,"\nProfit: ", profit, "\nTotal Games: ", right + wrong, "\nPercentage: ", right / (right + wrong),"\n")
+    # for key in sorted(list(min_samp_dict.keys())):
+    #     print(key,sum(min_samp_dict[key]))
+    # for key in sorted(list(feature_dict.keys())):
+    #     print(key,feature_dict[key])
 
     # min_samples = 100
     # clf = tree.DecisionTreeClassifier(min_samples_leaf=min_samples,max_depth=7)
