@@ -10,18 +10,20 @@ import matplotlib.pyplot as plt
 import os
 
 def run_gridsearch(X_train, y):
-    param_grid = {"estimator__criterion": ["gini", "entropy"],
-              "estimator__max_depth": [None,2,3,4,5,6,7,8,9,10,11,12,13,14,15],
-              "estimator__min_samples_leaf": [50,100,150,200,250,300,350,400,450,500,550,600,650,750,800]}
+    param_grid = {"criterion": ["gini", "entropy"],
+              "max_depth": [None,2,3,4,5,6,7,8,9,10,11,12,13,14,15],
+              "min_samples_leaf": [50,100,150,200,250,300,350,400,450,500,550,600,650,750,800]}
     est = tree.DecisionTreeClassifier(criterion="entropy", max_depth=6, min_samples_leaf=300)
     rfe = RFE(est, 1, verbose=10)
     rfe = rfe.fit(X_train, y)
     # summarize the selection of the attributes
-    print(rfe.support_)
-    print(rfe.ranking_)
+    rankings = []
+    for idx,i in enumerate(rfe.ranking_):
+        rankings.append((i,features[idx]))
+    for i in sorted(rankings):
+        print(i)
 
-
-    clf = GridSearchCV(selector, param_grid=param_grid, cv=5, verbose=100)
+    clf = GridSearchCV(tree.DecisionTreeClassifier(), param_grid=param_grid, cv=5, verbose=0)
     start = time()
     clf.fit(X_train, y)
     print(("\nGridSearchCV took {:.2f} "
@@ -176,7 +178,7 @@ def test_over_under(over_games,ou_features):
     for key in sorted(list(feature_dict.keys())):
         print(key,feature_dict[key])
 
-def test_spread(all_games,all_dates,features):
+def test_spread(all_games,all_dates):
     min_samp_dict = {}
     feature_dict = {}
     for i in range(7):
@@ -191,11 +193,11 @@ def test_spread(all_games,all_dates,features):
         X_test, y_test = pick_features(test_data,features)
 
         print(test_year)
-        for j in range(10,20):
+        for j in range(20):
             min_samples = j * 25
             if j == 0:
                 min_samples = 1
-            clf = tree.DecisionTreeClassifier(min_samples_leaf=min_samples,max_depth=7)
+            clf = tree.DecisionTreeClassifier(min_samples_leaf=min_samples,max_depth=8)
             clf = clf.fit(X_train,y)
 
             resultstree = clf.predict(X_test)
@@ -223,7 +225,7 @@ def test_spread(all_games,all_dates,features):
         print(key,sum(min_samp_dict[key]))
     for key in sorted(list(feature_dict.keys())):
         print(key,feature_dict[key])
-def predict_today_spreads(all_games,features):
+def predict_today_spreads(all_games):
     X_train,y = pick_features(all_games,features)
 
     min_samples = 300
@@ -251,7 +253,7 @@ def predict_today_spreads(all_games,features):
     today_resultsdf.insert(6, 'prob', probs)
     print_picks(today_resultsdf,prob=.5)
 
-def predict_today_ou(over_games,ou_features):
+def predict_today_ou(over_games):
     X_train,y = pick_features(over_games,ou_features)
 
     min_samples = 100
@@ -276,21 +278,21 @@ if __name__ == '__main__':
     all_games = pd.read_csv('games.csv')
     all_dates = all_games.date.unique().tolist()
 
-    features = ["true_home_game","DT_home_winner","DT_spread_diff","DT_home_fav","DT_away_fav",
+    features = ["true_home_game","DT_home_winner","DT_spread_diff","DT_home_movement",
                 "DT_away_movement","DT_home_public","DT_away_public","DT_home_ats","DT_away_ats",
                 "DT_home_tPAr","DT_away_tPAr","DT_home_reb","DT_away_reb","DT_home_TOVP"]
 
-    X_train,y = pick_features(all_games,features)
-    run_gridsearch(X_train,y)
-    
-    # test_spread(all_games,all_dates,features)
+    # X_train,y = pick_features(all_games,features)
+    # run_gridsearch(X_train,y)
 
-    # predict_today_spreads(all_games,features)
+    test_spread(all_games,all_dates)
+
+    # predict_today_spreads(all_games)
 
     ou_features = ["true_home_game","DT_pover","DT_home_over","DT_away_over",
                 "DT_home_tPAr","DT_away_tPAr"]
     over_games = pd.read_csv("over_games.csv")
 
-    # test_over_under(over_games,all_dates,ou_features)
+    # test_over_under(over_games,all_dates)
 
-    # predict_today_ou(over_games,ou_features)
+    # predict_today_ou(over_games)
