@@ -135,7 +135,7 @@ def test_over_under(over_games,ou_features):
     feature_dict = {}
     for i in range(7):
         test_year = 2011 + i
-        initial_training_games = get_initial_years_train_data(over_games,all_dates)
+        initial_training_games = get_initial_years_train_data(over_games,all_dates,test_year)
 
         test_days = []
         for day in make_season(test_year):
@@ -149,7 +149,7 @@ def test_over_under(over_games,ou_features):
             min_samples = j * 25
             if j == 0:
                 min_samples = 1
-            clf = tree.DecisionTreeClassifier(min_samples_leaf=min_samples,max_depth=3)
+            clf = tree.DecisionTreeClassifier(min_samples_leaf=min_samples,max_depth=4)
             clf = clf.fit(X_train,y)
 
             resultstree = clf.predict(X_test)
@@ -181,8 +181,8 @@ def test_over_under(over_games,ou_features):
 def test_spread(all_games,all_dates):
     min_samp_dict = {}
     feature_dict = {}
-    for i in range(7):
-        test_year = 2011 + i
+    for i in range(4):
+        test_year = 2014 + i
         initial_training_games = get_initial_years_train_data(all_games,all_dates,test_year)
 
         test_days = []
@@ -208,7 +208,7 @@ def test_spread(all_games,all_dates):
             results_df = test_data[['away','home','pmargin','spread','home_cover']]
             results_df.insert(5, 'results', resultstree)
             results_df.insert(6, 'prob', probs)
-            right,wrong = track_today(results_df,prob=.53)
+            right,wrong = track_today(results_df,prob=.55)
             profit = right - 1.1 * wrong
             if i == 0:
                 min_samp_dict[min_samples] = [profit]
@@ -278,14 +278,14 @@ if __name__ == '__main__':
     all_games = pd.read_csv('games.csv')
     all_dates = all_games.date.unique().tolist()
 
-    features = ["true_home_game","DT_home_winner","DT_spread_diff","DT_home_movement",
-                "DT_away_movement","DT_home_public","DT_away_public","DT_home_ats","DT_away_ats",
-                "DT_home_tPAr","DT_away_tPAr","DT_home_reb","DT_away_reb","DT_home_TOVP"]
+    features = ["true_home_game","DT_home_winner","DT_spread_diff",
+                "DT_away_movement","DT_home_public","DT_away_public","DT_home_ats",
+                "DT_away_ats","DT_home_tPAr","DT_home_TOVP","DT_home_reb","DT_away_reb"]
 
     # X_train,y = pick_features(all_games,features)
     # run_gridsearch(X_train,y)
 
-    test_spread(all_games,all_dates)
+    # test_spread(all_games,all_dates)
 
     # predict_today_spreads(all_games)
 

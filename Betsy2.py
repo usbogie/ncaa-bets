@@ -246,6 +246,9 @@ def betsy():
     spread_std_list = []
     pmargin_std_list = []
     diff_std_list = []
+    home_count = 0
+    away_count = 0
+    correct = 0
     for key,team in teams.items():
         team["prev_games"] = []
     run_preseason()
@@ -339,8 +342,7 @@ def betsy():
             game["home_portg"] = .5 * (2 * game["home_o"] + home["adj_ortg"][-1] + away["adj_drtg"][-1])
             game["away_portg"] = .5 * (-2 * game["home_o"] + away["adj_ortg"][-1] + home["adj_drtg"][-1])
             game["ptotal"] = round((game["home_portg"] + game["away_portg"]) / 100 * game["tempo"])
-            if game["pmargin"] > 0 and game["true_home_game"] == 1:
-                game["pmargin"] = game["pmargin"] * .9
+            game["pmargin"] *= .9
             if game["pmargin"] > 0 and game["pmargin"] <= 6 and game["true_home_game"] == 0:
                 game["pmargin"] += 1
             if game["pmargin"] < 0 and game["pmargin"] >= -6:
@@ -355,7 +357,7 @@ def betsy():
             # Decision Tree Stuff
             try:
                 if game["home_cover"] != 0:
-                    game["DT_home_winner"] = 1 if game["pmargin"] + game["spread"] >= 0 else 0
+                    game["DT_home_winner"] = 1 if game["pmargin"] + game["spread"] > 0 else 0
                     game["DT_home_big"] = 1 if game["spread"] <= -10 else 0
                     game["DT_away_big"] = 1 if game["spread"] >= 7 else 0
                     game["DT_spread_diff"] = 1 if abs(game["pmargin"] + game["spread"]) >= 3 else 0
@@ -399,6 +401,11 @@ def betsy():
                 spread_std_list.append(game["spread"] + game["margin"])
                 pmargin_std_list.append(game["pmargin"] - game["margin"])
                 diff_std_list.append(game["pmargin"] + game["spread"])
+                if game["true_home_game"]:
+                    if (game["pmargin"] > 0 and game["margin"] > 0) or (game["pmargin"] < 0 and game["margin"] < 0):
+                        home_count += 1
+                    else:
+                        away_count += 1
             except:
                 pass
 
@@ -515,7 +522,10 @@ def betsy():
     print("Standard deviation of Scoring Margin prediction:".ljust(60),np.std(pmargin_std_list))
     print("Standard deviation of Scoring Margin and Spread:".ljust(60),np.std(spread_std_list))
     print("Standard deviation of Predicted Scoring Margin and Spread:".ljust(60),np.std(diff_std_list))
-
+    print("Home count:",home_count)
+    print("Away count:",away_count)
+    print("Correct:", home_count/(home_count+away_count))
+    print("Ties:",correct)
     # print(teams["The Citadel2017"])
 
 def get_standard_deviations_averages(year):
@@ -823,7 +833,7 @@ def get_new_games(season='2017'):
         game["ptotal"] = round((game["home_portg"] + game["away_portg"]) / 100 * game["tempo"])
 
         FT_std,tPAr_std,TRBP_std,TOVP_std,opp_TOVP_std,FT_avg,tPAr_avg,TRBP_avg,TOVP_avg,opp_TOVP_avg = get_standard_deviations_averages(int(season))
-        game["DT_home_winner"] = 1 if game["pmargin"] + game["spread"] >= 0 else 0
+        game["DT_home_winner"] = 1 if game["pmargin"] + game["spread"] > 0 else 0
         game["DT_home_big"] = 1 if game["spread"] <= -10 else 0
         game["DT_away_big"] = 1 if game["spread"] >= 7 else 0
         game["DT_spread_diff"] = 1 if abs(game["pmargin"] + game["spread"]) >= 3 else 0
@@ -868,16 +878,16 @@ def get_new_games(season='2017'):
         for game in new_over_games:
             writer.writerow(game)
 
-make_teams_dict()
-get_old_games()
-
-get_spreads()
-get_sports_ref_data()
-
-with open('new_teams.json','w') as outfile:
-    json.dump(teams,outfile)
-with open('new_game_dict.json','w') as outfile:
-    json.dump(game_dict,outfile)
+# make_teams_dict()
+# get_old_games()
+#
+# get_spreads()
+# get_sports_ref_data()
+#
+# with open('new_teams.json','w') as outfile:
+#     json.dump(teams,outfile)
+# with open('new_game_dict.json','w') as outfile:
+#     json.dump(game_dict,outfile)
 
 # Number of games used to create starting stats for teams
 preseason_length = 5
@@ -895,21 +905,19 @@ for key, game in game_dict.items():
     for k in game.keys():
         key_list.add(k)
 print(len(game_list))
-
-get_new_games()
+#
+# get_new_games()
 #test_betsy()
 
-#with open('new_teams.json','w') as outfile:
-#    json.dump(teams,outfile)
 with open('games.csv','w') as outfile:
     writer = csv.DictWriter(outfile,fieldnames = list(key_list))
     writer.writeheader()
     for game in game_list:
         writer.writerow(game)
 
-with open('over_games.csv','w') as outfile:
-    keys = list(over_games[0].keys())
-    writer = csv.DictWriter(outfile,fieldnames = keys)
-    writer.writeheader()
-    for game in over_games:
-        writer.writerow(game)
+# with open('over_games.csv','w') as outfile:
+#     keys = list(over_games[0].keys())
+#     writer = csv.DictWriter(outfile,fieldnames = keys)
+#     writer.writeheader()
+#     for game in over_games:
+#         writer.writerow(game)
