@@ -900,7 +900,7 @@ for key, game in game_dict.items():
 print(len(game_list))
 
 get_new_games()
-test_betsy()
+#test_betsy()
 
 with open('games.csv','w') as outfile:
     writer = csv.DictWriter(outfile,fieldnames = list(key_list))
