@@ -309,7 +309,7 @@ if __name__ == '__main__':
 
     # test_spread()
 
-    # predict_today_spreads()
+    predict_today_spreads()
 
     ou_features = ["true_home_game","DT_pover","DT_home_over","DT_away_over",
                 "DT_home_tPAr","DT_away_tPAr"]

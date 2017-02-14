@@ -28,11 +28,9 @@ with open('espn_data/new_names_dict.json') as infile:
 
 def get_sports_ref_data(year_list=[2011,2012,2013,2014,2015,2016,2017]):
     years = []
-    csvs = ["game_info2011.csv","game_info2012.csv","game_info2013.csv","game_info2014.csv","game_info2015.csv","game_info2016.csv","game_info2017.csv"]
-    for i, csv in enumerate(csvs):
-        if i + 2011 in year_list:
-            gamesdf = pd.read_csv('cbbref_data/' + csv)
-            years.append(gamesdf)
+    for year in year_list:
+        gamesdf = pd.read_csv('cbbref_data/game_info{}.csv'.format(year))
+        years.append(gamesdf)
     x = 0
     y = 0
     for year in years:
@@ -100,12 +98,9 @@ def get_sports_ref_data(year_list=[2011,2012,2013,2014,2015,2016,2017]):
 def get_spreads(year_list=[2011,2012,2013,2014,2015,2016,2017]):
     print("Getting sportsbook info from Vegas Insider")
     years = []
-    jsons = ['vegas_2011.json','vegas_2012.json','vegas_2013.json','vegas_2014.json','vegas_2015.json','vegas_2016.json','vegas_2017.json']
-    folder = 'vi_data/'
-    for i, json in enumerate(jsons):
-        if i + 2011 in year_list:
-            vdf = pd.read_json(folder + json)
-            years.append(vdf)
+    for year in year_list:
+        vdf = pd.read_json('vi_data/vegas_{}.json'.format(year))
+        years.append(vdf)
     for idx, year in enumerate(years):
         for i, row in year.iterrows():
             try:
@@ -173,11 +168,9 @@ def get_spreads(year_list=[2011,2012,2013,2014,2015,2016,2017]):
 def get_old_games(year_list = [2011,2012,2013,2014,2015,2016,2017]):
     print("Getting old games from ESPN")
     years = []
-    csvs = ["game_info2011.csv","game_info2012.csv","game_info2013.csv","game_info2014.csv","game_info2015.csv","game_info2016.csv","game_info2017.csv"]
-    for i, csv in enumerate(csvs):
-        if i + 2011 in year_list:
-            gamesdf = pd.read_csv('espn_data/' + csv)
-            years.append(gamesdf)
+    for year in year_list:
+        gamesdf = pd.read_csv('espn_data/game_info{}.csv'.format(year))
+        years.append(gamesdf)
     for idx, year in enumerate(years):
         print(str(year_list[idx]))
         for i, row in year.iterrows():
