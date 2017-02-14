@@ -400,7 +400,7 @@ def betsy():
                 away_score_std_list.append(a_proj_o * game["tempo"] / 100 - game["away_score"])
                 spread_std_list.append(game["spread"] + game["margin"])
                 pmargin_std_list.append(game["pmargin"] - game["margin"])
-                diff_std_list.append(game["pmargin"] + game["spread"])
+                diff_std_list.append(abs(game["pmargin"] + game["spread"]))
                 if game["true_home_game"]:
                     if (game["pmargin"] > 0 and game["margin"] > 0) or (game["pmargin"] < 0 and game["margin"] < 0):
                         home_count += 1
@@ -905,9 +905,9 @@ for key, game in game_dict.items():
     for k in game.keys():
         key_list.add(k)
 print(len(game_list))
-#
-# get_new_games()
-#test_betsy()
+
+get_new_games()
+test_betsy()
 
 with open('games.csv','w') as outfile:
     writer = csv.DictWriter(outfile,fieldnames = list(key_list))
