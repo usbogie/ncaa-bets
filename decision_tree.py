@@ -8,6 +8,7 @@ from time import time
 from operator import itemgetter
 import matplotlib.pyplot as plt
 import os
+import pydot
 
 def run_gridsearch(X_train, y):
     param_grid = {"criterion": ["gini", "entropy"],
@@ -124,7 +125,7 @@ def print_picks(games,prob=.5,check_pmargin=False):
                 spread = str(row['spread'] * -1)
                 pmargin = str(row['pmargin'] * -1)
                 loc = "@ "
-            bet_string = 'Bet' if float(spread)+float(pmargin)>=1.0 and row['prob']>.53 else 'Caution'
+            bet_string = 'Bet' if float(spread)+float(pmargin)>1.0 and row['prob']>.53 else 'Caution'
             if print_game:
                 print(bet_string.ljust(7),winner.ljust(20),spread.ljust(5),pmargin.ljust(5),loc,loser.ljust(20),str(round(row['prob'],4)).ljust(5),row['tipstring'].ljust(12))
 
@@ -200,6 +201,16 @@ def test_spread():
             clf = tree.DecisionTreeClassifier(min_samples_leaf=min_samples,max_depth=depths[k])
             clf = clf.fit(X_train,y)
 
+            filename = 'tree_data/tree' + str(test_year) + game_type[k]
+            tree.export_graphviz(clf, out_file='{}.dot'.format(filename),
+                                feature_names=features,
+                                class_names=True,
+                                filled=True,
+                                rounded=True,
+                                special_characters=True)
+            # os.system('dot -Tpng {}.dot -o {}.png'.format(filename,filename))
+            # ./dot -Tpng C:\Users\Carl\Documents\ncaa-bets\tree_data\treehome.dot -o C:\Users\Carl\Documents\ncaa-bets\tree_data\treehome.png
+
             resultstree = clf.predict(X_test)
             probs = []
             for j in range(len(X_test)):
@@ -245,14 +256,16 @@ def predict_today_spreads():
 
         clf = tree.DecisionTreeClassifier(min_samples_leaf=samples[i],max_depth=depths[i])
         clf = clf.fit(X_train,y)
-        # filename = 'tree'
-        # tree.export_graphviz(clf, out_file='{}.dot'.format(filename),
-        #                     feature_names=features,
-        #                     class_names=True,
-        #                     filled=True,
-        #                     rounded=True,
-        #                     special_characters=True)
+        filename = 'tree_data/tree{}'.format(game_type[i])
+        tree.export_graphviz(clf, out_file='{}.dot'.format(filename),
+                            feature_names=features,
+                            class_names=True,
+                            filled=True,
+                            rounded=True,
+                            special_characters=True)
         # os.system('dot -Tpng {}.dot -o {}.png'.format(filename,filename))
+        # ./dot -Tpng C:\Users\Carl\Documents\ncaa-bets\tree_data\treehome.dot -o C:\Users\Carl\Documents\ncaa-bets\tree_data\treehome.png
+
         # run_gridsearch(X_train,y,game_matrix)
         print("\n\n~~~~~~~~~~{} Desicion Tree Results~~~~~~~~~~~~~~~~\n\n".format(game_types[i]))
         today_results = clf.predict(game_matrix)
@@ -291,6 +304,7 @@ if __name__ == '__main__':
     n_games = all_games.ix[all_games['true_home_game'] == 0]
     h_games = all_games.ix[all_games['true_home_game'] == 1]
     all_dates = all_games.date.unique().tolist()
+    game_type = ['home','neutral']
     features = ["DT_home_winner",
                 "DT_away_movement","DT_home_public","DT_away_public","DT_home_ats",
                 "DT_away_ats","DT_home_tPAr","DT_home_reb","DT_away_reb"]
@@ -304,12 +318,11 @@ if __name__ == '__main__':
     depths = [6,4]
     feat_list = [features,n_features]
 
-    X_train,y = pick_features(h_games,features)
-    run_gridsearch(X_train,y)
-
-    # test_spread()
+    # X_train,y = pick_features(h_games,features)
+    # run_gridsearch(X_train,y)
 
     predict_today_spreads()
+    test_spread()
 
     ou_features = ["true_home_game","DT_pover","DT_home_over","DT_away_over",
                 "DT_home_tPAr","DT_away_tPAr"]

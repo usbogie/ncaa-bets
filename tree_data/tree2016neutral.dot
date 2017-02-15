@@ -1,0 +1,33 @@
+digraph Tree {
+node [shape=box, style="filled, rounded", color="black", fontname=helvetica] ;
+edge [fontname=helvetica] ;
+0 [label=<DT_home_ats &le; 0.5<br/>gini = 0.4995<br/>samples = 1823<br/>value = [884, 939]<br/>class = y<SUB>1</SUB>>, fillcolor="#399de50f"] ;
+1 [label=<DT_home_public &le; 0.5<br/>gini = 0.498<br/>samples = 1048<br/>value = [491, 557]<br/>class = y<SUB>1</SUB>>, fillcolor="#399de51e"] ;
+0 -> 1 [labeldistance=2.5, labelangle=45, headlabel="True"] ;
+2 [label=<DT_home_winner &le; 0.5<br/>gini = 0.5<br/>samples = 545<br/>value = [271, 274]<br/>class = y<SUB>1</SUB>>, fillcolor="#399de503"] ;
+1 -> 2 ;
+3 [label=<gini = 0.499<br/>samples = 320<br/>value = [167, 153]<br/>class = y<SUB>0</SUB>>, fillcolor="#e5813915"] ;
+2 -> 3 ;
+4 [label=<gini = 0.4971<br/>samples = 225<br/>value = [104, 121]<br/>class = y<SUB>1</SUB>>, fillcolor="#399de524"] ;
+2 -> 4 ;
+5 [label=<DT_home_tPAr &le; 0.5<br/>gini = 0.4922<br/>samples = 503<br/>value = [220, 283]<br/>class = y<SUB>1</SUB>>, fillcolor="#399de539"] ;
+1 -> 5 ;
+6 [label=<gini = 0.4931<br/>samples = 272<br/>value = [120, 152]<br/>class = y<SUB>1</SUB>>, fillcolor="#399de536"] ;
+5 -> 6 ;
+7 [label=<gini = 0.491<br/>samples = 231<br/>value = [100, 131]<br/>class = y<SUB>1</SUB>>, fillcolor="#399de53c"] ;
+5 -> 7 ;
+8 [label=<DT_away_movement &le; 0.5<br/>gini = 0.4999<br/>samples = 775<br/>value = [393, 382]<br/>class = y<SUB>0</SUB>>, fillcolor="#e5813907"] ;
+0 -> 8 [labeldistance=2.5, labelangle=-45, headlabel="False"] ;
+9 [label=<DT_home_tPAr &le; 0.5<br/>gini = 0.4999<br/>samples = 586<br/>value = [288, 298]<br/>class = y<SUB>1</SUB>>, fillcolor="#399de509"] ;
+8 -> 9 ;
+10 [label=<DT_home_public &le; 0.5<br/>gini = 0.5<br/>samples = 312<br/>value = [157, 155]<br/>class = y<SUB>0</SUB>>, fillcolor="#e5813903"] ;
+9 -> 10 ;
+11 [label=<gini = 0.4988<br/>samples = 160<br/>value = [76, 84]<br/>class = y<SUB>1</SUB>>, fillcolor="#399de518"] ;
+10 -> 11 ;
+12 [label=<gini = 0.4978<br/>samples = 152<br/>value = [81, 71]<br/>class = y<SUB>0</SUB>>, fillcolor="#e581391f"] ;
+10 -> 12 ;
+13 [label=<gini = 0.499<br/>samples = 274<br/>value = [131, 143]<br/>class = y<SUB>1</SUB>>, fillcolor="#399de515"] ;
+9 -> 13 ;
+14 [label=<gini = 0.4938<br/>samples = 189<br/>value = [105, 84]<br/>class = y<SUB>0</SUB>>, fillcolor="#e5813933"] ;
+8 -> 14 ;
+}

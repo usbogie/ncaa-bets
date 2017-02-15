@@ -1,75 +1,50 @@
 Game_ID,Away_Abbrv,Home_Abbrv,Away_Score,Home_Score,Game_Away,Game_Home,Game_Year,Game_Date,Game_Tipoff,Game_Location,Neutral_Site,Conference_Competition,Attendance
-400918086,SEA,CHS,0,0,Seattle,Chicago State,2017,02/09,15:00:00,Quest Multisport|Chicago|Illinois,False,True,0
-400919233,CCSU,FDU,0,0,Central Connecticut,Fairleigh Dickinson,2017,02/09,17:00:00,Rothman Center|Teaneck|New Jersey,False,True,0
-400914984,PUR,IND,0,0,Purdue,Indiana,2017,02/09,19:00:00,Assembly Hall (Indiana)|Bloomington|Indiana,False,True,0
-400916808,LONG,CAM,0,0,Longwood,Campbell,2017,02/09,19:00:00,Pope Convocation Center|Buies Creek|North Carolina,False,True,0
-400916809,CHSO,RAD,0,0,Charleston Southern,Radford,2017,02/09,19:00:00,Donald N. Dedmon Center|Radford|Virginia,False,True,0
-400916810,LIB,WEBB,0,0,Liberty,Gardner-Webb,2017,02/09,19:00:00,Paul Porter Arena|Boiling Springs|North Carolina,False,True,0
-400916811,HP,PRE,0,0,High Point,Presbyterian College,2017,02/09,19:00:00,Ross E. Templeton P.E. Center|Clinton|South Carolina,False,True,0
-400916812,WIN,UNCA,0,0,Winthrop,UNC Asheville,2017,02/09,19:00:00,Kimmel Arena|Asheville|North Carolina,False,True,0
-400916961,SAM,WOF,0,0,Samford,Wofford,2017,02/09,19:00:00,Benjamin Johnson Arena|Spartanburg|South Carolina,False,True,0
-400916962,MER,VMI,0,0,Mercer,VMI,2017,02/09,19:00:00,Cameron Hall|Lexington|Virginia,False,True,0
-400916963,CIT,ETSU,0,0,The Citadel,East Tennessee St.,2017,02/09,19:00:00,Freedom Hall Civic Center|Johnson City|Tennessee,False,True,0
-400916964,CHAT,FUR,0,0,Chattanooga,Furman,2017,02/09,19:00:00,Timmons Arena|Greenville|South Carolina,False,True,0
-400917624,FAIR,MRST,0,0,Fairfield,Marist,2017,02/09,19:00:00,McCann Arena|Poughkeepsie|New York,False,True,0
-400917837,TNST,TNTC,0,0,Tennessee State,Tennessee Tech,2017,02/09,19:00:00,Hooper Eblen Center|Cookeville|Tennessee,False,True,0
-400917838,BEL,JVST,0,0,Belmont,Jacksonville State,2017,02/09,19:00:00,Pete Mathews Coliseum|Jacksonville|Alabama,False,True,0
-400918545,MILW,WRST,0,0,Milwaukee,Wright State,2017,02/09,19:00:00,Nutter Center|Dayton|Ohio,False,True,0
-400918624,ALBY,BING,0,0,Albany,Binghamton,2017,02/09,19:00:00,Events Center (Binghamton)|Binghamton|New York,False,True,0
-400918674,HART,UMBC,0,0,Hartford,UMBC,2017,02/09,19:00:00,RAC Arena|Baltimore|Maryland,False,True,0
-400918697,MAINE,UML,0,0,Maine,UMass Lowell,2017,02/09,19:00:00,Costello Athletic Center|Lowell|Massachusetts,False,True,0
-400918780,LIP,FGCU,0,0,Lipscomb,Florida Gulf Coast,2017,02/09,19:00:00,Alico Arena|Fort Myers|Florida,False,True,0
-400918801,UPST,JAC,0,0,South Carolina Upstate,Jacksonville,2017,02/09,19:00:00,Swisher Gymnasium|Jacksonville|Florida,False,True,0
-400918841,NJIT,UNF,0,0,NJIT,North Florida,2017,02/09,19:00:00,UNF Arena|Jacksonville|Florida,False,True,0
-400918865,KENN,STET,0,0,Kennesaw State,Stetson,2017,02/09,19:00:00,Edmunds Center|Deland|Florida,False,True,0
-400919229,WAG,SFU,0,0,Wagner,St Francis (PA),2017,02/09,19:00:00,DeGol Arena|Loretto|Pennsylvania,False,True,0
-400919230,MSM,RMU,0,0,Mount St Mary's,Robert Morris,2017,02/09,19:00:00,Charles L. Sewall Center|Moon Township|Pennsylvania,False,True,0
-400919231,LIU,BRY,0,0,LIU Brooklyn,Bryant,2017,02/09,19:00:00,Chace Athletic Center|Smithfield|Rhode Island,False,True,0
-400919377,UNT,FAU,0,0,North Texas,Florida Atlantic,2017,02/09,19:00:00,FAU Arena|Boca Raton|Florida,False,True,0
-400919395,RICE,FIU,0,0,Rice,Florida Intl,2017,02/09,19:00:00,FIU Arena|Miami|Florida,False,True,0
-400919575,NE,COFC,0,0,Northeastern,Charleston,2017,02/09,19:00:00,TD Arena|Charleston|South Carolina,False,True,0
-400919596,ELON,DEL,0,0,Elon,Delaware,2017,02/09,19:00:00,Bob Carpenter Center|Newark|Delaware,False,True,0
-400919612,W&M,DREX,0,0,William & Mary,Drexel,2017,02/09,19:00:00,Daskalakis Athletic Center|Philadelphia|Pennsylvania,False,True,0
-400919639,HOF,TOWS,0,0,Hofstra,Towson,2017,02/09,19:00:00,SECU Arena|Towson|Maryland,False,True,0
-400919771,JMU,UNCW,0,0,James Madison,UNC Wilmington,2017,02/09,19:00:00,Trask Coliseum|Wilmington|North Carolina,False,True,0
-400918083,UVU,UMKC,0,0,Utah Valley,UMKC,2017,02/09,19:30:00,Municipal Auditorium (MO)|Kansas City|Missouri,False,True,0
-400918529,GB,NKU,0,0,Green Bay,Northern Kentucky,2017,02/09,19:30:00,BB&T Arena|Highland Heights|Kentucky,False,True,0
-400915431,UNC,DUKE,0,0,North Carolina,Duke,2017,02/09,20:00:00,Cameron Indoor Stadium|Durham|North Carolina,False,True,0
-400916425,EWU,UND,0,0,Eastern Washington,North Dakota,2017,02/09,20:00:00,Betty Engelstad Sioux Center|Grand Forks|North Dakota,False,True,0
-400917625,SPU,QU,0,0,Saint Peter's,Quinnipiac,2017,02/09,20:00:00,TD Bank Sports Center|Hamden|Connecticut,False,True,0
-400917839,UTM,EIU,0,0,UT Martin,Eastern Illinois,2017,02/09,20:00:00,Lantz Arena|Charleston|Illinois,False,True,0
-400917840,SEMO,SIUE,0,0,Southeast Missouri State,SIU Edwardsville,2017,02/09,20:00:00,Vadalabene Center|Edwardsville|Illinois,False,True,0
-400918492,CLEV,VALP,0,0,Cleveland State,Valparaiso,2017,02/09,20:00:00,Athletics-Recreation Center|Valparaiso|Indiana,False,True,0
-400918560,YSU,UIC,0,0,Youngstown State,UIC,2017,02/09,20:00:00,UIC Pavilion|Chicago|Illinois,False,True,0
-400919358,CHAR,UAB,0,0,Charlotte,UAB,2017,02/09,20:00:00,Bartow Arena|Birmingham|Alabama,False,True,0
-400919451,ODU,MTSU,0,0,Old Dominion,Middle Tennessee,2017,02/09,20:00:00,Murphy Athletic Center|Murfreesboro|Tennessee,False,True,0
-400919506,USM,UTSA,0,0,Southern Mississippi,UT San Antonio,2017,02/09,20:00:00,UTSA Convocation Center|San Antonio|Texas,False,True,0
-400921980,ACU,UCA,0,0,Abilene Christian,Central Arkansas,2017,02/09,20:00:00,Farris Center|Conway|Arkansas,False,True,0
-400922131,UNO,MCNS,0,0,New Orleans,McNeese,2017,02/09,20:00:00,Burton Coliseum|Lake Charles|Louisiana,False,True,0
-400916423,MONT,SUU,0,0,Montana,Southern Utah,2017,02/09,20:30:00,Centrum Arena|Cedar City|Utah,False,True,0
-400916424,MTST,NAU,0,0,Montana State,Northern Arizona,2017,02/09,20:30:00,J. Lawrence Walkup Skydome|Flagstaff|Arizona,False,True,0
-400922056,HBU,NWST,0,0,Houston Baptist,Northwestern State,2017,02/09,20:30:00,Prather Coliseum|Natchitoches|Louisiana,False,True,0
-400922114,SHSU,LAM,0,0,Sam Houston State,Lamar,2017,02/09,20:30:00,Montagne Center|Beaumont|Texas,False,True,0
-400914941,WIS,NEB,0,0,Wisconsin,Nebraska,2017,02/09,21:00:00,Pinnacle Bank Arena|Lincoln|Nebraska,False,True,0
-400915665,WSU,UTAH,0,0,Washington State,Utah,2017,02/09,21:00:00,Jon M. Huntsman Center|Salt Lake City|Utah,False,True,0
-400916426,IDHO,UNCO,0,0,Idaho,Northern Colorado,2017,02/09,21:00:00,Bank of Colorado Arena|Greeley|Colorado,False,True,0
-400916622,SMU,TEM,0,0,SMU,Temple,2017,02/09,21:00:00,Liacouras Center|Philadelphia|Pennsylvania,False,True,0
-400918084,TRGV,GCU,0,0,UT Rio Grande Valley,Grand Canyon,2017,02/09,21:00:00,GCU Arena|Phoenix|Arizona,False,True,0
-400918126,MOST,WICH,0,0,Missouri State,Wichita St,2017,02/09,21:00:00,Charles Koch Arena|Wichita|Kansas,False,True,0
-400918732,UNH,UVM,0,0,New Hampshire,Vermont,2017,02/09,21:00:00,Patrick Gymnasium|Burlington|Vermont,False,True,0
-400919232,SFNY,SHU,0,0,St Francis (BKN),Sacred Heart,2017,02/09,21:00:00,William H. Pitt Center|Fairfield|Connecticut,False,True,0
-400919421,LT,UTEP,0,0,Louisiana Tech,UTEP,2017,02/09,21:00:00,Don Haskins Center|El Paso|Texas,False,True,0
-400922094,IW,SFA,0,0,Incarnate Word,Stephen F. Austin,2017,02/09,21:00:00,William R. Johnson Coliseum|Nacogdoches|Texas,False,True,0
-400915664,WASH,COLO,0,0,Washington,Colorado,2017,02/09,22:00:00,Coors Events Center|Boulder|Colorado,False,True,0
-400915666,ORE,UCLA,0,0,Oregon,UCLA,2017,02/09,22:00:00,Pauley Pavilion|Los Angeles|California,False,True,0
-400915864,GONZ,LMU,0,0,Gonzaga,Loyola Marymount,2017,02/09,22:00:00,Gersten Pavilion|Los Angeles|California,False,True,0
-400915865,USD,PAC,0,0,San Diego,Pacific,2017,02/09,22:00:00,Alex G. Spanos Center|Stockton|California,False,True,0
-400915866,PORT,SMC,0,0,Portland,Saint Mary's,2017,02/09,22:00:00,McKeon Pavilion|Moraga|California,False,True,0
-400918085,NMSU,CSB,0,0,New Mexico State,CSU Bakersfield,2017,02/09,22:00:00,Icardo Center|Bakersfield|California,False,True,0
-400918948,LBSU,UCRV,0,0,Long Beach State,UC Riverside,2017,02/09,22:00:00,SRC Arena|Riverside|California,False,True,0
-400916427,WEB,SAC,0,0,Weber State,Sacramento State,2017,02/09,22:05:00,The Nest|Sacramento|California,False,True,0
-400916428,IDST,PRST,0,0,Idaho State,Portland State,2017,02/09,22:05:00,Stott Center|Portland|Oregon,False,True,0
-400915667,ORST,USC,0,0,Oregon State,USC,2017,02/09,23:00:00,Galen Center|Los Angeles|California,False,True,0
-400915867,SCU,SF,0,0,Santa Clara,San Francisco,2017,02/09,23:00:00,War Memorial Gymnasium|San Francisco|California,False,True,0
-400915868,BYU,PEPP,0,0,BYU,Pepperdine,2017,02/09,23:00:00,Firestone Fieldhouse|Malibu|California,False,True,0
-400918882,CP,HAW,0,0,Cal Poly,Hawai'i,2017,02/09,23:59:00,Stan Sheriff Center|Honolulu|Hawaii,False,True,0
+400919240,LIU,SFNY,0,0,LIU Brooklyn,St Francis (BKN),2017,02/15,18:00:00,Pope Physical Education Center|Brooklyn|New York,False,True,0
+400910599,ARK,SC,0,0,Arkansas,South Carolina,2017,02/15,18:30:00,Colonial Life Arena|Columbia|South Carolina,False,True,0
+400919721,XAV,PROV,0,0,Xavier,Providence,2017,02/15,18:30:00,Dunkin Donuts Center|Providence|Rhode Island,False,True,0
+400915038,MD,NW,0,0,Maryland,Northwestern,2017,02/15,19:00:00,Welsh-Ryan Arena|Evanston|Illinois,False,True,0
+400916244,ISU,KSU,0,0,Iowa State,Kansas State,2017,02/15,19:00:00,Bramlage Coliseum|Manhattan|Kansas,False,True,0
+400916629,TEM,ECU,0,0,Temple,East Carolina,2017,02/15,19:00:00,Minges Coliseum|Greenville|North Carolina,False,True,0
+400916630,CIN,USF,0,0,Cincinnati,South Florida,2017,02/15,19:00:00,USF Sun Dome|Tampa|Florida,False,True,0
+400916820,RAD,WEBB,0,0,Radford,Gardner-Webb,2017,02/15,19:00:00,Paul Porter Arena|Boiling Springs|North Carolina,False,True,0
+400916821,WIN,LONG,0,0,Winthrop,Longwood,2017,02/15,19:00:00,Willett Hall|Farmville|Virginia,False,True,0
+400916822,PRE,UNCA,0,0,Presbyterian College,UNC Asheville,2017,02/15,19:00:00,Kimmel Arena|Asheville|North Carolina,False,True,0
+400916971,FUR,WCU,0,0,Furman,Western Carolina,2017,02/15,19:00:00,Ramsey Center|Cullowhee|North Carolina,False,True,0
+400916972,SAM,ETSU,0,0,Samford,East Tennessee St.,2017,02/15,19:00:00,Freedom Hall Civic Center|Johnson City|Tennessee,False,True,0
+400916973,CHAT,VMI,0,0,Chattanooga,VMI,2017,02/15,19:00:00,Cameron Hall|Lexington|Virginia,False,True,0
+400916974,WOF,UNCG,0,0,Wofford,UNC Greensboro,2017,02/15,19:00:00,Greensboro Coliseum|Greensboro|North Carolina,False,True,0
+400917982,NDSU,IPFW,0,0,North Dakota State,Fort Wayne,2017,02/15,19:00:00,Allen County War Memorial Coliseum|Fort Wayne|Indiana,False,True,0
+400918128,WICH,SIU,0,0,Wichita St,Southern Illinois,2017,02/15,19:00:00,SIU Arena|Carbondale|Illinois,False,True,0
+400918277,GW,DAV,0,0,George Washington,Davidson,2017,02/15,19:00:00,John M. Belk Arena|Davidson|North Carolina,False,True,0
+400918335,UMASS,DUQ,0,0,Massachusetts,Duquesne,2017,02/15,19:00:00,A.J. Palumbo Center|Pittsburgh|Pennsylvania,False,True,0
+400918356,FOR,URI,0,0,Fordham,Rhode Island,2017,02/15,19:00:00,Ryan Center|Kingston|Rhode Island,False,True,0
+400918409,LAS,SBON,0,0,La Salle,St Bonaventure,2017,02/15,19:00:00,Reilly Center|Saint Bonaventure|New York,False,True,0
+400918625,UMBC,ALBY,0,0,UMBC,Albany,2017,02/15,19:00:00,SEFCU Arena|Albany|New York,False,True,0
+400918676,STON,HART,0,0,Stony Brook,Hartford,2017,02/15,19:00:00,Chase Arena|West Hartford|Connecticut,False,True,0
+400918699,MAINE,UNH,0,0,Maine,New Hampshire,2017,02/15,19:00:00,Lundholm Gymnasium|Durham|New Hampshire,False,True,0
+400918715,UVM,UML,0,0,Vermont,UMass Lowell,2017,02/15,19:00:00,Costello Athletic Center|Lowell|Massachusetts,False,True,0
+400919111,BU,COLG,0,0,Boston University,Colgate,2017,02/15,19:00:00,Cotterell Court|Hamilton|New York,False,True,0
+400919112,NAVY,LEH,0,0,Navy,Lehigh,2017,02/15,19:00:00,Stabler Arena|Bethlehem|Pennsylvania,False,True,0
+400919113,ARMY,HC,0,0,Army,Holy Cross,2017,02/15,19:00:00,Hart Center|Worcester|Massachusetts,False,True,0
+400919115,AMER,LAF,0,0,American,Lafayette,2017,02/15,19:00:00,Kirby Sports Center|Easton|Pennsylvania,False,True,0
+400916819,CAM,CHSO,0,0,Campbell,Charleston Southern,2017,02/15,19:30:00,CSU Field House|Charleston|South Carolina,False,True,0
+400919114,BUCK,L-MD,0,0,Bucknell,Loyola (MD),2017,02/15,19:30:00,Reitz Arena|Baltimore|Maryland,False,True,0
+400915443,GT,MIA,0,0,Georgia Tech,Miami,2017,02/15,20:00:00,Watsco Center|Coral Gables|Florida,False,True,0
+400915444,UNC,NCST,0,0,North Carolina,NC State,2017,02/15,20:00:00,PNC Arena|Raleigh|North Carolina,False,True,0
+400917981,IUPU,SDST,0,0,IUPUI,South Dakota State,2017,02/15,20:00:00,Frost Arena|Brookings|South Dakota,False,True,0
+400918170,BRAD,UNI,0,0,Bradley,Northern Iowa,2017,02/15,20:00:00,McLeod Center|Cedar Falls|Iowa,False,True,0
+400918206,INST,L-IL,0,0,Indiana State,Loyola (CHI),2017,02/15,20:00:00,Joseph J. Gentile Center|Chicago|Illinois,False,True,0
+400919722,CREI,HALL,0,0,Creighton,Seton Hall,2017,02/15,20:00:00,Prudential Center|Newark|New Jersey,False,True,0
+400933428,SCST,NSU,0,0,South Carolina State,Norfolk State,2017,02/15,20:00:00,Echols Hall|Norfolk|Virginia,False,True,0
+400910563,ALA,MIZ,0,0,Alabama,Missouri,2017,02/15,20:30:00,Mizzou Arena|Columbia|Missouri,False,True,0
+400919723,SJU,BUT,0,0,St John's,Butler,2017,02/15,20:30:00,Hinkle Fieldhouse|Indianapolis|Indiana,False,True,0
+400922096,AMCC,IW,0,0,Texas A&M-CC,Incarnate Word,2017,02/15,20:30:00,McDermott Convocation Center|San Antonio|Texas,False,True,0
+400914986,IND,MINN,0,0,Indiana,Minnesota,2017,02/15,21:00:00,Williams Arena|Minneapolis|Minnesota,False,True,0
+400915445,DUKE,UVA,0,0,Duke,Virginia,2017,02/15,21:00:00,John Paul Jones Arena|Charlottesville|Virginia,False,True,0
+400916245,OKST,TCU,0,0,Oklahoma State,TCU,2017,02/15,21:00:00,Ed and Rae Schollmaier Arena|Fort Worth|Texas,False,True,0
+400916631,TULN,SMU,0,0,Tulane,SMU,2017,02/15,21:00:00,Moody Coliseum|Dallas|Texas,False,True,0
+400918187,ILST,MOST,0,0,Illinois State,Missouri State,2017,02/15,21:00:00,JQH Arena|Springfield|Missouri,False,True,0
+400919814,NEV,AFA,0,0,Nevada,Air Force,2017,02/15,21:00:00,Clune Arena|Colorado Springs|Colorado,False,True,0
+400918883,CP,CSUN,0,0,Cal Poly,CSU Northridge,2017,02/15,22:00:00,Matadome|Northridge|California,False,True,0
+400919882,SJSU,FRES,0,0,San Jose State,Fresno State,2017,02/15,22:00:00,Save Mart Center|Fresno|California,False,True,0
+400919930,SDSU,USU,0,0,San Diego State,Utah State,2017,02/15,22:00:00,Dee Glen Smith Spectrum|Logan|Utah,False,True,0

@@ -872,15 +872,15 @@ def get_new_games(season='2017'):
             writer.writerow(game)
 
 # make_teams_dict()
-# get_old_games()
-#
-# get_spreads()
-# get_sports_ref_data()
-#
-# with open('new_teams.json','w') as outfile:
-#     json.dump(teams,outfile)
-# with open('new_game_dict.json','w') as outfile:
-#     json.dump(game_dict,outfile)
+get_old_games([2017])
+
+get_spreads([2017])
+get_sports_ref_data([2017])
+
+with open('new_teams.json','w') as outfile:
+    json.dump(teams,outfile)
+with open('new_game_dict.json','w') as outfile:
+    json.dump(game_dict,outfile)
 
 # Number of games used to create starting stats for teams
 preseason_length = 5
