@@ -183,7 +183,7 @@ def test_spread():
     min_samp_dict = {}
     feature_dict = {}
     total_profit = 0
-    for test_year in range(2011,2018):
+    for test_year in range(2014,2018):
         print(test_year)
         total_right = 0
         total_wrong = 0
@@ -247,12 +247,12 @@ def predict_today_spreads():
     todays_h_games = todays_games.ix[todays_games['true_home_game']==1]
     t_game_list = [todays_h_games,todays_n_games]
     game_types = ["Regular","Neutral"]
-
     for i in range(2):
         if len(t_game_list[i]) == 0:
             continue
+        games = get_initial_years_train_data(game_list[i],all_dates,2011)
         game_matrix = t_game_list[i].as_matrix(feat_list[i])
-        X_train,y = pick_features(game_list[i],feat_list[i])
+        X_train,y = pick_features(games,feat_list[i])
 
         clf = tree.DecisionTreeClassifier(min_samples_leaf=samples[i],max_depth=depths[i])
         clf = clf.fit(X_train,y)
