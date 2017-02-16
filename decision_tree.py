@@ -78,13 +78,13 @@ def track_today(results_df,prob = .5,print_picks = False):
     right = 0
     wrong = 0
     for idx, row in results_df.iterrows():
-        if float(row['results']) < 0 and row['home_cover'] < 0 and float(row['prob']) >= prob and row['pmargin'] + row['spread'] < -1:
+        if float(row['results']) < 0 and row['home_cover'] < 0 and float(row['prob']) >= prob and row['pmargin'] + row['spread'] <= -1:
             right += 1
-        elif float(row['results']) < 0 and row['home_cover'] > 0 and float(row['prob']) >= prob and row['pmargin'] + row['spread'] < -1:
+        elif float(row['results']) < 0 and row['home_cover'] > 0 and float(row['prob']) >= prob and row['pmargin'] + row['spread'] <= -1:
             wrong += 1
-        elif float(row['results']) > 0 and row['home_cover'] < 0 and float(row['prob']) >= prob and row['pmargin'] + row['spread'] > 1:
+        elif float(row['results']) > 0 and row['home_cover'] < 0 and float(row['prob']) >= prob and row['pmargin'] + row['spread'] >= 1:
             wrong += 1
-        elif float(row['results']) > 0 and row['home_cover'] > 0 and float(row['prob']) >= prob and row['pmargin'] + row['spread'] > 1:
+        elif float(row['results']) > 0 and row['home_cover'] > 0 and float(row['prob']) >= prob and row['pmargin'] + row['spread'] >= 1:
             right += 1
     return right,wrong
 
@@ -125,7 +125,7 @@ def print_picks(games,prob=.5,check_pmargin=False):
                 spread = str(row['spread'] * -1)
                 pmargin = str(row['pmargin'] * -1)
                 loc = "@ "
-            bet_string = 'Bet' if float(spread)+float(pmargin)>1.0 and row['prob']>.53 else 'Caution'
+            bet_string = 'Bet' if float(spread)+float(pmargin)>=1.0 and row['prob']>.53 else 'Caution'
             if print_game:
                 print(bet_string.ljust(7),winner.ljust(20),spread.ljust(5),pmargin.ljust(5),loc,loser.ljust(20),str(round(row['prob'],4)).ljust(5),row['tipstring'].ljust(12))
 
@@ -183,7 +183,7 @@ def test_spread():
     min_samp_dict = {}
     feature_dict = {}
     total_profit = 0
-    for test_year in range(2014,2018):
+    for test_year in range(2011,2018):
         print(test_year)
         total_right = 0
         total_wrong = 0
