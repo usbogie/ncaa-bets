@@ -74,17 +74,18 @@ def get_initial_years_train_data(all_games, all_dates,test_year):
     return pd.concat(training_games_list, ignore_index=True)
 
 
-def track_today(results_df,prob = .5,print_picks = False):
+def track_today(results_df,prob = .5,pdiff=0):
     right = 0
     wrong = 0
+    x = False
     for idx, row in results_df.iterrows():
-        if float(row['results']) < 0 and row['home_cover'] < 0 and float(row['prob']) >= prob and row['pmargin'] + row['spread'] <= -1:
+        if float(row['results']) < 0 and row['home_cover'] < 0 and float(row['prob']) >= prob and row['ptotal'] - row['total'] < -1*pdiff:
             right += 1
-        elif float(row['results']) < 0 and row['home_cover'] > 0 and float(row['prob']) >= prob and row['pmargin'] + row['spread'] <= -1:
+        elif float(row['results']) < 0 and row['home_cover'] > 0 and float(row['prob']) >= prob and row['ptotal'] - row['total'] > pdiff:
             wrong += 1
-        elif float(row['results']) > 0 and row['home_cover'] < 0 and float(row['prob']) >= prob and row['pmargin'] + row['spread'] >= 1:
+        elif float(row['results']) > 0 and row['home_cover'] < 0 and float(row['prob']) >= prob and row['ptotal'] - row['total'] < -1*pdiff:
             wrong += 1
-        elif float(row['results']) > 0 and row['home_cover'] > 0 and float(row['prob']) >= prob and row['pmargin'] + row['spread'] >= 1:
+        elif float(row['results']) > 0 and row['home_cover'] > 0 and float(row['prob']) >= prob and row['ptotal'] - row['total'] > pdiff:
             right += 1
     return right,wrong
 
@@ -104,6 +105,8 @@ def ou_track_today(results_df,prob = .5):
 
 def print_picks(games,prob=.5,check_pmargin=False):
     sorted_games = games.sort_values('prob',ascending=False)
+    f2 = open('output.txt', 'w')
+    games = []
     for idx, row in sorted_games.iterrows():
         print_game = True
         if row['prob'] >= prob:
@@ -125,9 +128,12 @@ def print_picks(games,prob=.5,check_pmargin=False):
                 spread = str(row['spread'] * -1)
                 pmargin = str(row['pmargin'] * -1)
                 loc = "@ "
-            bet_string = 'Bet' if float(spread)+float(pmargin)>=1.0 and row['prob']>.53 else 'Caution'
+            bet_string = 'Bet' if float(spread)+float(pmargin)>=1.0 and row['prob']>.523 else 'Caution'
+
             if print_game:
+                games.append("{}{}{}{}{}{}{}{}\n".format(bet_string.ljust(10),winner.ljust(20),spread.ljust(7),pmargin.ljust(5),loc,loser.ljust(20),str(round(row['prob'],4)).ljust(8),row['tipstring'].ljust(12)))
                 print(bet_string.ljust(7),winner.ljust(20),spread.ljust(5),pmargin.ljust(5),loc,loser.ljust(20),str(round(row['prob'],4)).ljust(5),row['tipstring'].ljust(12))
+    f2.writelines(games)
 
 def test_over_under(over_games,ou_features):
     X_train,y = pick_features(over_games,ou_features)
@@ -219,7 +225,7 @@ def test_spread():
             results_df = test_data[['away','home','pmargin','spread','home_cover']]
             results_df.insert(5, 'results', resultstree)
             results_df.insert(6, 'prob', probs)
-            right,wrong = track_today(results_df,prob=.53)
+            right,wrong = track_today(results_df,prob=.53,pdiff=1)
             total_right += right
             total_wrong += wrong
         profit = total_right - 1.1 * total_wrong
@@ -318,8 +324,15 @@ if __name__ == '__main__':
     depths = [6,4]
     feat_list = [features,n_features]
 
+<<<<<<< HEAD
     # X_train,y = pick_features(h_games,features)
     # run_gridsearch(X_train,y)
+=======
+    X_train,y = pick_features(h_games,features)
+    #run_gridsearch(X_train,y)
+
+    #test_spread()
+>>>>>>> changes to decision tree
 
     predict_today_spreads()
     test_spread()
