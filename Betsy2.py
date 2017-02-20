@@ -304,15 +304,19 @@ def betsy():
                 d["adj_drtg"] = team_list[index]["pre_adj_drtg"]
                 d["adj_temp"] = team_list[index]["pre_adj_temp"]
                 i = 0
+                weights = 1
+                weight = 1
                 for result in team_list[index]["prev_games"]:
                     i += 1
-                    d["adj_ortg"] += result["adj_ortg"] * (1 + .1 * i)
-                    d["adj_drtg"] += result["adj_drtg"] * (1 + .1 * i)
-                    d["adj_temp"] += result["adj_temp"] * (1 + .1 * i)
+                    weight *= 1.15
+                    d["adj_ortg"] += result["adj_ortg"] * weight
+                    d["adj_drtg"] += result["adj_drtg"] * weight
+                    d["adj_temp"] += result["adj_temp"] * weight
+                    weights += weight
                 if len(team_list[index]["prev_games"]) > 0:
-                    d["adj_ortg"] /= 1 + i + (i * (i + 1) / 20)
-                    d["adj_drtg"] /= 1 + i + (i * (i + 1) / 20)
-                    d["adj_temp"] /= 1 + i + (i * (i + 1) / 20)
+                    d["adj_ortg"] /= weights
+                    d["adj_drtg"] /= weights
+                    d["adj_temp"] /= weights
             for index,d in enumerate(dicts):
                 for key,value in d.items():
                     team_list[index][key].append(value)
@@ -389,10 +393,10 @@ def betsy():
                 spread_std_list.append(game["spread"] + game["margin"])
                 pmargin_std_list.append(game["pmargin"] - game["margin"])
                 diff_std_list.append(abs(game["pmargin"] + game["spread"]))
-                if game["true_home_game"]:
-                    home_count.append(game["pmargin"] - game["margin"])
-                if not game["true_home_game"]:
-                    away_count.append(game["pmargin"] - game["margin"])
+                home_count.append(game["pmargin"] / game["margin"] > 0)
+                if game["spread"] != 0 and game["pmargin"] + game["spread"] != 0 and game["spread"] + game["margin"] != 0:
+                    away_count.append((game["pmargin"] + game["spread"]) / (game["margin"] + game["spread"]) > 0)
+
             except:
                 pass
 
@@ -488,8 +492,8 @@ def betsy():
     print("Standard deviation of Scoring Margin prediction:".ljust(60),np.std(pmargin_std_list))
     print("Standard deviation of Scoring Margin and Spread:".ljust(60),np.std(spread_std_list))
     print("Standard deviation of Predicted Scoring Margin and Spread:".ljust(60),np.std(diff_std_list))
-    print("Home count:",np.median(home_count),len([i for i in home_count if i > 0]),len([i for i in home_count if i < 0]),len([i for i in home_count if i == 0]))
-    print("Away count:",np.median(away_count),len([i for i in away_count if i > 0]),len([i for i in away_count if i < 0]),len([i for i in away_count if i == 0]))
+    print("Home count:",len(home_count),len([i for i in home_count if i])/len(home_count))
+    print("Away count:",len(away_count),len([i for i in away_count if i])/len(away_count))
     print("Ties:",correct)
     # print(teams["The Citadel2017"])
 
@@ -750,15 +754,18 @@ def get_new_games(season='2017'):
             d["adj_drtg"] = team_list[index]["pre_adj_drtg"]
             d["adj_temp"] = team_list[index]["pre_adj_temp"]
             i = 0
+            weights = 1
             for result in team_list[index]["prev_games"]:
                 i += 1
-                d["adj_ortg"] += result["adj_ortg"] * (1 + .1 * i)
-                d["adj_drtg"] += result["adj_drtg"] * (1 + .1 * i)
-                d["adj_temp"] += result["adj_temp"] * (1 + .1 * i)
+                weight *= 1.15
+                d["adj_ortg"] += result["adj_ortg"] * weight
+                d["adj_drtg"] += result["adj_drtg"] * weight
+                d["adj_temp"] += result["adj_temp"] * weight
+                weights += weight
             if len(team_list[index]["prev_games"]) > 0:
-                d["adj_ortg"] /= 1 + i + (i * (i + 1) / 20)
-                d["adj_drtg"] /= 1 + i + (i * (i + 1) / 20)
-                d["adj_temp"] /= 1 + i + (i * (i + 1) / 20)
+                d["adj_ortg"] /= weights
+                d["adj_drtg"] /= weights
+                d["adj_temp"] /= weights
         for index,d in enumerate(dicts):
             for key,value in d.items():
                 team_list[index][key].append(value)
@@ -834,15 +841,15 @@ def get_new_games(season='2017'):
             writer.writerow(game)
 
 # make_teams_dict()
-get_old_games([2017])
+#get_old_games([2017])
 
-get_spreads([2017])
-get_sports_ref_data([2017])
+#get_spreads([2017])
+#get_sports_ref_data([2017])
 
-with open('new_teams.json','w') as outfile:
-    json.dump(teams,outfile)
-with open('new_game_dict.json','w') as outfile:
-    json.dump(game_dict,outfile)
+#with open('new_teams.json','w') as outfile:
+#    json.dump(teams,outfile)
+#with open('new_game_dict.json','w') as outfile:
+#    json.dump(game_dict,outfile)
 
 # Number of games used to create starting stats for teams
 preseason_length = 5
