@@ -1,0 +1,8 @@
+Bet       Miami               9.5    -8   1.5  @ Virginia            0.5463  6:00 PM CT  
+Bet       Texas               15.5   -14  1.5  @ West Virginia       0.5319  8:00 PM CT  
+Caution   Appalachian State   7.0    -9   ---  @ Troy                0.5168  7:00 PM CT  
+Bet       Boston College      19.0   -17  2.0  @ Florida State       0.5168  6:00 PM CT  
+Caution   UT-Arlington        -4.0   4    ---  @ Georgia Southern    0.5118  6:00 PM CT  
+Caution   Coastal Carolina    2.5    -3   ---  @ South Alabama       0.5118  7:05 PM CT  
+Caution   Texas Tech          -1.5   2    0.5  v Iowa State          0.5117  8:00 PM CT  
+Bet       Texas State         7.5    -5   2.5  @ Georgia State       0.5113  6:00 PM CT  

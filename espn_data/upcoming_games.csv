@@ -1,26 +1,19 @@
 Game_ID,Away_Abbrv,Home_Abbrv,Away_Score,Home_Score,Game_Away,Game_Home,Game_Year,Game_Date,Game_Tipoff,Game_Location,Neutral_Site,Conference_Competition,Attendance
-400918336,GW,DUQ,0,0,George Washington,Duquesne,2017,02/19,12:00:00,A.J. Palumbo Center|Pittsburgh|Pennsylvania,False,True,0
-400919117,BUCK,BU,0,0,Bucknell,Boston University,2017,02/19,12:00:00,Case Gym|Boston|Massachusetts,False,True,0
-400919118,HC,AMER,0,0,Holy Cross,American,2017,02/19,12:00:00,Bender Arena|Washington|District of Columbia,False,True,0
-400919119,COLG,L-MD,0,0,Colgate,Loyola (MD),2017,02/19,12:00:00,Reitz Arena|Baltimore|Maryland,False,True,0
-400919120,LEH,LAF,0,0,Lehigh,Lafayette,2017,02/19,12:00:00,Kirby Sports Center|Easton|Pennsylvania,False,True,0
-400914944,MD,WIS,0,0,Maryland,Wisconsin,2017,02/19,13:00:00,Kohl Center|Madison|Wisconsin,False,True,0
-400919336,PENN,YALE,0,0,Penn,Yale,2017,02/19,13:00:00,John J. Lee Amphitheater|New Haven|Connecticut,False,True,0
-400919726,DEP,BUT,0,0,DePaul,Butler,2017,02/19,13:30:00,Hinkle Fieldhouse|Indianapolis|Indiana,False,True,0
-400917643,CAN,MRST,0,0,Canisius,Marist,2017,02/19,14:00:00,McCann Arena|Poughkeepsie|New York,False,True,0
-400917644,FAIR,SPU,0,0,Fairfield,Saint Peter's,2017,02/19,14:00:00,Yanitelli Center|Jersey City|New Jersey,False,True,0
-400918514,VALP,DET,0,0,Valparaiso,Detroit Mercy,2017,02/19,14:00:00,Calihan Hall|Detroit|Michigan,False,True,0
-400918626,ALBY,MAINE,0,0,Albany,Maine,2017,02/19,14:00:00,Cross Insurance Center|Bangor|Maine,False,True,0
-400919516,UAB,WKU,0,0,UAB,Western Kentucky,2017,02/19,14:00:00,E. A. Diddle Arena|Bowling Green|Kentucky,False,True,0
-400918561,UIC,OAK,0,0,UIC,Oakland,2017,02/19,15:00:00,Athletics Center O&#39;rena|Rochester|Michigan,False,True,0
-400917985,IUPU,DEN,0,0,IUPUI,Denver,2017,02/19,15:30:00,Magness Arena|Denver|Colorado,False,True,0
-400919727,GTWN,CREI,0,0,Georgetown,Creighton,2017,02/19,15:30:00,CenturyLink Center Omaha|Omaha|Nebraska,False,True,0
-400916637,CONN,TEM,0,0,Connecticut,Temple,2017,02/19,16:00:00,Liacouras Center|Philadelphia|Pennsylvania,False,True,0
-400918152,SIU,INST,0,0,Southern Illinois,Indiana State,2017,02/19,16:00:00,Hulman Center|Terre Haute|Indiana,False,True,0
-400918207,L-IL,ILST,0,0,Loyola (CHI),Illinois State,2017,02/19,16:00:00,Redbird Arena|Normal|Illinois,False,True,0
-400919867,UNLV,SDSU,0,0,UNLV,San Diego State,2017,02/19,16:00:00,Viejas Arena|San Diego|California,False,True,0
-400917645,RID,IONA,0,0,Rider,Iona,2017,02/19,17:00:00,Hynes Athletics Center|New Rochelle|New York,False,True,0
-400917642,QU,MAN,0,0,Quinnipiac,Manhattan,2017,02/19,18:00:00,Draddy Gymnasium|Riverdale|New York,False,True,0
-400915452,SYR,GT,0,0,Syracuse,Georgia Tech,2017,02/19,18:30:00,McCamish Pavilion|Atlanta|Georgia,False,True,0
-400915057,MICH,MINN,0,0,Michigan,Minnesota,2017,02/19,19:00:00,Williams Arena|Minneapolis|Minnesota,False,True,0
-400915683,UTAH,ORST,0,0,Utah,Oregon State,2017,02/19,20:30:00,Gill Coliseum|Corvallis|Oregon,False,True,0
+400920456,NCCU,HOW,0,0,North Carolina Central,Howard,2017,02/20,16:00:00,Burr Gymnasium|Washington|District of Columbia,False,True,0
+400915453,MIA,UVA,0,0,Miami,Virginia,2017,02/20,19:00:00,John Paul Jones Arena|Charlottesville|Virginia,False,True,0
+400915454,BC,FSU,0,0,Boston College,Florida State,2017,02/20,19:00:00,Donald L. Tucker Center|Tallahassee|Florida,False,True,0
+400916092,TXST,GAST,0,0,Texas State,Georgia State,2017,02/20,19:00:00,GSU Sports Arena|Atlanta|Georgia,False,True,0
+400916094,UTA,GASO,0,0,UT-Arlington,Georgia Southern,2017,02/20,19:00:00,W. S. Hanner Fieldhouse|Statesboro|Georgia,False,True,0
+400920376,NSU,BCU,0,0,Norfolk State,Bethune-Cookman,2017,02/20,19:30:00,Moore Gymnasium|Daytona Beach|Florida,False,True,0
+400920430,MORG,DSU,0,0,Morgan State,Delaware State,2017,02/20,19:30:00,"Memorial Hall (Dover, DE)|Dover|Delaware",False,True,0
+400920489,NCAT,UMES,0,0,North Carolina A&T,Maryland-Eastern Shore,2017,02/20,19:30:00,Hytche Arena|Princess Anne|Maryland,False,True,0
+400916095,APP,TROY,0,0,Appalachian State,Troy,2017,02/20,20:00:00,Trojan Arena|Troy|Alabama,False,True,0
+400920412,COPP,SAV,0,0,Coppin State,Savannah State,2017,02/20,20:00:00,Tiger Arena|Savannah|Georgia,False,True,0
+400920444,HAMP,FAMU,0,0,Hampton,Florida A&M,2017,02/20,20:00:00,Al Lawson Center|Tallahassee|Florida,False,True,0
+400922210,AAMU,ALCN,0,0,Alabama A&M,Alcorn State,2017,02/20,20:00:00,Davey Whitney Complex|Lorman|Mississippi,False,True,0
+400916093,CCAR,USA,0,0,Coastal Carolina,South Alabama,2017,02/20,20:05:00,Mitchell Center|Mobile|Alabama,False,True,0
+400922225,UAPB,PV,0,0,Arkansas-Pine Bluff,Prairie View A&M,2017,02/20,20:30:00,William Nicks Building|Prairie View|Texas,False,True,0
+400922396,ALST,SOU,0,0,Alabama State,Southern,2017,02/20,20:30:00,F. G. Clark Activity Center|Baton Rouge|Louisiana,False,True,0
+400925424,MVSU,TXSO,0,0,Mississippi Valley State,Texas Southern,2017,02/20,20:30:00,H&PE Arena|Houston|Texas,False,True,0
+400911043,TEX,WVU,0,0,Texas,West Virginia,2017,02/20,21:00:00,WVU Coliseum|Morgantown|West Virginia,False,True,0
+400916250,ISU,TTU,0,0,Iowa State,Texas Tech,2017,02/20,21:00:00,United Supermarkets Arena|Lubbock|Texas,False,True,0

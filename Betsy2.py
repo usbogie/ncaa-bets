@@ -755,6 +755,7 @@ def get_new_games(season='2017'):
             d["adj_temp"] = team_list[index]["pre_adj_temp"]
             i = 0
             weights = 1
+            weight = 1
             for result in team_list[index]["prev_games"]:
                 i += 1
                 weight *= 1.15

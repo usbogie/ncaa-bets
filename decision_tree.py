@@ -190,22 +190,24 @@ def find_min_samples():
     min_samp_dict = {}
     feature_dict = {}
     for test_year in range(2011,2018):
-        games = game_list[1]
+        games = game_list[0]
+        these_features = features
+        depth = 6
         initial_training_games = get_initial_years_train_data(games,all_dates,test_year)
 
         test_days = []
         for day in make_season(test_year):
             test_days.append(games.ix[games['date']==day])
         test_data = pd.concat(test_days,ignore_index=True)
-        X_train,y = pick_features(initial_training_games,n_features)
-        X_test, y_test = pick_features(test_data,n_features)
+        X_train,y = pick_features(initial_training_games,these_features)
+        X_test, y_test = pick_features(test_data,these_features)
 
-        print(test_year)
+        print('\n' + str(test_year) + '\n')
         for j in range(12):
-            min_samples = j * 25
+            min_samples = j * 25 + 375
             if min_samples == 0:
                 min_samples = 1
-            clf = tree.DecisionTreeClassifier(min_samples_leaf=min_samples,max_depth=4)
+            clf = tree.DecisionTreeClassifier(min_samples_leaf=min_samples,max_depth=depth)
             clf = clf.fit(X_train,y)
 
             resultstree = clf.predict(X_test)
@@ -226,8 +228,8 @@ def find_min_samples():
                 break
             for idx,feat in enumerate(clf.feature_importances_):
                 if feat == 0:
-                    print(n_features[idx])
-                    feature_dict[n_features[idx]] = feature_dict.get(n_features[idx],0) + 1
+                    print(these_features[idx])
+                    feature_dict[these_features[idx]] = feature_dict.get(these_features[idx],0) + 1
             print("min_samples_leaf: ",min_samples,"\nProfit: ", profit, "\nTotal Games: ", right + wrong, "\nPercentage: ", right / (right + wrong),"\n")
     for key in sorted(list(min_samp_dict.keys())):
         print(key,sum(min_samp_dict[key]))
@@ -369,7 +371,7 @@ if __name__ == '__main__':
                 "DT_home_reb"]
 
     game_list = [h_games,n_games]
-    samples = [525,1]
+    samples = [575,1]
     depths = [6,4]
     feat_list = [features,n_features]
 
@@ -377,7 +379,7 @@ if __name__ == '__main__':
     #run_gridsearch(X_train,y)
     #find_min_samples()
     predict_today_spreads()
-    test_spread()
+    #test_spread()
 
     ou_features = ["true_home_game","DT_pover","DT_home_over","DT_away_over",
                 "DT_home_tPAr","DT_away_tPAr"]
