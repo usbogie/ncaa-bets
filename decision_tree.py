@@ -192,7 +192,7 @@ def find_min_samples():
     for test_year in range(2011,2018):
         games = game_list[0]
         these_features = features
-        depth = 6
+        depth = 5
         initial_training_games = get_initial_years_train_data(games,all_dates,test_year)
 
         test_days = []
@@ -362,9 +362,8 @@ if __name__ == '__main__':
     h_games = all_games.ix[all_games['true_home_game'] == 1]
     all_dates = all_games.date.unique().tolist()
     game_type = ['home','neutral']
-    features = ["DT_home_winner",
-                "DT_away_movement","DT_home_public","DT_away_public","DT_home_ats",
-                "DT_away_ats","DT_home_tPAr","DT_home_reb"]
+    features = ["DT_home_winner","DT_away_movement","DT_home_public","DT_away_public",
+                "DT_home_ats","DT_away_ats","DT_home_tPAr","DT_home_reb"]
 
     n_features = ["DT_home_winner",
                 "DT_home_public","DT_home_ats",
@@ -379,7 +378,7 @@ if __name__ == '__main__':
     #run_gridsearch(X_train,y)
     #find_min_samples()
     predict_today_spreads()
-    #test_spread()
+    test_spread()
 
     ou_features = ["true_home_game","DT_pover","DT_home_over","DT_away_over",
                 "DT_home_tPAr","DT_away_tPAr"]

@@ -62,8 +62,8 @@ edge [fontname=helvetica] ;
 27 -> 29 ;
 30 [label=<DT_home_winner &le; 0.5<br/>gini = 0.5<br/>samples = 1780<br/>value = [887, 893]<br/>class = y<SUB>1</SUB>>, fillcolor="#399de502"] ;
 22 -> 30 ;
-31 [label=<gini = 0.4998<br/>samples = 1144<br/>value = [560, 584]<br/>class = y<SUB>1</SUB>>, fillcolor="#399de50a"] ;
+31 [label=<gini = 0.4998<br/>samples = 1159<br/>value = [569, 590]<br/>class = y<SUB>1</SUB>>, fillcolor="#399de509"] ;
 30 -> 31 ;
-32 [label=<gini = 0.4996<br/>samples = 636<br/>value = [327, 309]<br/>class = y<SUB>0</SUB>>, fillcolor="#e581390e"] ;
+32 [label=<gini = 0.4997<br/>samples = 621<br/>value = [318, 303]<br/>class = y<SUB>0</SUB>>, fillcolor="#e581390c"] ;
 30 -> 32 ;
 }

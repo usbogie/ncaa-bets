@@ -1,8 +1,42 @@
-Bet       Miami               9.5    -8   1.5  @ Virginia            0.5463  6:00 PM CT  
-Bet       Texas               15.5   -14  1.5  @ West Virginia       0.5319  8:00 PM CT  
-Caution   Appalachian State   7.0    -9   ---  @ Troy                0.5168  7:00 PM CT  
-Bet       Boston College      19.0   -17  2.0  @ Florida State       0.5168  6:00 PM CT  
-Caution   UT-Arlington        -4.0   4    ---  @ Georgia Southern    0.5118  6:00 PM CT  
-Caution   Coastal Carolina    2.5    -3   ---  @ South Alabama       0.5118  7:05 PM CT  
-Caution   Texas Tech          -1.5   2    0.5  v Iowa State          0.5117  8:00 PM CT  
-Bet       Texas State         7.5    -5   2.5  @ Georgia State       0.5113  6:00 PM CT  
+Caution   Morehead State      -7.0   6    ---  v Tennessee Tech      0.5612  8:00 PM CT  
+Caution   Weber State         3.0    -5   ---  @ Eastern Washington  0.5487  8:05 PM CT  
+Caution   Delaware            13.5   -14  ---  @ Charleston          0.5453  6:30 PM CT  
+Bet       IUPUI               3.5    1    4.5  v Fort Wayne          0.5409  6:00 PM CT  
+Bet       Portland            11.5   -9   2.5  v BYU                 0.5409  9:00 PM CT  
+Bet       Ohio State          7.0    -5   2.0  v Wisconsin           0.5409  8:00 PM CT  
+Bet       Pacific             10.5   -9   1.5  @ Santa Clara         0.5407  9:00 PM CT  
+Caution   Gonzaga             -24.0  20   ---  @ San Diego           0.5365  9:00 PM CT  
+Caution   CSU Northridge      5.5    -6   ---  @ UC Davis            0.5298  9:00 PM CT  
+Caution   George Washington   -5.0   5    ---  v Massachusetts       0.5228  6:00 PM CT  
+Caution   Arizona             -9.0   9    ---  v USC                 0.5228  9:00 PM CT  
+Caution   Long Beach State    -7.5   8    0.5  v Cal Poly            0.5228  9:00 PM CT  
+Caution   Cincinnati          -14.0  11   ---  v Memphis             0.5228  6:00 PM CT  
+Bet       Marshall            6.0    -5   1.0  @ Old Dominion        0.5198  7:00 PM CT  
+Caution   Idaho State         10.5   -10  0.5  @ Idaho               0.5198  9:00 PM CT  
+Bet       Georgia             5.5    -3   2.5  @ Alabama             0.5198  6:00 PM CT  
+Caution   Northeastern        2.5    -5   ---  @ Elon                0.5193  6:00 PM CT  
+Caution   Murray State        -1.0   -4   ---  @ Southeast Missouri State0.5118  6:30 PM CT  
+Caution   Utah                2.0    -2   ---  @ Colorado            0.5118  10:00 PM CT 
+Caution   Louisiana Tech      -10.5  8    ---  @ North Texas         0.5118  7:00 PM CT  
+Caution   Hofstra             6.5    -7   ---  @ William & Mary      0.5118  6:00 PM CT  
+Caution   Southern Utah       12.0   -12  ---  @ Portland State      0.5118  9:05 PM CT  
+Caution   Saint Mary's        -18.5  17   ---  @ Pepperdine          0.5118  9:00 PM CT  
+Bet       LIU Brooklyn        6.0    -5   1.0  @ Mount St Mary's     0.5118  6:00 PM CT  
+Caution   UC Riverside        -2.5   3    0.5  @ UC Santa Barbara    0.5118  9:00 PM CT  
+Caution   Gardner-Webb        2.5    -2   0.5  v UNC Asheville       0.5117  8:00 PM CT  
+Caution   UCLA                -13.5  11   ---  @ Arizona State       0.5102  8:00 PM CT  
+Caution   Southern Mississippi14.5   -17  ---  @ Rice                0.5102  7:00 PM CT  
+Caution   South Florida       11.0   -11  ---  @ Tulsa               0.5102  7:00 PM CT  
+Caution   Quinnipiac          -2.5   -1   ---  @ Marist              0.5102  6:30 PM CT  
+Caution   Austin Peay         7.5    -9   ---  @ UT Martin           0.5102  7:00 PM CT  
+Bet       Towson              9.5    -8   1.5  @ UNC Wilmington      0.5102  6:00 PM CT  
+Caution   Charleston Southern 14.5   -14  0.5  @ Winthrop            0.5102  5:30 PM CT  
+Caution   South Dakota        -5.5   5    ---  @ Western Illinois    0.5101  7:00 PM CT  
+Caution   San Francisco       -1.5   -1   ---  @ Loyola Marymount    0.5101  9:00 PM CT  
+Caution   James Madison       1.0    -4   ---  @ Drexel              0.5057  6:00 PM CT  
+Caution   Western Kentucky    1.5    -3   ---  @ Charlotte           0.5057  6:00 PM CT  
+Caution   Nebraska            4.0    -5   ---  @ Michigan State      0.5057  6:00 PM CT  
+Bet       Eastern Kentucky    1.5    1    2.5  v Jacksonville State  0.5013  6:00 PM CT  
+Caution   Florida Atlantic    -1.0   -1   ---  v UTEP                0.5013  6:00 PM CT  
+Caution   Sacramento State    -8.5   8    ---  v Northern Arizona    0.5013  9:05 PM CT  
+Caution   UT San Antonio      3.5    -4   ---  @ Florida Intl        0.5     6:00 PM CT  

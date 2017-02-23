@@ -611,9 +611,9 @@ def run_preseason():
                 # Home court advantage values taken into account only if true home game
                 home_o = 3 if game["true_home_game"] == 1 else 0
                 away_o = 2 if game["true_home_game"] == 1 else 0
-                home_o_diff = (home["adj_ortg"][-1] - away["adj_drtg"][-1]) / 2
-                away_o_diff = (away["adj_ortg"][-1] - home["adj_drtg"][-1]) / 2
-                temp_diff = (home["adj_temp"][-1] - away["adj_temp"][-1]) / 2
+                home_o_diff = (home["pre_adj_ortg"] - away["pre_adj_drtg"]) / 2
+                away_o_diff = (away["pre_adj_ortg"] - home["pre_adj_drtg"]) / 2
+                temp_diff = (home["pre_adj_temp"] - away["pre_adj_temp"]) / 2
                 # Best predictor of Ratings and Pace is an average of the two, so must reverse calculate a team's adjusted rating for the game
                 if game["home"] == team["name"]:
                     pre_adj_off += (game["home_ORtg"] + home_o_diff - home_o) / preseason_length
@@ -627,6 +627,7 @@ def run_preseason():
             team["adj_drtg"].append(pre_adj_def)
             team["adj_temp"].append(pre_adj_tempo)
         # print(teams["Vanderbilt2014"]["adj_ortg"][-1],teams["Vanderbilt2014"]["adj_drtg"][-1],teams["Vanderbilt2014"]["adj_temp"][-1])
+        for key,team in teams.items():
             team["pre_adj_ortg"] = team["adj_ortg"][-1]
             team["pre_adj_drtg"] = team["adj_drtg"][-1]
             team["pre_adj_temp"] = team["adj_temp"][-1]
