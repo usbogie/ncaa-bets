@@ -129,8 +129,10 @@ def print_picks(games,prob=.5,check_pmargin=False):
                 diff = str(-1 * (row['spread'] + row['pmargin']))
                 loc = "@ "
             bet_string = 'Bet' if (float(diff) >=.5 and row['prob']>=.53) or (float(diff) >= 1 and row['prob'] >= .51) or float(diff) >= 1.5 else 'Caution'
-            if float(diff) <= 0:
+            if float(diff) < 0:
                 diff = '---'
+            elif float(diff) == 0:
+                diff = str(abs(float(diff)))
             if print_game:
                 games.append("{}{}{}{}{}{}{}{}{}\n".format(bet_string.ljust(10),winner.ljust(20),spread.ljust(7),pmargin.ljust(5),diff.ljust(5),loc,loser.ljust(20),str(round(row['prob'],4)).ljust(8),row['tipstring'].ljust(12)))
                 print(bet_string.ljust(7),winner.ljust(20),spread.ljust(5),pmargin.ljust(5),diff.ljust(5),loc,loser.ljust(20),str(round(row['prob'],4)).ljust(5),row['tipstring'].ljust(12))

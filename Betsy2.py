@@ -841,6 +841,19 @@ def get_new_games(season='2017'):
         writer.writeheader()
         for game in new_over_games:
             writer.writerow(game)
+            
+def print_rankings():
+    f2 = open('rankings.txt', 'w')
+    rankings = []
+    for key,team in teams.items():
+        team["adj_em"] = team["adj_ortg"][-1] - team["adj_drtg"][-1]
+    em_list = []
+    for key,team in teams.items():
+        if team["year"] == 2017:
+            em_list.append((team["adj_em"],team["name"],team["adj_ortg"][-1],team["adj_drtg"][-1]))
+    for idx,team in enumerate(sorted(em_list,reverse=True)):
+        rankings.append("{} {}\tEM: {}\tORTG: {}\tDRTG: {}\n".format(str(idx+1).ljust(4),team[1].ljust(25),str(round(team[0]/2,2)).ljust(8),str(round(team[2],2)).ljust(8),str(round(team[3],2)).ljust(8)))
+    f2.writelines(rankings)
 
 # make_teams_dict()
 #get_old_games([2017])
@@ -877,6 +890,9 @@ with open('games.csv','w') as outfile:
     writer.writeheader()
     for game in game_list:
         writer.writerow(game)
+        
+print_rankings()
+
 
 # with open('over_games.csv','w') as outfile:
 #     keys = list(over_games[0].keys())
