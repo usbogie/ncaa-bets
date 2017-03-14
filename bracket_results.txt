@@ -11,24 +11,24 @@ Gonzaga
 Arizona
 Florida St.
 West Virginia
-Princeton
-Xavier
+Notre Dame
+Maryland
 Saint Mary's
 Vanderbilt
 Kansas
 Louisville
 Oregon
-Vermont
+Purdue
 Iowa St.
 Creighton
-Oklahoma St.
-Michigan St.
+Michigan
+Miami
 North Carolina
 Kentucky
 UCLA
 Butler
-Middle Tennessee St.
-Wake Forest
+Minnesota
+Cincinnati
 Wichita St.
 Arkansas
 
@@ -37,7 +37,7 @@ Villanova
 Duke
 SMU
 Virginia
-Vanderbilt
+Gonzaga
 Saint Mary's
 Florida St.
 West Virginia
@@ -46,29 +46,29 @@ Louisville
 Oregon
 Iowa St.
 North Carolina
-Kentucky
-Wake Forest
-Middle Tennessee St.
+Wichita St.
+Cincinnati
+Butler
 
 Elite 8
 Villanova
-Duke
-West Virginia
+SMU
+Gonzaga
 Saint Mary's
 Kansas
 Louisville
 North Carolina
-Kentucky
+Wichita St.
 
 Final 4
-Duke
-West Virginia
+Villanova
+Gonzaga
 Kansas
 North Carolina
 
 Championship
-Duke
-Kansas
+Villanova
+North Carolina
 
 Champion
-Kansas
+Villanova

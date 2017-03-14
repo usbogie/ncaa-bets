@@ -44,9 +44,9 @@ for i in range(6):
                 print(em_diff, winners[game]['fav'], winners[game]['und'])
             for j in range(4):
                 game = rnd + games * j + k
-                y = input("Pick {}? ".format(winners[game]['fav']))
-                winners[game]['winner'] = winners[game]['fav'] if y == 'y' else winners[game]['und']
-                winner = (winners[game]['fav'],winners[game]['fav_em']) if y == 'y' else (winners[game]['und'],winners[game]['und_em'])
+                y = input("Hit enter to pick {}, otherwise press another key first ".format(winners[game]['fav']))
+                winners[game]['winner'] = winners[game]['fav'] if y == '' else winners[game]['und']
+                winner = (winners[game]['fav'],winners[game]['fav_em']) if y == '' else (winners[game]['und'],winners[game]['und_em'])
                 next_k = k if k < games/2 else games-k-1
                 next_rnd = 64 - 2 ** (6-(i+1)) + 1
                 next_game = next_rnd + games/2 * j + next_k
@@ -62,9 +62,9 @@ for i in range(6):
                 em_diff = round((winners[first+k]['fav_em'] - winners[first+k]['und_em']) * .35)
                 print(em_diff, winners[first+k]['fav'], winners[first+k]['und'])
             for k in range(2):
-                y = input("Pick {}? ".format(winners[first+k]['fav']))
-                winners[first+k]['winner'] = winners[first+k]['fav'] if y == 'y' else winners[first+k]['und']
-                winner = (winners[first+k]['fav'],winners[first+k]['fav_em']) if y == 'y' else (winners[first+k]['und'],winners[first+k]['und_em'])
+                y = input("Hit enter to pick {}, otherwise press another key first ".format(winners[first+k]['fav']))
+                winners[first+k]['winner'] = winners[first+k]['fav'] if y == '' else winners[first+k]['und']
+                winner = (winners[first+k]['fav'],winners[first+k]['fav_em']) if y == '' else (winners[first+k]['und'],winners[first+k]['und_em'])
                 next_rnd = 64 - 2 ** (6-(i+1)) + 1
                 next_game = next_rnd + j
                 pick = 'fav' if not k else 'und'
@@ -83,9 +83,9 @@ for i in range(6):
             em_diff = round((winners[rnd+j]['fav_em'] - winners[rnd+j]['und_em']) * .35)
             print(em_diff, winners[rnd+j]['fav'], winners[rnd+j]['und'])
         for j in range(games):
-            y = input("Pick {}? ".format(winners[rnd+j]['fav']))
-            winners[rnd+j]['winner'] = winners[rnd+j]['fav'] if y == 'y' else winners[rnd+j]['und']
-            winner = (winners[rnd+j]['fav'],winners[rnd+j]['fav_em']) if y == 'y' else (winners[rnd+j]['und'],winners[rnd+j]['und_em'])
+            y = input("Hit enter to pick {}, otherwise press another key first ".format(winners[rnd+j]['fav']))
+            winners[rnd+j]['winner'] = winners[rnd+j]['fav'] if y == '' else winners[rnd+j]['und']
+            winner = (winners[rnd+j]['fav'],winners[rnd+j]['fav_em']) if y == '' else (winners[rnd+j]['und'],winners[rnd+j]['und_em'])
             next_rnd = 64 - 2 ** (6-(i+1)) + 1
             if next_rnd == 64:
                 break
