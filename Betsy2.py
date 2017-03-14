@@ -1,13 +1,9 @@
-import statsmodels.formula.api as sm
 import json
 import csv
 import numpy as np
-import json
-import ast
 import pandas as pd
 from datetime import date,timedelta
 import math
-from scipy.stats.mstats import zscore
 
 teams = {}
 with open('new_teams.json','r') as infile:
@@ -298,25 +294,23 @@ def betsy():
             home_dict = {}
             away_dict = {}
             dicts = [home_dict,away_dict]
+            stats = ["adj_ortg","adj_drtg","adj_temp"]
             # Update stats
             for index,d in enumerate(dicts):
-                d["adj_ortg"] = team_list[index]["pre_adj_ortg"]
-                d["adj_drtg"] = team_list[index]["pre_adj_drtg"]
-                d["adj_temp"] = team_list[index]["pre_adj_temp"]
+                for stat in stats:
+                    d[stat] = team_list[index]["pre_"+stat]
                 i = 0
                 weights = 1
                 weight = 1
                 for result in team_list[index]["prev_games"]:
                     i += 1
                     weight *= 1.15
-                    d["adj_ortg"] += result["adj_ortg"] * weight
-                    d["adj_drtg"] += result["adj_drtg"] * weight
-                    d["adj_temp"] += result["adj_temp"] * weight
+                    for stat in stats:
+                        d[stat] += result[stat] * weight
                     weights += weight
                 if len(team_list[index]["prev_games"]) > 0:
-                    d["adj_ortg"] /= weights
-                    d["adj_drtg"] /= weights
-                    d["adj_temp"] /= weights
+                    for stat in stats:
+                        d[stat] /= weights
             for index,d in enumerate(dicts):
                 for key,value in d.items():
                     team_list[index][key].append(value)
@@ -330,14 +324,13 @@ def betsy():
             game["away_temp"] = away["adj_temp"][-1]
 
             game["home_o"] = 3 if game["true_home_game"] == 1 else 0
-            game["away_o"] = -2 if game["true_home_game"] == 1 else 0
             game["home_em"] = home["adj_ortg"][-1] - home["adj_drtg"][-1]
             game["away_em"] = away["adj_ortg"][-1] - away["adj_drtg"][-1]
-            game["tempo"] = (home["adj_temp"][-1] + away["adj_temp"][-1]) / 2
+            game["tempo"] = 2 * game["home_temp"] * game["away_temp"] / (game["home_temp"] + game["away_temp"])
             game["em_diff"] = (4 * game["home_o"] + game["home_em"] - game["away_em"]) / 100
             game["pmargin"] = game["em_diff"] * game["tempo"] * .5
             game["home_portg"] = game["home_o"] + .5 * (home["adj_ortg"][-1] + away["adj_drtg"][-1])
-            game["away_portg"] = game["away_o"] + .5 * (away["adj_ortg"][-1] + home["adj_drtg"][-1])
+            game["away_portg"] = -1 * game["home_o"] + .5 * (away["adj_ortg"][-1] + home["adj_drtg"][-1])
             game["ptotal"] = round((game["home_portg"] + game["away_portg"]) / 100 * game["tempo"])
             if game["pmargin"] > 0 and game["pmargin"] <= 6:
                 game["pmargin"] += 1
@@ -382,9 +375,25 @@ def betsy():
             except:
                 pass
 
+            # Neural Net Stuff
+            try:
+                if game["home_cover"] != 0:
+                    game["NN_home_winner"] = game["pmargin"] + game["spread"]
+                    game["NN_reb"] = np.mean(home["TRBP"]) - np.mean(away["TRBP"])
+                    game["NN_home_FT"] = np.mean(home["FT"])
+                    game["NN_away_FT"] = np.mean(away["FT"])
+                    game["NN_home_tPAr"] = np.mean(home["tPAr"])
+                    game["NN_away_tPAr"] = np.mean(away["tPAr"])
+                    game["NN_home_TOVP"] = np.mean(home["TOVP"]) - TOVP_avg + np.mean(away["opp_TOVP"]) - opp_TOVP_avg if np.mean(away["opp_TOVP"]) > opp_TOVP_avg else 0
+                    game["NN_away_TOVP"] = np.mean(away["TOVP"]) - TOVP_avg + np.mean(home["opp_TOVP"]) - opp_TOVP_avg if np.mean(home["opp_TOVP"]) > opp_TOVP_avg else 0
+                    game["NN_home_TOVP"] = 0 if game["NN_home_TOVP"] < 0 else game["NN_home_TOVP"]
+                    game["NN_away_TOVP"] = 0 if game["NN_away_TOVP"] < 0 else game["NN_away_TOVP"]
+            except:
+                pass
+
             # Data collection for testing
             h_proj_o = (home["adj_ortg"][-1] + away["adj_drtg"][-1]) / 2 + game["home_o"]
-            a_proj_o = (away["adj_ortg"][-1] + home["adj_drtg"][-1]) / 2 + game["away_o"]
+            a_proj_o = (away["adj_ortg"][-1] + home["adj_drtg"][-1]) / 2 - game["home_o"]
             try:
                 home_ortg_std_list.append(h_proj_o - game["home_ORtg"])
                 away_ortg_std_list.append(a_proj_o - game["away_ORtg"])
@@ -417,11 +426,11 @@ def betsy():
             data["neutral"] = 1 - game["true_home_game"]
             data_list.append(data)
             try:
-                margins[game["pmargin"] // 5].append(game["margin"])
-                diffs[game["pmargin"] // 5].append(game["pmargin"] - game["margin"])
+                margins[game["pmargin"]].append(game["margin"])
+                diffs[game["pmargin"]].append(game["pmargin"] - game["margin"])
             except:
-                margins[game["pmargin"] // 5] = [game["margin"]]
-                diffs[game["pmargin"] // 5] = [game["pmargin"] - game["margin"]]
+                margins[game["pmargin"]] = [game["margin"]]
+                diffs[game["pmargin"]] = [game["pmargin"] - game["margin"]]
 
             # Store results
             home["FT"].append(game["home_FT"])
@@ -446,16 +455,16 @@ def betsy():
             home_results = {}
             home_o_diff = (home["adj_ortg"][-1] - away["adj_drtg"][-1]) / 2
             away_o_diff = (away["adj_ortg"][-1] - home["adj_drtg"][-1]) / 2
-            temp_diff = (home["adj_temp"][-1] - away["adj_temp"][-1]) / 2
+            temp_diff = (20 / game["home_temp"] - 20 / game["away_temp"]) / 2
             home_results["key"] = game["key"]
             home_results["adj_ortg"] = game["home_ORtg"] + home_o_diff - game["home_o"]
-            home_results["adj_drtg"] = game["home_DRtg"] - away_o_diff - game["away_o"]
-            home_results["adj_temp"] = game["Pace"] + temp_diff
+            home_results["adj_drtg"] = game["home_DRtg"] - away_o_diff + game["home_o"]
+            home_results["adj_temp"] = 20 / (20 / game["Pace"] + temp_diff)
             away_results = {}
             away_results["key"] = game["key"]
-            away_results["adj_ortg"] = game["away_ORtg"] + away_o_diff - game["away_o"]
+            away_results["adj_ortg"] = game["away_ORtg"] + away_o_diff + game["home_o"]
             away_results["adj_drtg"] = game["away_DRtg"] - home_o_diff - game["home_o"]
-            away_results["adj_temp"] = game["Pace"] - temp_diff
+            away_results["adj_temp"] = 20 / (20 / game["Pace"] - temp_diff)
             if game["key"] in home["games"]:
                 home["prev_games"].append(home_results)
                 if home["games"][0] == game["key"]:
@@ -481,7 +490,7 @@ def betsy():
         data["margmed"] = np.median(margins[key])
         data["diffmed"] = np.median(diffs[key])
         data["count"] = len(margins[key])
-        print(str(key * 5).rjust(5),str(data["margmed"]).rjust(5),str(data["diffmed"]).rjust(15),str(len(margins[key])).rjust(6))
+        print(str(key).rjust(5),str(data["margmed"]).rjust(5),str(data["diffmed"]).rjust(15),str(len(margins[key])).rjust(6))
 
     compare_strategies(data_list)
 
@@ -610,19 +619,18 @@ def run_preseason():
                 away = teams[game["away"]+game["season"]]
                 # Home court advantage values taken into account only if true home game
                 home_o = 3 if game["true_home_game"] == 1 else 0
-                away_o = 2 if game["true_home_game"] == 1 else 0
                 home_o_diff = (home["pre_adj_ortg"] - away["pre_adj_drtg"]) / 2
                 away_o_diff = (away["pre_adj_ortg"] - home["pre_adj_drtg"]) / 2
-                temp_diff = (home["pre_adj_temp"] - away["pre_adj_temp"]) / 2
+                temp_diff = (20 / home["pre_adj_temp"] - 20 / away["pre_adj_temp"]) / 2
                 # Best predictor of Ratings and Pace is an average of the two, so must reverse calculate a team's adjusted rating for the game
                 if game["home"] == team["name"]:
                     pre_adj_off += (game["home_ORtg"] + home_o_diff - home_o) / preseason_length
-                    pre_adj_def += (game["home_DRtg"] - away_o_diff + away_o) / preseason_length # Positive drtg good, amount of points fewer they gave up than expected
-                    pre_adj_tempo += (game["Pace"] + temp_diff) / preseason_length
+                    pre_adj_def += (game["home_DRtg"] - away_o_diff + home_o) / preseason_length # Positive drtg good, amount of points fewer they gave up than expected
+                    pre_adj_tempo += (20 / (20 / game["Pace"] + temp_diff)) / preseason_length
                 else:
-                    pre_adj_off += (game["away_ORtg"] + away_o_diff + away_o) / preseason_length
+                    pre_adj_off += (game["away_ORtg"] + away_o_diff + home_o) / preseason_length
                     pre_adj_def += (game["away_DRtg"] - home_o_diff - home_o) / preseason_length # Positive drtg good, amount of points fewer they gave up than expected
-                    pre_adj_tempo += (game["Pace"] - temp_diff) / preseason_length
+                    pre_adj_tempo += (20 / (20 / game["Pace"] - temp_diff)) / preseason_length
             team["adj_ortg"].append(pre_adj_off)
             team["adj_drtg"].append(pre_adj_def)
             team["adj_temp"].append(pre_adj_tempo)
@@ -780,14 +788,13 @@ def get_new_games(season='2017'):
         game["away_temp"] = away["adj_temp"][-1]
 
         game["home_o"] = 3 if game["true_home_game"] == 1 else 0
-        game["away_o"] = -2 if game["true_home_game"] == 1 else 0
         game["home_em"] = home["adj_ortg"][-1] - home["adj_drtg"][-1]
         game["away_em"] = away["adj_ortg"][-1] - away["adj_drtg"][-1]
         game["tempo"] = (home["adj_temp"][-1] + away["adj_temp"][-1]) / 2
         game["em_diff"] = (4 * game["home_o"] + game["home_em"] - game["away_em"]) / 100
         game["pmargin"] = game["em_diff"] * game["tempo"] * .5
         game["home_portg"] = game["home_o"] + .5 * (home["adj_ortg"][-1] + away["adj_drtg"][-1])
-        game["away_portg"] = game["away_o"] + .5 * (away["adj_ortg"][-1] + home["adj_drtg"][-1])
+        game["away_portg"] = -1 * game["home_o"] + .5 * (away["adj_ortg"][-1] + home["adj_drtg"][-1])
         game["ptotal"] = round((game["home_portg"] + game["away_portg"]) / 100 * game["tempo"])
         if game["pmargin"] > 0 and game["pmargin"] <= 6:
             game["pmargin"] += 1
@@ -827,21 +834,34 @@ def get_new_games(season='2017'):
         except:
             pass
 
-        print("Found:",game["home"],game["away"])
-    with open('todays_games.csv','w') as outfile:
-        keys = list(new_games[0].keys())
-        writer = csv.DictWriter(outfile,fieldnames = keys)
-        writer.writeheader()
-        for game in new_games:
-            writer.writerow(game)
+        # Neural Net Stuff
+        game["NN_home_winner"] = game["pmargin"] + game["spread"]
+        game["NN_reb"] = np.mean(home["TRBP"]) - np.mean(away["TRBP"])
+        game["NN_home_FT"] = np.mean(home["FT"])
+        game["NN_away_FT"] = np.mean(away["FT"])
+        game["NN_home_tPAr"] = np.mean(home["tPAr"])
+        game["NN_away_tPAr"] = np.mean(away["tPAr"])
+        game["NN_home_TOVP"] = np.mean(home["TOVP"]) - TOVP_avg + np.mean(away["opp_TOVP"]) - opp_TOVP_avg if np.mean(away["opp_TOVP"]) > opp_TOVP_avg else 0
+        game["NN_away_TOVP"] = np.mean(away["TOVP"]) - TOVP_avg + np.mean(home["opp_TOVP"]) - opp_TOVP_avg if np.mean(home["opp_TOVP"]) > opp_TOVP_avg else 0
+        game["NN_home_TOVP"] = 0 if game["NN_home_TOVP"] < 0 else game["NN_home_TOVP"]
+        game["NN_away_TOVP"] = 0 if game["NN_away_TOVP"] < 0 else game["NN_away_TOVP"]
 
-    with open('todays_over_games.csv','w') as outfile:
-        keys = list(new_over_games[0].keys())
-        writer = csv.DictWriter(outfile,fieldnames = keys)
-        writer.writeheader()
-        for game in new_over_games:
-            writer.writerow(game)
-            
+        print("Found:",game["home"],game["away"])
+    if new_games:
+        with open('todays_games.csv','w') as outfile:
+            keys = list(new_games[0].keys())
+            writer = csv.DictWriter(outfile,fieldnames = keys)
+            writer.writeheader()
+            for game in new_games:
+                writer.writerow(game)
+    if new_over_games:
+        with open('todays_over_games.csv','w') as outfile:
+            keys = list(new_over_games[0].keys())
+            writer = csv.DictWriter(outfile,fieldnames = keys)
+            writer.writeheader()
+            for game in new_over_games:
+                writer.writerow(game)
+
 def print_rankings():
     f2 = open('rankings.txt', 'w')
     rankings = []
@@ -852,12 +872,11 @@ def print_rankings():
         if team["year"] == 2017:
             em_list.append((team["adj_em"],team["name"],team["adj_ortg"][-1],team["adj_drtg"][-1]))
     for idx,team in enumerate(sorted(em_list,reverse=True)):
-        rankings.append("{} {}\tEM: {}\tORTG: {}\tDRTG: {}\n".format(str(idx+1).ljust(4),team[1].ljust(25),str(round(team[0]/2,2)).ljust(8),str(round(team[2],2)).ljust(8),str(round(team[3],2)).ljust(8)))
+        rankings.append("{} {}\tEM: {}\tORTG: {}\tDRTG: {}\n".format(str(idx+1).ljust(4),team[1].ljust(25),str(round(team[0]/2,2)).ljust(8),str(round(team[2]/2 + 50,2)).ljust(8),str(round(team[3]/2 + 50,2)).ljust(8)))
     f2.writelines(rankings)
 
 # make_teams_dict()
 #get_old_games([2017])
-
 #get_spreads([2017])
 #get_sports_ref_data([2017])
 
@@ -890,7 +909,7 @@ with open('games.csv','w') as outfile:
     writer.writeheader()
     for game in game_list:
         writer.writerow(game)
-        
+
 print_rankings()
 
 
@@ -900,3 +919,24 @@ print_rankings()
 #     writer.writeheader()
 #     for game in over_games:
 #         writer.writerow(game)
+
+bracket = pd.read_csv('bracket.csv')
+with open('bracket_names_dict.json','r') as infile:
+    b_names = json.load(infile)
+
+ncaa_teams = []
+for idx,team in enumerate(list(bracket.Teams)):
+    team_dict = {}
+    team_dict['region'] = int(bracket.Bracket[idx])
+    team_list = team.split(' ')
+    team_dict['seed'] = int(team_list[0])
+    team_list = team_list[1:]
+    team_name = ''
+    for word in team_list:
+        team_name += word + ' '
+    team_dict['name'] = team_name[:-1]
+    team_dict['em'] = teams[b_names[team_dict['name']]+'2017']['adj_em']
+    ncaa_teams.append(team_dict)
+
+with open('ncaa_teams.json','w') as outfile:
+    json.dump(ncaa_teams,outfile)

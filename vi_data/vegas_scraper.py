@@ -46,11 +46,11 @@ def ordered(obj):
 	else:
 		return obj
 
-def get_data(data=[],get_yesterday=False,get_today=False,year=2017):
+def get_data(data=[],get_yesterday=False,get_today=False,year=2017,days_ago=1):
 	all_dates = make_season(year-1)
 	base = "http://www.vegasinsider.com/college-basketball/matchups/matchups.cfm/date/"
 	today = int(datetime.now().strftime('%Y%m%d'))
-	yesterday = int((datetime.now()-timedelta(1)).strftime('%Y%m%d'))
+	yesterday = int((datetime.now()-timedelta(days_ago)).strftime('%Y%m%d'))
 	for day in all_dates:
 		if today < int(day.replace('-','')):
 			continue

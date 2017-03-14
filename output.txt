@@ -1,14 +1,33 @@
-Caution   California          -18.0  15.0 ---  v Oregon State        0.5606  9:00 PM CT  
-Bet       Niagara             6.0    -5.0 1.0  v Saint Peter's       0.5413  6:00 PM CT  
-Bet       UIC                 8.5    -8.0 0.5  @ Northern Kentucky   0.5373  6:30 PM CT  
-Caution   Fairfield           5.0    -7.0 ---  @ Canisius            0.5373  6:00 PM CT  
-Caution   Detroit Mercy       4.0    -5.0 ---  @ Milwaukee           0.5298  7:00 PM CT  
-Caution   Central Michigan    8.0    -8.0 0.0  @ Toledo              0.5298  5:00 PM CT  
-Bet       Dartmouth           -1.5   4.0  2.5  v Brown               0.5232  6:00 PM CT  
-Caution   Akron               2.0    -4.0 ---  @ Buffalo             0.5199  7:00 PM CT  
-Caution   Princeton           -7.5   6.0  ---  @ Columbia            0.5128  6:00 PM CT  
-Caution   Dayton              -2.5   3.0  0.5  @ Davidson            0.5106  8:00 PM CT  
-Caution   Manhattan           10.5   -12.0---  @ Iona                0.5106  8:00 PM CT  
-Caution   Siena               8.5    -10.0---  @ Monmouth            0.5057  6:00 PM CT  
-Bet       Green Bay           0.0    3.0  3.0  v Oakland             0.5004  6:00 PM CT  
-Caution   Wright State        2.0    -1.0 1.0  v Valparaiso          0.5004  6:30 PM CT  
+Bet       Coastal Carolina    -2.5   3    0.5  v South Alabama       0.6202  0.5243  11:30 AM CT 
+Bet       Utah State          -4.5   5    0.5  v San Jose State      0.6202  0.522   1:00 PM CT  
+Bet       Arizona State       5.0    -4   1.0  v Stanford            0.6202  0.5068  2:00 PM CT  
+Bet       Virginia            -9.5   10   0.5  v Pittsburgh          0.5492  0.5117  8:00 PM CT  
+Caution   Ohio State          -7.5   5    ---  v Rutgers             0.5418  0.5118  6:00 PM CT  
+Caution   Western Kentucky    -5.0   2    ---  v UT San Antonio      0.5418  0.5107  11:30 AM CT 
+Caution   USC                 -12.0  8    ---  v Washington          0.5418  0.4899  10:30 PM CT 
+Caution   Rice                -11.5  10   -1.5 v Southern Mississippi0.5357  0.5039  2:00 PM CT  
+Caution   Nebraska            1.5    -4   ---  v Penn State          0.5357  0.5035  3:30 PM CT  
+Bet       Norfolk State       -6.5   5    -1.5 v South Carolina State0.5357  0.5271  7:00 PM CT  
+Caution   Colorado            -11.0  8    ---  v Washington State    0.5357  0.5088  8:00 PM CT  
+Caution   California          -14.0  11   ---  v Oregon State        0.5312  0.5194  4:30 PM CT  
+Caution   San Diego State     -10.0  9    -1.0 v UNLV                0.5312  0.5162  6:00 PM CT  
+Caution   Duke                -6.5   5    -1.5 v Clemson             0.5312  0.5212  1:00 PM CT  
+Caution   TCU                 -2.0   1    -1.0 v Oklahoma            0.5312  0.5211  6:00 PM CT  
+Caution   Texas Tech          -4.5   4    -0.5 v Texas               0.5312  0.5186  8:00 PM CT  
+Bet       Xavier              -8.0   7    -1.0 v DePaul              0.5312  0.5263  8:30 PM CT  
+Caution   UL Lafayette        -5.5   5    -0.5 v Little Rock         0.5312  0.5127  5:00 PM CT  
+Caution   UAB                 -7.0   3    ---  v Charlotte           0.5312  0.5145  5:30 PM CT  
+Bet       Sam Houston State   -6.0   5    -1.0 v Central Arkansas    0.5312  0.5355  5:00 PM CT  
+Caution   Missouri            7.0    -5   2.0  v Auburn              0.5243  0.4951  8:00 PM CT  
+Caution   LSU                 5.5    -5   0.5  v Mississippi State   0.5243  0.499   6:00 PM CT  
+Caution   Southeastern Louisiana1.5    1    2.5  v Lamar               0.5243  0.4946  7:30 PM CT  
+Caution   Louisiana Monroe    7.0    -6   1.0  v Arkansas State      0.5243  0.4894  2:00 PM CT  
+Caution   Florida Atlantic    6.5    -6   0.5  v Marshall            0.5243  0.4927  8:00 PM CT  
+Caution   Wake Forest         -3.0   3    0.0  v Virginia Tech       0.5243  0.4932  6:00 PM CT  
+Caution   Georgetown          -1.5   2    0.5  v St John's           0.5227  0.5134  6:00 PM CT  
+Caution   Saint Joseph's      4.0    -2   2.0  v Massachusetts       0.5227  0.503   5:00 PM CT  
+Caution   Miami               -2.0   2    0.0  v Syracuse            0.5227  0.5149  11:00 AM CT 
+Caution   Duquesne            -4.0   2    -2.0 v Saint Louis         0.5161  0.5049  7:30 PM CT  
+Caution   Air Force           4.5    -6   -1.5 v Wyoming             0.5161  0.4908  3:30 PM CT  
+Caution   Appalachian State   6.0    -6   0.0  v Troy                0.5026  0.4901  7:30 PM CT  
+Caution   Bethune-Cookman     12.5   -9   3.5  v North Carolina Central0.5026  0.4863  5:00 PM CT  

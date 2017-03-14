@@ -96,8 +96,8 @@ def get_data(game_url, game_info):
 
 	return gen_info
 
-def update_espn_data():
-	date = (datetime.now() - timedelta(1)).strftime('%Y%m%d')
+def update_espn_data(prev_day = 1):
+	date = (datetime.now() - timedelta(prev_day)).strftime('%Y%m%d')
 	url = base_url + date
 	# ncaa_base = 'http://scores.espn.com/mens-college-basketball/scoreboard/_/date/'
 	# url_ncaa = base + date
@@ -114,7 +114,6 @@ def update_espn_data():
 
 	links = []
 	status_dict = {}
-	game_notes = []
 	events = []
 	for link in soup.find_all('script'):
 		if 'window.espn.scoreboardData' in str(link.text):
@@ -158,11 +157,6 @@ def update_espn_data():
 		game_info['Home_Score'] = competitors[home]['score']
 
 		links.append(game_info)
-
-		if date[4:6] == '03' or date[4:6] == '04' and 'notes' in event.keys():
-			game_notes.append(event['notes']['headline'])
-		else:
-			game_notes.append(None)
 
 	for idx, game_info in enumerate(links):
 		url = game_info['link']

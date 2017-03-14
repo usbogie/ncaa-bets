@@ -1,0 +1,74 @@
+Round of 32
+Villanova
+Duke
+Baylor
+Florida
+Virginia
+SMU
+Marquette
+Wisconsin
+Gonzaga
+Arizona
+Florida St.
+West Virginia
+Princeton
+Xavier
+Saint Mary's
+Vanderbilt
+Kansas
+Louisville
+Oregon
+Vermont
+Iowa St.
+Creighton
+Oklahoma St.
+Michigan St.
+North Carolina
+Kentucky
+UCLA
+Butler
+Middle Tennessee St.
+Wake Forest
+Wichita St.
+Arkansas
+
+Sweet 16
+Villanova
+Duke
+SMU
+Virginia
+Vanderbilt
+Saint Mary's
+Florida St.
+West Virginia
+Kansas
+Louisville
+Oregon
+Iowa St.
+North Carolina
+Kentucky
+Wake Forest
+Middle Tennessee St.
+
+Elite 8
+Villanova
+Duke
+West Virginia
+Saint Mary's
+Kansas
+Louisville
+North Carolina
+Kentucky
+
+Final 4
+Duke
+West Virginia
+Kansas
+North Carolina
+
+Championship
+Duke
+Kansas
+
+Champion
+Kansas

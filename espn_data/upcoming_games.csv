@@ -1,17 +1,35 @@
 Game_ID,Away_Abbrv,Home_Abbrv,Away_Score,Home_Score,Game_Away,Game_Home,Game_Year,Game_Date,Game_Tipoff,Game_Location,Neutral_Site,Conference_Competition,Attendance
-400943826,CMU,TOL,0,0,Central Michigan,Toledo,2017,02/24,18:00:00,Savage Arena|Toledo|Ohio,False,True,0
-400917649,SPU,NIAG,0,0,Saint Peter's,Niagara,2017,02/24,19:00:00,Gallagher Center|Niagara Falls|New York,False,True,0
-400917650,FAIR,CAN,0,0,Fairfield,Canisius,2017,02/24,19:00:00,Koessler Athletic Center|Buffalo|New York,False,True,0
-400917652,SIE,MONM,0,0,Siena,Monmouth,2017,02/24,19:00:00,OceanFirst Bank Center|West Long Branch|New Jersey,False,True,0
-400918533,OAK,GB,0,0,Oakland,Green Bay,2017,02/24,19:00:00,Resch Center|Ashwaubenon|Wisconsin,False,True,0
-400919274,BRWN,DART,0,0,Brown,Dartmouth,2017,02/24,19:00:00,Edward Leede Arena|Hanover|New Hampshire,False,True,0
-400919293,PRIN,CLMB,0,0,Princeton,Columbia,2017,02/24,19:00:00,Levien Gymnasium|New York|New York,False,True,0
-400919308,PENN,COR,0,0,Penn,Cornell,2017,02/24,19:00:00,Newman Arena|Ithaca|New York,False,True,0
-400919328,YALE,HARV,0,0,Yale,Harvard,2017,02/24,19:00:00,Lavietes Pavilion|Cambridge|Massachusetts,False,True,0
-400918562,UIC,NKU,0,0,UIC,Northern Kentucky,2017,02/24,19:30:00,BB&T Arena|Highland Heights|Kentucky,False,True,0
-400918592,VALP,WRST,0,0,Valparaiso,Wright State,2017,02/24,19:30:00,Nutter Center|Dayton|Ohio,False,True,0
-400918515,DET,MILW,0,0,Detroit Mercy,Milwaukee,2017,02/24,20:00:00,UW-Milwaukee Panther Arena|Milwaukee|Wisconsin,False,True,0
-400943827,AKR,BUFF,0,0,Akron,Buffalo,2017,02/24,20:00:00,Alumni Arena|Buffalo|New York,False,True,0
-400917651,MAN,IONA,0,0,Manhattan,Iona,2017,02/24,21:00:00,Hynes Athletics Center|New Rochelle|New York,False,True,0
-400918280,DAY,DAV,0,0,Dayton,Davidson,2017,02/24,21:00:00,John M. Belk Arena|Davidson|North Carolina,False,True,0
-400915689,ORST,CAL,0,0,Oregon State,California,2017,02/24,22:00:00,Haas Pavilion|Berkeley|California,False,True,0
+400945580,MIA,SYR,43,41,Miami,Syracuse,2017,03/08,12:00:00,Barclays Center|Brooklyn|New York,True,True,0
+400945610,USA,CCAR,32,44,South Alabama,Coastal Carolina,2017,03/08,12:30:00,Lakefront Arena|New Orleans|Louisiana,True,True,0
+400945617,UTSA,WKU,25,20,UT San Antonio,Western Kentucky,2017,03/08,12:30:00,Legacy Arena at BJCC|Birmingham|Alabama,True,True,0
+400945502,SJSU,USU,0,0,San Jose State,Utah State,2017,03/08,14:00:00,Thomas & Mack Center|Las Vegas|Nevada,True,True,0
+400945789,CLEM,DUKE,0,0,Clemson,Duke,2017,03/08,14:00:00,Barclays Center|Brooklyn|New York,True,True,0
+400945497,STAN,ASU,0,0,Stanford,Arizona State,2017,03/08,15:00:00,T-Mobile Arena|Las Vegas|Nevada,True,True,0
+400945611,ULM,ARST,0,0,Louisiana Monroe,Arkansas State,2017,03/08,15:00:00,Lakefront Arena|New Orleans|Louisiana,True,True,0
+400945618,USM,RICE,0,0,Southern Mississippi,Rice,2017,03/08,15:00:00,Legacy Arena at BJCC|Birmingham|Alabama,True,True,0
+400945503,AFA,WYO,0,0,Air Force,Wyoming,2017,03/08,16:30:00,Thomas & Mack Center|Las Vegas|Nevada,True,True,0
+400945733,PSU,NEB,0,0,Penn State,Nebraska,2017,03/08,16:30:00,Verizon Center|Washington|District of Columbia,True,True,0
+400945498,ORST,CAL,0,0,Oregon State,California,2017,03/08,17:30:00,T-Mobile Arena|Las Vegas|Nevada,True,True,0
+400945584,JOES,UMASS,0,0,Saint Joseph's,Massachusetts,2017,03/08,18:00:00,PPG Paints Arena|Pittsburgh|Pennsylvania,True,True,0
+400945612,UALR,ULL,0,0,Little Rock,UL Lafayette,2017,03/08,18:00:00,Lakefront Arena|New Orleans|Louisiana,True,True,0
+400945621,UCA,SHSU,0,0,Central Arkansas,Sam Houston State,2017,03/08,18:00:00,Leonard E. Merrell Center|Katy|Texas,True,True,0
+400946035,BCU,NCCU,0,0,Bethune-Cookman,North Carolina Central,2017,03/08,18:00:00,Norfolk Scope Arena|Norfolk|Virginia,True,True,0
+400945619,CHAR,UAB,0,0,Charlotte,UAB,2017,03/08,18:30:00,Legacy Arena at BJCC|Birmingham|Alabama,True,True,0
+400945504,UNLV,SDSU,0,0,UNLV,San Diego State,2017,03/08,19:00:00,Thomas & Mack Center|Las Vegas|Nevada,True,True,0
+400945520,GTWN,SJU,0,0,Georgetown,St John's,2017,03/08,19:00:00,Madison Square Garden|New York|New York,True,True,0
+400945526,OKLA,TCU,0,0,Oklahoma,TCU,2017,03/08,19:00:00,Sprint Center|Kansas City|Missouri,True,True,0
+400945590,LSU,MSST,0,0,LSU,Mississippi State,2017,03/08,19:00:00,Bridgestone Arena|Nashville|Tennessee,True,True,0
+400945734,RUTG,OSU,0,0,Rutgers,Ohio State,2017,03/08,19:00:00,Verizon Center|Washington|District of Columbia,True,True,0
+400945791,WAKE,VT,0,0,Wake Forest,Virginia Tech,2017,03/08,19:00:00,Barclays Center|Brooklyn|New York,True,True,0
+400945694,LEH,BUCK,0,0,Lehigh,Bucknell,2017,03/08,19:30:00,Sojka Pavilion|Lewisburg|Pennsylvania,False,True,0
+400946041,SCST,NSU,0,0,South Carolina State,Norfolk State,2017,03/08,20:00:00,Norfolk Scope Arena|Norfolk|Virginia,True,True,0
+400945585,DUQ,SLU,0,0,Duquesne,Saint Louis,2017,03/08,20:30:00,PPG Paints Arena|Pittsburgh|Pennsylvania,True,True,0
+400945613,APP,TROY,0,0,Appalachian State,Troy,2017,03/08,20:30:00,Lakefront Arena|New Orleans|Louisiana,True,True,0
+400945622,SELA,LAM,0,0,Southeastern Louisiana,Lamar,2017,03/08,20:30:00,Leonard E. Merrell Center|Katy|Texas,True,True,0
+400945499,WSU,COLO,0,0,Washington State,Colorado,2017,03/08,21:00:00,T-Mobile Arena|Las Vegas|Nevada,True,True,0
+400945527,TEX,TTU,0,0,Texas,Texas Tech,2017,03/08,21:00:00,Sprint Center|Kansas City|Missouri,True,True,0
+400945603,MIZ,AUB,0,0,Missouri,Auburn,2017,03/08,21:00:00,Bridgestone Arena|Nashville|Tennessee,True,True,0
+400945620,FAU,MRSH,0,0,Florida Atlantic,Marshall,2017,03/08,21:00:00,Legacy Arena at BJCC|Birmingham|Alabama,True,True,0
+400945790,PITT,UVA,0,0,Pittsburgh,Virginia,2017,03/08,21:00:00,Barclays Center|Brooklyn|New York,True,True,0
+400945521,DEP,XAV,0,0,DePaul,Xavier,2017,03/08,21:30:00,Madison Square Garden|New York|New York,True,True,0
+400945500,WASH,USC,0,0,Washington,USC,2017,03/08,23:30:00,T-Mobile Arena|Las Vegas|Nevada,True,True,0
