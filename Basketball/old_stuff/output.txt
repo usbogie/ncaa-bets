@@ -1,0 +1,55 @@
+
+                            OLS Regression Results                            
+==============================================================================
+Dep. Variable:             home_cover   R-squared:                       0.166
+Model:                            OLS   Adj. R-squared:                  0.161
+Method:                 Least Squares   F-statistic:                     34.75
+Date:                Tue, 17 Jan 2017   Prob (F-statistic):           2.50e-56
+Time:                        13:40:51   Log-Likelihood:                -994.82
+No. Observations:                1585   AIC:                             2008.
+Df Residuals:                    1576   BIC:                             2056.
+Df Model:                           9                                         
+Covariance Type:            nonrobust                                         
+=======================================================================================
+                          coef    std err          t      P>|t|      [95.0% Conf. Int.]
+---------------------------------------------------------------------------------------
+spread                  0.0492      0.003     14.626      0.000         0.043     0.056
+true_home_game          0.1533      0.028      5.394      0.000         0.098     0.209
+home_em                 0.0391      0.002     16.755      0.000         0.035     0.044
+away_em                -0.0386      0.002    -16.226      0.000        -0.043    -0.034
+home_ats               -0.1406      0.042     -3.350      0.001        -0.223    -0.058
+away_ats                0.1617      0.040      4.006      0.000         0.083     0.241
+home_tempo_z:spread    -0.0014      0.001     -1.436      0.151        -0.003     0.001
+away_tempo_z:spread     0.0003      0.001      0.320      0.749        -0.002     0.002
+conf:true_home_game     0.0018      0.027      0.069      0.945        -0.051     0.054
+==============================================================================
+Omnibus:                        0.123   Durbin-Watson:                   1.972
+Prob(Omnibus):                  0.940   Jarque-Bera (JB):              133.327
+Skew:                          -0.021   Prob(JB):                     1.12e-29
+Kurtosis:                       1.580   Cond. No.                         86.1
+==============================================================================
+
+Warnings:
+[1] Standard Errors assume that the covariance matrix of the errors is correctly specified.
+Testing with lower-bound 0.5 won 68.48 percent of 1561 games.
+This would lead to a profit of 527.8 units.
+iProb  Pick                   Spread Opponent            Tip
+65.53  Georgia Southern       -3.0   @  Louisiana Monroe 7:00 PM CT
+64.17  Troy                   -5.5   vs Texas State      7:00 PM CT
+59.68  UT-Arlington           -5.0   @  South Alabama    2:00 PM CT
+58.78  Youngstown State       4.5    @  Detroit Mercy    6:00 PM CT
+57.51  Niagara                -5.0   vs Marist           6:00 PM CT
+56.34  Boston University      -4.0   @  Loyola (MD)      6:00 PM CT
+55.66  North Carolina         -14.5  vs Syracuse         6:00 PM CT
+54.88  Canisius               2.5    vs Monmouth         6:00 PM CT
+54.55  Creighton              3.0    @  Xavier           1:00 PM CT
+54.51  Oakland                -14.0  vs Cleveland State  6:00 PM CT
+54.3   North Carolina Central -5.0   @  Hampton          6:00 PM CT
+53.94  Villanova              -14.5  vs Seton Hall       5:30 PM CT
+53.85  Northern Arizona       10.0   vs Portland State   4:30 PM CT
+53.38  Green Bay              9.5    @  Valparaiso       7:00 PM CT
+53.16  UL Lafayette           -8.5   vs Georgia State    7:00 PM CT
+53.06  Texas Southern         -12.0  vs Jackson State    8:00 PM CT
+51.36  Iowa State             3.0    vs Kansas           8:00 PM CT
+51.33  Georgetown             -6.5   vs Providence       8:00 PM CT
+50.58  St John's              -9.5   vs DePaul           3:30 PM CT

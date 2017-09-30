@@ -1,0 +1,17 @@
+Game_ID,Away_Abbrv,Home_Abbrv,Away_Score,Home_Score,Game_Away,Game_Home,Game_Year,Game_Date,Game_Tipoff,Game_Location,Neutral_Site,Conference_Competition,Attendance
+400943826,CMU,TOL,0,0,Central Michigan,Toledo,2017,02/24,18:00:00,Savage Arena|Toledo|Ohio,False,True,0
+400917649,SPU,NIAG,0,0,Saint Peter's,Niagara,2017,02/24,19:00:00,Gallagher Center|Niagara Falls|New York,False,True,0
+400917650,FAIR,CAN,0,0,Fairfield,Canisius,2017,02/24,19:00:00,Koessler Athletic Center|Buffalo|New York,False,True,0
+400917652,SIE,MONM,0,0,Siena,Monmouth,2017,02/24,19:00:00,OceanFirst Bank Center|West Long Branch|New Jersey,False,True,0
+400918533,OAK,GB,0,0,Oakland,Green Bay,2017,02/24,19:00:00,Resch Center|Ashwaubenon|Wisconsin,False,True,0
+400919274,BRWN,DART,0,0,Brown,Dartmouth,2017,02/24,19:00:00,Edward Leede Arena|Hanover|New Hampshire,False,True,0
+400919293,PRIN,CLMB,0,0,Princeton,Columbia,2017,02/24,19:00:00,Levien Gymnasium|New York|New York,False,True,0
+400919308,PENN,COR,0,0,Penn,Cornell,2017,02/24,19:00:00,Newman Arena|Ithaca|New York,False,True,0
+400919328,YALE,HARV,0,0,Yale,Harvard,2017,02/24,19:00:00,Lavietes Pavilion|Cambridge|Massachusetts,False,True,0
+400918562,UIC,NKU,0,0,UIC,Northern Kentucky,2017,02/24,19:30:00,BB&T Arena|Highland Heights|Kentucky,False,True,0
+400918592,VALP,WRST,0,0,Valparaiso,Wright State,2017,02/24,19:30:00,Nutter Center|Dayton|Ohio,False,True,0
+400918515,DET,MILW,0,0,Detroit Mercy,Milwaukee,2017,02/24,20:00:00,UW-Milwaukee Panther Arena|Milwaukee|Wisconsin,False,True,0
+400943827,AKR,BUFF,0,0,Akron,Buffalo,2017,02/24,20:00:00,Alumni Arena|Buffalo|New York,False,True,0
+400917651,MAN,IONA,0,0,Manhattan,Iona,2017,02/24,21:00:00,Hynes Athletics Center|New Rochelle|New York,False,True,0
+400918280,DAY,DAV,0,0,Dayton,Davidson,2017,02/24,21:00:00,John M. Belk Arena|Davidson|North Carolina,False,True,0
+400915689,ORST,CAL,0,0,Oregon State,California,2017,02/24,22:00:00,Haas Pavilion|Berkeley|California,False,True,0
