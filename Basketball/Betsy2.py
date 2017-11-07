@@ -218,6 +218,7 @@ def make_teams_dict(year_list = [2011,2012,2013,2014,2015,2016,2017]):
     new_teams = ["Grand Canyon", "UMass Lowell", "New Orleans", "Incarnate Word", "Abilene Christian", "Northern Kentucky", "Omaha"]
     for kp,espn in kp_names.items():
         nameset.add(espn)
+        
     for name in nameset:
         for i in year_list:
             if i <= 2013 and name in new_teams:
@@ -841,7 +842,7 @@ def get_new_games(season='2017'):
         writer.writeheader()
         for game in new_over_games:
             writer.writerow(game)
-            
+
 def print_rankings():
     f2 = open('rankings.txt', 'w')
     rankings = []
@@ -890,7 +891,7 @@ with open('games.csv','w') as outfile:
     writer.writeheader()
     for game in game_list:
         writer.writerow(game)
-        
+
 print_rankings()
 
 

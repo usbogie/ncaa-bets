@@ -131,6 +131,7 @@ def make_overall_df(start_year):
 					game_info['Away_Abbrv'] = competitors[away]['team']['abbreviation']
 				except:
 					game_info['skip_game'] = True
+
 				game_info['Home_Abbrv'] = competitors[home]['team']['abbreviation']
 				game_info['Game_Away'] = html.unescape(competitors[away]['team']['location']).replace('\u00E9', 'e')
 				game_info['Game_Home'] = html.unescape(competitors[home]['team']['location']).replace('\u00E9', 'e')
@@ -153,8 +154,11 @@ def make_overall_df(start_year):
 			for idx, game_info in enumerate(links):
 				url = game_info['link']
 				game_id = url.split("=")[-1]
-				if status_dict[game_id] == 'Postponed' or status_dict[game_id] == 'Canceled' or game_info['skip_game']:
-					continue
+				try:
+					if status_dict[game_id] == 'Postponed' or status_dict[game_id] == 'Canceled' or game_info['skip_game']:
+						continue
+				except:
+					print("something went wrong, some dumb shit. CONTINUE")
 
 				else:
 					gm_info = get_data(url, game_info)
