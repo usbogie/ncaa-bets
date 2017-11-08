@@ -218,7 +218,7 @@ def make_teams_dict(year_list = [2011,2012,2013,2014,2015,2016,2017]):
     new_teams = ["Grand Canyon", "UMass Lowell", "New Orleans", "Incarnate Word", "Abilene Christian", "Northern Kentucky", "Omaha"]
     for kp,espn in kp_names.items():
         nameset.add(espn)
-        
+
     for name in nameset:
         for i in year_list:
             if i <= 2013 and name in new_teams:
@@ -862,10 +862,10 @@ def print_rankings():
 #get_spreads([2017])
 #get_sports_ref_data([2017])
 
-#with open('new_teams.json','w') as outfile:
-#    json.dump(teams,outfile)
-#with open('new_game_dict.json','w') as outfile:
-#    json.dump(game_dict,outfile)
+with open('new_teams.json','w') as outfile:
+    json.dump(teams,outfile)
+with open('new_game_dict.json','w') as outfile:
+    json.dump(game_dict,outfile)
 
 # Number of games used to create starting stats for teams
 preseason_length = 5

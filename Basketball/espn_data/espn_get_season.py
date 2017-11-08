@@ -15,6 +15,13 @@ import html
 
 ua = UserAgent()
 
+try:
+	with open('new_names_dict.json','r') as infile:
+		names_dict = json.load(infile)
+except:
+	with open('espn_data/new_names_dict.json','r') as infile:
+		names_dict = json.load(infile)
+
 def make_season(start_year):
 
 	months = ['11', '12', '01', '02', '03', '04']
@@ -133,9 +140,6 @@ def make_overall_df(start_year):
 					game_info['skip_game'] = True
 
 				game_info['Home_Abbrv'] = competitors[home]['team']['abbreviation']
-				game_info['Game_Away'] = html.unescape(competitors[away]['team']['location']).replace('\u00E9', 'e')
-				game_info['Game_Home'] = html.unescape(competitors[home]['team']['location']).replace('\u00E9', 'e')
-				print(game_info['Game_Away'], game_info['Game_Home'], day)
 				game_info['Away_Score'] = competitors[away]['score']
 				game_info['Home_Score'] = competitors[home]['score']
 				try:
@@ -144,6 +148,15 @@ def make_overall_df(start_year):
 				except:
 					print("No record for a team. Not D1")
 					continue
+				try:
+					game_info['Game_Away'] = names_dict[html.unescape(competitors[away]['team']['location']).replace('\u00E9', 'e').replace('.','')]
+					game_info['Game_Home'] = names_dict[html.unescape(competitors[home]['team']['location']).replace('\u00E9', 'e').replace('.','')]
+				except:
+					print(competitors[away]['team']['isActive'])
+					print(competitors[away]['team']['location'], competitors[home]['team']['location'])
+					if not competitors[away]['team']['isActive']:
+						continue
+				print(game_info['Game_Away'], game_info['Game_Home'], day)
 				links.append(game_info)
 
 				try:
@@ -167,7 +180,7 @@ def make_overall_df(start_year):
 	return gen_info
 
 if __name__ == '__main__':
-	start_year = 2016
+	start_year = 2011
 	info_list = make_overall_df(start_year)
 	final_info = pd.concat(info_list, ignore_index=True).set_index('Game_ID')
 	final_info.drop_duplicates().to_csv("game_info{}.csv".format(start_year + 1))
