@@ -5,6 +5,7 @@ from sklearn import tree
 from sklearn.model_selection import GridSearchCV
 from sklearn.feature_selection import RFECV, RFE
 from time import time
+from datetime import date
 from operator import itemgetter
 import matplotlib.pyplot as plt
 import os
@@ -103,7 +104,7 @@ def ou_track_today(results_df,prob = .5):
 
 def print_picks(games,prob=.5,check_pmargin=False):
     sorted_games = games.sort_values('prob',ascending=False)
-    f2 = open('output.txt', 'w')
+    f2 = open('Data/Output/{}.txt'.format(date.day), 'w')
     games = []
     for idx, row in sorted_games.iterrows():
         print_game = True
@@ -260,9 +261,9 @@ def test_spread():
             clf = tree.DecisionTreeClassifier(min_samples_leaf=min_samples,max_depth=depths[k])
             clf = clf.fit(X_train,y)
 
-            filename = 'tree_data/tree' + str(test_year) + game_type[k]
+            filename = 'Data/Trees/tree' + str(test_year) + game_type[k]
             tree.export_graphviz(clf, out_file='{}.dot'.format(filename),
-                                feature_names=features,
+                                feature_names=feat_list[k],
                                 class_names=True,
                                 filled=True,
                                 rounded=True,
@@ -301,7 +302,7 @@ def test_spread():
     # for key in sorted(list(feature_dict.keys())):
     #     print(key,feature_dict[key])
 def predict_today_spreads():
-    todays_games = pd.read_csv('todays_games.csv')
+    todays_games = pd.read_csv('Data/Composite/todays_games.csv')
     todays_n_games = todays_games.ix[todays_games['true_home_game']==0]
     todays_h_games = todays_games.ix[todays_games['true_home_game']==1]
     t_game_list = [todays_h_games,todays_n_games]
@@ -315,7 +316,7 @@ def predict_today_spreads():
 
         clf = tree.DecisionTreeClassifier(min_samples_leaf=samples[i],max_depth=depths[i])
         clf = clf.fit(X_train,y)
-        filename = 'tree_data/tree{}'.format(game_type[i])
+        filename = 'Data/Trees/tree{}'.format(game_type[i])
         tree.export_graphviz(clf, out_file='{}.dot'.format(filename),
                             feature_names=features,
                             class_names=True,
@@ -344,7 +345,7 @@ def predict_today_ou(over_games):
     clf = tree.DecisionTreeClassifier(min_samples_leaf=min_samples,max_depth=7)
     clf = clf.fit(X_train,y)
 
-    todays_over_games = pd.read_csv('todays_over_games.csv')
+    todays_over_games = pd.read_csv('Data/Composite/todays_over_games.csv')
     game_matrix = todays_over_games.as_matrix(ou_features)
     run_gridsearch(X_train,y,game_matrix)
     print("\n\n~~~~~~~~~~Regular Desicion Tree Results~~~~~~~~~~~~~~~~\n\n")
@@ -359,7 +360,7 @@ def predict_today_ou(over_games):
     print_picks(today_resultsdf,prob=.5)
 
 if __name__ == '__main__':
-    all_games = pd.read_csv('games.csv')
+    all_games = pd.read_csv('Data/Composite/games.csv')
     n_games = all_games.ix[all_games['true_home_game'] == 0]
     h_games = all_games.ix[all_games['true_home_game'] == 1]
     all_dates = all_games.date.unique().tolist()
@@ -384,7 +385,7 @@ if __name__ == '__main__':
 
     ou_features = ["true_home_game","DT_pover","DT_home_over","DT_away_over",
                 "DT_home_tPAr","DT_away_tPAr"]
-    over_games = pd.read_csv("over_games.csv")
+    #over_games = pd.read_csv("Data/Composite/over_games.csv")
 
     # test_over_under(over_games,all_dates)
 
