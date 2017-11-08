@@ -6,15 +6,13 @@ from datetime import datetime, timedelta, date
 import sys
 import re
 import json
+import os
 
 ua = UserAgent()
 
-try:
-	with open('names_dict.json','r') as infile:
-		names_dict = json.load(infile)
-except:
-	with open('Data/VI/names_dict.json','r') as infile:
-		names_dict = json.load(infile)
+path = os.path.dirname(os.path.abspath(__file__))
+with open(path + '/names_dict.json','r') as infile:
+	names_dict = json.load(infile)
 
 def make_season(start_year=2016):
 	months = ['11', '12', '01', '02', '03', '04']

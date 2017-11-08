@@ -10,15 +10,12 @@ import json
 import random
 import time
 import html
+import os
 
 ua = UserAgent()
-
-try:
-	with open('names_dict.json','r') as infile:
-		names_dict = json.load(infile)
-except:
-	with open('Data/ESPN/names_dict.json','r') as infile:
-		names_dict = json.load(infile)
+path = os.path.dirname(os.path.abspath(__file__))
+with open(path + '/names_dict.json','r') as infile:
+	names_dict = json.load(infile)
 
 info = ['Game_ID', 'Away_Abbrv', 'Home_Abbrv', 'Away_Score',
 		'Home_Score', 'Game_Away', 'Game_Home','Game_Year',

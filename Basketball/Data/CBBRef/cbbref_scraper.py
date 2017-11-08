@@ -6,14 +6,12 @@ import pandas as pd
 import numpy as np
 import sys
 import json
+import os
 
 ua = UserAgent()
-try:
-	with open('names_dict.json','r') as infile:
-		names_dict = json.load(infile)
-except:
-	with open('Data/CBBRef/names_dict.json','r') as infile:
-		names_dict = json.load(infile)
+path = os.path.dirname(os.path.abspath(__file__))
+with open(path + '/names_dict.json','r') as infile:
+	names_dict = json.load(infile)
 
 def get_soup(url):
 	try:

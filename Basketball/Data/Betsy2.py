@@ -211,10 +211,8 @@ def get_old_games(year_list = [2011,2012,2013,2014,2015,2016,2017]):
                 continue
 
 def make_teams_dict(year_list = [2011,2012,2013,2014,2015,2016,2017]):
-    nameset = set()
+    nameset = set(cbbr_names.values())
     new_teams = ["Grand Canyon", "UMass Lowell", "New Orleans", "Incarnate Word", "Abilene Christian", "Northern Kentucky", "Omaha"]
-    for cb,espn in cbbr_names.items():
-        nameset.add(espn)
         
     for name in nameset:
         for i in year_list:
