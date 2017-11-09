@@ -13,8 +13,10 @@ import html
 import os
 
 ua = UserAgent()
-path = os.path.dirname(os.path.abspath(__file__))
-with open(path + '/names_dict.json','r') as infile:
+
+my_path = os.path.dirname(os.path.abspath(__file__))
+names_path = os.path.join(my_path, 'name_dicts', 'espn_names.json')
+with open(names_path,'r') as infile:
 	names_dict = json.load(infile)
 
 info = ['Game_ID', 'Away_Abbrv', 'Home_Abbrv', 'Away_Score',
@@ -236,10 +238,11 @@ if __name__ == '__main__':
 	# print("Updated ESPN Data")
 
 	last_night = update_espn_data()
-	cur_season = pd.read_csv('game_info2017.csv', index_col='Game_ID')
+	csv_path = os.path.join(my_path,'..','..','data','espn','2017.csv')
+	cur_season = pd.read_csv(csv_path, index_col='Game_ID')
 	cur_season_indices = [str(idx) for idx in list(cur_season.index.values)]
 	for index, row in last_night.iterrows():
 		if index not in cur_season_indices:
 			cur_season = cur_season.append(row)
 	cur_season = cur_season[~cur_season.index.duplicated(keep='first')]
-	cur_season.to_csv('game_info2017.csv', index_label='Game_ID')
+	cur_season.to_csv(csv_path, index_label='Game_ID')

@@ -10,8 +10,9 @@ import os
 
 ua = UserAgent()
 
-path = os.path.dirname(os.path.abspath(__file__))
-with open(path + '/names_dict.json','r') as infile:
+my_path = os.path.dirname(os.path.abspath(__file__))
+names_path = os.path.join(my_path, 'name_dicts', 'vi_names.json')
+with open(names_path,'r') as infile:
 	names_dict = json.load(infile)
 
 def make_season(start_year=2016):
@@ -188,9 +189,10 @@ def get_data(data=[],get_yesterday=False,get_today=False,year=2017):
 	return data
 
 if __name__ == '__main__':
-	cur_year = 2017
-	data = get_data(year=cur_year)
-	with open('vegas_{}.json'.format(cur_year),'w') as infile:
+	year = 2017
+	data = get_data(year=year)
+	csv_path = os.path.join(my_path,'..','..','data','vi','{}.json'.format(year))
+	with open(csv_path,'w') as infile:
 		json.dump(data,infile)
 	# data = get_data(get_today = True)
 	# with open('vegas_today.json', 'w') as outfile:

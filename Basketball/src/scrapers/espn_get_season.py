@@ -7,13 +7,18 @@ from datetime import datetime, timedelta
 import pandas as pd
 import numpy as np
 import time
-import random
 import json
 import sys
 import html
+import os
 
 
 ua = UserAgent()
+
+my_path = os.path.dirname(os.path.abspath(__file__))
+names_path = os.path.join(my_path, 'name_dicts', 'espn_names.json')
+with open(names_path,'r') as infile:
+	names_dict = json.load(infile)
 
 def make_season(start_year):
 
@@ -58,7 +63,7 @@ def get_data(game_url, game_info):
 	return gen_info
 
 
-def make_overall_df(start_year):
+def make_dataframe(start_year):
 
 	gen_info = []
 	date_list = make_season(start_year)
@@ -75,7 +80,7 @@ def make_overall_df(start_year):
 				page = request.urlopen(request.Request(d, headers = { 'User-Agent' : ua.random }))
 			except error.HTTPError as e:
 				try:
-					wait_time = round(max(10, 12 + random.gauss(0,1)), 2)
+					wait_time = 10
 					time.sleep(wait_time)
 					print("First attempt for %s failed. Trying again." % (d))
 					page = request.urlopen(request.Request(d, headers = { 'User-Agent' : ua.random }))
@@ -133,9 +138,6 @@ def make_overall_df(start_year):
 					game_info['skip_game'] = True
 
 				game_info['Home_Abbrv'] = competitors[home]['team']['abbreviation']
-				game_info['Game_Away'] = html.unescape(competitors[away]['team']['location']).replace('\u00E9', 'e')
-				game_info['Game_Home'] = html.unescape(competitors[home]['team']['location']).replace('\u00E9', 'e')
-				print(game_info['Game_Away'], game_info['Game_Home'], day)
 				game_info['Away_Score'] = competitors[away]['score']
 				game_info['Home_Score'] = competitors[home]['score']
 				try:
@@ -144,6 +146,15 @@ def make_overall_df(start_year):
 				except:
 					print("No record for a team. Not D1")
 					continue
+				try:
+					game_info['Game_Away'] = names_dict[html.unescape(competitors[away]['team']['location']).replace('\u00E9', 'e').replace('.','')]
+					game_info['Game_Home'] = names_dict[html.unescape(competitors[home]['team']['location']).replace('\u00E9', 'e').replace('.','')]
+				except:
+					print(competitors[away]['team']['isActive'])
+					print(competitors[away]['team']['location'], competitors[home]['team']['location'])
+					if not competitors[away]['team']['isActive']:
+						continue
+				print(game_info['Game_Away'], game_info['Game_Home'], day)
 				links.append(game_info)
 
 				try:
@@ -168,8 +179,9 @@ def make_overall_df(start_year):
 
 if __name__ == '__main__':
 	start_year = 2016
-	info_list = make_overall_df(start_year)
+	info_list = make_dataframe(start_year)
 	final_info = pd.concat(info_list, ignore_index=True).set_index('Game_ID')
-	final_info.drop_duplicates().to_csv("game_info{}.csv".format(start_year + 1))
+	csv_path = os.path.join(my_path,'..','..','data','espn','{}.csv'.format(start_year+1))
+	final_info.drop_duplicates().to_csv(csv_path)
 
 	print("\n\nFinished uploading to CSVs")

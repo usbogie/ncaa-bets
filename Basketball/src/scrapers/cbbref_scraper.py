@@ -9,8 +9,10 @@ import json
 import os
 
 ua = UserAgent()
-path = os.path.dirname(os.path.abspath(__file__))
-with open(path + '/names_dict.json','r') as infile:
+
+my_path = os.path.dirname(os.path.abspath(__file__))
+names_path = os.path.join(my_path, 'name_dicts', 'cbbref_names.json')
+with open(names_path,'r') as infile:
 	names_dict = json.load(infile)
 
 def get_soup(url):
@@ -54,7 +56,7 @@ def get_team_links(soup, year):
 		if school.find('tr', {'class': 'thead'}) is not None:
 			continue
 		school_attrs = school.contents
-		if school_attrs[4].string in "2017" and int(school_attrs[3].string)<=year:
+		if school_attrs[4].string in "2018" and int(school_attrs[3].string)<=year:
 			links.append(school_attrs[1].a['href'])
 	return links
 
@@ -132,6 +134,8 @@ def get_games(year=2017):
 	return all_teams_df
 
 if __name__ == '__main__':
-	cur_season = get_games(year=2017)
-	cur_season.to_csv('game_info2017.csv', index=False)
+	year = 2015
+	cur_season = get_games(year=year)
+	csv_path = os.path.join(my_path,'..','..','data','cbbref','{}.csv'.format(year))
+	cur_season.to_csv(csv_path, index=False)
 	print("Updated cbbref")
