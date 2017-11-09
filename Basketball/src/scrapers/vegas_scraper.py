@@ -115,7 +115,6 @@ def get_data(data=[],get_yesterday=False,get_today=False,year=2017):
 			away_info = info[4].contents[1::2]
 			home_info = info[6].contents[1::2]
 
-
 			try:
 				class_search = 'tabletext' if year < 2014 else 'tableText'
 				game_info['away'] = names_dict[away_info[0].a.text]
@@ -191,8 +190,8 @@ def get_data(data=[],get_yesterday=False,get_today=False,year=2017):
 if __name__ == '__main__':
 	year = 2017
 	data = get_data(year=year)
-	csv_path = os.path.join(my_path,'..','..','data','vi','{}.json'.format(year))
-	with open(csv_path,'w') as infile:
+	json_path = os.path.join(my_path,'..','..','data','vi','{}.json'.format(year))
+	with open(json_path,'w') as infile:
 		json.dump(data,infile)
 	# data = get_data(get_today = True)
 	# with open('vegas_today.json', 'w') as outfile:
