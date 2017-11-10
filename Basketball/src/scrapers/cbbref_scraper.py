@@ -134,7 +134,7 @@ def get_games(year=2017):
 	return all_teams_df
 
 if __name__ == '__main__':
-	year = 2015
+	year = 2017
 	cur_season = get_games(year=year)
 	csv_path = os.path.join(my_path,'..','..','data','cbbref','{}.csv'.format(year))
 	cur_season.to_csv(csv_path, index=False)

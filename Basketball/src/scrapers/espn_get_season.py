@@ -152,8 +152,7 @@ def make_dataframe(start_year):
 				except:
 					print(competitors[away]['team']['isActive'])
 					print(competitors[away]['team']['location'], competitors[home]['team']['location'])
-					if not competitors[away]['team']['isActive']:
-						continue
+					continue
 				print(game_info['Game_Away'], game_info['Game_Home'], day)
 				links.append(game_info)
 
@@ -178,7 +177,7 @@ def make_dataframe(start_year):
 	return gen_info
 
 if __name__ == '__main__':
-	start_year = 2016
+	start_year = 2010
 	info_list = make_dataframe(start_year)
 	final_info = pd.concat(info_list, ignore_index=True).set_index('Game_ID')
 	csv_path = os.path.join(my_path,'..','..','data','espn','{}.csv'.format(start_year+1))
