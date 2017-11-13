@@ -1,1 +1,39 @@
-Game_ID
+Game_ID,Away_Abbrv,Home_Abbrv,Away_Score,Home_Score,Game_Away,Game_Home,Game_Year,Game_Date,Game_Tipoff,Game_Location,Neutral_Site,Conference_Competition,Attendance
+400986927,PAC,STAN,29,49,Pacific,Stanford,2017,11/12,22:00:00,Maples Pavilion|Stanford|California,False,False,0
+400992404,UND,HAW,28,46,North Dakota,Hawai'i,2017,11/12,22:00:00,Stan Sheriff Center|Honolulu|Hawaii,False,False,0
+400988199,UMBC,ARIZ,78,103,UMBC,Arizona,2017,11/12,18:00:00,McKale Center|Tucson|Arizona,False,False,13496
+400987159,UVM,UK,69,73,Vermont,Kentucky,2017,11/12,15:30:00,Rupp Arena|Lexington|Kentucky,False,False,20174
+400986050,NAVY,MIA,55,89,Navy,Miami,2017,11/12,16:45:00,Watsco Center|Coral Gables|Florida,False,False,6611
+400986687,GMU,LOU,61,72,George Mason,Louisville,2017,11/12,14:00:00,KFC Yum! Center|Louisville|Kentucky,False,False,18304
+400986340,CHS,PUR,42,111,Chicago State,Purdue,2017,11/12,16:00:00,Mackey Arena|West Lafayette|Indiana,False,False,13509
+400988417,MONM,HALL,65,75,Monmouth,Seton Hall,2017,11/12,13:30:00,Prudential Center|Newark|New Jersey,False,False,7139
+400988416,JAC,GTWN,57,73,Jacksonville,Georgetown,2017,11/12,12:00:00,Capital One Arena|Washington|District of Columbia,False,False,9212
+400986308,SCST,BC,52,91,South Carolina State,Boston College,2017,11/12,13:00:00,Silvio Conte Forum|Chestnut Hill|Massachusetts,False,False,3104
+400986313,NCAT,CLEM,63,87,North Carolina A&T,Clemson,2017,11/12,14:00:00,Littlejohn Coliseum|Clemson|South Carolina,False,False,5528
+400990099,UMASS,HARV,67,70,Massachusetts,Harvard,2017,11/12,14:00:00,Lavietes Pavilion|Cambridge|Massachusetts,False,False,1636
+400986339,RAD,OSU,72,82,Radford,Ohio State,2017,11/12,14:30:00,Value City Arena|Columbus|Ohio,False,False,10425
+400986341,CCSU,RUTG,67,71,Central Connecticut,Rutgers,2017,11/12,14:30:00,Louis Brown Athletic Center|Piscataway|New Jersey,False,False,3844
+400989213,OMA,OKLA,89,108,Omaha,Oklahoma,2017,11/12,15:00:00,Lloyd Noble Center|Norman|Oklahoma,False,False,5573
+400986051,CHSO,NCST,56,78,Charleston Southern,NC State,2017,11/12,16:00:00,PNC Arena|Raleigh|North Carolina,False,False,13602
+400987934,ULM,SMU,65,83,Louisiana Monroe,SMU,2017,11/12,16:00:00,Moody Coliseum|Dallas|Texas,False,False,6622
+400988197,CP,CAL,82,85,Cal Poly,California,2017,11/12,16:00:00,Haas Pavilion|Berkeley|California,False,False,6405
+400988198,TXSO,WSU,84,86,Texas Southern,Washington State,2017,11/12,16:00:00,Friel Court|Pullman|Washington,False,False,2424
+400990359,TXST,AFA,57,65,Texas State,Air Force,2017,11/12,16:00:00,Clune Arena|Colorado Springs|Colorado,False,False,1511
+400991228,SUU,BSU,69,90,Southern Utah,Boise State,2017,11/12,16:00:00,Taco Bell Arena|Boise|Idaho,False,False,3052
+400986337,ALST,IOWA,58,47,Alabama State,Iowa,2017,11/12,16:05:00,Carver-Hawkeye Arena|Iowa City|Iowa,False,False,11647
+400986343,FDU,PSU,57,81,Fairleigh Dickinson,Penn State,2017,11/12,17:00:00,Bryce Jordan Center|University Park|Pennsylvania,False,False,5802
+400986990,USD,SJSU,81,64,San Diego,San Jose State,2017,11/12,17:00:00,Event Center (San Jose St.)|San Jose|California,False,False,1433
+400987935,COPP,ECU,50,76,Coppin State,East Carolina,2017,11/12,17:00:00,Minges Coliseum|Greenville|North Carolina,False,False,3228
+400990877,MORE,LIP,70,77,Morehead State,Lipscomb,2017,11/12,17:00:00,Allen Arena|Nashville|Tennessee,False,False,561
+400986335,UTM,ILL,74,77,UT Martin,Illinois,2017,11/12,18:00:00,State Farm Center|Champaign|Illinois,False,False,11882
+400986338,UMES,MD,43,96,Maryland-Eastern Shore,Maryland,2017,11/12,18:00:00,XFINITY Center|College Park|Maryland,False,False,13914
+400986342,YALE,WIS,61,89,Yale,Wisconsin,2017,11/12,18:00:00,Kohl Center|Madison|Wisconsin,False,False,17287
+400987160,BUCK,ARK,73,101,Bucknell,Arkansas,2017,11/12,18:00:00,Bud Walton Arena|Fayetteville|Arkansas,False,False,6477
+400988418,PRIN,BUT,75,85,Princeton,Butler,2017,11/12,18:00:00,Hinkle Fieldhouse|Indianapolis|Indiana,False,False,8470
+400989291,UCI,DEN,83,69,UC Irvine,Denver,2017,11/12,18:00:00,Magness Arena|Denver|Colorado,False,False,1202
+400986642,CIT,VT,93,132,The Citadel,Virginia Tech,2017,11/12,19:00:00,Cassell Coliseum|Blacksburg|Virginia,False,False,9275
+400988419,ALCN,CREI,72,109,Alcorn State,Creighton,2017,11/12,19:00:00,CenturyLink Center Omaha|Omaha|Nebraska,False,False,14730
+400991951,STET,FIU,70,64,Stetson,Florida Intl,2017,11/12,19:00:00,FIU Arena|Miami|Florida,False,False,605
+400990360,UAPB,TROY,57,81,Arkansas-Pine Bluff,Troy,2017,11/12,19:30:00,Stan Sheriff Center|Honolulu|Hawaii,True,False,0
+400986336,HOW,IND,77,86,Howard,Indiana,2017,11/12,20:00:00,Assembly Hall (Indiana)|Bloomington|Indiana,False,False,0
+400988200,EWU,WASH,69,79,Eastern Washington,Washington,2017,11/12,20:00:00,Alaska Airlines Arena|Seattle|Washington,False,False,0

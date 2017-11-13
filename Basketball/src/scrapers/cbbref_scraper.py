@@ -68,7 +68,10 @@ def get_games_statistics(game_log_soup, year):
 	team_name = names_dict[game_log_soup.find('li', {'class': 'index '}).a.string.split(' School')[0]]
 	rows = []
 	print(team_name)
-	game_rows = game_log_soup.find('table', {'id': 'sgl-advanced'}).tbody.contents
+	try:
+		game_rows = game_log_soup.find('table', {'id': 'sgl-advanced'}).tbody.contents
+	except:
+		game_rows = []
 	for row in game_rows:
 		if isinstance(row,NavigableString) or 'Offensive Four Factors' in row.text or 'Date' in row.text:
 			continue
@@ -111,7 +114,11 @@ def get_games_statistics(game_log_soup, year):
 			game_df['OT'] = 0
 
 		rows.append(game_df)
-	return pd.concat(rows,ignore_index=True)
+	try:
+		df = pd.concat(rows, ignore_index=True)
+	except:
+		df = pd.DataFrame()
+	return df
 
 def get_games(year=2017):
 	soup = get_soup("http://www.sports-reference.com/cbb/schools/")
@@ -134,7 +141,7 @@ def get_games(year=2017):
 	return all_teams_df
 
 if __name__ == '__main__':
-	year = 2017
+	year = 2018
 	cur_season = get_games(year=year)
 	csv_path = os.path.join(my_path,'..','..','data','cbbref','{}.csv'.format(year))
 	cur_season.to_csv(csv_path, index=False)

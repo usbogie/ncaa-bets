@@ -45,7 +45,7 @@ def ordered(obj):
 	else:
 		return obj
 
-def get_data(data=[],get_yesterday=False,get_today=False,year=2017):
+def get_data(data=[],get_yesterday=False,get_today=False,year=2018):
 	all_dates = make_season(year-1)
 	base = "http://www.vegasinsider.com/college-basketball/matchups/matchups.cfm/date/"
 	today = int(datetime.now().strftime('%Y%m%d'))
@@ -188,7 +188,7 @@ def get_data(data=[],get_yesterday=False,get_today=False,year=2017):
 	return data
 
 if __name__ == '__main__':
-	year = 2011
+	year = 2018
 	data = get_data(year=year)
 	json_path = os.path.join(my_path,'..','..','data','vi','{}.json'.format(year))
 	with open(json_path,'w') as infile:

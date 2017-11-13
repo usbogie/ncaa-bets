@@ -110,16 +110,16 @@ def make_dataframe(start_year):
 				if status_dict[event['id']] == 'Canceled':
 					continue
 
-				game_info 							= {}
-				game_info['skip_game']				= False
-				competition 						= event['competitions'][0]
-				game_info['link']					= event['links'][1]['href']
-				game_info['neutral_site']			= competition['neutralSite']
-				game_info['attendance']				= competition['attendance']
-				game_info['conferenceCompetition']	= competition['conferenceCompetition']
-				game_info['tipoff']					= competition['startDate']
+				game_info = {}
+				game_info['skip_game'] = False
+				competition = event['competitions'][0]
+				game_info['link'] = event['links'][1]['href']
+				game_info['neutral_site'] = competition['neutralSite']
+				game_info['attendance']	= competition['attendance']
+				game_info['conferenceCompetition'] = competition['conferenceCompetition']
+				game_info['tipoff']	= competition['startDate']
 				try:
-					venueJSON						= competition['venue']
+					venueJSON = competition['venue']
 					game_info['venue'] = venueJSON['fullName']
 					if 'address' in venueJSON.keys():
 						game_info['venue']+="|"+"|".join([venueJSON['address']['city'],venueJSON['address']['state']])
@@ -177,7 +177,7 @@ def make_dataframe(start_year):
 	return gen_info
 
 if __name__ == '__main__':
-	start_year = 2010
+	start_year = 2017
 	info_list = make_dataframe(start_year)
 	final_info = pd.concat(info_list, ignore_index=True).set_index('Game_ID')
 	csv_path = os.path.join(my_path,'..','..','data','espn','{}.csv'.format(start_year+1))
