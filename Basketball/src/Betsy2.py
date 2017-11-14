@@ -8,25 +8,26 @@ from datetime import date,timedelta
 import math
 from scipy.stats.mstats import zscore
 import os
+
 path = os.path.dirname(os.path.abspath(__file__))
 
-teams = {}
-with open(path + '/Composite/teams.json','r') as infile:
+with open(os.path.join(path,'..','data','composite','teams.json'),'r') as infile:
     teams = json.load(infile)
 game_dict = {}
-with open(path + '/Composite/game_dict.json','r') as infile:
+with open(os.path.join(path,'..','data','composite','game_dict.json'),'r') as infile:
     game_dict = json.load(infile)
-with open(path + '/VI/names_dict.json','r') as infile:
+with open(os.path.join(path,'name_dicts','vi_names.json'),'r') as infile:
     vi_names = json.load(infile)
-with open(path + '/CBBRef/names_dict.json','r') as infile:
+with open(os.path.join(path,'name_dicts','cbbref_names.json'),'r') as infile:
     cbbr_names = json.load(infile)
-with open(path + '/ESPN/names_dict.json','r') as infile:
+with open(os.path.join(path,'name_dicts','espn_names.json'),'r') as infile:
     espn_names = json.load(infile)
 
-def get_sports_ref_data(year_list=[2011,2012,2013,2014,2015,2016,2017]):
+def get_sports_ref_data(year_list=range(2011,2019)):
     years = []
     for year in year_list:
-        gamesdf = pd.read_csv('{}/CBBRef/game_info{}.csv'.format(path, year))
+        data_path = os.path.join(path,'..','data','cbbref','{}.csv'.format(year))
+        gamesdf = pd.read_csv(data_path)
         years.append(gamesdf)
     x = 0
     y = 0
@@ -92,11 +93,12 @@ def get_sports_ref_data(year_list=[2011,2012,2013,2014,2015,2016,2017]):
                 continue
     print(x)
 
-def get_spreads(year_list=[2011,2012,2013,2014,2015,2016,2017]):
+def get_spreads(year_list=range(2011,2019)):
     print("Getting sportsbook info from Vegas Insider")
     years = []
     for year in year_list:
-        vdf = pd.read_json(path + '/VI/vegas_{}.json'.format(year))
+        data_path = os.path.join(path,'..','data','vi','{}.json'.format(year))
+        vdf = pd.read_json(data_path)
         years.append(vdf)
     for idx, year in enumerate(years):
         for i, row in year.iterrows():
@@ -162,11 +164,12 @@ def get_spreads(year_list=[2011,2012,2013,2014,2015,2016,2017]):
             except:
                 continue
 
-def get_old_games(year_list = [2011,2012,2013,2014,2015,2016,2017]):
+def get_old_games(year_list = range(2011,2019)):
     print("Getting old games from ESPN")
     years = []
     for year in year_list:
-        gamesdf = pd.read_csv(path + '/ESPN/game_info{}.csv'.format(year))
+        data_path = os.path.join(path,'..','data','espn','{}.csv'.format(year))
+        gamesdf = pd.read_csv(data_path)
         years.append(gamesdf)
     for idx, year in enumerate(years):
         print(str(year_list[idx]))
@@ -210,10 +213,11 @@ def get_old_games(year_list = [2011,2012,2013,2014,2015,2016,2017]):
             except:
                 continue
 
-def make_teams_dict(year_list = [2011,2012,2013,2014,2015,2016,2017]):
+def make_teams_dict(year_list = range(2011,2019)):
     nameset = set(cbbr_names.values())
-    new_teams = ["Grand Canyon", "UMass Lowell", "New Orleans", "Incarnate Word", "Abilene Christian", "Northern Kentucky", "Omaha"]
-        
+    new_teams = ["Grand Canyon", "UMass Lowell", "New Orleans", "Incarnate Word",
+                "Abilene Christian", "Northern Kentucky", "Omaha"]
+
     for name in nameset:
         for i in year_list:
             if i <= 2013 and name in new_teams:
@@ -661,7 +665,8 @@ def get_game_date_dict():
 
 def get_new_games(season='2017'):
     print("Getting new games")
-    gamesdf = pd.read_csv(path + '/ESPN/upcoming_games.csv')
+    data_path = os.path.join(path,'..','data','espn','upcoming_games.csv')
+    gamesdf = pd.read_csv(data_path)
     upcoming_games = {}
     new_games = []
     new_over_games = []
@@ -685,7 +690,8 @@ def get_new_games(season='2017'):
             print(row.Game_Home,row.Game_Away)
             continue
 
-    with open(path + '/VI/vegas_today.json','r') as infile:
+    data_path = os.path.join(path,'..','data','vi','vegas_today.json')
+    with open(data_path,'r') as infile:
         vegas_info = json.load(infile)
     for game in vegas_info:
         try:
@@ -799,14 +805,16 @@ def get_new_games(season='2017'):
 
         print("Found:",game["home"],game["away"])
     if new_games:
-        with open(path + '/Composite/todays_games.csv','w') as outfile:
+        data_path = os.path.join(path,'..','data','composite','todays_games.csv')
+        with open(data_path,'w') as outfile:
             keys = list(new_games[0].keys())
             writer = csv.DictWriter(outfile,fieldnames = keys)
             writer.writeheader()
             for game in new_games:
                 writer.writerow(game)
     if new_over_games:
-        with open(path + '/Composite/todays_over_games.csv','w') as outfile:
+        data_path = os.path.join(path,'..','data','composite','todays_over_games.csv')
+        with open(data_path,'w') as outfile:
             keys = list(new_over_games[0].keys())
             writer = csv.DictWriter(outfile,fieldnames = keys)
             writer.writeheader()
@@ -814,7 +822,8 @@ def get_new_games(season='2017'):
                 writer.writerow(game)
 
 def get_rankings():
-    f2 = open(path + '/Rankings/rankings.txt', 'w')
+    data_path = os.path.join(path,'..','data','rankings','rankings.txt')
+    f2 = open(data_path, 'w')
     rankings = []
     for key,team in teams.items():
         team["adj_em"] = team["adj_ortg"][-1] - team["adj_drtg"][-1]
@@ -832,9 +841,12 @@ get_old_games([2017])
 get_spreads([2017])
 #get_sports_ref_data([2017])
 
-with open(path + '/Composite/teams.json','w') as outfile:
+teams_path = os.path.join(path,'..','data','composite','teams.json')
+with open(teams_path,'w') as outfile:
     json.dump(teams,outfile)
-with open(path + '/Composite/game_dict.json','w') as outfile:
+
+games_path = os.path.join(path,'..','data','composite','game_dict.json')
+with open(games_path,'w') as outfile:
     json.dump(game_dict,outfile)
 
 # Number of games used to create starting stats for teams
@@ -856,7 +868,8 @@ print(len(game_list))
 
 get_new_games()
 
-with open(path + '/Composite/games.csv','w') as outfile:
+games_path = os.path.join(path,'..','data','composite','games.csv')
+with open(games_path,'w') as outfile:
     writer = csv.DictWriter(outfile,fieldnames = list(key_list))
     writer.writeheader()
     for game in game_list:

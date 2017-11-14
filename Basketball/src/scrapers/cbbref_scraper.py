@@ -11,7 +11,8 @@ import os
 ua = UserAgent()
 
 my_path = os.path.dirname(os.path.abspath(__file__))
-names_path = os.path.join(my_path, 'name_dicts', 'cbbref_names.json')
+names_path = os.path.join(my_path,'..','name_dicts','cbbref_names.json')
+
 with open(names_path,'r') as infile:
 	names_dict = json.load(infile)
 
