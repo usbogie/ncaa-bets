@@ -12,6 +12,7 @@ ua = UserAgent()
 
 my_path = os.path.dirname(os.path.abspath(__file__))
 names_path = os.path.join(my_path,'..','name_dicts','vi_names.json')
+
 with open(names_path,'r') as infile:
 	names_dict = json.load(infile)
 
@@ -37,6 +38,38 @@ def make_season(start_year=2016):
 
 	return all_season
 
+def get_soup(url):
+	try:
+		page = request.urlopen(request.Request(url, headers = { 'User-Agent' : ua.random }))
+	except ConnectionResetError as e:
+		try:
+			wait_time = round(max(10, 12 + random.gauss(0,1)), 2)
+			time.sleep(wait_time)
+			print("First attempt for %s failed. Trying again." % (url))
+			page = request.urlopen(request.Request(url, headers = { 'User-Agent' : ua.random }))
+		except:
+			print(e)
+			sys.exit()
+	except error.URLError as e:
+		try:
+			wait_time = round(max(10, 12 + random.gauss(0,1)), 2)
+			time.sleep(wait_time)
+			print("First attempt for %s failed. Trying again." % (url))
+			page = request.urlopen(request.Request(url, headers = { 'User-Agent' : ua.random }))
+		except:
+			print(e)
+			sys.exit()
+	except error.HTTPError as e:
+		try:
+			wait_time = round(max(10, 12 + random.gauss(0,1)), 2)
+			time.sleep(wait_time)
+			print("First attempt for %s failed. Trying again." % (url))
+			page = request.urlopen(request.Request(url, headers = { 'User-Agent' : ua.random }))
+		except:
+			print(e)
+			sys.exit()
+	return page
+
 def ordered(obj):
 	if isinstance(obj, dict):
 		return sorted((k, ordered(v)) for k, v in obj.items())
@@ -44,6 +77,34 @@ def ordered(obj):
 		return sorted(ordered(x) for x in obj)
 	else:
 		return obj
+
+def get_open_line(table):
+	link = table.find('a', text='BT Movements')['href']
+	url = 'http://www.vegasinsider.com{}/linechanges/y'.format(link)
+
+	content = get_soup(url).read()
+	soup = BeautifulSoup(content, "html5lib")
+
+	if soup.find('h1', {'class': 'page_title'}).text == 'Scoreboard':
+		return -1000
+
+	rows = soup.find('table', { 'class': 'rt_railbox_border2' }).findAll('tr')[3:]
+	for row in rows:
+		items = row.findAll('td')
+		try:
+			home_open = items[8].text.strip()
+			home_percent = items[9].text.strip()
+			away_percent = items[12].text.strip()
+		except:
+			return -1000
+
+		if not (home_percent=='n/a' or home_percent=='0%' and away_percent=='0%'):
+			if home_open == '+PK':
+				return 0.0
+			else:
+				return float(home_open)
+
+	return -1000
 
 def get_data(data=[],get_yesterday=False,get_today=False,year=2018):
 	all_dates = make_season(year-1)
@@ -61,37 +122,7 @@ def get_data(data=[],get_yesterday=False,get_today=False,year=2018):
 		url_day = "-".join(day.split('-')[1:]+day.split('-')[:1])
 		url = base+url_day
 
-		try:
-			page = request.urlopen(request.Request(url, headers = { 'User-Agent' : ua.random }))
-		except ConnectionResetError as e:
-			try:
-				wait_time = round(max(10, 12 + random.gauss(0,1)), 2)
-				time.sleep(wait_time)
-				print("First attempt for %s failed. Trying again." % (url))
-				page = request.urlopen(request.Request(url, headers = { 'User-Agent' : ua.random }))
-			except:
-				print(e)
-				sys.exit()
-		except error.URLError as e:
-			try:
-				wait_time = round(max(10, 12 + random.gauss(0,1)), 2)
-				time.sleep(wait_time)
-				print("First attempt for %s failed. Trying again." % (url))
-				page = request.urlopen(request.Request(url, headers = { 'User-Agent' : ua.random }))
-			except:
-				print(e)
-				sys.exit()
-		except error.HTTPError as e:
-			try:
-				wait_time = round(max(10, 12 + random.gauss(0,1)), 2)
-				time.sleep(wait_time)
-				print("First attempt for %s failed. Trying again." % (url))
-				page = request.urlopen(request.Request(url, headers = { 'User-Agent' : ua.random }))
-			except:
-				print(e)
-				sys.exit()
-
-		content = page.read()
+		content = get_soup(url).read()
 		soup = BeautifulSoup(content, "html5lib")
 
 		game_tables = soup.findAll('div', {'class': 'SLTables1'})
@@ -161,7 +192,13 @@ def get_data(data=[],get_yesterday=False,get_today=False,year=2018):
 					game_info['open_line'] = float(game_info['open_line'])
 
 			if game_info['open_line'] == "":
-				game_info['open_line'] = game_info['close_line']
+				print("No open line, checking line logs")
+				candidate_open = get_open_line(table)
+				print("Found open line: "+str(candidate_open))
+				if candidate_open == -1000:
+					game_info['open_line'] = game_info['close_line']
+				else:
+					game_info['open_line'] = candidate_open
 
 			if str(game_info['open_line']) == str(game_info['close_line']) and \
 					str(game_info['close_line']) == str(game_info['over_under']) and \

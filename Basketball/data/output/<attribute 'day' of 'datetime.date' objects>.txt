@@ -1,0 +1,11 @@
+Bet       San Jose State      -5.0   12   7.0  v Idaho State         0.5529  9:00 PM CT  
+Bet       Wofford             23.5   -13  10.5 @ Texas Tech          0.5466  5:30 PM CT  
+Caution   Syracuse            -12.0  11   ---  v Toledo              0.5191  6:00 PM CT  
+Caution   Tulane              -10.5  5    ---  v Miami (OH)          0.5191  7:00 PM CT  
+Bet       Detroit Mercy       11.0   -5   6.0  @ Saint Louis         0.5132  7:00 PM CT  
+Caution   Belmont             9.5    -9   0.5  @ Providence          0.5132  6:00 PM CT  
+Bet       Lehigh              22.5   -6   16.5 @ USC                 0.506   9:00 PM CT  
+Bet       Arkansas State      12.5   -9   3.5  @ Indiana             0.5033  6:00 PM CT  
+Caution   Fort Wayne          19.5   -20  ---  @ Kentucky            0.5033  7:00 PM CT  
+Caution   Appalachian State   2.0    -6   ---  @ James Madison       0.503   3:00 PM CT  
+Caution   Western Illinois    2.5    -2   0.5  @ SIU Edwardsville    0.503   7:00 PM CT  

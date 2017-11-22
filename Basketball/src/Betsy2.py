@@ -850,7 +850,7 @@ with open(games_path,'w') as outfile:
     json.dump(game_dict,outfile)
 
 # Number of games used to create starting stats for teams
-preseason_length = 5
+preseason_length = 4
 
 regress_games = []
 new_games = []

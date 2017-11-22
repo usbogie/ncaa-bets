@@ -387,7 +387,7 @@ if __name__ == '__main__':
     #X_train,y = pick_features(h_games,features)
     #run_gridsearch(X_train,y)
     #find_min_samples()
-    #predict_today_spreads()
+    predict_today_spreads()
     test_spread()
 
     ou_features = ["true_home_game","DT_pover","DT_home_over","DT_away_over",

@@ -1,39 +1,62 @@
 Game_ID,Away_Abbrv,Home_Abbrv,Away_Score,Home_Score,Game_Away,Game_Home,Game_Year,Game_Date,Game_Tipoff,Game_Location,Neutral_Site,Conference_Competition,Attendance
-400986927,PAC,STAN,29,49,Pacific,Stanford,2017,11/12,22:00:00,Maples Pavilion|Stanford|California,False,False,0
-400992404,UND,HAW,28,46,North Dakota,Hawai'i,2017,11/12,22:00:00,Stan Sheriff Center|Honolulu|Hawaii,False,False,0
-400988199,UMBC,ARIZ,78,103,UMBC,Arizona,2017,11/12,18:00:00,McKale Center|Tucson|Arizona,False,False,13496
-400987159,UVM,UK,69,73,Vermont,Kentucky,2017,11/12,15:30:00,Rupp Arena|Lexington|Kentucky,False,False,20174
-400986050,NAVY,MIA,55,89,Navy,Miami,2017,11/12,16:45:00,Watsco Center|Coral Gables|Florida,False,False,6611
-400986687,GMU,LOU,61,72,George Mason,Louisville,2017,11/12,14:00:00,KFC Yum! Center|Louisville|Kentucky,False,False,18304
-400986340,CHS,PUR,42,111,Chicago State,Purdue,2017,11/12,16:00:00,Mackey Arena|West Lafayette|Indiana,False,False,13509
-400988417,MONM,HALL,65,75,Monmouth,Seton Hall,2017,11/12,13:30:00,Prudential Center|Newark|New Jersey,False,False,7139
-400988416,JAC,GTWN,57,73,Jacksonville,Georgetown,2017,11/12,12:00:00,Capital One Arena|Washington|District of Columbia,False,False,9212
-400986308,SCST,BC,52,91,South Carolina State,Boston College,2017,11/12,13:00:00,Silvio Conte Forum|Chestnut Hill|Massachusetts,False,False,3104
-400986313,NCAT,CLEM,63,87,North Carolina A&T,Clemson,2017,11/12,14:00:00,Littlejohn Coliseum|Clemson|South Carolina,False,False,5528
-400990099,UMASS,HARV,67,70,Massachusetts,Harvard,2017,11/12,14:00:00,Lavietes Pavilion|Cambridge|Massachusetts,False,False,1636
-400986339,RAD,OSU,72,82,Radford,Ohio State,2017,11/12,14:30:00,Value City Arena|Columbus|Ohio,False,False,10425
-400986341,CCSU,RUTG,67,71,Central Connecticut,Rutgers,2017,11/12,14:30:00,Louis Brown Athletic Center|Piscataway|New Jersey,False,False,3844
-400989213,OMA,OKLA,89,108,Omaha,Oklahoma,2017,11/12,15:00:00,Lloyd Noble Center|Norman|Oklahoma,False,False,5573
-400986051,CHSO,NCST,56,78,Charleston Southern,NC State,2017,11/12,16:00:00,PNC Arena|Raleigh|North Carolina,False,False,13602
-400987934,ULM,SMU,65,83,Louisiana Monroe,SMU,2017,11/12,16:00:00,Moody Coliseum|Dallas|Texas,False,False,6622
-400988197,CP,CAL,82,85,Cal Poly,California,2017,11/12,16:00:00,Haas Pavilion|Berkeley|California,False,False,6405
-400988198,TXSO,WSU,84,86,Texas Southern,Washington State,2017,11/12,16:00:00,Friel Court|Pullman|Washington,False,False,2424
-400990359,TXST,AFA,57,65,Texas State,Air Force,2017,11/12,16:00:00,Clune Arena|Colorado Springs|Colorado,False,False,1511
-400991228,SUU,BSU,69,90,Southern Utah,Boise State,2017,11/12,16:00:00,Taco Bell Arena|Boise|Idaho,False,False,3052
-400986337,ALST,IOWA,58,47,Alabama State,Iowa,2017,11/12,16:05:00,Carver-Hawkeye Arena|Iowa City|Iowa,False,False,11647
-400986343,FDU,PSU,57,81,Fairleigh Dickinson,Penn State,2017,11/12,17:00:00,Bryce Jordan Center|University Park|Pennsylvania,False,False,5802
-400986990,USD,SJSU,81,64,San Diego,San Jose State,2017,11/12,17:00:00,Event Center (San Jose St.)|San Jose|California,False,False,1433
-400987935,COPP,ECU,50,76,Coppin State,East Carolina,2017,11/12,17:00:00,Minges Coliseum|Greenville|North Carolina,False,False,3228
-400990877,MORE,LIP,70,77,Morehead State,Lipscomb,2017,11/12,17:00:00,Allen Arena|Nashville|Tennessee,False,False,561
-400986335,UTM,ILL,74,77,UT Martin,Illinois,2017,11/12,18:00:00,State Farm Center|Champaign|Illinois,False,False,11882
-400986338,UMES,MD,43,96,Maryland-Eastern Shore,Maryland,2017,11/12,18:00:00,XFINITY Center|College Park|Maryland,False,False,13914
-400986342,YALE,WIS,61,89,Yale,Wisconsin,2017,11/12,18:00:00,Kohl Center|Madison|Wisconsin,False,False,17287
-400987160,BUCK,ARK,73,101,Bucknell,Arkansas,2017,11/12,18:00:00,Bud Walton Arena|Fayetteville|Arkansas,False,False,6477
-400988418,PRIN,BUT,75,85,Princeton,Butler,2017,11/12,18:00:00,Hinkle Fieldhouse|Indianapolis|Indiana,False,False,8470
-400989291,UCI,DEN,83,69,UC Irvine,Denver,2017,11/12,18:00:00,Magness Arena|Denver|Colorado,False,False,1202
-400986642,CIT,VT,93,132,The Citadel,Virginia Tech,2017,11/12,19:00:00,Cassell Coliseum|Blacksburg|Virginia,False,False,9275
-400988419,ALCN,CREI,72,109,Alcorn State,Creighton,2017,11/12,19:00:00,CenturyLink Center Omaha|Omaha|Nebraska,False,False,14730
-400991951,STET,FIU,70,64,Stetson,Florida Intl,2017,11/12,19:00:00,FIU Arena|Miami|Florida,False,False,605
-400990360,UAPB,TROY,57,81,Arkansas-Pine Bluff,Troy,2017,11/12,19:30:00,Stan Sheriff Center|Honolulu|Hawaii,True,False,0
-400986336,HOW,IND,77,86,Howard,Indiana,2017,11/12,20:00:00,Assembly Hall (Indiana)|Bloomington|Indiana,False,False,0
-400988200,EWU,WASH,69,79,Eastern Washington,Washington,2017,11/12,20:00:00,Alaska Airlines Arena|Seattle|Washington,False,False,0
+401001952,NIU,MAN,0,0,Northern Illinois,Manhattan,2017,11/22,11:00:00,Germain Arena|Estero|Florida,True,False,0
+400986380,TENN,PUR,0,0,Tennessee,Purdue,2017,11/22,12:00:00,Imperial Arena|Nassau|Bahamas,True,False,0
+401001924,IOWA,UAB,0,0,Iowa,UAB,2017,11/22,12:00:00,John Gray Gymnasium|George Town|Cayman Islands,True,False,0
+401001948,CSUN,BING,0,0,CSU Northridge,Binghamton,2017,11/22,12:30:00,Hard Rock Hotel Riviera Maya|Cancun|Mexico,True,False,0
+400991679,YALE,ALCN,0,0,Yale,Alcorn State,2017,11/22,13:30:00,Davey Whitney Complex|Lorman|Mississippi,False,False,0
+401001953,FAU,MOST,0,0,Florida Atlantic,Missouri State,2017,11/22,13:30:00,Germain Arena|Estero|Florida,True,False,0
+400986083,KENN,FSU,0,0,Kennesaw State,Florida State,2017,11/22,14:00:00,Donald L. Tucker Center|Tallahassee|Florida,False,False,0
+400990725,HC,FDU,0,0,Holy Cross,Fairleigh Dickinson,2017,11/22,14:00:00,Rothman Center|Teaneck|New Jersey,False,False,0
+400991529,BU,MAINE,0,0,Boston University,Maine,2017,11/22,14:00:00,Cross Insurance Center|Bangor|Maine,False,False,0
+401001881,EKY,EWU,0,0,Eastern Kentucky,Eastern Washington,2017,11/22,14:00:00,T-Mobile Arena|Las Vegas|Nevada,True,False,0
+400988492,WKU,VILL,0,0,Western Kentucky,Villanova,2017,11/22,14:30:00,Imperial Arena|Nassau|Bahamas,True,False,0
+401001925,SDST,BUFF,0,0,South Dakota State,Buffalo,2017,11/22,14:30:00,John Gray Gymnasium|George Town|Cayman Islands,True,False,0
+400990726,LIU,UML,0,0,LIU Brooklyn,UMass Lowell,2017,11/22,15:00:00,Costello Athletic Center|Lowell|Massachusetts,False,False,0
+400991393,LONG,DEL,0,0,Longwood,Delaware,2017,11/22,15:00:00,Michael B. Fleming Gymnasium|Greensboro|North Carolina,True,False,0
+401001949,SEMO,MTST,0,0,Southeast Missouri State,Montana State,2017,11/22,15:00:00,Hard Rock Hotel Riviera Maya|Cancun|Mexico,True,False,0
+400986309,COLG,BC,0,0,Colgate,Boston College,2017,11/22,16:00:00,Silvio Conte Forum|Chestnut Hill|Massachusetts,False,False,0
+400990375,APP,JMU,0,0,Appalachian State,James Madison,2017,11/22,16:00:00,JMU Convocation Center|Harrisonburg|Virginia,False,False,0
+400990569,COFC,CP,0,0,Charleston,Cal Poly,2017,11/22,16:00:00,Alaska Airlines Center|Anchorage|Alaska,True,False,0
+401001882,PV,GAST,0,0,Prairie View A&M,Georgia State,2017,11/22,16:30:00,T-Mobile Arena|Las Vegas|Nevada,True,False,0
+401001946,ULL,RICH,0,0,Lafayette,Richmond,2017,11/22,17:00:00,John Gray Gymnasium|George Town|Cayman Islands,True,False,0
+401001954,PENN,UMKC,0,0,Penn,UMKC,2017,11/22,17:00:00,Germain Arena|Estero|Florida,True,False,0
+401000097,VCU,MICH,0,0,VCU,Michigan,2017,11/22,17:00:00,Lahaina Civic Center|Maui|Hawaii,True,False,0
+400986085,LAS,MIA,0,0,La Salle,Miami,2017,11/22,18:00:00,Santander Arena|Reading|Pennsylvania,True,False,0
+400991559,BRWN,STON,0,0,Brown,Stony Brook,2017,11/22,18:00:00,Island FCU Arena|Stony Brook|New York,False,False,0
+401001950,FRES,GMU,0,0,Fresno State,George Mason,2017,11/22,18:00:00,Hard Rock Hotel Riviera Maya|Cancun|Mexico,True,False,0
+400988677,WOF,TTU,0,0,Wofford,Texas Tech,2017,11/22,18:30:00,United Supermarkets Arena|Lubbock|Texas,False,False,0
+400988919,SHSU,CMU,0,0,Sam Houston State,Central Michigan,2017,11/22,18:30:00,Alaska Airlines Center|Anchorage|Alaska,True,False,0
+400986081,ARIZ,NCST,0,0,Arizona,NC State,2017,11/22,19:00:00,Imperial Arena|Nassau|Bahamas,True,False,0
+400986082,TOL,SYR,0,0,Toledo,Syracuse,2017,11/22,19:00:00,Carrier Dome|Syracuse|New York,False,False,0
+400986379,ARST,IND,0,0,Arkansas State,Indiana,2017,11/22,19:00:00,Assembly Hall (Indiana)|Bloomington|Indiana,False,False,0
+400987961,HOW,USF,0,0,Howard,South Florida,2017,11/22,19:00:00,USF Sun Dome|Tampa|Florida,False,False,0
+400988493,BEL,PROV,0,0,Belmont,Providence,2017,11/22,19:00:00,Dunkin Donuts Center|Providence|Rhode Island,False,False,0
+400988678,TROY,ETSU,0,0,Troy,East Tennessee St.,2017,11/22,19:00:00,Freedom Hall Civic Center|Johnson City|Tennessee,False,False,0
+400989989,ALBY,DART,0,0,Albany,Dartmouth,2017,11/22,19:00:00,Edward Leede Arena|Hanover|New Hampshire,False,False,0
+400990131,BALL,BUCK,0,0,Ball State,Bucknell,2017,11/22,19:00:00,Sojka Pavilion|Lewisburg|Pennsylvania,False,False,0
+400991072,MONM,UNCA,0,0,Monmouth,UNC Asheville,2017,11/22,19:00:00,Kimmel Arena|Asheville|North Carolina,False,False,0
+400991436,RAD,ELON,0,0,Radford,Elon,2017,11/22,19:00:00,Alumni Gym (Elon University)|Elon|North Carolina,False,False,0
+400991670,LAF,PRIN,0,0,Lafayette,Princeton,2017,11/22,19:00:00,Jadwin Gymnasium|Princeton|New Jersey,False,False,0
+401001947,WYO,CIN,0,0,Wyoming,Cincinnati,2017,11/22,19:30:00,John Gray Gymnasium|George Town|Cayman Islands,True,False,0
+400986084,TRGV,GT,0,0,UT Rio Grande Valley,Georgia Tech,2017,11/22,19:30:00,McCamish Pavilion|Atlanta|Georgia,False,False,0
+401001955,TOWS,GASO,0,0,Towson,Georgia Southern,2017,11/22,19:30:00,Germain Arena|Estero|Florida,True,False,0
+400987192,IPFW,UK,0,0,Fort Wayne,Kentucky,2017,11/22,20:00:00,Rupp Arena|Lexington|Kentucky,False,False,0
+400986906,LMU,IW,0,0,Loyola Marymount,Incarnate Word,2017,11/22,20:00:00,McDermott Convocation Center|San Antonio|Texas,False,False,0
+400987962,M-OH,TULN,0,0,Miami (OH),Tulane,2017,11/22,20:00:00,Devlin Fieldhouse|New Orleans|Louisiana,False,False,0
+400989304,WIU,SIUE,0,0,Western Illinois,SIU Edwardsville,2017,11/22,20:00:00,Vadalabene Center|Edwardsville|Illinois,False,False,0
+400989305,FAMU,NDSU,0,0,Florida A&M,North Dakota State,2017,11/22,20:00:00,Scheels Center|Fargo|North Dakota,False,False,0
+400989951,DET,SLU,0,0,Detroit Mercy,Saint Louis,2017,11/22,20:00:00,Chaifetz Arena|St. Louis|Missouri,False,False,0
+400990902,UTM,SOU,0,0,UT Martin,Southern,2017,11/22,20:00:00,F. G. Clark Activity Center|Baton Rouge|Louisiana,False,False,0
+400992551,NCCU,MRSH,0,0,North Carolina Central,Marshall,2017,11/22,20:00:00,Cam Henderson Center|Huntington|West Virginia,False,False,0
+401000098,MARQ,LSU,0,0,Marquette,LSU,2017,11/22,20:00:00,Lahaina Civic Center|Maui|Hawaii,True,False,0
+400990376,STET,USA,0,0,Stetson,South Alabama,2017,11/22,20:05:00,Mitchell Center|Mobile|Alabama,False,False,0
+401001951,EVAN,LT,0,0,Evansville,Louisiana Tech,2017,11/22,20:30:00,Hard Rock Hotel Riviera Maya|Cancun|Mexico,True,False,0
+400990601,CSU,NMSU,0,0,Colorado State,New Mexico State,2017,11/22,21:00:00,Pan American Center|Las Cruces|New Mexico,False,False,0
+400987086,SCU,IDHO,0,0,Santa Clara,Idaho,2017,11/22,21:30:00,Alaska Airlines Center|Anchorage|Alaska,True,False,0
+400987963,SMU,UNI,0,0,SMU,Northern Iowa,2017,11/22,21:30:00,Imperial Arena|Nassau|Bahamas,True,False,0
+401000099,WICH,ND,0,0,Wichita St,Notre Dame,2017,11/22,22:00:00,Lahaina Civic Center|Maui|Hawaii,True,False,0
+400988224,LEH,USC,0,0,Lehigh,USC,2017,11/22,22:00:00,Galen Center|Los Angeles|California,False,False,0
+400990377,TXST,UAPB,0,0,Texas State,Arkansas-Pine Bluff,2017,11/22,22:00:00,Alex G. Spanos Center|Stockton|California,True,False,0
+400991803,IDST,SJSU,0,0,Idaho State,San Jose State,2017,11/22,22:00:00,Event Center (San Jose St.)|San Jose|California,False,False,0
+401001883,MISS,RICE,0,0,Ole Miss,Rice,2017,11/22,22:00:00,T-Mobile Arena|Las Vegas|Nevada,True,False,0
+401001884,UTAH,UNLV,0,0,Utah,UNLV,2017,11/22,00:30:00,T-Mobile Arena|Las Vegas|Nevada,True,False,0
