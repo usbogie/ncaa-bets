@@ -698,7 +698,11 @@ def get_new_games(season='2017'):
             home = espn_names[game['home']]
             away = espn_names[game['away']]
             key = str((home,away))
-            new_game = upcoming_games[key]
+            try:
+                new_game = upcoming_games[key]
+            except:
+                print(key)
+                new_game = upcoming_games[key]
             new_game['key'] = key
             new_game['spread_home'] = (float(game['close_line']),-110)
             new_game['spread'] = new_game['spread_home'][0]

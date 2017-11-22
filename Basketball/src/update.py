@@ -15,14 +15,9 @@ if __name__ == '__main__':
 	except:
 		update_lines_only = False
 
-	data = vi.get_data(get_today = True)
-
-	print(data)
-
-	vi_path = os.path.join(my_path,'..','data','vi','vegas_today.json')
-	with open(vi_path, 'w') as outfile:
-		json.dump(data, outfile)
-	print("Updated Vegas info for today")
+	today_data = espn.get_tonight_info()
+	if not today_data.empty:
+		today_data = today_data.drop_duplicates()
 
 	if not update_lines_only:
 		last_night = espn.update_espn_data()
@@ -35,9 +30,6 @@ if __name__ == '__main__':
 		cur_season = cur_season[~cur_season.index.duplicated(keep='first')]
 		cur_season.to_csv(csv_path, index_label='Game_ID')
 
-		today_data = espn.get_tonight_info()
-		if not today_data.empty:
-			today_data = today_data.drop_duplicates()
 		today_path = os.path.join(my_path,'..','data','espn','upcoming_games.csv')
 		today_data.to_csv(today_path, index_label='Game_ID')
 		print("Updated ESPN Data")
@@ -52,7 +44,38 @@ if __name__ == '__main__':
 			json.dump(yesterday_games, vegasfile)
 		print("Updated Yesterday Vegas Insider")
 
-		cur_season = cbbref.get_games(year=2017)
-		cbbref_path = os.path.join(my_path,'..','data','cbbref','2018.csv')
-		cur_season.to_csv(cbbref_path, index=False)
-		print("Updated cbbref")
+		# cur_season = cbbref.get_games(year=2017)
+		# cbbref_path = os.path.join(my_path,'..','data','cbbref','2018.csv')
+		# cur_season.to_csv(cbbref_path, index=False)
+		# print("Updated cbbref")
+
+	data = vi.get_data(get_today = True)
+
+	# Fix up swtiched vi/espn info
+	for index, row in today_data.iterrows():
+		if not row.Neutral_Site:
+			continue
+
+		espn_away = row.Game_Away
+		espn_home = row.Game_Home
+		for game in data:
+			if espn_away == game['home'] and espn_home == game['away']:
+				vi_home = game['home']
+				game['home'] = game['away']
+				game['away'] = vi_home
+
+				vi_home_ats = game['home_ats']
+				game['home_ats'] = game['away_ats']
+				game['away_ats'] = vi_home_ats
+
+				vi_home_pct = game['home_side_pct']
+				game['home_side_pct'] = game['away_side_pct']
+				game['away_side_pct'] = vi_home_pct
+
+				game['open_line'] = game['open_line'] * -1
+				game['close_line'] = game['close_line'] * -1
+
+	vi_path = os.path.join(my_path,'..','data','vi','vegas_today.json')
+	with open(vi_path, 'w') as outfile:
+		json.dump(data, outfile)
+	print("Updated Vegas info for today")
