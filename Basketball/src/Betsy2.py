@@ -14,16 +14,14 @@ path = os.path.dirname(os.path.abspath(__file__))
 with open(os.path.join(path,'..','data','composite','teams.json'),'r') as infile:
     teams = json.load(infile)
 game_dict = {}
-with open(os.path.join(path,'..','data','composite','game_dict.json'),'r') as infile:
-    game_dict = json.load(infile)
-with open(os.path.join(path,'name_dicts','vi_names.json'),'r') as infile:
-    vi_names = json.load(infile)
 with open(os.path.join(path,'name_dicts','cbbref_names.json'),'r') as infile:
     cbbr_names = json.load(infile)
-with open(os.path.join(path,'name_dicts','espn_names.json'),'r') as infile:
-    espn_names = json.load(infile)
+with open(os.path.join(path,'..','data','composite','game_dict.json'),'r') as infile:
+    game_dict = json.load(infile)
 
-def get_sports_ref_data(year_list=range(2011,2019)):
+this_season = date.today().year + 1 if date.today().month > 4 else date.today().year
+
+def get_sports_ref_data(year_list=range(2011,this_season+1)):
     years = []
     for year in year_list:
         data_path = os.path.join(path,'..','data','cbbref','{}.csv'.format(year))
@@ -37,19 +35,11 @@ def get_sports_ref_data(year_list=range(2011,2019)):
                 home_game = True
                 if row.road_game:
                     home_game = False
-                    try:
-                        away = cbbr_names[row.team.strip()]
-                        home = cbbr_names[row.opponent.strip()]
-                    except:
-                        away = espn_names[row.team.strip()]
-                        home = espn_names[row.opponent.strip()]
+                    away = row.team.strip()
+                    home = row.opponent.strip()
                 else:
-                    try:
-                        home = cbbr_names[row.team.strip()]
-                        away = cbbr_names[row.opponent.strip()]
-                    except:
-                        home = espn_names[row.team.strip()]
-                        away = espn_names[row.opponent.strip()]
+                    home = row.team.strip()
+                    away = row.opponent.strip()
                 key = str((home,away,row.date))
                 try:
                     game = game_dict[key]
@@ -93,7 +83,7 @@ def get_sports_ref_data(year_list=range(2011,2019)):
                 continue
     print(x)
 
-def get_spreads(year_list=range(2011,2019)):
+def get_spreads(year_list=range(2011,this_season+1)):
     print("Getting sportsbook info from Vegas Insider")
     years = []
     for year in year_list:
@@ -103,12 +93,8 @@ def get_spreads(year_list=range(2011,2019)):
     for idx, year in enumerate(years):
         for i, row in year.iterrows():
             try:
-                try:
-                    home = vi_names[row.home]
-                    away = vi_names[row.away]
-                except:
-                    home = espn_names[row.home]
-                    away = espn_names[row.away]
+                home = row.home
+                away = row.away
                 d = str(row.date).split(' ')
                 d = d[0].split('-')
                 game_year = year_list[idx] if int(d[1]) < 8 else year_list[idx] - 1
@@ -164,7 +150,7 @@ def get_spreads(year_list=range(2011,2019)):
             except:
                 continue
 
-def get_old_games(year_list = range(2011,2019)):
+def get_old_games(year_list = range(2011,this_season+1)):
     print("Getting old games from ESPN")
     years = []
     for year in year_list:
@@ -176,8 +162,8 @@ def get_old_games(year_list = range(2011,2019)):
         for i, row in year.iterrows():
             try:
                 game = {}
-                game["home"] = espn_names[row.Game_Home.strip()]
-                game["away"] = espn_names[row.Game_Away.strip()]
+                game["home"] = row.Game_Home.strip()
+                game["away"] = row.Game_Away.strip()
                 game["season"] = str(year_list[idx])
                 d = row.Game_Date.split("/")
                 d.append(row.Game_Year)
@@ -190,10 +176,7 @@ def get_old_games(year_list = range(2011,2019)):
                 central = hour-1 if hour != 0 else 23
                 game["tipstring"] = "{}:{} {}M CT".format((str(central%12) if central != 12 else str(12)),game["tipoff"].split(":")[1],("A" if central//12 == 0 else "P"))
                 key = str((game["home"],game["away"],game["date"]))
-                if key not in set(game_dict.keys()):
-                    game_dict[key] = game
-                else:
-                    continue
+                game_dict[key] = game
                 game["key"] = key
                 game["home_score"] = float(row.Home_Score)
                 game["away_score"] = float(row.Away_Score)
@@ -213,7 +196,7 @@ def get_old_games(year_list = range(2011,2019)):
             except:
                 continue
 
-def make_teams_dict(year_list = range(2011,2019)):
+def make_teams_dict(year_list = range(2011,this_season+1)):
     nameset = set(cbbr_names.values())
     new_teams = ["Grand Canyon", "UMass Lowell", "New Orleans", "Incarnate Word",
                 "Abilene Christian", "Northern Kentucky", "Omaha"]
@@ -246,7 +229,8 @@ def betsy():
         team["prev_games"] = []
     run_preseason()
     for key,team in teams.items():
-        for i in range(preseason_length):
+        game_count = min(preseason_length, len(team["games"]))
+        for i in range(game_count):
             del team["games"][0]
     for key,team in teams.items():
         team["variance"] = []
@@ -261,8 +245,8 @@ def betsy():
         try:
             key_list = game_date_dict[str(gamedate)]
         except:
-            if gamedate.year == 2017:
-                print(gamedate)
+            if gamedate == date.fromordinal(date.today().toordinal()-1):
+                print("No games from yesterday.")
             gamedate += timedelta(1)
             continue
         year = gamedate.year
@@ -493,7 +477,6 @@ def betsy():
     print("Home count:",len(home_count),len([i for i in home_count if i])/len(home_count))
     print("Away count:",len(away_count),len([i for i in away_count if i])/len(away_count))
     print("Ties:",correct)
-    # print(teams["The Citadel2017"])
 
 def get_standard_deviations_averages(year):
     FT_list = []
@@ -525,8 +508,6 @@ def get_averages(year):
 # Gets starting stats for a team in the year
 # These games will not be predicted
 def run_preseason():
-    if not check_chronological():
-        print("Preseason won't work")
     for key,team in teams.items():
         team["adj_ortg"] = []
         team["adj_drtg"] = []
@@ -537,30 +518,33 @@ def run_preseason():
         team["TOVP"] = []
         team["opp_TOVP"] = []
         team["over_rec"] = [0,0]
+        game_count = min(len(team["games"]), preseason_length)
+        if not game_count:
+            continue
         if len(team["games"]) < preseason_length:
-            print("{} doesn't have {} games in ".format(team,preseason_length)+key[-4:])
+            print("{} doesn't have {} games in ".format(team["name"],preseason_length)+key[-4:])
         # Get average of each stat for each team
-        for i in range(preseason_length):
+        for i in range(game_count):
             game = game_dict[team["games"][i]]
             home = teams[game["home"]+game["season"]]
             away = teams[game["away"]+game["season"]]
-            team["pre_adj_temp"] = team.get("pre_adj_temp",0) + game["Pace"] / preseason_length
+            team["pre_adj_temp"] = team.get("pre_adj_temp",0) + game["Pace"] / game_count
             try:
                 team["over_rec"][0] += 1 if game["over"] == .5 else 0
                 team["over_rec"][1] += 1 if game["over"] == -.5 else 0
             except:
                 pass
             if game["home"] == team["name"]:
-                team["pre_adj_ortg"] = team.get("pre_adj_ortg",0) + game["home_ORtg"] / preseason_length
-                team["pre_adj_drtg"] = team.get("pre_adj_drtg",0) + game["home_DRtg"] / preseason_length
+                team["pre_adj_ortg"] = team.get("pre_adj_ortg",0) + game["home_ORtg"] / game_count
+                team["pre_adj_drtg"] = team.get("pre_adj_drtg",0) + game["home_DRtg"] / game_count
                 team["FT"].append(game["home_FT"])
                 team["tPAr"].append(game["home_tPAr"])
                 team["TRBP"].append(game["home_TRBP"])
                 team["TOVP"].append(game["home_TOVP"])
                 team["opp_TOVP"].append(game["away_TOVP"])
             else:
-                team["pre_adj_ortg"] = team.get("pre_adj_ortg",0) + game["away_ORtg"] / preseason_length
-                team["pre_adj_drtg"] = team.get("pre_adj_drtg",0) + game["away_DRtg"] / preseason_length
+                team["pre_adj_ortg"] = team.get("pre_adj_ortg",0) + game["away_ORtg"] / game_count
+                team["pre_adj_drtg"] = team.get("pre_adj_drtg",0) + game["away_DRtg"] / game_count
                 team["FT"].append(game["away_FT"])
                 team["tPAr"].append(game["away_tPAr"])
                 team["TRBP"].append(game["away_TRBP"])
@@ -575,10 +559,13 @@ def run_preseason():
     for j in range(5):
         for key,team in teams.items():
             game_list = team["games"]
+            game_count = min(preseason_length, len(team["games"]))
+            if not game_count:
+                continue
             pre_adj_off = 0
             pre_adj_def = 0
             pre_adj_tempo = 0
-            for i in range(preseason_length):
+            for i in range(game_count):
                 game = game_dict[game_list[i]]
                 home = teams[game["home"]+game["season"]]
                 away = teams[game["away"]+game["season"]]
@@ -590,44 +577,27 @@ def run_preseason():
                 temp_diff = (home["pre_adj_temp"] - away["pre_adj_temp"]) / 2
                 # Best predictor of Ratings and Pace is an average of the two, so must reverse calculate a team's adjusted rating for the game
                 if game["home"] == team["name"]:
-                    pre_adj_off += (game["home_ORtg"] + home_o_diff - home_o) / preseason_length
-                    pre_adj_def += (game["home_DRtg"] - away_o_diff + away_o) / preseason_length # Positive drtg good, amount of points fewer they gave up than expected
-                    pre_adj_tempo += (game["Pace"] + temp_diff) / preseason_length
+                    pre_adj_off += (game["home_ORtg"] + home_o_diff - home_o) / game_count
+                    pre_adj_def += (game["home_DRtg"] - away_o_diff + away_o) / game_count # Positive drtg good, amount of points fewer they gave up than expected
+                    pre_adj_tempo += (game["Pace"] + temp_diff) / game_count
                 else:
-                    pre_adj_off += (game["away_ORtg"] + away_o_diff + away_o) / preseason_length
-                    pre_adj_def += (game["away_DRtg"] - home_o_diff - home_o) / preseason_length # Positive drtg good, amount of points fewer they gave up than expected
-                    pre_adj_tempo += (game["Pace"] - temp_diff) / preseason_length
+                    pre_adj_off += (game["away_ORtg"] + away_o_diff + away_o) / game_count
+                    pre_adj_def += (game["away_DRtg"] - home_o_diff - home_o) / game_count # Positive drtg good, amount of points fewer they gave up than expected
+                    pre_adj_tempo += (game["Pace"] - temp_diff) / game_count
             team["adj_ortg"].append(pre_adj_off)
             team["adj_drtg"].append(pre_adj_def)
             team["adj_temp"].append(pre_adj_tempo)
-        # print(teams["Vanderbilt2014"]["adj_ortg"][-1],teams["Vanderbilt2014"]["adj_drtg"][-1],teams["Vanderbilt2014"]["adj_temp"][-1])
         for key,team in teams.items():
-            team["pre_adj_ortg"] = team["adj_ortg"][-1]
-            team["pre_adj_drtg"] = team["adj_drtg"][-1]
-            team["pre_adj_temp"] = team["adj_temp"][-1]
+            try:
+                team["pre_adj_ortg"] = team["adj_ortg"][-1]
+                team["pre_adj_drtg"] = team["adj_drtg"][-1]
+                team["pre_adj_temp"] = team["adj_temp"][-1]
+            except:
+                continue
 
-# Checks the chronological ordering of games in the game lists
-def check_chronological():
-    flag = True
-    for key,team in teams.items():
-        game_list = team["games"]
-        for i in range(len(game_list)-1):
-            date1 = game_list[i].split(",")[2].strip().replace("'","").replace(")","").split("-")
-            date2 = game_list[i+1].split(",")[2].strip().replace("'","").replace(")","").split("-")
-            for j in range(3):
-                if int(date1[j]) < int(date2[j]):
-                    break
-                elif int(date1[j]) > int(date2[j]):
-                    flag = False
-                    break
-                if j == 2:
-                    print(game_list[i],date1)
-                    print(game_list[i+1],date2)
-                    print("Duplicate")
-        if flag == False:
-            print("Not Chronological")
-            break
-    return flag
+def sort_games():
+    for key in teams.keys():
+        teams[key]["games"].sort(key=lambda g:g.split(", ")[-1])
 
 # Eliminates games that don't have Offensive Rating stats for both teams, or Pace
 def eliminate_games_missing_data():
@@ -643,14 +613,8 @@ def eliminate_games_missing_data():
                 keys_to_remove.add(key)
     for key in keys_to_remove:
         game = game_dict[key]
-        try:
-            teams[game["home"]+game["season"]]["games"].remove(key)
-            teams[game["away"]+game["season"]]["games"].remove(key)
-        except:
-            print("just curious")
-    for key,team in teams.items():
-        if len(team["games"]) <= 5:
-            print(team)
+        teams[game["home"]+game["season"]]["games"].remove(key)
+        teams[game["away"]+game["season"]]["games"].remove(key)
 
 # Creates game dictionary that facilitates getting games played on the same date
 def get_game_date_dict():
@@ -663,7 +627,7 @@ def get_game_date_dict():
             game_date_dict[game["date"]] = [game["key"]]
     return game_date_dict
 
-def get_new_games(season='2017'):
+def get_new_games(season=str(this_season)):
     print("Getting new games")
     data_path = os.path.join(path,'..','data','espn','upcoming_games.csv')
     gamesdf = pd.read_csv(data_path)
@@ -673,8 +637,8 @@ def get_new_games(season='2017'):
     for i, row in gamesdf.iterrows():
         try:
             game = {}
-            game["home"] = espn_names[row.Game_Home.strip()]
-            game["away"] = espn_names[row.Game_Away.strip()]
+            game["home"] = row.Game_Home.strip()
+            game["away"] = row.Game_Away.strip()
             game["tipoff"] = row.Game_Tipoff
             hour = int(game["tipoff"].split(":")[0])
             central = hour-1 if hour != 0 else 23
@@ -695,8 +659,8 @@ def get_new_games(season='2017'):
         vegas_info = json.load(infile)
     for game in vegas_info:
         try:
-            home = espn_names[game['home']]
-            away = espn_names[game['away']]
+            home = game['home']
+            away = game['away']
             key = str((home,away))
             try:
                 new_game = upcoming_games[key]
@@ -720,10 +684,9 @@ def get_new_games(season='2017'):
             new_games.append(new_game)
         except:
             print("In vegas info, no game matched:",game["home"],game["away"])
-
     for game in new_games:
-        home = teams[espn_names[game["home"]]+season]
-        away = teams[espn_names[game["away"]]+season]
+        home = teams[game["home"]+season]
+        away = teams[game["away"]+season]
 
         team_list = [home,away]
         home_dict = {}
@@ -830,21 +793,28 @@ def get_rankings():
     f2 = open(data_path, 'w')
     rankings = []
     for key,team in teams.items():
-        team["adj_em"] = team["adj_ortg"][-1] - team["adj_drtg"][-1]
+        try:
+            team["adj_em"] = team["adj_ortg"][-1] - team["adj_drtg"][-1]
+        except:
+            continue
     em_list = []
     for key,team in teams.items():
-        if team["year"] == 2017:
-            em_list.append((team["adj_em"],team["name"],team["adj_ortg"][-1],team["adj_drtg"][-1]))
+        try:
+            if team["year"] == this_season:
+                em_list.append((team["adj_em"],team["name"],team["adj_ortg"][-1],team["adj_drtg"][-1]))
+        except:
+            continue
     for idx,team in enumerate(sorted(em_list,reverse=True)):
         rankings.append("{} {}\tEM: {}\tORTG: {}\tDRTG: {}\n".format(str(idx+1).ljust(4),team[1].ljust(25),str(round(team[0]/2,2)).ljust(8),str(round(team[2],2)).ljust(8),str(round(team[3],2)).ljust(8)))
     f2.writelines(rankings)
 
-# make_teams_dict()
-get_old_games([2017])
+#make_teams_dict([this_season])
+get_old_games([2017, 2018])
 
-get_spreads([2017])
-#get_sports_ref_data([2017])
+get_spreads([2017, 2018])
+get_sports_ref_data([2017, 2018])
 
+sort_games()
 teams_path = os.path.join(path,'..','data','composite','teams.json')
 with open(teams_path,'w') as outfile:
     json.dump(teams,outfile)

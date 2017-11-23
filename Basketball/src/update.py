@@ -7,6 +7,8 @@ import json
 import sys
 import os
 
+this_season = datetime.now().year + 1 if datetime.now().month > 4 else datetime.now().year
+
 if __name__ == '__main__':
 	my_path = os.path.dirname(os.path.abspath(__file__))
 
@@ -21,7 +23,7 @@ if __name__ == '__main__':
 
 	if not update_lines_only:
 		last_night = espn.update_espn_data()
-		csv_path = os.path.join(my_path,'..','data','espn','2018.csv')
+		csv_path = os.path.join(my_path,'..','data','espn','{}.csv'.format(this_season))
 		cur_season = pd.read_csv(csv_path, index_col='Game_ID')
 		cur_season_indices = [str(idx) for idx in list(cur_season.index.values)]
 		for index, row in last_night.iterrows():
@@ -35,7 +37,7 @@ if __name__ == '__main__':
 		print("Updated ESPN Data")
 
 		# get yesterday's vegas_insider info
-		vi_path = os.path.join(my_path,'..','data','vi','2018.json')
+		vi_path = os.path.join(my_path,'..','data','vi','{}.json'.format(this_season))
 		with open(vi_path, 'r+') as vegasfile:
 			gamelines = json.load(vegasfile)
 			yesterday_games = vi.get_data(data=gamelines, get_yesterday=True)
@@ -44,10 +46,10 @@ if __name__ == '__main__':
 			json.dump(yesterday_games, vegasfile)
 		print("Updated Yesterday Vegas Insider")
 
-		# cur_season = cbbref.get_games(year=2017)
-		# cbbref_path = os.path.join(my_path,'..','data','cbbref','2018.csv')
-		# cur_season.to_csv(cbbref_path, index=False)
-		# print("Updated cbbref")
+		cur_season = cbbref.get_games(year=this_season)
+		cbbref_path = os.path.join(my_path,'..','data','cbbref','{}.csv'.format(this_season))
+		cur_season.to_csv(cbbref_path, index=False)
+		print("Updated cbbref")
 
 	data = vi.get_data(get_today = True)
 

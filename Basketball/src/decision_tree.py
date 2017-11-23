@@ -30,17 +30,17 @@ def run_gridsearch(X_train, y):
     start = time()
     clf.fit(X_train, y)
     print(("\nGridSearchCV took {:.2f} "
-    	   "seconds for {:d} candidate "
-    	   "parameter settings.").format(time() - start, len(clf.grid_scores_)))
+           "seconds for {:d} candidate "
+           "parameter settings.").format(time() - start, len(clf.grid_scores_)))
     top_scores = sorted(clf.grid_scores_, key=itemgetter(1), reverse=True)[:10]
     for i, score in enumerate(top_scores):
-    	print("Model with rank: {0}".format(i + 1))
-    	print(("Mean validation score: "
-    		   "{0:.3f} (std: {1:.3f})").format(
-    		   score.mean_validation_score,
-    		   np.std(score.cv_validation_scores)))
-    	print("Parameters: {0}".format(score.parameters))
-    	print("")
+        print("Model with rank: {0}".format(i + 1))
+        print(("Mean validation score: "
+               "{0:.3f} (std: {1:.3f})").format(
+               score.mean_validation_score,
+               np.std(score.cv_validation_scores)))
+        print("Parameters: {0}".format(score.parameters))
+        print("")
 
 def make_season(start_year):
     dates = {'11': list(range(31)[1:]), '12': list(range(32)[1:]), '01': list(range(32)[1:]),
@@ -104,43 +104,6 @@ def ou_track_today(results_df,prob = .5):
             right += 1
     return right,wrong
 
-def print_picks(games,prob=.5,check_pmargin=False):
-    sorted_games = games.sort_values('prob',ascending=False)
-    path = os.path.join(my_path,'..','data','output','{}.txt'.format(date.day))
-    f2 = open(path, 'w')
-    games = []
-    for idx, row in sorted_games.iterrows():
-        print_game = True
-        if row['prob'] >= prob:
-            if float(row['results']) > 0:
-                if check_pmargin and row['pmargin'] + row['spread'] <= 1:
-                    print_game = False
-                    continue
-                winner = row['home']
-                loser = row['away']
-                spread = str(row['spread'])
-                pmargin = str(row['pmargin'])
-                diff = str(row['spread'] + row['pmargin'])
-                loc = "v "
-            else:
-                if check_pmargin and row['pmargin'] + row['spread'] >= -1:
-                    print_game = False
-                    continue
-                winner = row['away']
-                loser = row['home']
-                spread = str(row['spread'] * -1)
-                pmargin = str(row['pmargin'] * -1)
-                diff = str(-1 * (row['spread'] + row['pmargin']))
-                loc = "@ "
-            bet_string = 'Bet' if (float(diff) >=.5 and row['prob']>=.53) or (float(diff) >= 1 and row['prob'] >= .51) or float(diff) >= 1.5 else 'Caution'
-            if float(diff) < 0:
-                diff = '---'
-            elif float(diff) == 0:
-                diff = str(abs(float(diff)))
-            if print_game:
-                games.append("{}{}{}{}{}{}{}{}{}\n".format(bet_string.ljust(10),winner.ljust(20),spread.ljust(7),pmargin.ljust(5),diff.ljust(5),loc,loser.ljust(20),str(round(row['prob'],4)).ljust(8),row['tipstring'].ljust(12)))
-                print(bet_string.ljust(7),winner.ljust(20),spread.ljust(5),pmargin.ljust(5),diff.ljust(5),loc,loser.ljust(20),str(round(row['prob'],4)).ljust(5),row['tipstring'].ljust(12))
-    f2.writelines(games)
 
 def test_over_under(over_games,ou_features):
     X_train,y = pick_features(over_games,ou_features)
@@ -305,6 +268,45 @@ def test_spread():
     # for key in sorted(list(feature_dict.keys())):
     #     print(key,feature_dict[key])
 
+
+def print_picks(games,game_type,prob=.5,check_pmargin=False):
+    sorted_games = games.sort_values('prob',ascending=False)
+    games = []
+    print("\n\n~~~~~~~~~~{} Desicion Tree Results~~~~~~~~~~~~~~~~\n\n".format(game_type))
+    for idx, row in sorted_games.iterrows():
+        print_game = True
+        if row['prob'] >= prob:
+            if float(row['results']) > 0:
+                if check_pmargin and row['pmargin'] + row['spread'] <= 1:
+                    print_game = False
+                    continue
+                winner = row['home']
+                loser = row['away']
+                spread = str(row['spread'])
+                pmargin = str(row['pmargin'])
+                diff = str(row['spread'] + row['pmargin'])
+                loc = "v "
+            else:
+                if check_pmargin and row['pmargin'] + row['spread'] >= -1:
+                    print_game = False
+                    continue
+                winner = row['away']
+                loser = row['home']
+                spread = str(row['spread'] * -1)
+                pmargin = str(row['pmargin'] * -1)
+                diff = str(-1 * (row['spread'] + row['pmargin']))
+                loc = "@ "
+            bet_string = 'Bet' if (float(diff) >=.5 and row['prob']>=.53) or (float(diff) >= 1 and row['prob'] >= .51) or float(diff) >= 1.5 else 'Caution'
+            if float(diff) < 0:
+                diff = '---'
+            elif float(diff) == 0:
+                diff = str(abs(float(diff)))
+            if print_game:
+                games.append("{}{}{}{}{}{}{}{}{}\n".format(bet_string.ljust(10),winner.ljust(20),spread.ljust(7),pmargin.ljust(5),diff.ljust(5),loc,loser.ljust(20),str(round(row['prob'],4)).ljust(8),row['tipstring'].ljust(12)))
+                print(bet_string.ljust(7),winner.ljust(20),spread.ljust(5),pmargin.ljust(5),diff.ljust(5),loc,loser.ljust(20),str(round(row['prob'],4)).ljust(5),row['tipstring'].ljust(12))
+    return games
+
+
 def predict_today_spreads():
     path = os.path.join(my_path,'..','data','composite','todays_games.csv')
     todays_games = pd.read_csv(path)
@@ -312,6 +314,8 @@ def predict_today_spreads():
     todays_h_games = todays_games.ix[todays_games['true_home_game']==1]
     t_game_list = [todays_h_games,todays_n_games]
     game_types = ["Regular","Neutral"]
+    write_path = os.path.join(my_path,'..','data','output','{}.txt'.format(date.today()))
+    write_file = open(write_path, 'w')
     for i in range(2):
         if len(t_game_list[i]) == 0:
             continue
@@ -332,7 +336,6 @@ def predict_today_spreads():
         # ./dot -Tpng C:\Users\Carl\Documents\ncaa-bets\tree_data\treehome.dot -o C:\Users\Carl\Documents\ncaa-bets\tree_data\treehome.png
 
         # run_gridsearch(X_train,y,game_matrix)
-        print("\n\n~~~~~~~~~~{} Desicion Tree Results~~~~~~~~~~~~~~~~\n\n".format(game_types[i]))
         today_results = clf.predict(game_matrix)
         probs = []
         for j in range(len(game_matrix)):
@@ -341,7 +344,7 @@ def predict_today_spreads():
         today_resultsdf = t_game_list[i][['away','home','pmargin','spread','tipstring']]
         today_resultsdf.insert(5, 'results', today_results)
         today_resultsdf.insert(6, 'prob', probs)
-        print_picks(today_resultsdf,prob=.5)
+        write_file.writelines(print_picks(today_resultsdf,game_types[i],prob=.5,))
 
 def predict_today_ou(over_games):
     X_train,y = pick_features(over_games,ou_features)

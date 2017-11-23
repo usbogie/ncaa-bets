@@ -1,0 +1,18 @@
+Caution   Georgia             -10.5  8    ---  @ Cal State Fullerton 0.5128  9:30 PM CT  
+Bet       Texas               -1.5   12   10.5 v Butler              0.5376  6:00 PM CT  
+Caution   Seton Hall          -4.5   -4   ---  v Rhode Island        0.5321  5:00 PM CT  
+Caution   Oklahoma            -1.0   -3   ---  v Arkansas            0.5321  4:00 PM CT  
+Caution   Hampton             -5.0   2    ---  @ Northern Arizona    0.5163  1:00 PM CT  
+Bet       Virginia            -6.5   14   7.5  @ Vanderbilt          0.5138  3:00 PM CT  
+Bet       Xavier              -18.0  23   5.0  @ George Washington   0.5138  4:00 PM CT  
+Bet       Portland            26.5   -17  9.5  @ North Carolina      0.5089  1:30 PM CT  
+Bet       Portland State      23.0   -7   16.0 @ Duke                0.5089  3:30 PM CT  
+Caution   Saint Joseph's      -8.5   1    ---  @ Washington State    0.5055  5:30 PM CT  
+Caution   Missouri            -12.0  9    ---  @ Long Beach State    0.5055  10:30 AM CT 
+Caution   Connecticut         7.0    -9   ---  @ Oregon              0.5055  8:00 PM CT  
+Caution   Kansas State        -3.5   -1   ---  @ Arizona State       0.5055  6:30 PM CT  
+Caution   Harvard             12.0   -11  1.0  v Saint Mary's        0.5028  3:00 PM CT  
+Bet       Nebraska            5.5    3    8.5  v UCF                 0.5028  5:00 PM CT  
+Bet       Rider               1.0    11   12.0 v UC Irvine           0.5028  9:00 PM CT  
+Caution   Stanford            12.5   -12  0.5  v Florida             0.5028  9:00 PM CT  
+Caution   Marist              28.0   -27  1.0  v West Virginia       0.5028  7:30 PM CT  

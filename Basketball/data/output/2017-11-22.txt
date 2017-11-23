@@ -1,0 +1,6 @@
+Bet       Eastern Washington  -1.0   6    5.0  v Eastern Kentucky    0.6377  1:00 PM CT  
+Caution   Northern Iowa       7.5    -13  ---  v SMU                 0.548   8:30 PM CT  
+Caution   Sam Houston State   2.0    -3   ---  @ Central Michigan    0.5176  5:30 PM CT  
+Caution   Purdue              -9.0   8    ---  v Tennessee           0.5026  11:00 AM CT 
+Caution   Villanova           -22.0  19   ---  v Western Kentucky    0.5026  1:30 PM CT  
+Caution   Georgia State       -16.5  10   ---  v Prairie View A&M    0.5026  3:30 PM CT  
