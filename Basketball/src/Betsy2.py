@@ -14,11 +14,10 @@ path = os.path.dirname(os.path.abspath(__file__))
 with open(os.path.join(path,'..','data','composite','teams.json'),'r') as infile:
     teams = json.load(infile)
 game_dict = {}
-with open(os.path.join(path,'name_dicts','cbbref_names.json'),'r') as infile:
-    cbbr_names = json.load(infile)
-with open(os.path.join(path,'..','data','composite','game_dict.json'),'r') as infile:
-    game_dict = json.load(infile)
-
+with open(os.path.join(path,'names.json'),'r') as infile:
+    names_dict = json.load(infile)
+#with open(os.path.join(path,'..','data','composite','game_dict.json'),'r') as infile:
+#    game_dict = json.load(infile)
 this_season = date.today().year + 1 if date.today().month > 4 else date.today().year
 
 def get_sports_ref_data(year_list=range(2011,this_season+1)):
@@ -197,7 +196,7 @@ def get_old_games(year_list = range(2011,this_season+1)):
                 continue
 
 def make_teams_dict(year_list = range(2011,this_season+1)):
-    nameset = set(cbbr_names.values())
+    nameset = set(names_dict.values())
     new_teams = ["Grand Canyon", "UMass Lowell", "New Orleans", "Incarnate Word",
                 "Abilene Christian", "Northern Kentucky", "Omaha"]
 
@@ -270,15 +269,12 @@ def betsy():
             except:
                 continue
             team_list = [home,away]
-            try:
-                home_regseason = True if home["games"][0] == game["key"] else False
-                away_regseason = True if away["games"][0] == game["key"] else False
-            except:
-                print(game["home"],game["away"])
+            if not game["key"] in home["games"] + away["games"]:
                 continue
-            if not home_regseason and not away_regseason:
-                continue
-
+            elif game["key"] in home["games"] and game["key"] != home["games"][0]:
+                raise()
+            elif game["key"] in away["games"] and game["key"] != away["games"][0]:
+                raise()
             home_dict = {}
             away_dict = {}
             dicts = [home_dict,away_dict]
@@ -597,7 +593,7 @@ def run_preseason():
 
 def sort_games():
     for key in teams.keys():
-        teams[key]["games"].sort(key=lambda g:g.split(", ")[-1])
+        teams[key]["games"] = sorted(teams[key]["games"],key=lambda g:g.split(", ")[-1])
 
 # Eliminates games that don't have Offensive Rating stats for both teams, or Pace
 def eliminate_games_missing_data():
@@ -807,14 +803,14 @@ def get_rankings():
     for idx,team in enumerate(sorted(em_list,reverse=True)):
         rankings.append("{} {}\tEM: {}\tORTG: {}\tDRTG: {}\n".format(str(idx+1).ljust(4),team[1].ljust(25),str(round(team[0]/2,2)).ljust(8),str(round(team[2],2)).ljust(8),str(round(team[3],2)).ljust(8)))
     f2.writelines(rankings)
+make_teams_dict()
+get_old_games()
 
-#make_teams_dict([this_season])
-get_old_games([2017, 2018])
-
-get_spreads([2017, 2018])
-get_sports_ref_data([2017, 2018])
+get_spreads()
+get_sports_ref_data()
 
 sort_games()
+eliminate_games_missing_data()
 teams_path = os.path.join(path,'..','data','composite','teams.json')
 with open(teams_path,'w') as outfile:
     json.dump(teams,outfile)
@@ -829,7 +825,6 @@ preseason_length = 4
 regress_games = []
 new_games = []
 
-eliminate_games_missing_data()
 game_date_dict = get_game_date_dict()
 over_games = []
 game_list = []
