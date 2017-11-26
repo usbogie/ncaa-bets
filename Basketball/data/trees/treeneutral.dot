@@ -1,8 +1,8 @@
 digraph Tree {
 node [shape=box, style="filled, rounded", color="black", fontname=helvetica] ;
 edge [fontname=helvetica] ;
-0 [label=<DT_home_ats &le; 0.5<br/>gini = 0.4999<br/>samples = 2851<br/>value = [1402, 1449]<br/>class = y<SUB>1</SUB>>, fillcolor="#399de508"] ;
-1 [label=<DT_home_public &le; 0.5<br/>gini = 0.4989<br/>samples = 1640<br/>value = [782, 858]<br/>class = y<SUB>1</SUB>>, fillcolor="#399de517"] ;
+0 [label=<DT_home_ats &le; 0.5<br/>gini = 0.4999<br/>samples = 2853<br/>value = [1402, 1451]<br/>class = y<SUB>1</SUB>>, fillcolor="#399de509"] ;
+1 [label=<DT_home_public &le; 0.5<br/>gini = 0.4989<br/>samples = 1642<br/>value = [782, 860]<br/>class = y<SUB>1</SUB>>, fillcolor="#399de517"] ;
 0 -> 1 [labeldistance=2.5, labelangle=45, headlabel="True"] ;
 2 [label=<DT_home_reb &le; 0.5<br/>gini = 0.4999<br/>samples = 849<br/>value = [420, 429]<br/>class = y<SUB>1</SUB>>, fillcolor="#399de505"] ;
 1 -> 2 ;
@@ -18,13 +18,13 @@ edge [fontname=helvetica] ;
 6 -> 7 ;
 8 [label=<gini = 0.4966<br/>samples = 85<br/>value = [39, 46]<br/>class = y<SUB>1</SUB>>, fillcolor="#399de527"] ;
 6 -> 8 ;
-9 [label=<DT_home_winner &le; 0.5<br/>gini = 0.4964<br/>samples = 791<br/>value = [362, 429]<br/>class = y<SUB>1</SUB>>, fillcolor="#399de528"] ;
+9 [label=<DT_home_winner &le; 0.5<br/>gini = 0.4962<br/>samples = 793<br/>value = [362, 431]<br/>class = y<SUB>1</SUB>>, fillcolor="#399de529"] ;
 1 -> 9 ;
-10 [label=<DT_home_reb &le; 0.5<br/>gini = 0.4979<br/>samples = 618<br/>value = [289, 329]<br/>class = y<SUB>1</SUB>>, fillcolor="#399de51f"] ;
+10 [label=<DT_home_reb &le; 0.5<br/>gini = 0.4977<br/>samples = 620<br/>value = [289, 331]<br/>class = y<SUB>1</SUB>>, fillcolor="#399de520"] ;
 9 -> 10 ;
-11 [label=<gini = 0.4979<br/>samples = 312<br/>value = [146, 166]<br/>class = y<SUB>1</SUB>>, fillcolor="#399de51f"] ;
+11 [label=<gini = 0.4977<br/>samples = 313<br/>value = [146, 167]<br/>class = y<SUB>1</SUB>>, fillcolor="#399de520"] ;
 10 -> 11 ;
-12 [label=<gini = 0.4979<br/>samples = 306<br/>value = [143, 163]<br/>class = y<SUB>1</SUB>>, fillcolor="#399de51f"] ;
+12 [label=<gini = 0.4977<br/>samples = 307<br/>value = [143, 164]<br/>class = y<SUB>1</SUB>>, fillcolor="#399de521"] ;
 10 -> 12 ;
 13 [label=<DT_home_reb &le; 0.5<br/>gini = 0.4878<br/>samples = 173<br/>value = [73, 100]<br/>class = y<SUB>1</SUB>>, fillcolor="#399de545"] ;
 9 -> 13 ;

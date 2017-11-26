@@ -272,7 +272,9 @@ def test_spread():
 def print_picks(games,game_type,prob=.5,check_pmargin=False):
     sorted_games = games.sort_values('prob',ascending=False)
     games = []
-    print("\n\n~~~~~~~~~~{} Desicion Tree Results~~~~~~~~~~~~~~~~\n\n".format(game_type))
+    game_type_str = "~~~~~~~~~~{} Decision Tree Results~~~~~~~~~~~~~~~~\n".format(game_type)
+    print(game_type_str)
+    games.append(game_type_str)
     for idx, row in sorted_games.iterrows():
         print_game = True
         if row['prob'] >= prob:
@@ -302,8 +304,9 @@ def print_picks(games,game_type,prob=.5,check_pmargin=False):
             elif float(diff) == 0:
                 diff = str(abs(float(diff)))
             if print_game:
-                games.append("{}{}{}{}{}{}{}{}{}\n".format(bet_string.ljust(10),winner.ljust(20),spread.ljust(7),pmargin.ljust(5),diff.ljust(5),loc,loser.ljust(20),str(round(row['prob'],4)).ljust(8),row['tipstring'].ljust(12)))
-                print(bet_string.ljust(7),winner.ljust(20),spread.ljust(5),pmargin.ljust(5),diff.ljust(5),loc,loser.ljust(20),str(round(row['prob'],4)).ljust(5),row['tipstring'].ljust(12))
+                suggestion_str = "{}{}{}{}{}{}{}{}{}\n".format(bet_string.ljust(10),winner.ljust(20),spread.ljust(7),pmargin.ljust(5),diff.ljust(5),loc,loser.ljust(20),str(round(row['prob'],4)).ljust(8),row['tipstring'].ljust(12))
+                games.append(suggestion_str)
+                print(suggestion_str[:-1])
     return games
 
 
@@ -391,7 +394,7 @@ if __name__ == '__main__':
     #run_gridsearch(X_train,y)
     #find_min_samples()
     predict_today_spreads()
-    # test_spread()
+    test_spread()
 
     ou_features = ["true_home_game","DT_pover","DT_home_over","DT_away_over",
                 "DT_home_tPAr","DT_away_tPAr"]
