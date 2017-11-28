@@ -318,6 +318,8 @@ def betsy():
             game["pmargin"] = game["em_diff"] * game["tempo"] * .5
             game["home_portg"] = game["home_o"] + .5 * (home["adj_ortg"][-1] + away["adj_drtg"][-1])
             game["away_portg"] = game["away_o"] + .5 * (away["adj_ortg"][-1] + home["adj_drtg"][-1])
+            print(home, away)
+            print(game["home_portg"], game["away_portg"], game["tempo"])
             game["ptotal"] = round((game["home_portg"] + game["away_portg"]) / 100 * game["tempo"])
             if game["pmargin"] > 0 and game["pmargin"] <= 6:
                 game["pmargin"] += 1
@@ -820,7 +822,7 @@ with open(games_path,'w') as outfile:
     json.dump(game_dict,outfile)
 
 # Number of games used to create starting stats for teams
-preseason_length = 4
+preseason_length = 5
 
 regress_games = []
 new_games = []

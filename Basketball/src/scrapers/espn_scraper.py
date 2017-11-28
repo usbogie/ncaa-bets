@@ -11,6 +11,7 @@ import random
 import time
 import html
 import os
+import sys
 
 ua = UserAgent()
 
@@ -58,7 +59,10 @@ class Game(object):
 		self.info_df['Game_Year'] = self.year
 		self.info_df['Game_Date'] = self.date
 		self.info_df['Game_Tipoff'] = self.tipoff
-		self.info_df['Game_Location'] = self.game_info['venue']
+		try:
+			self.info_df['Game_Location'] = self.game_info['venue']
+		except:
+			pass
 		self.info_df['Neutral_Site'] = self.game_info['neutral_site']
 		self.info_df['Conference_Competition'] = self.game_info['conferenceCompetition']
 		self.info_df['Attendance'] = self.game_info['attendance']
@@ -85,6 +89,30 @@ def get_page(url):
 			print(e)
 			sys.exit()
 
+def make_season(start_year):
+	months = ['11', '12', '01', '02', '03', '04']
+
+	dates = {'11': list(range(31)[1:]), '12': list(range(32)[1:]),
+			 '01': list(range(32)[1:]), '02': list(range(29)[1:]),
+			 '03': list(range(32)[1:]), '04': list(range(9)[1:])}
+
+	all_season = []
+	for month in months:
+		if month in ['01', '02', '03', '04']:
+			year = start_year + 1
+			if year % 4 == 0:
+				dates['02'].append(29)
+		else:
+			year = start_year
+		for d in dates[month]:
+			day = str(d)
+			if len(day) == 1:
+				day = '0'+day
+			date = str(year)+month+day
+			all_season.append(date)
+
+	return all_season
+
 def get_data(game_url, game_info):
 	game = Game(game_url, game_info)
 	game.make_dataframes()
@@ -95,86 +123,18 @@ def get_data(game_url, game_info):
 
 	return gen_info
 
-def update_espn_data():
-	date = (datetime.now() - timedelta(1)).strftime('%Y%m%d')
+def create_day_urls(date):
+	ncaa_base = 'http://scores.espn.com/mens-college-basketball/scoreboard/_/date/'
+	cbi_base = 'http://www.espn.com/mens-college-basketball/scoreboard/_/group/55/date/'
+	cit_base = 'http://www.espn.com/mens-college-basketball/scoreboard/_/group/56/date/'
 	url = base_url + date
-	# ncaa_base = 'http://scores.espn.com/mens-college-basketball/scoreboard/_/date/'
-	# url_ncaa = base + date
-	# if date[4:6] == '03' or date[4:6] == '04':
-	# 	tourney_url = ncaa_base + date
-	# 	box_urls.append(tourney_url)
-
-	page = get_page(url)
-
-	content = page.read()
-	soup = BeautifulSoup(content, "html5lib")
-
-	gen_info = []
-
-	links = []
-	status_dict = {}
-	game_notes = []
-	events = []
-	for link in soup.find_all('script'):
-		if 'window.espn.scoreboardData' in str(link.text):
-			jsonValue1 = '{%s}' % (link.text.split('{', 1)[1].rsplit('}', 1)[0],)
-			jsonValue = jsonValue1.split(';window')[0]
-			value = json.loads(jsonValue)
-			events = value['events']
-
-	for event in events:
-		status_dict[event['id']] = event['status']['type']['shortDetail']
-		if status_dict[event['id']] == 'Canceled':
-			continue
-		game_info 							= {}
-		game_info['link']					= event['links'][1]['href']
-		competition 						= event['competitions'][0]
-		game_info['neutral_site']			= competition['neutralSite']
-		game_info['attendance']				= competition['attendance']
-		game_info['conferenceCompetition']	= competition['conferenceCompetition']
-		game_info['tipoff']					= competition['startDate']
-		venueJSON							= competition['venue']
-
-		game_info['venue'] = venueJSON['fullName']
-		if 'address' in venueJSON.keys():
-			game_info['venue']+="|"+"|".join([venueJSON['address']['city'], venueJSON['address']['state']])
-
-		competitors	= competition['competitors']
-		away = 0
-		home = 1
-		if competitors[0]['homeAway'] == 'home':
-			away = 1
-			home = 0
-		game_info['Away_Abbrv'] = competitors[away]['team']['abbreviation']
-		game_info['Home_Abbrv'] = competitors[home]['team']['abbreviation']
-		try:
-			game_info['Game_Away'] = names_dict[html.unescape(competitors[away]['team']['location']).replace('\u00E9', 'e')]
-			game_info['Game_Home'] = names_dict[html.unescape(competitors[home]['team']['location']).replace('\u00E9', 'e')]
-		except:
-			print("Continue on {} vs {}".format(html.unescape(competitors[away]['team']['location']),html.unescape(competitors[home]['team']['location']).replace('\u00E9', 'e')))
-			continue
-		game_info['Away_Score'] = competitors[away]['score']
-		game_info['Home_Score'] = competitors[home]['score']
-
-		links.append(game_info)
-
-		if date[4:6] == '03' or date[4:6] == '04' and 'notes' in event.keys():
-			game_notes.append(event['notes']['headline'])
-		else:
-			game_notes.append(None)
-
-	for idx, game_info in enumerate(links):
-		url = game_info['link']
-		game_id = url.split("=")[-1]
-		if status_dict[game_id] == 'Postponed' or status_dict[game_id] == 'Canceled':
-			continue
-		else:
-			gm_info = get_data(url, game_info)
-			gen_info.append(gm_info)
-	try:
-		return pd.concat(gen_info, ignore_index=True).set_index('Game_ID')
-	except:
-		return pd.DataFrame()
+	box_urls = [url]
+	if date[4:6] == '03' or date[4:6] == '04':
+		ncaa_url = ncaa_base + date
+		cbi_url = cbi_base + date
+		cit_url = cit_base + date
+		box_urls.extend((ncaa_url, cbi_url, cit_url))
+	return box_urls
 
 def get_tonight_info():
 	date = datetime.now().strftime('%Y%m%d')
@@ -210,7 +170,7 @@ def get_tonight_info():
 			game_info['Game_Away'] = names_dict[html.unescape(competitors[away]['team']['location']).replace('\u00E9', 'e')]
 			game_info['Game_Home'] = names_dict[html.unescape(competitors[home]['team']['location']).replace('\u00E9', 'e')]
 		except:
-			print("Continue on {} vs {}".format(html.unescape(competitors[away]['team']['location']),html.unescape(competitors[home]['team']['location'])))
+			print("Unrecognized team, continue on {} vs {}".format(html.unescape(competitors[away]['team']['location']),html.unescape(competitors[home]['team']['location'])))
 			continue
 		game_info['Away_Score'] = competitors[away]['score']
 		game_info['Home_Score'] = competitors[home]['score']
@@ -232,17 +192,114 @@ def get_tonight_info():
 	except:
 		return pd.DataFrame()
 
+
+def update_espn_data(date):
+	urls = create_day_urls(date)
+
+	gen_info = []
+
+	for url in urls:
+		page = get_page(url)
+
+		content = page.read()
+		soup = BeautifulSoup(content, "html5lib")
+
+		links = []
+		status_dict = {}
+		game_notes = []
+
+		events = get_json(soup)
+		if events is None or len(events)==0:
+			continue
+
+		for event in events:
+			status_dict[event['id']] = event['status']['type']['shortDetail']
+			if status_dict[event['id']] == 'Canceled':
+				continue
+			game_info = {}
+			game_info['skip_game'] = False
+			competition = event['competitions'][0]
+			game_info['link'] = event['links'][1]['href']
+			game_info['neutral_site'] = competition['neutralSite']
+			game_info['attendance']	= competition['attendance']
+			game_info['conferenceCompetition'] = competition['conferenceCompetition']
+			game_info['tipoff']	= competition['startDate']
+			try:
+				venueJSON = competition['venue']
+				game_info['venue'] = venueJSON['fullName']
+				if 'address' in venueJSON.keys():
+					game_info['venue']+="|"+"|".join([venueJSON['address']['city'],venueJSON['address']['state']])
+			except:
+				pass
+
+			competitors	= competition['competitors']
+			away = 0
+			home = 1
+			if competitors[0]['homeAway'] == 'home':
+				away = 1
+				home = 0
+
+			try:
+				game_info['Away_Abbrv'] = competitors[away]['team']['abbreviation']
+			except:
+				game_info['skip_game'] = True
+
+			game_info['Home_Abbrv'] = competitors[home]['team']['abbreviation']
+			game_info['Away_Score'] = competitors[away]['score']
+			game_info['Home_Score'] = competitors[home]['score']
+
+			try:
+				game_info['Game_Away'] = names_dict[html.unescape(competitors[away]['team']['location']).replace('\u00E9', 'e')]
+				game_info['Game_Home'] = names_dict[html.unescape(competitors[home]['team']['location']).replace('\u00E9', 'e')]
+			except:
+				print("Unrecognized team, continue on {} vs {}".format(html.unescape(competitors[away]['team']['location']),html.unescape(competitors[home]['team']['location']).replace('\u00E9', 'e')))
+				continue
+
+			try:
+				game_info['Away_Games_Played'] = sum([int(item) for item in competitors[away]['records'][0]['summary'].split('-')])
+				game_info['Home_Games_Played'] = sum([int(item) for item in competitors[home]['records'][0]['summary'].split('-')])
+			except:
+				print("No record for team, continue on {} vs {}".format(game_info['Game_Away'],game_info['Game_Home']))
+				continue
+
+			links.append(game_info)
+
+		for idx, game_info in enumerate(links):
+			url = game_info['link']
+			game_id = url.split("=")[-1]
+			try:
+				if status_dict[game_id] == 'Postponed' or status_dict[game_id] == 'Canceled' or game_info['skip_game']:
+					continue
+
+			except:
+				print("something went wrong, some dumb shit. CONTINUE")
+				continue
+
+			else:
+				gm_info = get_data(url, game_info)
+				gen_info.append(gm_info)
+
+
+	return gen_info
+
+def make_year_dataframe(start_year):
+	gen_info = []
+	date_list = make_season(start_year)
+	for day in date_list:
+		print(day)
+		if (datetime.now() - timedelta(1)).strftime('%Y%m%d') < day:
+			continue
+		gen_info += update_espn_data(day)
+
+	return gen_info
+
 if __name__ == '__main__':
 	# today_data = get_tonight_info()
 	# today_data.drop_duplicates().to_csv('upcoming_games.csv', index_label='Game_ID')
 	# print("Updated ESPN Data")
 
-	last_night = update_espn_data()
-	csv_path = os.path.join(my_path,'..','..','data','espn','2017.csv')
-	cur_season = pd.read_csv(csv_path, index_col='Game_ID')
-	cur_season_indices = [str(idx) for idx in list(cur_season.index.values)]
-	for index, row in last_night.iterrows():
-		if index not in cur_season_indices:
-			cur_season = cur_season.append(row)
-	cur_season = cur_season[~cur_season.index.duplicated(keep='first')]
-	cur_season.to_csv(csv_path, index_label='Game_ID')
+	start_year = 2010
+	info_list = make_year_dataframe(start_year)
+	final_info = pd.concat(info_list, ignore_index=True).set_index('Game_ID')
+	csv_path = os.path.join(my_path,'..','..','data','espn','{}.csv'.format(start_year+1))
+	final_info.drop_duplicates().to_csv(csv_path)

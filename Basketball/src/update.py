@@ -1,4 +1,4 @@
-from scrapers import espn_daily_scraper as espn
+from scrapers import espn_scraper as espn
 from scrapers import vegas_scraper as vi
 from scrapers import cbbref_scraper as cbbref
 from datetime import datetime, timedelta
@@ -22,7 +22,11 @@ if __name__ == '__main__':
 		today_data = today_data.drop_duplicates()
 
 	if not update_lines_only:
-		last_night = espn.update_espn_data()
+		last_night_list = espn.update_espn_data((datetime.now() - timedelta(1)).strftime('%Y%m%d'))
+		try:
+			last_night = pd.concat(last_night_list, ignore_index=True).set_index('Game_ID')
+		except:
+			last_night = pd.DataFrame()
 		csv_path = os.path.join(my_path,'..','data','espn','{}.csv'.format(this_season))
 		cur_season = pd.read_csv(csv_path, index_col='Game_ID')
 		cur_season_indices = [str(idx) for idx in list(cur_season.index.values)]
