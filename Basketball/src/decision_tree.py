@@ -138,7 +138,7 @@ def test_over_under(over_games,ou_features):
             results_df.insert(5, 'results', resultstree)
             results_df.insert(6, 'prob', probs)
             right,wrong = ou_track_today(results_df,prob=.523)
-            profit = right - 1.1 * wrong
+            profit = right - 1.05 * wrong
             if i == 0:
                 min_samp_dict[min_samples] = [profit]
             else:
@@ -188,7 +188,7 @@ def find_min_samples():
             results_df.insert(5, 'results', resultstree)
             results_df.insert(6, 'prob', probs)
             right,wrong = track_today(results_df,prob=.53,pdiff = .5)
-            profit = right - 1.1 * wrong
+            profit = right - 1.05 * wrong
             if min_samp_dict.get(min_samples,0) == 0:
                 min_samp_dict[min_samples] = [profit]
             else:
@@ -248,7 +248,7 @@ def test_spread():
             right,wrong = track_today(results_df,prob=.53,pdiff = .5)
             total_right += right
             total_wrong += wrong
-        profit = total_right - 1.1 * total_wrong
+        profit = total_right - 1.05 * total_wrong
         total_profit += profit
         print("profit",round(profit,1),total_right+total_wrong)
         # if i == 0:

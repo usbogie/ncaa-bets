@@ -193,7 +193,10 @@ def get_data(data=[],get_yesterday=False,get_today=False,year=2018):
 
 			if game_info['open_line'] == "":
 				print("No open line, checking line logs")
-				candidate_open = get_open_line(table)
+				try:
+					candidate_open = get_open_line(table)
+				except:
+					candidate_open = -1000
 				print("Found open line: "+str(candidate_open))
 				if candidate_open == -1000:
 					game_info['open_line'] = game_info['close_line']
