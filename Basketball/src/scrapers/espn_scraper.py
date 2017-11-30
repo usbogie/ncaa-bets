@@ -1,9 +1,6 @@
 from datetime import datetime, timedelta
 from bs4 import BeautifulSoup
-from fake_useragent import UserAgent
 from dateutil import tz
-import urllib.request as request
-import urllib.error as error
 import pandas as pd
 from numpy import *
 import json
@@ -11,9 +8,7 @@ import random
 import time
 import html
 import os
-import sys
-
-ua = UserAgent()
+from helpers, import get_soup, make_season
 
 my_path = os.path.dirname(os.path.abspath(__file__))
 names_path = os.path.join(my_path,'..','names.json')
@@ -75,44 +70,6 @@ def get_json(soup):
 			value = json.loads(jsonValue)
 			return value['events']
 
-
-def get_page(url):
-	try:
-		return request.urlopen(request.Request(url, headers = { 'User-Agent' : ua.random }))
-	except error.HTTPError as e:
-		try:
-			wait_time = round(max(10, 12 + random.gauss(0,1)), 2)
-			time.sleep(wait_time)
-			print("First attempt for %s failed. Trying again." % (d))
-			return request.urlopen(request.Request(url, headers = { 'User-Agent' : ua.random }))
-		except:
-			print(e)
-			sys.exit()
-
-def make_season(start_year):
-	months = ['11', '12', '01', '02', '03', '04']
-
-	dates = {'11': list(range(31)[1:]), '12': list(range(32)[1:]),
-			 '01': list(range(32)[1:]), '02': list(range(29)[1:]),
-			 '03': list(range(32)[1:]), '04': list(range(9)[1:])}
-
-	all_season = []
-	for month in months:
-		if month in ['01', '02', '03', '04']:
-			year = start_year + 1
-			if year % 4 == 0:
-				dates['02'].append(29)
-		else:
-			year = start_year
-		for d in dates[month]:
-			day = str(d)
-			if len(day) == 1:
-				day = '0'+day
-			date = str(year)+month+day
-			all_season.append(date)
-
-	return all_season
-
 def get_data(game_url, game_info):
 	game = Game(game_url, game_info)
 	game.make_dataframes()
@@ -164,14 +121,16 @@ def get_tonight_info():
 		if competitors[0]['homeAway'] == 'home':
 			away = 1
 			home = 0
-		game_info['Away_Abbrv'] = competitors[away]['team']['abbreviation']
-		game_info['Home_Abbrv'] = competitors[home]['team']['abbreviation']
+
 		try:
 			game_info['Game_Away'] = names_dict[html.unescape(competitors[away]['team']['location']).replace('\u00E9', 'e')]
 			game_info['Game_Home'] = names_dict[html.unescape(competitors[home]['team']['location']).replace('\u00E9', 'e')]
 		except:
 			print("Unrecognized team, continue on {} vs {}".format(html.unescape(competitors[away]['team']['location']),html.unescape(competitors[home]['team']['location'])))
 			continue
+
+		game_info['Away_Abbrv'] = competitors[away]['team']['abbreviation']
+		game_info['Home_Abbrv'] = competitors[home]['team']['abbreviation']
 		game_info['Away_Score'] = competitors[away]['score']
 		game_info['Home_Score'] = competitors[home]['score']
 

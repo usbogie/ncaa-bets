@@ -1,39 +1,26 @@
 ~~~~~~~~~~Regular Decision Tree Results~~~~~~~~~~~~~~~~
-Bet       Monmouth            2.5    1    3.5  v Penn                0.548   6:00 PM CT  
-Caution   Providence          -7.0   2    ---  v Boston College      0.548   7:00 PM CT  
-Bet       SIU Edwardsville    26.5   -15  11.5 @ Creighton           0.5476  3:30 PM CT  
-Caution   Iowa State          -17.5  6    ---  v Western Illinois    0.5432  7:00 PM CT  
-Bet       Northern Kentucky   1.0    4    5.0  @ Memphis             0.5231  5:00 PM CT  
-Caution   Wright State        -9.5   8    ---  v Jacksonville        0.5227  4:00 PM CT  
-Caution   Dayton              -9.0   -4   ---  v Akron               0.5227  6:00 PM CT  
-Caution   Niagara             7.0    -10  ---  v UT-Arlington        0.5213  6:00 PM CT  
-Caution   William & Mary      6.5    -15  ---  v Old Dominion        0.5213  6:00 PM CT  
-Caution   Morehead State      21.5   -22  ---  @ Virginia Tech       0.5199  12:00 PM CT 
-Caution   Southern Utah       24.0   -28  ---  @ UNLV                0.5199  9:00 PM CT  
-Caution   Georgia Southern    2.0    -3   ---  @ Bradley             0.5199  1:00 PM CT  
-Bet       Georgetown          -3.5   5    1.5  @ Richmond            0.5155  5:00 PM CT  
-Caution   Navy                10.0   -18  ---  @ Florida Gulf Coast  0.5135  6:00 PM CT  
-Caution   Texas State         3.5    -4   ---  @ Pacific             0.5135  8:00 PM CT  
-Bet       Loyola Marymount    9.5    -4   5.5  @ Boise State         0.51    8:00 PM CT  
-Bet       Davidson            -10.0  22   12.0 @ Appalachian State   0.51    6:00 PM CT  
-Caution   Ball State          1.5    -5   ---  @ Indiana State       0.5032  12:00 PM CT 
-Caution   Fort Wayne          4.0    -3   1.0  @ East Tennessee St.  0.5031  3:00 PM CT  
-Caution   Southern Illinois   5.0    -18  ---  @ Murray State        0.5026  7:00 PM CT  
-Bet       Hofstra             -4.5   7    2.5  @ Siena               0.5022  1:00 PM CT  
-~~~~~~~~~~Neutral Decision Tree Results~~~~~~~~~~~~~~~~
-Bet       Tennessee Tech      -14.5  25   10.5 v Maryland-Eastern Shore0.625   12:30 PM CT 
-Bet       Fairfield           -5.5   8    2.5  v Gardner-Webb        0.625   1:30 PM CT  
-Bet       Massachusetts       5.0    1    6.0  v BYU                 0.625   1:30 PM CT  
-Bet       Maryland            -12.5  14   1.5  v New Mexico          0.5412  3:00 PM CT  
-Caution   UNC Wilmington      8.5    -17  ---  @ Valparaiso          0.5377  6:30 PM CT  
-Bet       Omaha               -5.0   7    2.0  v Jackson State       0.5376  10:00 AM CT 
-Caution   Western Carolina    -9.5   7    ---  v Alabama A&M         0.5335  3:00 PM CT  
-Caution   Furman              -3.0   -2   ---  v Northeastern        0.5335  2:00 PM CT  
-Caution   Idaho               -4.5   2    ---  v Cal Poly            0.5249  8:30 PM CT  
-Caution   Canisius            -12.5  7    ---  @ Arkansas-Pine Bluff 0.5163  10:30 PM CT 
-Caution   Minnesota           -4.5   4    ---  @ Alabama             0.5163  4:00 PM CT  
-Bet       TCU                 -8.5   11   2.5  @ St Bonaventure      0.5138  6:00 PM CT  
-Bet       Sam Houston State   5.5    5    10.5 @ Santa Clara         0.5138  3:00 PM CT  
-Bet       Southern Mississippi-2.5   10   7.5  @ Youngstown State    0.5138  4:00 PM CT  
-Bet       South Dakota        -8.5   18   9.5  @ Northern Colorado   0.5138  6:30 PM CT  
-Bet       Kent State          6.5    -5   1.5  v Loyola (CHI)        0.5028  4:00 PM CT  
+Caution   Florida State       -5.0   -2   ---  @ Rutgers             0.5599  6:00 PM CT  
+Bet       Charlotte           9.0    -8   1.0  v Davidson            0.5598  6:00 PM CT
+Bet       Georgia Tech        2.5    2    4.5  v Northwestern        0.5598  6:00 PM CT
+Bet       Iona                3.5    3    6.5  @ Ohio                0.5506  6:00 PM CT
+Caution   Baylor              5.0    -7   ---  @ Xavier              0.55    5:30 PM CT
+Caution   Louisville          8.5    -13  ---  @ Purdue              0.55    7:00 PM CT
+Caution   IUPUI               -2.0   1    ---  @ Western Illinois    0.55    7:00 PM CT
+Caution   Chattanooga         7.5    -11  ---  @ Akron               0.55    6:00 PM CT
+Bet       Kennesaw State      15.5   -13  2.5  @ Washington          0.5494  8:00 PM CT
+Bet       Maine               24.0   -18  6.0  @ Georgetown          0.5494  7:30 PM CT
+Caution   Wake Forest         -2.0   -3   ---  v Illinois            0.5374  8:00 PM CT
+Bet       South Dakota State  10.5   -5   5.5  @ Ole Miss            0.5242  7:00 PM CT
+Bet       UC Santa Barbara    5.5    2    7.5  @ San Francisco       0.5242  9:00 PM CT
+Caution   VCU                 -10.5  7    ---  v Appalachian State   0.5225  6:00 PM CT
+Caution   Kansas              -25.0  23   ---  v Toledo              0.5215  7:00 PM CT
+Caution   Tulsa               -10.0  1    ---  v UT San Antonio      0.5215  7:00 PM CT
+Caution   Valparaiso          -8.0   7    ---  v Utah State          0.5215  7:00 PM CT
+Bet       Brown               20.0   -15  5.0  @ Rhode Island        0.5164  6:00 PM CT
+Caution   Loyola (CHI)        4.0    -4   0.0  @ Boise State         0.5093  8:00 PM CT
+Caution   Detroit Mercy       9.5    -11  ---  @ Fort Wayne          0.5021  6:00 PM CT
+Bet       Radford             15.0   -4   11.0 @ Vanderbilt          0.5021  7:00 PM CT
+Bet       CSU Northridge      13.5   -5   8.5  @ California          0.5019  10:00 PM CT
+Bet       Western Michigan    4.5    -3   1.5  @ Saint Louis         0.5019  7:00 PM CT
+Caution   Colorado State      9.5    -13  ---  @ Missouri State      0.5019  7:00 PM CT
+Bet       Virginia Tech       -8.5   13   4.5  v Iowa                0.5013  8:00 PM CT

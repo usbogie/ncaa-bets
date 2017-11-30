@@ -1,0 +1,9 @@
+~~~~~~~~~~Regular Decision Tree Results~~~~~~~~~~~~~~~~
+Caution   Wisconsin           7.0    -10  ---  @ Virginia            0.5546  8:00 PM CT  
+Caution   Cornell             6.0    -7   ---  @ Duquesne            0.5495  6:00 PM CT  
+Caution   South Carolina      -17.0  15   ---  @ Florida Intl        0.5495  6:00 PM CT  
+Caution   Oral Roberts        8.5    -11  ---  v Oakland             0.548   7:00 PM CT  
+Bet       Alabama State       42.5   -42  0.5  @ Cincinnati          0.5476  6:00 PM CT  
+Caution   Yale                -1.5   -4   ---  @ Delaware            0.5155  6:00 PM CT  
+Bet       Eastern Illinois    18.0   -16  2.0  @ Marquette           0.5135  7:00 PM CT  
+Caution   Maryland            3.0    -5   ---  @ Syracuse            0.5017  6:00 PM CT  

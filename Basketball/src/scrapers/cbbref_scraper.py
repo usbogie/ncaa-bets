@@ -1,55 +1,16 @@
-import urllib.request as request
-import urllib.error as error
-from bs4 import BeautifulSoup, Comment, Tag, NavigableString
-from fake_useragent import UserAgent
+from bs4 import BeautifulSoup, NavigableString
 import pandas as pd
 import numpy as np
 import sys
 import json
 import os
-
-ua = UserAgent()
+from helpers import get_soup
 
 my_path = os.path.dirname(os.path.abspath(__file__))
 names_path = os.path.join(my_path,'..','names.json')
 
 with open(names_path,'r') as infile:
 	names_dict = json.load(infile)
-
-def get_soup(url):
-	try:
-		page = request.urlopen(request.Request(url, headers = { 'User-Agent' : ua.random }))
-	except error.HTTPError as e:
-		try:
-			wait_time = round(max(10, 12 + random.gauss(0,1)), 2)
-			time.sleep(wait_time)
-			print("First attempt for %s failed. Trying again." % (d))
-			page = request.urlopen(request.Request(url, headers = { 'User-Agent' : ua.random }))
-		except:
-			print(e)
-			return None
-	content = page.read()
-	return BeautifulSoup(content, "html5lib")
-
-def make_season(start_year=2016):
-	months = ['11', '12', '01', '02', '03', '04']
-	dates = {'11': list(range(31)[1:]), '12': list(range(32)[1:]),
-			'01': list(range(32)[1:]), '02': list(range(29)[1:]),
-			'03': list(range(32)[1:]), '04': list(range(9)[1:])}
-	all_season = []
-	for month in months:
-		if month in ['01', '02', '03', '04']:
-			year = start_year + 1
-			if year % 4 == 0:
-				dates['02'].append(29)
-		else:
-			year = start_year
-		for d in dates[month]:
-			day = str(d)
-			if len(day) == 1:
-				day = '0'+day
-			all_season.append("{}-{}-{}".format(str(year),month,day))
-	return all_season
 
 def get_team_links(soup, year):
 	links = []
