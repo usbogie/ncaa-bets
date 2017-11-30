@@ -1,5 +1,4 @@
 from datetime import datetime, timedelta
-from bs4 import BeautifulSoup
 from dateutil import tz
 import pandas as pd
 from numpy import *
@@ -8,7 +7,7 @@ import random
 import time
 import html
 import os
-from helpers, import get_soup, make_season
+from helpers import get_soup, make_season
 
 my_path = os.path.dirname(os.path.abspath(__file__))
 names_path = os.path.join(my_path,'..','names.json')
@@ -97,8 +96,7 @@ def get_tonight_info():
 	date = datetime.now().strftime('%Y%m%d')
 	url = base_url + date
 
-	content = get_page(url).read()
-	soup = BeautifulSoup(content, "html5lib")
+	soup = get_soup(url)
 
 	gen_info = []
 
@@ -158,10 +156,7 @@ def update_espn_data(date):
 	gen_info = []
 
 	for url in urls:
-		page = get_page(url)
-
-		content = page.read()
-		soup = BeautifulSoup(content, "html5lib")
+		soup = get_soup(url)
 
 		links = []
 		status_dict = {}

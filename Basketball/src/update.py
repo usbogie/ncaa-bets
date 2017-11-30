@@ -7,7 +7,7 @@ import json
 import sys
 import os
 
-this_season = datetime.now().year + 1 if datetime.now().month > 4 else datetime.now().year
+this_season = h.this_season
 
 if __name__ == '__main__':
 	my_path = os.path.dirname(os.path.abspath(__file__))

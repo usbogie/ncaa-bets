@@ -1,4 +1,3 @@
-from bs4 import BeautifulSoup
 from datetime import datetime, timedelta, date
 import re
 import json
@@ -23,8 +22,7 @@ def get_open_line(table):
 	link = table.find('a', text='BT Movements')['href']
 	url = 'http://www.vegasinsider.com{}/linechanges/y'.format(link)
 
-	content = get_soup(url).read()
-	soup = BeautifulSoup(content, "html5lib")
+	soup = get_soup(url)
 
 	if soup.find('h1', {'class': 'page_title'}).text == 'Scoreboard':
 		return -1000
@@ -63,8 +61,7 @@ def get_data(data=[],get_yesterday=False,get_today=False,year=2018):
 		url_day = "-".join(day.split('-')[1:]+day.split('-')[:1])
 		url = base+url_day
 
-		content = get_soup(url).read()
-		soup = BeautifulSoup(content, "html5lib")
+		soup = get_soup(url)
 
 		game_tables = soup.findAll('div', {'class': 'SLTables1'})
 		if len(game_tables) == 0:

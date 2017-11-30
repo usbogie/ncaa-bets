@@ -1,4 +1,4 @@
-from bs4 import BeautifulSoup, NavigableString
+from bs4 import NavigableString
 import pandas as pd
 import numpy as np
 import sys
@@ -83,7 +83,8 @@ def get_games_statistics(game_log_soup, year):
 	return df
 
 def get_games(year=2017):
-	soup = get_soup("http://www.sports-reference.com/cbb/schools/")
+	url = "http://www.sports-reference.com/cbb/schools/"
+	soup = get_soup(url)
 
 	links = get_team_links(soup, year)
 	base = 'http://www.sports-reference.com'
