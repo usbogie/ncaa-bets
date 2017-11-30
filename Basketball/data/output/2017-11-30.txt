@@ -1,0 +1,44 @@
+~~~~~~~~~~Regular Decision Tree Results~~~~~~~~~~~~~~~~
+Bet       Columbia            11.5   -6   5.5  @ Connecticut         0.5506  6:00 PM CT  
+Bet       Oral Roberts        24.5   -24  0.5  @ Kansas State        0.5506  7:00 PM CT  
+Caution   Eastern Kentucky    12.0   -21  ---  @ Western Kentucky    0.55    7:00 PM CT  
+Caution   UIC                 5.5    -12  ---  @ Troy                0.55    7:00 PM CT  
+Caution   Northern Colorado   5.0    -6   ---  @ UC Davis            0.55    9:00 PM CT  
+Caution   Buffalo             -2.5   -2   ---  @ Niagara             0.55    6:00 PM CT  
+Caution   UNLV                1.5    -2   ---  @ Northern Iowa       0.55    7:00 PM CT  
+Bet       Penn                21.0   -20  1.0  @ Villanova           0.5494  6:00 PM CT  
+Caution   Michigan            9.0    -9   0.0  @ North Carolina      0.5494  6:30 PM CT  
+Caution   Northern Illinois   2.0    -2   0.0  v Milwaukee           0.5431  8:30 PM CT  
+Caution   Southern Illinois   -11.0  6    ---  v SIU Edwardsville    0.5431  7:00 PM CT  
+Caution   Massachusetts       -9.0   7    ---  @ Quinnipiac          0.5242  6:00 PM CT  
+Caution   Auburn              -4.0   3    ---  @ Dayton              0.5242  6:00 PM CT  
+Bet       Evansville          7.0    3    10.0 @ New Mexico          0.5242  8:00 PM CT  
+Caution   Oklahoma State      -23.5  17   ---  v Austin Peay         0.5215  7:00 PM CT  
+Bet       Wyoming             -6.0   7    1.0  @ Denver              0.5164  8:00 PM CT  
+Bet       Belmont             12.0   -10  2.0  @ TCU                 0.5164  8:00 PM CT  
+Bet       Southern Utah       7.0    -5   2.0  @ Pepperdine          0.5164  9:00 PM CT  
+Bet       Rider               13.5   -8   5.5  @ Providence          0.5164  6:00 PM CT  
+Bet       Duke                -9.0   10   1.0  @ Indiana             0.5164  8:30 PM CT  
+Bet       Air Force           5.5    -1   4.5  @ Indiana State       0.5164  6:00 PM CT  
+Bet       Long Beach State    22.5   -13  9.5  @ Arizona             0.5164  7:00 PM CT  
+Bet       UT Martin           15.0   -10  5.0  @ LSU                 0.5162  7:00 PM CT  
+Caution   San Jose State      10.5   -13  ---  @ Bowling Green       0.5162  6:00 PM CT  
+Caution   George Mason        -1.5   -1   ---  @ James Madison       0.5162  6:00 PM CT  
+Bet       Clemson             5.0    -3   2.0  @ Ohio State          0.5162  6:15 PM CT  
+Bet       CSU Bakersfield     14.5   -11  3.5  @ UCLA                0.5162  9:00 PM CT  
+Bet       Boston College      3.0    -2   1.0  @ Nebraska            0.5162  8:15 PM CT  
+Caution   Drake               -4.5   1    ---  @ Omaha               0.5034  7:00 PM CT  
+Caution   Penn State          -2.5   -3   ---  @ NC State            0.5034  6:15 PM CT  
+Caution   Montana             6.0    -7   ---  @ Stanford            0.5034  9:00 PM CT  
+Caution   East Tennessee St.  -1.0   -4   ---  @ Fordham             0.5021  6:00 PM CT  
+Caution   Arkansas State      1.5    -6   ---  @ Cleveland State     0.5021  6:00 PM CT  
+Bet       Chicago State       27.5   -23  4.5  @ Marquette           0.5021  8:00 PM CT  
+Bet       UT-Arlington        -17.5  19   1.5  v Rice                0.5013  7:00 PM CT  
+Bet       Coastal Carolina    -8.0   14   6.0  v Wofford             0.5013  6:00 PM CT  
+Bet       Siena               8.0    -6   2.0  v St Bonaventure      0.5013  6:00 PM CT  
+Bet       South Alabama       -3.5   10   6.5  v Southern Mississippi0.5013  7:05 PM CT  
+Bet       Nevada              -14.0  19   5.0  v Illinois State      0.5013  9:00 PM CT  
+Caution   Mercer              12.0   -12  0.0  @ Tennessee           0.5011  6:00 PM CT  
+Bet       Louisiana Tech      11.5   -7   4.5  @ Alabama             0.5011  7:00 PM CT  
+Caution   Marshall            1.5    -1   0.5  @ William & Mary      0.5011  6:00 PM CT  
+Caution   Miami               6.0    -5   1.0  @ Minnesota           0.5011  8:15 PM CT  
