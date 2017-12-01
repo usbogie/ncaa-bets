@@ -1,5 +1,5 @@
 from scripts import update, organize, decision_tree
 
-#update.run()
+update.run()
 organize.run()
 decision_tree.run()
