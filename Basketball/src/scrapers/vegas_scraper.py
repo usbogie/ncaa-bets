@@ -2,7 +2,7 @@ from datetime import datetime, timedelta, date
 import re
 import json
 import os
-from helpers import get_soup, make_season
+from scrapers.shared import get_soup, make_season
 
 my_path = os.path.dirname(os.path.abspath(__file__))
 names_path = os.path.join(my_path,'..','names.json')

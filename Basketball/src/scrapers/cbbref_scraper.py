@@ -4,7 +4,7 @@ import numpy as np
 import sys
 import json
 import os
-from helpers import get_soup
+from scrapers.shared import get_soup
 
 my_path = os.path.dirname(os.path.abspath(__file__))
 names_path = os.path.join(my_path,'..','names.json')

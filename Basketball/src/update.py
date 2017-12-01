@@ -6,6 +6,7 @@ import pandas as pd
 import json
 import sys
 import os
+import helpers as h
 
 this_season = h.this_season
 
@@ -17,11 +18,16 @@ if __name__ == '__main__':
 	except:
 		update_lines_only = False
 
+	print("Get today's ESPN data")
+
 	today_data = espn.get_tonight_info()
 	if not today_data.empty:
 		today_data = today_data.drop_duplicates()
 
+	print("Got today's ESPN data")
+
 	if not update_lines_only:
+		print("Get yesterday's EPSN data")
 		last_night_list = espn.update_espn_data((datetime.now() - timedelta(1)).strftime('%Y%m%d'))
 		try:
 			last_night = pd.concat(last_night_list, ignore_index=True).set_index('Game_ID')
@@ -40,7 +46,6 @@ if __name__ == '__main__':
 		today_data.to_csv(today_path, index_label='Game_ID')
 		print("Updated ESPN Data")
 
-		# get yesterday's vegas_insider info
 		vi_path = os.path.join(my_path,'..','data','vi','{}.json'.format(this_season))
 		with open(vi_path, 'r+') as vegasfile:
 			gamelines = json.load(vegasfile)
