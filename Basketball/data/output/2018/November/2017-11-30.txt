@@ -1,0 +1,17 @@
+~~~~~~~~~~Regular Decision Tree Results~~~~~~~~~~~~~~~~
+Caution   Memphis             4.5    -5   ---  @ UAB                 0.5506  7:00 PM CT  
+Bet       Weber State         11.0   -10  1.0  @ Fresno State        0.5506  9:00 PM CT  
+Caution   San Diego State     -5.0   -3   ---  @ San Diego           0.55    10:00 PM CT 
+Caution   UC Riverside        3.5    -8   ---  v Pacific             0.5431  9:00 PM CT  
+Caution   Mississippi State   -9.5   2    ---  v North Dakota State  0.5431  6:00 PM CT  
+Caution   Santa Clara         -12.0  -2   ---  v Northern Arizona    0.5431  9:00 PM CT  
+Caution   Michigan State      -6.5   4    ---  v Notre Dame          0.5215  6:00 PM CT  
+Caution   UCF                 4.0    -11  ---  v Missouri            0.5215  8:00 PM CT  
+Caution   Harvard             -1.5   -2   ---  @ Northeastern        0.5093  6:00 PM CT  
+Bet       South Florida       9.5    -6   3.5  @ Elon                0.5093  6:00 PM CT  
+Caution   UNC Wilmington      -4.0   -7   ---  @ East Carolina       0.5034  7:00 PM CT  
+Bet       North Texas         29.0   -25  4.0  @ Oklahoma            0.5021  7:00 PM CT  
+Bet       Western Carolina    15.0   -12  3.0  @ Charleston          0.5021  6:00 PM CT  
+~~~~~~~~~~Neutral Decision Tree Results~~~~~~~~~~~~~~~~
+Caution   South Carolina      1.0    -5   ---  @ Temple              0.5163  8:00 PM CT  
+Bet       Texas Tech          2.5    6    8.5  @ Seton Hall          0.5138  5:30 PM CT  

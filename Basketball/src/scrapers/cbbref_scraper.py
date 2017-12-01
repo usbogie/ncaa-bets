@@ -5,12 +5,10 @@ import sys
 import json
 import os
 from scrapers.shared import get_soup
+import helpers as h
 
-my_path = os.path.dirname(os.path.abspath(__file__))
-names_path = os.path.join(my_path,'..','names.json')
-
-with open(names_path,'r') as infile:
-	names_dict = json.load(infile)
+my_path = h.path
+names_dict = h.read_names()
 
 def get_team_links(soup, year):
 	links = []

@@ -8,11 +8,10 @@ import time
 import html
 import os
 from scrapers.shared import get_soup, make_season
+import helpers as h
 
-my_path = os.path.dirname(os.path.abspath(__file__))
-names_path = os.path.join(my_path,'..','names.json')
-with open(names_path,'r') as infile:
-	names_dict = json.load(infile)
+my_path = h.path
+names_dict = h.read_names()
 
 info = ['Game_ID', 'Away_Abbrv', 'Home_Abbrv', 'Away_Score',
 		'Home_Score', 'Game_Away', 'Game_Home','Game_Year',

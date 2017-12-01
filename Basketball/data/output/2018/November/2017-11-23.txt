@@ -1,0 +1,26 @@
+~~~~~~~~~~Regular Decision Tree Results~~~~~~~~~~~~~~~~
+Caution   Georgia             -10.0  7    ---  @ Cal State Fullerton 0.5227  9:30 PM CT  
+~~~~~~~~~~Neutral Decision Tree Results~~~~~~~~~~~~~~~~
+Bet       Connecticut         8.5    -7   1.5  @ Oregon              0.5246  8:00 PM CT  
+Bet       Portland            26.5   -17  9.5  @ North Carolina      0.5246  1:35 PM CT  
+Bet       Portland State      25.0   -7   18.0 @ Duke                0.5246  3:38 PM CT  
+Caution   George Washington   18.0   -23  ---  @ Xavier              0.5163  4:00 PM CT  
+Caution   Saint Joseph's      -8.5   1    ---  @ Washington State    0.5163  5:30 PM CT  
+Caution   Missouri            -11.0  9    ---  @ Long Beach State    0.5163  10:30 AM CT 
+Bet       Rhode Island        4.0    4    8.0  @ Seton Hall          0.5138  5:00 PM CT  
+Bet       Tennessee           8.0    6    14.0 @ Villanova           0.5138  11:30 AM CT 
+Bet       Arizona State       4.0    1    5.0  @ Kansas State        0.5138  6:30 PM CT  
+Bet       Purdue              -19.0  21   2.0  @ Western Kentucky    0.5138  6:00 PM CT  
+Bet       Arkansas            2.5    3    5.5  @ Oklahoma            0.5138  4:05 PM CT  
+Bet       Virginia            -6.0   13   7.0  @ Vanderbilt          0.5138  3:06 PM CT  
+Bet       Northern Arizona    4.5    -3   1.5  @ Hampton             0.5138  1:00 PM CT  
+Caution   Saint Mary's        -12.0  12   0.0  @ Harvard             0.5138  3:00 PM CT  
+Bet       Marist              29.5   -27  2.5  v West Virginia       0.5028  7:30 PM CT  
+Bet       Stanford            12.5   -11  1.5  v Florida             0.5028  9:00 PM CT  
+Bet       Texas               -3.0   11   8.0  v Butler              0.5028  6:19 PM CT  
+Bet       SMU                 7.5    2    9.5  v Arizona             0.5028  8:30 PM CT  
+Bet       Northern Iowa       3.5    3    6.5  v NC State            0.5028  2:09 PM CT  
+Bet       DePaul              13.5   -6   7.5  v Michigan State      0.5028  10:30 PM CT 
+Bet       Nebraska            4.5    3    7.5  v UCF                 0.5028  5:00 PM CT  
+Bet       Rider               3.0    11   14.0 v UC Irvine           0.5028  9:00 PM CT  
+Bet       Sam Houston State   8.0    -6   2.0  v Charleston          0.5028  8:30 PM CT  

@@ -1,7 +1,7 @@
 import helpers as h
 import pandas as pd
 import numpy as np
-from organizers import Betsy2 as b
+from organizers import add_features as af
 import json
 import csv
 import os
@@ -121,7 +121,7 @@ def get(season=str(this_season)):
         game["pmargin"] *= .8
         game["pmargin"] = round(game["pmargin"])
 
-        FT_std,tPAr_std,TRBP_std,TOVP_std,opp_TOVP_std,FT_avg,tPAr_avg,TRBP_avg,TOVP_avg,opp_TOVP_avg = b.get_standard_deviations_averages(int(season))
+        FT_std,tPAr_std,TRBP_std,TOVP_std,opp_TOVP_std,FT_avg,tPAr_avg,TRBP_avg,TOVP_avg,opp_TOVP_avg = af.get_standard_deviations_averages(int(season))
         game["DT_home_winner"] = 1 if game["pmargin"] + game["spread"] > 0 else 0
         game["DT_home_big"] = 1 if game["spread"] <= -10 else 0
         game["DT_away_big"] = 1 if game["spread"] >= 7 else 0

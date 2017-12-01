@@ -6,6 +6,15 @@ from datetime import datetime, timedelta, date
 path = os.path.dirname(os.path.abspath(__file__))
 this_season = date.today().year + 1 if date.today().month > 4 else date.today().year
 
+months = {
+    11: 'November',
+    12: 'December',
+    1: 'January',
+    2: 'February',
+    3: 'March',
+    4: 'April'
+}
+
 def refresh_games():
     with open(os.path.join(path,'..','data','composite','game_dict.json'),'w') as outfile:
         json.dump({}, outfile)
@@ -51,7 +60,7 @@ def write_teams(teams):
         return json.dump(teams, outfile)
 
 def read_names():
-    with open(os.path.join(path,'names.json'),'r') as infile:
+    with open(os.path.join(path,'organizers','names.json'),'r') as infile:
         return json.load(infile)
 
 def save():
