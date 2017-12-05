@@ -1,351 +1,351 @@
 1    Kansas                   	EM: 42.14   	ORTG: 145.83  	DRTG: 61.56   
-2    Virginia                 	EM: 35.16   	ORTG: 118.98  	DRTG: 48.66
-3    Villanova                	EM: 33.57   	ORTG: 138.11  	DRTG: 70.97
-4    Michigan State           	EM: 32.45   	ORTG: 122.01  	DRTG: 57.11
-5    Purdue                   	EM: 31.2    	ORTG: 134.99  	DRTG: 72.59
-6    Tennessee                	EM: 30.53   	ORTG: 121.34  	DRTG: 60.28
-7    Texas A&M                	EM: 29.7    	ORTG: 127.88  	DRTG: 68.48
-8    Xavier                   	EM: 29.25   	ORTG: 143.22  	DRTG: 84.71
-9    West Virginia            	EM: 28.28   	ORTG: 127.17  	DRTG: 70.62
-10   Gonzaga                  	EM: 28.23   	ORTG: 136.56  	DRTG: 80.1
-11   Arizona State            	EM: 28.16   	ORTG: 163.17  	DRTG: 106.85
-12   Texas Tech               	EM: 27.74   	ORTG: 116.17  	DRTG: 60.69
-13   Cincinnati               	EM: 26.77   	ORTG: 122.45  	DRTG: 68.92
-14   Temple                   	EM: 26.68   	ORTG: 133.76  	DRTG: 80.41
-15   Florida                  	EM: 26.49   	ORTG: 149.6   	DRTG: 96.61
-16   Nevada                   	EM: 26.36   	ORTG: 135.81  	DRTG: 83.1
-17   Missouri                 	EM: 26.21   	ORTG: 143.55  	DRTG: 91.14
-18   Arkansas                 	EM: 26.04   	ORTG: 124.68  	DRTG: 72.59
-19   Duke                     	EM: 25.78   	ORTG: 136.08  	DRTG: 84.53
-20   Wichita St               	EM: 25.54   	ORTG: 128.42  	DRTG: 77.34
-21   North Carolina           	EM: 25.23   	ORTG: 124.29  	DRTG: 73.84
-22   Notre Dame               	EM: 23.85   	ORTG: 138.25  	DRTG: 90.55
-23   Miami                    	EM: 22.56   	ORTG: 115.36  	DRTG: 70.25
-24   Utah                     	EM: 21.91   	ORTG: 111.75  	DRTG: 67.92
-25   SMU                      	EM: 21.58   	ORTG: 114.19  	DRTG: 71.04
-26   Texas                    	EM: 21.42   	ORTG: 107.81  	DRTG: 64.96
-27   Seton Hall               	EM: 20.62   	ORTG: 125.76  	DRTG: 84.53
-28   Minnesota                	EM: 20.45   	ORTG: 130.86  	DRTG: 89.97
-29   Florida State            	EM: 19.71   	ORTG: 134.94  	DRTG: 95.52
-30   Louisville               	EM: 19.61   	ORTG: 107.45  	DRTG: 68.22
-31   Baylor                   	EM: 19.56   	ORTG: 114.84  	DRTG: 75.72
-32   Western Kentucky         	EM: 19.52   	ORTG: 121.16  	DRTG: 82.12
-33   Virginia Tech            	EM: 18.94   	ORTG: 128.15  	DRTG: 90.28
-34   Rhode Island             	EM: 18.72   	ORTG: 126.49  	DRTG: 89.05
-35   Towson                   	EM: 18.1    	ORTG: 117.42  	DRTG: 81.23
-36   Syracuse                 	EM: 18.07   	ORTG: 104.82  	DRTG: 68.69
-37   Arizona                  	EM: 18.03   	ORTG: 130.24  	DRTG: 94.18
-38   Maryland                 	EM: 17.82   	ORTG: 118.19  	DRTG: 82.56
-39   Creighton                	EM: 17.7    	ORTG: 126.6   	DRTG: 91.2
-40   Clemson                  	EM: 17.7    	ORTG: 119.41  	DRTG: 84.02
-41   Kentucky                 	EM: 17.67   	ORTG: 117.94  	DRTG: 82.61
-42   Boise State              	EM: 16.91   	ORTG: 101.08  	DRTG: 67.26
-43   Providence               	EM: 16.84   	ORTG: 125.48  	DRTG: 91.8
-44   UNLV                     	EM: 16.66   	ORTG: 122.48  	DRTG: 89.16
-45   TCU                      	EM: 16.35   	ORTG: 121.15  	DRTG: 88.46
-46   Auburn                   	EM: 16.27   	ORTG: 125.08  	DRTG: 92.53
-47   Penn State               	EM: 16.2    	ORTG: 110.4   	DRTG: 78.0
-48   NC State                 	EM: 16.01   	ORTG: 119.25  	DRTG: 87.22
-49   Alabama                  	EM: 15.62   	ORTG: 119.13  	DRTG: 87.89
-50   Oklahoma                 	EM: 15.46   	ORTG: 126.59  	DRTG: 95.66
-51   St John's                	EM: 15.02   	ORTG: 107.11  	DRTG: 77.07
-52   Northern Iowa            	EM: 14.85   	ORTG: 106.6   	DRTG: 76.89
-53   Valparaiso               	EM: 14.78   	ORTG: 102.98  	DRTG: 73.43
-54   Ohio State               	EM: 14.64   	ORTG: 113.88  	DRTG: 84.6
-55   Michigan                 	EM: 14.46   	ORTG: 113.72  	DRTG: 84.8
-56   San Diego State          	EM: 14.41   	ORTG: 113.51  	DRTG: 84.69
-57   Washington State         	EM: 14.38   	ORTG: 116.0   	DRTG: 87.24
-58   Davidson                 	EM: 13.99   	ORTG: 124.74  	DRTG: 96.76
-59   Kansas State             	EM: 13.83   	ORTG: 115.81  	DRTG: 88.15
-60   USC                      	EM: 13.68   	ORTG: 102.5   	DRTG: 75.13
-61   Saint Mary's             	EM: 13.64   	ORTG: 144.03  	DRTG: 116.75
-62   South Carolina           	EM: 13.41   	ORTG: 104.99  	DRTG: 78.17
-63   Fresno State             	EM: 12.72   	ORTG: 125.57  	DRTG: 100.14
-64   Oklahoma State           	EM: 12.59   	ORTG: 99.59   	DRTG: 74.4
-65   Oregon                   	EM: 12.44   	ORTG: 114.39  	DRTG: 89.51
-66   Rutgers                  	EM: 12.31   	ORTG: 90.94   	DRTG: 66.31
-67   Colorado                 	EM: 12.0    	ORTG: 112.69  	DRTG: 88.7
-68   UT-Arlington             	EM: 11.98   	ORTG: 111.03  	DRTG: 87.06
-69   Rider                    	EM: 11.73   	ORTG: 122.35  	DRTG: 98.9
-70   Middle Tennessee         	EM: 11.71   	ORTG: 108.58  	DRTG: 85.15
-71   South Dakota             	EM: 11.6    	ORTG: 105.81  	DRTG: 82.62
-72   Mississippi State        	EM: 11.14   	ORTG: 105.87  	DRTG: 83.6
-73   Georgia State            	EM: 10.92   	ORTG: 97.85   	DRTG: 76.02
-74   Murray State             	EM: 10.59   	ORTG: 123.72  	DRTG: 102.53
-75   Vermont                  	EM: 10.45   	ORTG: 114.37  	DRTG: 93.47
-76   Georgia Southern         	EM: 10.2    	ORTG: 114.22  	DRTG: 93.81
-77   Wisconsin                	EM: 10.08   	ORTG: 109.73  	DRTG: 89.56
-78   Old Dominion             	EM: 10.02   	ORTG: 96.64   	DRTG: 76.61
-79   Louisiana Tech           	EM: 10.0    	ORTG: 115.49  	DRTG: 95.48
-80   St Bonaventure           	EM: 9.93    	ORTG: 109.75  	DRTG: 89.89
-81   Florida Gulf Coast       	EM: 9.38    	ORTG: 110.67  	DRTG: 91.91
-82   BYU                      	EM: 9.31    	ORTG: 110.91  	DRTG: 92.3
-83   South Dakota State       	EM: 9.18    	ORTG: 113.71  	DRTG: 95.34
-84   Missouri State           	EM: 9.02    	ORTG: 107.02  	DRTG: 88.97
-85   Boston College           	EM: 8.98    	ORTG: 114.85  	DRTG: 96.88
-86   Houston                  	EM: 8.96    	ORTG: 110.59  	DRTG: 92.67
-87   Northern Kentucky        	EM: 8.79    	ORTG: 109.91  	DRTG: 92.33
-88   Mercer                   	EM: 8.44    	ORTG: 123.22  	DRTG: 106.33
-89   Evansville               	EM: 8.41    	ORTG: 86.56   	DRTG: 69.74
-90   New Mexico State         	EM: 8.34    	ORTG: 115.57  	DRTG: 98.88
-91   Albany                   	EM: 8.32    	ORTG: 126.17  	DRTG: 109.53
-92   Utah State               	EM: 8.26    	ORTG: 111.01  	DRTG: 94.49
-93   Bradley                  	EM: 8.15    	ORTG: 85.4    	DRTG: 69.09
-94   Buffalo                  	EM: 8.13    	ORTG: 116.05  	DRTG: 99.79
-95   UCLA                     	EM: 8.1     	ORTG: 108.06  	DRTG: 91.85
-96   Nebraska                 	EM: 7.79    	ORTG: 111.09  	DRTG: 95.52
-97   Tulane                   	EM: 7.39    	ORTG: 106.37  	DRTG: 91.58
-98   Georgetown               	EM: 7.36    	ORTG: 109.86  	DRTG: 95.15
-99   Ole Miss                 	EM: 7.2     	ORTG: 121.67  	DRTG: 107.27
-100  Army                     	EM: 6.83    	ORTG: 100.27  	DRTG: 86.6
-101  San Diego                	EM: 6.66    	ORTG: 94.29   	DRTG: 80.97
-102  Troy                     	EM: 6.63    	ORTG: 113.47  	DRTG: 100.22
-103  La Salle                 	EM: 6.62    	ORTG: 105.55  	DRTG: 92.3
-104  Butler                   	EM: 6.52    	ORTG: 102.81  	DRTG: 89.76
-105  Marquette                	EM: 6.37    	ORTG: 118.29  	DRTG: 105.55
-106  Illinois                 	EM: 6.25    	ORTG: 101.21  	DRTG: 88.71
-107  Western Michigan         	EM: 5.6     	ORTG: 101.07  	DRTG: 89.88
-108  New Mexico               	EM: 5.15    	ORTG: 106.08  	DRTG: 95.77
-109  Belmont                  	EM: 4.89    	ORTG: 116.01  	DRTG: 106.23
-110  Georgia                  	EM: 4.75    	ORTG: 95.88   	DRTG: 86.39
-111  Penn                     	EM: 4.41    	ORTG: 97.48   	DRTG: 88.66
-112  Iona                     	EM: 4.25    	ORTG: 117.33  	DRTG: 108.83
-113  Milwaukee                	EM: 4.13    	ORTG: 98.75   	DRTG: 90.5
-114  Iowa State               	EM: 3.92    	ORTG: 105.56  	DRTG: 97.71
-115  UC Davis                 	EM: 3.86    	ORTG: 93.82   	DRTG: 86.09
-116  UC Santa Barbara         	EM: 3.74    	ORTG: 113.38  	DRTG: 105.9
-117  Northwestern             	EM: 3.72    	ORTG: 107.04  	DRTG: 99.59
-118  VCU                      	EM: 3.66    	ORTG: 108.05  	DRTG: 100.73
-119  Liberty                  	EM: 3.28    	ORTG: 103.38  	DRTG: 96.82
-120  UNC Asheville            	EM: 3.28    	ORTG: 95.47   	DRTG: 88.91
-121  Montana State            	EM: 3.19    	ORTG: 105.58  	DRTG: 99.19
-122  North Dakota State       	EM: 3.1     	ORTG: 99.96   	DRTG: 93.76
-123  Eastern Washington       	EM: 3.03    	ORTG: 97.73   	DRTG: 91.67
-124  Indiana                  	EM: 2.93    	ORTG: 119.65  	DRTG: 113.8
-125  Jacksonville State       	EM: 2.88    	ORTG: 106.91  	DRTG: 101.15
-126  Bucknell                 	EM: 2.77    	ORTG: 116.05  	DRTG: 110.52
-127  Toledo                   	EM: 2.63    	ORTG: 120.74  	DRTG: 115.47
-128  UCF                      	EM: 2.58    	ORTG: 76.24   	DRTG: 71.07
-129  Prairie View A&M         	EM: 2.45    	ORTG: 97.38   	DRTG: 92.47
-130  Colgate                  	EM: 2.4     	ORTG: 101.83  	DRTG: 97.04
-131  Lamar                    	EM: 2.32    	ORTG: 99.9    	DRTG: 95.26
-132  Central Michigan         	EM: 2.3     	ORTG: 102.72  	DRTG: 98.11
-133  Lipscomb                 	EM: 2.3     	ORTG: 83.95   	DRTG: 79.35
-134  Grand Canyon             	EM: 2.21    	ORTG: 91.22   	DRTG: 86.81
-135  Wake Forest              	EM: 1.99    	ORTG: 116.14  	DRTG: 112.16
-136  Washington               	EM: 1.92    	ORTG: 115.14  	DRTG: 111.31
-137  UAB                      	EM: 1.89    	ORTG: 110.23  	DRTG: 106.44
-138  Connecticut              	EM: 1.87    	ORTG: 95.88   	DRTG: 92.14
-139  Portland State           	EM: 1.56    	ORTG: 106.97  	DRTG: 103.86
-140  Monmouth                 	EM: 1.55    	ORTG: 90.03   	DRTG: 86.94
-141  Vanderbilt               	EM: 1.5     	ORTG: 100.18  	DRTG: 97.17
-142  Loyola (CHI)             	EM: 1.43    	ORTG: 104.97  	DRTG: 102.1
-143  Texas State              	EM: 1.33    	ORTG: 103.5   	DRTG: 100.83
-144  Southern Illinois        	EM: 1.28    	ORTG: 92.01   	DRTG: 89.45
-145  Oregon State             	EM: 1.1     	ORTG: 98.82   	DRTG: 96.62
-146  Weber State              	EM: 1.01    	ORTG: 103.95  	DRTG: 101.94
-147  Dayton                   	EM: 0.85    	ORTG: 109.15  	DRTG: 107.44
-148  Wright State             	EM: 0.69    	ORTG: 83.19   	DRTG: 81.82
-149  Iowa                     	EM: 0.68    	ORTG: 110.54  	DRTG: 109.19
-150  LSU                      	EM: 0.66    	ORTG: 132.2   	DRTG: 130.87
-151  UL Lafayette             	EM: 0.58    	ORTG: 103.45  	DRTG: 102.29
-152  Wyoming                  	EM: 0.55    	ORTG: 93.47   	DRTG: 92.36
-153  UNC Greensboro           	EM: 0.52    	ORTG: 103.18  	DRTG: 102.13
-154  Stanford                 	EM: 0.5     	ORTG: 94.04   	DRTG: 93.03
-155  Columbia                 	EM: 0.45    	ORTG: 111.84  	DRTG: 110.94
-156  Yale                     	EM: 0.31    	ORTG: 101.98  	DRTG: 101.35
-157  Pacific                  	EM: 0.26    	ORTG: 109.97  	DRTG: 109.44
-158  DePaul                   	EM: 0.13    	ORTG: 96.67   	DRTG: 96.42
-159  Saint Joseph's           	EM: 0.13    	ORTG: 110.04  	DRTG: 109.78
-160  Central Connecticut      	EM: -0.05   	ORTG: 110.06  	DRTG: 110.17
-161  St Francis (PA)          	EM: -0.08   	ORTG: 115.67  	DRTG: 115.83
-162  Ball State               	EM: -0.18   	ORTG: 108.18  	DRTG: 108.55
-163  George Washington        	EM: -0.22   	ORTG: 104.5   	DRTG: 104.94
-164  Hofstra                  	EM: -0.31   	ORTG: 102.73  	DRTG: 103.35
-165  Stephen F. Austin        	EM: -0.38   	ORTG: 88.02   	DRTG: 88.78
-166  Tennessee Tech           	EM: -0.43   	ORTG: 114.51  	DRTG: 115.36
-167  Appalachian State        	EM: -0.48   	ORTG: 106.53  	DRTG: 107.5
-168  Eastern Michigan         	EM: -0.6    	ORTG: 91.06   	DRTG: 92.26
-169  Charleston               	EM: -0.62   	ORTG: 83.29   	DRTG: 84.54
-170  Wagner                   	EM: -0.63   	ORTG: 87.12   	DRTG: 88.39
-171  Idaho                    	EM: -0.65   	ORTG: 90.17   	DRTG: 91.46
-172  UT San Antonio           	EM: -0.87   	ORTG: 109.34  	DRTG: 111.07
-173  Akron                    	EM: -0.87   	ORTG: 93.48   	DRTG: 95.22
-174  Texas Southern           	EM: -1.05   	ORTG: 117.38  	DRTG: 119.49
-175  Robert Morris            	EM: -1.06   	ORTG: 85.26   	DRTG: 87.37
-176  Niagara                  	EM: -1.15   	ORTG: 120.16  	DRTG: 122.45
-177  Northern Colorado        	EM: -1.15   	ORTG: 84.25   	DRTG: 86.55
-178  Massachusetts            	EM: -1.16   	ORTG: 86.93   	DRTG: 89.25
-179  Oakland                  	EM: -1.42   	ORTG: 95.66   	DRTG: 98.5
-180  Fairfield                	EM: -1.83   	ORTG: 96.78   	DRTG: 100.44
-181  High Point               	EM: -1.87   	ORTG: 91.65   	DRTG: 95.39
-182  South Alabama            	EM: -2.05   	ORTG: 80.01   	DRTG: 84.12
-183  Illinois State           	EM: -2.08   	ORTG: 96.18   	DRTG: 100.33
-184  Bowling Green            	EM: -2.18   	ORTG: 103.5   	DRTG: 107.87
-185  CSU Bakersfield          	EM: -2.58   	ORTG: 99.48   	DRTG: 104.64
-186  Tulsa                    	EM: -2.71   	ORTG: 107.3   	DRTG: 112.71
-187  East Tennessee St.       	EM: -2.86   	ORTG: 89.45   	DRTG: 95.17
-188  Georgia Tech             	EM: -2.98   	ORTG: 77.13   	DRTG: 83.08
-189  Canisius                 	EM: -3.16   	ORTG: 105.79  	DRTG: 112.1
-190  George Mason             	EM: -3.2    	ORTG: 92.24   	DRTG: 98.63
-191  UMKC                     	EM: -3.29   	ORTG: 86.71   	DRTG: 93.29
-192  Saint Peter's            	EM: -3.3    	ORTG: 91.57   	DRTG: 98.18
-193  Brown                    	EM: -3.34   	ORTG: 89.14   	DRTG: 95.82
-194  Hawai'i                  	EM: -3.63   	ORTG: 93.21   	DRTG: 100.47
-195  Campbell                 	EM: -3.63   	ORTG: 110.39  	DRTG: 117.65
-196  Memphis                  	EM: -3.8    	ORTG: 90.65   	DRTG: 98.26
-197  North Carolina A&T       	EM: -3.87   	ORTG: 93.63   	DRTG: 101.37
-198  Pittsburgh               	EM: -3.99   	ORTG: 99.82   	DRTG: 107.81
-199  Utah Valley              	EM: -4.02   	ORTG: 97.29   	DRTG: 105.32
-200  Eastern Illinois         	EM: -4.09   	ORTG: 104.64  	DRTG: 112.82
-201  Seattle                  	EM: -4.14   	ORTG: 101.12  	DRTG: 109.4
-202  Air Force                	EM: -4.29   	ORTG: 99.59   	DRTG: 108.17
-203  Cornell                  	EM: -4.31   	ORTG: 108.38  	DRTG: 117.0
-204  Stony Brook              	EM: -4.32   	ORTG: 96.99   	DRTG: 105.64
-205  Radford                  	EM: -4.47   	ORTG: 103.49  	DRTG: 112.43
-206  Coastal Carolina         	EM: -4.49   	ORTG: 100.55  	DRTG: 109.53
-207  Northeastern             	EM: -4.54   	ORTG: 99.99   	DRTG: 109.08
-208  California               	EM: -4.67   	ORTG: 96.36   	DRTG: 105.71
-209  Fordham                  	EM: -4.68   	ORTG: 81.95   	DRTG: 91.3
-210  North Carolina Central   	EM: -4.82   	ORTG: 97.9    	DRTG: 107.55
-211  Southeast Missouri State 	EM: -4.94   	ORTG: 102.87  	DRTG: 112.75
-212  UC Irvine                	EM: -5.34   	ORTG: 96.93   	DRTG: 107.61
-213  Binghamton               	EM: -5.39   	ORTG: 102.6   	DRTG: 113.37
-214  Ohio                     	EM: -5.74   	ORTG: 95.14   	DRTG: 106.62
-215  Tennessee State          	EM: -5.89   	ORTG: 81.74   	DRTG: 93.51
-216  UMBC                     	EM: -5.99   	ORTG: 115.41  	DRTG: 127.39
-217  Drake                    	EM: -6.04   	ORTG: 104.03  	DRTG: 116.1
-218  Fort Wayne               	EM: -6.08   	ORTG: 93.08   	DRTG: 105.25
-219  North Dakota             	EM: -6.1    	ORTG: 100.62  	DRTG: 112.82
-220  LIU Brooklyn             	EM: -6.19   	ORTG: 104.16  	DRTG: 116.53
-221  Indiana State            	EM: -6.47   	ORTG: 91.85   	DRTG: 104.8
-222  UT Rio Grande Valley     	EM: -6.52   	ORTG: 95.9    	DRTG: 108.95
-223  Cal Poly                 	EM: -6.8    	ORTG: 95.98   	DRTG: 109.57
-224  New Orleans              	EM: -6.83   	ORTG: 87.62   	DRTG: 101.27
-225  Navy                     	EM: -6.84   	ORTG: 91.3    	DRTG: 104.98
-226  San Francisco            	EM: -7.05   	ORTG: 86.38   	DRTG: 100.48
-227  Kent State               	EM: -7.07   	ORTG: 95.86   	DRTG: 110.0
-228  UMass Lowell             	EM: -7.08   	ORTG: 94.37   	DRTG: 108.52
-229  East Carolina            	EM: -7.1    	ORTG: 90.44   	DRTG: 104.64
-230  Nicholls                 	EM: -7.28   	ORTG: 92.43   	DRTG: 106.98
-231  Florida Atlantic         	EM: -7.31   	ORTG: 80.82   	DRTG: 95.45
-232  Louisiana Monroe         	EM: -7.4    	ORTG: 98.93   	DRTG: 113.73
-233  Elon                     	EM: -7.43   	ORTG: 104.86  	DRTG: 119.71
-234  Loyola Marymount         	EM: -7.44   	ORTG: 99.92   	DRTG: 114.79
-235  Lehigh                   	EM: -7.59   	ORTG: 99.13   	DRTG: 114.3
-236  Denver                   	EM: -7.68   	ORTG: 98.19   	DRTG: 113.54
-237  Austin Peay              	EM: -7.7    	ORTG: 94.82   	DRTG: 110.23
-238  William & Mary           	EM: -7.71   	ORTG: 125.44  	DRTG: 140.86
-239  Marshall                 	EM: -7.76   	ORTG: 114.63  	DRTG: 130.15
-240  Hampton                  	EM: -7.78   	ORTG: 85.91   	DRTG: 101.46
-241  Bethune-Cookman          	EM: -7.83   	ORTG: 85.97   	DRTG: 101.63
-242  NJIT                     	EM: -8.12   	ORTG: 84.49   	DRTG: 100.72
-243  Manhattan                	EM: -8.13   	ORTG: 92.91   	DRTG: 109.16
-244  Delaware                 	EM: -8.27   	ORTG: 97.85   	DRTG: 114.39
-245  Harvard                  	EM: -8.28   	ORTG: 84.28   	DRTG: 100.83
-246  Southeastern Louisiana   	EM: -8.33   	ORTG: 90.92   	DRTG: 107.58
-247  North Texas              	EM: -8.41   	ORTG: 99.02   	DRTG: 115.83
-248  Southern Utah            	EM: -8.43   	ORTG: 102.76  	DRTG: 119.63
-249  Furman                   	EM: -8.59   	ORTG: 99.46   	DRTG: 116.64
-250  Richmond                 	EM: -8.86   	ORTG: 91.5    	DRTG: 109.22
-251  Saint Louis              	EM: -8.86   	ORTG: 77.54   	DRTG: 95.27
-252  UIC                      	EM: -8.92   	ORTG: 78.6    	DRTG: 96.44
-253  VMI                      	EM: -8.97   	ORTG: 85.21   	DRTG: 103.15
-254  Charlotte                	EM: -9.02   	ORTG: 94.73   	DRTG: 112.76
-255  Cleveland State          	EM: -9.24   	ORTG: 83.14   	DRTG: 101.63
-256  Duquesne                 	EM: -9.35   	ORTG: 89.55   	DRTG: 108.25
-257  Princeton                	EM: -9.4    	ORTG: 92.4    	DRTG: 111.2
-258  Montana                  	EM: -9.46   	ORTG: 83.25   	DRTG: 102.18
-259  Northern Illinois        	EM: -9.56   	ORTG: 104.84  	DRTG: 123.97
-260  Loyola (MD)              	EM: -9.56   	ORTG: 80.0    	DRTG: 99.13
-261  Chattanooga              	EM: -9.68   	ORTG: 86.48   	DRTG: 105.83
-262  Santa Clara              	EM: -9.72   	ORTG: 96.12   	DRTG: 115.57
-263  Pepperdine               	EM: -9.78   	ORTG: 100.16  	DRTG: 119.71
-264  James Madison            	EM: -10.09  	ORTG: 101.62  	DRTG: 121.79
-265  Charleston Southern      	EM: -10.11  	ORTG: 88.26   	DRTG: 108.47
-266  Long Beach State         	EM: -10.11  	ORTG: 89.39   	DRTG: 109.62
-267  Sam Houston State        	EM: -10.12  	ORTG: 79.29   	DRTG: 99.53
-268  Colorado State           	EM: -10.25  	ORTG: 86.34   	DRTG: 106.83
-269  Texas A&M-CC             	EM: -10.34  	ORTG: 77.24   	DRTG: 97.93
-270  New Hampshire            	EM: -10.39  	ORTG: 84.36   	DRTG: 105.13
-271  South Florida            	EM: -10.4   	ORTG: 78.09   	DRTG: 98.9
-272  Western Illinois         	EM: -10.65  	ORTG: 68.41   	DRTG: 89.71
-273  Boston University        	EM: -10.68  	ORTG: 87.49   	DRTG: 108.84
-274  American                 	EM: -10.69  	ORTG: 109.01  	DRTG: 130.38
-275  Omaha                    	EM: -10.92  	ORTG: 93.55   	DRTG: 115.4
-276  UNC Wilmington           	EM: -11.17  	ORTG: 103.57  	DRTG: 125.9
-277  South Carolina Upstate   	EM: -11.43  	ORTG: 106.68  	DRTG: 129.53
-278  Drexel                   	EM: -11.56  	ORTG: 75.93   	DRTG: 99.06
-279  Arkansas State           	EM: -11.84  	ORTG: 88.35   	DRTG: 112.02
-280  Grambling                	EM: -11.89  	ORTG: 93.2    	DRTG: 116.98
-281  IUPUI                    	EM: -12.22  	ORTG: 111.34  	DRTG: 135.79
-282  North Florida            	EM: -12.31  	ORTG: 96.18   	DRTG: 120.8
-283  San Jose State           	EM: -12.49  	ORTG: 82.45   	DRTG: 107.43
-284  Rice                     	EM: -12.49  	ORTG: 70.69   	DRTG: 95.68
-285  Little Rock              	EM: -12.63  	ORTG: 78.74   	DRTG: 103.99
-286  Portland                 	EM: -12.87  	ORTG: 95.96   	DRTG: 121.69
-287  Stetson                  	EM: -13.11  	ORTG: 92.43   	DRTG: 118.65
-288  Kennesaw State           	EM: -13.25  	ORTG: 83.48   	DRTG: 109.98
-289  Houston Baptist          	EM: -13.3   	ORTG: 100.17  	DRTG: 126.76
-290  Miami (OH)               	EM: -13.38  	ORTG: 80.6    	DRTG: 107.36
-291  Morgan State             	EM: -13.41  	ORTG: 72.57   	DRTG: 99.39
-292  Cal State Fullerton      	EM: -13.82  	ORTG: 68.13   	DRTG: 95.77
-293  UT Martin                	EM: -13.95  	ORTG: 80.77   	DRTG: 108.67
-294  Detroit Mercy            	EM: -14.09  	ORTG: 96.61   	DRTG: 124.79
-295  Siena                    	EM: -14.46  	ORTG: 95.12   	DRTG: 124.05
-296  Abilene Christian        	EM: -14.63  	ORTG: 101.88  	DRTG: 131.15
-297  Southern Mississippi     	EM: -14.72  	ORTG: 86.84   	DRTG: 116.27
-298  Idaho State              	EM: -14.9   	ORTG: 81.53   	DRTG: 111.33
-299  McNeese                  	EM: -15.06  	ORTG: 82.06   	DRTG: 112.18
-300  Western Carolina         	EM: -15.07  	ORTG: 89.55   	DRTG: 119.69
-301  Central Arkansas         	EM: -15.12  	ORTG: 96.01   	DRTG: 126.25
-302  UTEP                     	EM: -15.22  	ORTG: 62.46   	DRTG: 92.89
-303  UC Riverside             	EM: -15.28  	ORTG: 56.5    	DRTG: 87.07
-304  Marist                   	EM: -15.41  	ORTG: 88.91   	DRTG: 119.73
-305  Hartford                 	EM: -15.43  	ORTG: 82.97   	DRTG: 113.84
-306  Dartmouth                	EM: -15.69  	ORTG: 87.97   	DRTG: 119.35
-307  Wofford                  	EM: -15.8   	ORTG: 101.1   	DRTG: 132.69
-308  Florida Intl             	EM: -15.9   	ORTG: 69.88   	DRTG: 101.69
-309  Sacramento State         	EM: -15.97  	ORTG: 71.69   	DRTG: 103.64
-310  Samford                  	EM: -15.98  	ORTG: 109.66  	DRTG: 141.62
-311  Winthrop                 	EM: -16.1   	ORTG: 92.87   	DRTG: 125.07
-312  Sacred Heart             	EM: -16.13  	ORTG: 74.12   	DRTG: 106.39
-313  St Francis (BKN)         	EM: -16.16  	ORTG: 76.28   	DRTG: 108.6
-314  Morehead State           	EM: -16.23  	ORTG: 77.4    	DRTG: 109.85
-315  SIU Edwardsville         	EM: -16.3   	ORTG: 91.21   	DRTG: 123.81
-316  Green Bay                	EM: -16.31  	ORTG: 67.06   	DRTG: 99.67
-317  Presbyterian College     	EM: -16.41  	ORTG: 94.46   	DRTG: 127.27
-318  Maine                    	EM: -16.69  	ORTG: 69.13   	DRTG: 102.51
-319  Bryant                   	EM: -16.7   	ORTG: 86.31   	DRTG: 119.71
-320  CSU Northridge           	EM: -16.76  	ORTG: 84.67   	DRTG: 118.18
-321  Holy Cross               	EM: -17.47  	ORTG: 90.3    	DRTG: 125.25
-322  Florida A&M              	EM: -17.65  	ORTG: 83.19   	DRTG: 118.49
-323  Savannah State           	EM: -17.7   	ORTG: 86.16   	DRTG: 121.55
-324  Lafayette                	EM: -17.77  	ORTG: 103.81  	DRTG: 139.36
-325  The Citadel              	EM: -17.8   	ORTG: 85.4    	DRTG: 121.0
-326  Fairleigh Dickinson      	EM: -17.87  	ORTG: 85.43   	DRTG: 121.16
-327  Howard                   	EM: -18.16  	ORTG: 80.75   	DRTG: 117.07
-328  Quinnipiac               	EM: -18.35  	ORTG: 84.85   	DRTG: 121.55
-329  Gardner-Webb             	EM: -18.36  	ORTG: 73.51   	DRTG: 110.22
-330  Eastern Kentucky         	EM: -18.48  	ORTG: 91.98   	DRTG: 128.94
-331  Oral Roberts             	EM: -18.64  	ORTG: 97.48   	DRTG: 134.76
-332  Jacksonville             	EM: -18.7   	ORTG: 84.31   	DRTG: 121.71
-333  Incarnate Word           	EM: -19.95  	ORTG: 84.89   	DRTG: 124.79
-334  Jackson State            	EM: -20.27  	ORTG: 78.65   	DRTG: 119.18
-335  Arkansas-Pine Bluff      	EM: -20.77  	ORTG: 69.92   	DRTG: 111.46
-336  Southern                 	EM: -21.59  	ORTG: 83.45   	DRTG: 126.62
-337  Norfolk State            	EM: -22.84  	ORTG: 71.28   	DRTG: 116.95
-338  Coppin State             	EM: -23.4   	ORTG: 60.43   	DRTG: 107.23
-339  Mount St Mary's          	EM: -23.43  	ORTG: 96.76   	DRTG: 143.62
-340  Northern Arizona         	EM: -23.76  	ORTG: 73.02   	DRTG: 120.55
-341  Northwestern State       	EM: -24.99  	ORTG: 72.54   	DRTG: 122.51
-342  Youngstown State         	EM: -25.14  	ORTG: 77.05   	DRTG: 127.33
-343  Alabama A&M              	EM: -25.87  	ORTG: 71.9    	DRTG: 123.63
-344  Chicago State            	EM: -26.32  	ORTG: 75.7    	DRTG: 128.34
-345  Longwood                 	EM: -27.15  	ORTG: 54.52   	DRTG: 108.82
-346  Mississippi Valley State 	EM: -27.39  	ORTG: 73.19   	DRTG: 127.97
-347  Alcorn State             	EM: -28.01  	ORTG: 76.05   	DRTG: 132.07
-348  Alabama State            	EM: -30.4   	ORTG: 79.44   	DRTG: 140.25
-349  South Carolina State     	EM: -34.12  	ORTG: 52.08   	DRTG: 120.32
-350  Delaware State           	EM: -35.6   	ORTG: 87.56   	DRTG: 158.75
-351  Maryland-Eastern Shore   	EM: -40.52  	ORTG: 61.93   	DRTG: 142.98
+2    Virginia                 	EM: 35.16   	ORTG: 118.98  	DRTG: 48.66   
+3    Villanova                	EM: 33.57   	ORTG: 138.11  	DRTG: 70.97   
+4    Michigan State           	EM: 32.45   	ORTG: 122.01  	DRTG: 57.11   
+5    Purdue                   	EM: 31.2    	ORTG: 134.99  	DRTG: 72.59   
+6    Tennessee                	EM: 30.53   	ORTG: 121.34  	DRTG: 60.28   
+7    Texas A&M                	EM: 29.7    	ORTG: 127.88  	DRTG: 68.48   
+8    Xavier                   	EM: 29.25   	ORTG: 143.22  	DRTG: 84.71   
+9    West Virginia            	EM: 28.28   	ORTG: 127.17  	DRTG: 70.62   
+10   Gonzaga                  	EM: 28.23   	ORTG: 136.56  	DRTG: 80.1    
+11   Arizona State            	EM: 28.16   	ORTG: 163.17  	DRTG: 106.85  
+12   Texas Tech               	EM: 27.74   	ORTG: 116.17  	DRTG: 60.69   
+13   Cincinnati               	EM: 26.77   	ORTG: 122.45  	DRTG: 68.92   
+14   Temple                   	EM: 26.68   	ORTG: 133.76  	DRTG: 80.41   
+15   Florida                  	EM: 26.49   	ORTG: 149.6   	DRTG: 96.61   
+16   Nevada                   	EM: 26.36   	ORTG: 135.81  	DRTG: 83.1    
+17   Missouri                 	EM: 26.21   	ORTG: 143.55  	DRTG: 91.14   
+18   Arkansas                 	EM: 26.04   	ORTG: 124.68  	DRTG: 72.59   
+19   Duke                     	EM: 25.78   	ORTG: 136.08  	DRTG: 84.53   
+20   Wichita St               	EM: 25.54   	ORTG: 128.42  	DRTG: 77.34   
+21   North Carolina           	EM: 25.23   	ORTG: 124.29  	DRTG: 73.84   
+22   Notre Dame               	EM: 23.85   	ORTG: 138.25  	DRTG: 90.55   
+23   Miami                    	EM: 22.56   	ORTG: 115.36  	DRTG: 70.25   
+24   Utah                     	EM: 21.91   	ORTG: 111.75  	DRTG: 67.92   
+25   SMU                      	EM: 21.58   	ORTG: 114.19  	DRTG: 71.04   
+26   Texas                    	EM: 21.42   	ORTG: 107.81  	DRTG: 64.96   
+27   Seton Hall               	EM: 20.62   	ORTG: 125.76  	DRTG: 84.53   
+28   Minnesota                	EM: 20.45   	ORTG: 130.86  	DRTG: 89.97   
+29   Florida State            	EM: 19.71   	ORTG: 134.94  	DRTG: 95.52   
+30   Louisville               	EM: 19.61   	ORTG: 107.45  	DRTG: 68.22   
+31   Baylor                   	EM: 19.56   	ORTG: 114.84  	DRTG: 75.72   
+32   Western Kentucky         	EM: 19.52   	ORTG: 121.16  	DRTG: 82.12   
+33   Virginia Tech            	EM: 18.94   	ORTG: 128.15  	DRTG: 90.28   
+34   Rhode Island             	EM: 18.72   	ORTG: 126.49  	DRTG: 89.05   
+35   Towson                   	EM: 18.1    	ORTG: 117.42  	DRTG: 81.23   
+36   Syracuse                 	EM: 18.07   	ORTG: 104.82  	DRTG: 68.69   
+37   Arizona                  	EM: 18.03   	ORTG: 130.24  	DRTG: 94.18   
+38   Maryland                 	EM: 17.82   	ORTG: 118.19  	DRTG: 82.56   
+39   Creighton                	EM: 17.7    	ORTG: 126.6   	DRTG: 91.2    
+40   Clemson                  	EM: 17.7    	ORTG: 119.41  	DRTG: 84.02   
+41   Kentucky                 	EM: 17.67   	ORTG: 117.94  	DRTG: 82.61   
+42   Boise State              	EM: 16.91   	ORTG: 101.08  	DRTG: 67.26   
+43   Providence               	EM: 16.84   	ORTG: 125.48  	DRTG: 91.8    
+44   UNLV                     	EM: 16.66   	ORTG: 122.48  	DRTG: 89.16   
+45   TCU                      	EM: 16.35   	ORTG: 121.15  	DRTG: 88.46   
+46   Auburn                   	EM: 16.27   	ORTG: 125.08  	DRTG: 92.53   
+47   Penn State               	EM: 16.2    	ORTG: 110.4   	DRTG: 78.0    
+48   NC State                 	EM: 16.01   	ORTG: 119.25  	DRTG: 87.22   
+49   Alabama                  	EM: 15.62   	ORTG: 119.13  	DRTG: 87.89   
+50   Oklahoma                 	EM: 15.46   	ORTG: 126.59  	DRTG: 95.66   
+51   St John's                	EM: 15.02   	ORTG: 107.11  	DRTG: 77.07   
+52   Northern Iowa            	EM: 14.85   	ORTG: 106.6   	DRTG: 76.89   
+53   Valparaiso               	EM: 14.78   	ORTG: 102.98  	DRTG: 73.43   
+54   Ohio State               	EM: 14.64   	ORTG: 113.88  	DRTG: 84.6    
+55   Michigan                 	EM: 14.46   	ORTG: 113.72  	DRTG: 84.8    
+56   San Diego State          	EM: 14.41   	ORTG: 113.51  	DRTG: 84.69   
+57   Washington State         	EM: 14.38   	ORTG: 116.0   	DRTG: 87.24   
+58   Davidson                 	EM: 13.99   	ORTG: 124.74  	DRTG: 96.76   
+59   Kansas State             	EM: 13.83   	ORTG: 115.81  	DRTG: 88.15   
+60   USC                      	EM: 13.68   	ORTG: 102.5   	DRTG: 75.13   
+61   Saint Mary's             	EM: 13.64   	ORTG: 144.03  	DRTG: 116.75  
+62   South Carolina           	EM: 13.41   	ORTG: 104.99  	DRTG: 78.17   
+63   Fresno State             	EM: 12.72   	ORTG: 125.57  	DRTG: 100.14  
+64   Oklahoma State           	EM: 12.59   	ORTG: 99.59   	DRTG: 74.4    
+65   Oregon                   	EM: 12.44   	ORTG: 114.39  	DRTG: 89.51   
+66   Rutgers                  	EM: 12.31   	ORTG: 90.94   	DRTG: 66.31   
+67   Colorado                 	EM: 12.0    	ORTG: 112.69  	DRTG: 88.7    
+68   UT-Arlington             	EM: 11.98   	ORTG: 111.03  	DRTG: 87.06   
+69   Rider                    	EM: 11.73   	ORTG: 122.35  	DRTG: 98.9    
+70   Middle Tennessee         	EM: 11.71   	ORTG: 108.58  	DRTG: 85.15   
+71   South Dakota             	EM: 11.6    	ORTG: 105.81  	DRTG: 82.62   
+72   Mississippi State        	EM: 11.14   	ORTG: 105.87  	DRTG: 83.6    
+73   Georgia State            	EM: 10.92   	ORTG: 97.85   	DRTG: 76.02   
+74   Murray State             	EM: 10.59   	ORTG: 123.72  	DRTG: 102.53  
+75   Vermont                  	EM: 10.45   	ORTG: 114.37  	DRTG: 93.47   
+76   Georgia Southern         	EM: 10.2    	ORTG: 114.22  	DRTG: 93.81   
+77   Wisconsin                	EM: 10.08   	ORTG: 109.73  	DRTG: 89.56   
+78   Old Dominion             	EM: 10.02   	ORTG: 96.64   	DRTG: 76.61   
+79   Louisiana Tech           	EM: 10.0    	ORTG: 115.49  	DRTG: 95.48   
+80   St Bonaventure           	EM: 9.93    	ORTG: 109.75  	DRTG: 89.89   
+81   Florida Gulf Coast       	EM: 9.38    	ORTG: 110.67  	DRTG: 91.91   
+82   BYU                      	EM: 9.31    	ORTG: 110.91  	DRTG: 92.3    
+83   South Dakota State       	EM: 9.18    	ORTG: 113.71  	DRTG: 95.34   
+84   Missouri State           	EM: 9.02    	ORTG: 107.02  	DRTG: 88.97   
+85   Boston College           	EM: 8.98    	ORTG: 114.85  	DRTG: 96.88   
+86   Houston                  	EM: 8.96    	ORTG: 110.59  	DRTG: 92.67   
+87   Northern Kentucky        	EM: 8.79    	ORTG: 109.91  	DRTG: 92.33   
+88   Mercer                   	EM: 8.44    	ORTG: 123.22  	DRTG: 106.33  
+89   Evansville               	EM: 8.41    	ORTG: 86.56   	DRTG: 69.74   
+90   New Mexico State         	EM: 8.34    	ORTG: 115.57  	DRTG: 98.88   
+91   Albany                   	EM: 8.32    	ORTG: 126.17  	DRTG: 109.53  
+92   Utah State               	EM: 8.26    	ORTG: 111.01  	DRTG: 94.49   
+93   Bradley                  	EM: 8.15    	ORTG: 85.4    	DRTG: 69.09   
+94   Buffalo                  	EM: 8.13    	ORTG: 116.05  	DRTG: 99.79   
+95   UCLA                     	EM: 8.1     	ORTG: 108.06  	DRTG: 91.85   
+96   Nebraska                 	EM: 7.79    	ORTG: 111.09  	DRTG: 95.52   
+97   Tulane                   	EM: 7.39    	ORTG: 106.37  	DRTG: 91.58   
+98   Georgetown               	EM: 7.36    	ORTG: 109.86  	DRTG: 95.15   
+99   Ole Miss                 	EM: 7.2     	ORTG: 121.67  	DRTG: 107.27  
+100  Army                     	EM: 6.83    	ORTG: 100.27  	DRTG: 86.6    
+101  San Diego                	EM: 6.66    	ORTG: 94.29   	DRTG: 80.97   
+102  Troy                     	EM: 6.63    	ORTG: 113.47  	DRTG: 100.22  
+103  La Salle                 	EM: 6.62    	ORTG: 105.55  	DRTG: 92.3    
+104  Butler                   	EM: 6.52    	ORTG: 102.81  	DRTG: 89.76   
+105  Marquette                	EM: 6.37    	ORTG: 118.29  	DRTG: 105.55  
+106  Illinois                 	EM: 6.25    	ORTG: 101.21  	DRTG: 88.71   
+107  Western Michigan         	EM: 5.6     	ORTG: 101.07  	DRTG: 89.88   
+108  New Mexico               	EM: 5.15    	ORTG: 106.08  	DRTG: 95.77   
+109  Belmont                  	EM: 4.89    	ORTG: 116.01  	DRTG: 106.23  
+110  Georgia                  	EM: 4.75    	ORTG: 95.88   	DRTG: 86.39   
+111  Penn                     	EM: 4.41    	ORTG: 97.48   	DRTG: 88.66   
+112  Iona                     	EM: 4.25    	ORTG: 117.33  	DRTG: 108.83  
+113  Milwaukee                	EM: 4.13    	ORTG: 98.75   	DRTG: 90.5    
+114  Iowa State               	EM: 3.92    	ORTG: 105.56  	DRTG: 97.71   
+115  UC Davis                 	EM: 3.86    	ORTG: 93.82   	DRTG: 86.09   
+116  UC Santa Barbara         	EM: 3.74    	ORTG: 113.38  	DRTG: 105.9   
+117  Northwestern             	EM: 3.72    	ORTG: 107.04  	DRTG: 99.59   
+118  VCU                      	EM: 3.66    	ORTG: 108.05  	DRTG: 100.73  
+119  Liberty                  	EM: 3.28    	ORTG: 103.38  	DRTG: 96.82   
+120  UNC Asheville            	EM: 3.28    	ORTG: 95.47   	DRTG: 88.91   
+121  Montana State            	EM: 3.19    	ORTG: 105.58  	DRTG: 99.19   
+122  North Dakota State       	EM: 3.1     	ORTG: 99.96   	DRTG: 93.76   
+123  Eastern Washington       	EM: 3.03    	ORTG: 97.73   	DRTG: 91.67   
+124  Indiana                  	EM: 2.93    	ORTG: 119.65  	DRTG: 113.8   
+125  Jacksonville State       	EM: 2.88    	ORTG: 106.91  	DRTG: 101.15  
+126  Bucknell                 	EM: 2.77    	ORTG: 116.05  	DRTG: 110.52  
+127  Toledo                   	EM: 2.63    	ORTG: 120.74  	DRTG: 115.47  
+128  UCF                      	EM: 2.58    	ORTG: 76.24   	DRTG: 71.07   
+129  Prairie View A&M         	EM: 2.45    	ORTG: 97.38   	DRTG: 92.47   
+130  Colgate                  	EM: 2.4     	ORTG: 101.83  	DRTG: 97.04   
+131  Lamar                    	EM: 2.32    	ORTG: 99.9    	DRTG: 95.26   
+132  Central Michigan         	EM: 2.3     	ORTG: 102.72  	DRTG: 98.11   
+133  Lipscomb                 	EM: 2.3     	ORTG: 83.95   	DRTG: 79.35   
+134  Grand Canyon             	EM: 2.21    	ORTG: 91.22   	DRTG: 86.81   
+135  Wake Forest              	EM: 1.99    	ORTG: 116.14  	DRTG: 112.16  
+136  Washington               	EM: 1.92    	ORTG: 115.14  	DRTG: 111.31  
+137  UAB                      	EM: 1.89    	ORTG: 110.23  	DRTG: 106.44  
+138  Connecticut              	EM: 1.87    	ORTG: 95.88   	DRTG: 92.14   
+139  Portland State           	EM: 1.56    	ORTG: 106.97  	DRTG: 103.86  
+140  Monmouth                 	EM: 1.55    	ORTG: 90.03   	DRTG: 86.94   
+141  Vanderbilt               	EM: 1.5     	ORTG: 100.18  	DRTG: 97.17   
+142  Loyola (CHI)             	EM: 1.43    	ORTG: 104.97  	DRTG: 102.1   
+143  Texas State              	EM: 1.33    	ORTG: 103.5   	DRTG: 100.83  
+144  Southern Illinois        	EM: 1.28    	ORTG: 92.01   	DRTG: 89.45   
+145  Oregon State             	EM: 1.1     	ORTG: 98.82   	DRTG: 96.62   
+146  Weber State              	EM: 1.01    	ORTG: 103.95  	DRTG: 101.94  
+147  Dayton                   	EM: 0.85    	ORTG: 109.15  	DRTG: 107.44  
+148  Wright State             	EM: 0.69    	ORTG: 83.19   	DRTG: 81.82   
+149  Iowa                     	EM: 0.68    	ORTG: 110.54  	DRTG: 109.19  
+150  LSU                      	EM: 0.66    	ORTG: 132.2   	DRTG: 130.87  
+151  UL Lafayette             	EM: 0.58    	ORTG: 103.45  	DRTG: 102.29  
+152  Wyoming                  	EM: 0.55    	ORTG: 93.47   	DRTG: 92.36   
+153  UNC Greensboro           	EM: 0.52    	ORTG: 103.18  	DRTG: 102.13  
+154  Stanford                 	EM: 0.5     	ORTG: 94.04   	DRTG: 93.03   
+155  Columbia                 	EM: 0.45    	ORTG: 111.84  	DRTG: 110.94  
+156  Yale                     	EM: 0.31    	ORTG: 101.98  	DRTG: 101.35  
+157  Pacific                  	EM: 0.26    	ORTG: 109.97  	DRTG: 109.44  
+158  DePaul                   	EM: 0.13    	ORTG: 96.67   	DRTG: 96.42   
+159  Saint Joseph's           	EM: 0.13    	ORTG: 110.04  	DRTG: 109.78  
+160  Central Connecticut      	EM: -0.05   	ORTG: 110.06  	DRTG: 110.17  
+161  St Francis (PA)          	EM: -0.08   	ORTG: 115.67  	DRTG: 115.83  
+162  Ball State               	EM: -0.18   	ORTG: 108.18  	DRTG: 108.55  
+163  George Washington        	EM: -0.22   	ORTG: 104.5   	DRTG: 104.94  
+164  Hofstra                  	EM: -0.31   	ORTG: 102.73  	DRTG: 103.35  
+165  Stephen F. Austin        	EM: -0.38   	ORTG: 88.02   	DRTG: 88.78   
+166  Tennessee Tech           	EM: -0.43   	ORTG: 114.51  	DRTG: 115.36  
+167  Appalachian State        	EM: -0.48   	ORTG: 106.53  	DRTG: 107.5   
+168  Eastern Michigan         	EM: -0.6    	ORTG: 91.06   	DRTG: 92.26   
+169  Charleston               	EM: -0.62   	ORTG: 83.29   	DRTG: 84.54   
+170  Wagner                   	EM: -0.63   	ORTG: 87.12   	DRTG: 88.39   
+171  Idaho                    	EM: -0.65   	ORTG: 90.17   	DRTG: 91.46   
+172  UT San Antonio           	EM: -0.87   	ORTG: 109.34  	DRTG: 111.07  
+173  Akron                    	EM: -0.87   	ORTG: 93.48   	DRTG: 95.22   
+174  Texas Southern           	EM: -1.05   	ORTG: 117.38  	DRTG: 119.49  
+175  Robert Morris            	EM: -1.06   	ORTG: 85.26   	DRTG: 87.37   
+176  Niagara                  	EM: -1.15   	ORTG: 120.16  	DRTG: 122.45  
+177  Northern Colorado        	EM: -1.15   	ORTG: 84.25   	DRTG: 86.55   
+178  Massachusetts            	EM: -1.16   	ORTG: 86.93   	DRTG: 89.25   
+179  Oakland                  	EM: -1.42   	ORTG: 95.66   	DRTG: 98.5    
+180  Fairfield                	EM: -1.83   	ORTG: 96.78   	DRTG: 100.44  
+181  High Point               	EM: -1.87   	ORTG: 91.65   	DRTG: 95.39   
+182  South Alabama            	EM: -2.05   	ORTG: 80.01   	DRTG: 84.12   
+183  Illinois State           	EM: -2.08   	ORTG: 96.18   	DRTG: 100.33  
+184  Bowling Green            	EM: -2.18   	ORTG: 103.5   	DRTG: 107.87  
+185  CSU Bakersfield          	EM: -2.58   	ORTG: 99.48   	DRTG: 104.64  
+186  Tulsa                    	EM: -2.71   	ORTG: 107.3   	DRTG: 112.71  
+187  East Tennessee St.       	EM: -2.86   	ORTG: 89.45   	DRTG: 95.17   
+188  Georgia Tech             	EM: -2.98   	ORTG: 77.13   	DRTG: 83.08   
+189  Canisius                 	EM: -3.16   	ORTG: 105.79  	DRTG: 112.1   
+190  George Mason             	EM: -3.2    	ORTG: 92.24   	DRTG: 98.63   
+191  UMKC                     	EM: -3.29   	ORTG: 86.71   	DRTG: 93.29   
+192  Saint Peter's            	EM: -3.3    	ORTG: 91.57   	DRTG: 98.18   
+193  Brown                    	EM: -3.34   	ORTG: 89.14   	DRTG: 95.82   
+194  Hawai'i                  	EM: -3.63   	ORTG: 93.21   	DRTG: 100.47  
+195  Campbell                 	EM: -3.63   	ORTG: 110.39  	DRTG: 117.65  
+196  Memphis                  	EM: -3.8    	ORTG: 90.65   	DRTG: 98.26   
+197  North Carolina A&T       	EM: -3.87   	ORTG: 93.63   	DRTG: 101.37  
+198  Pittsburgh               	EM: -3.99   	ORTG: 99.82   	DRTG: 107.81  
+199  Utah Valley              	EM: -4.02   	ORTG: 97.29   	DRTG: 105.32  
+200  Eastern Illinois         	EM: -4.09   	ORTG: 104.64  	DRTG: 112.82  
+201  Seattle                  	EM: -4.14   	ORTG: 101.12  	DRTG: 109.4   
+202  Air Force                	EM: -4.29   	ORTG: 99.59   	DRTG: 108.17  
+203  Cornell                  	EM: -4.31   	ORTG: 108.38  	DRTG: 117.0   
+204  Stony Brook              	EM: -4.32   	ORTG: 96.99   	DRTG: 105.64  
+205  Radford                  	EM: -4.47   	ORTG: 103.49  	DRTG: 112.43  
+206  Coastal Carolina         	EM: -4.49   	ORTG: 100.55  	DRTG: 109.53  
+207  Northeastern             	EM: -4.54   	ORTG: 99.99   	DRTG: 109.08  
+208  California               	EM: -4.67   	ORTG: 96.36   	DRTG: 105.71  
+209  Fordham                  	EM: -4.68   	ORTG: 81.95   	DRTG: 91.3    
+210  North Carolina Central   	EM: -4.82   	ORTG: 97.9    	DRTG: 107.55  
+211  Southeast Missouri State 	EM: -4.94   	ORTG: 102.87  	DRTG: 112.75  
+212  UC Irvine                	EM: -5.34   	ORTG: 96.93   	DRTG: 107.61  
+213  Binghamton               	EM: -5.39   	ORTG: 102.6   	DRTG: 113.37  
+214  Ohio                     	EM: -5.74   	ORTG: 95.14   	DRTG: 106.62  
+215  Tennessee State          	EM: -5.89   	ORTG: 81.74   	DRTG: 93.51   
+216  UMBC                     	EM: -5.99   	ORTG: 115.41  	DRTG: 127.39  
+217  Drake                    	EM: -6.04   	ORTG: 104.03  	DRTG: 116.1   
+218  Fort Wayne               	EM: -6.08   	ORTG: 93.08   	DRTG: 105.25  
+219  North Dakota             	EM: -6.1    	ORTG: 100.62  	DRTG: 112.82  
+220  LIU Brooklyn             	EM: -6.19   	ORTG: 104.16  	DRTG: 116.53  
+221  Indiana State            	EM: -6.47   	ORTG: 91.85   	DRTG: 104.8   
+222  UT Rio Grande Valley     	EM: -6.52   	ORTG: 95.9    	DRTG: 108.95  
+223  Cal Poly                 	EM: -6.8    	ORTG: 95.98   	DRTG: 109.57  
+224  New Orleans              	EM: -6.83   	ORTG: 87.62   	DRTG: 101.27  
+225  Navy                     	EM: -6.84   	ORTG: 91.3    	DRTG: 104.98  
+226  San Francisco            	EM: -7.05   	ORTG: 86.38   	DRTG: 100.48  
+227  Kent State               	EM: -7.07   	ORTG: 95.86   	DRTG: 110.0   
+228  UMass Lowell             	EM: -7.08   	ORTG: 94.37   	DRTG: 108.52  
+229  East Carolina            	EM: -7.1    	ORTG: 90.44   	DRTG: 104.64  
+230  Nicholls                 	EM: -7.28   	ORTG: 92.43   	DRTG: 106.98  
+231  Florida Atlantic         	EM: -7.31   	ORTG: 80.82   	DRTG: 95.45   
+232  Louisiana Monroe         	EM: -7.4    	ORTG: 98.93   	DRTG: 113.73  
+233  Elon                     	EM: -7.43   	ORTG: 104.86  	DRTG: 119.71  
+234  Loyola Marymount         	EM: -7.44   	ORTG: 99.92   	DRTG: 114.79  
+235  Lehigh                   	EM: -7.59   	ORTG: 99.13   	DRTG: 114.3   
+236  Denver                   	EM: -7.68   	ORTG: 98.19   	DRTG: 113.54  
+237  Austin Peay              	EM: -7.7    	ORTG: 94.82   	DRTG: 110.23  
+238  William & Mary           	EM: -7.71   	ORTG: 125.44  	DRTG: 140.86  
+239  Marshall                 	EM: -7.76   	ORTG: 114.63  	DRTG: 130.15  
+240  Hampton                  	EM: -7.78   	ORTG: 85.91   	DRTG: 101.46  
+241  Bethune-Cookman          	EM: -7.83   	ORTG: 85.97   	DRTG: 101.63  
+242  NJIT                     	EM: -8.12   	ORTG: 84.49   	DRTG: 100.72  
+243  Manhattan                	EM: -8.13   	ORTG: 92.91   	DRTG: 109.16  
+244  Delaware                 	EM: -8.27   	ORTG: 97.85   	DRTG: 114.39  
+245  Harvard                  	EM: -8.28   	ORTG: 84.28   	DRTG: 100.83  
+246  Southeastern Louisiana   	EM: -8.33   	ORTG: 90.92   	DRTG: 107.58  
+247  North Texas              	EM: -8.41   	ORTG: 99.02   	DRTG: 115.83  
+248  Southern Utah            	EM: -8.43   	ORTG: 102.76  	DRTG: 119.63  
+249  Furman                   	EM: -8.59   	ORTG: 99.46   	DRTG: 116.64  
+250  Richmond                 	EM: -8.86   	ORTG: 91.5    	DRTG: 109.22  
+251  Saint Louis              	EM: -8.86   	ORTG: 77.54   	DRTG: 95.27   
+252  UIC                      	EM: -8.92   	ORTG: 78.6    	DRTG: 96.44   
+253  VMI                      	EM: -8.97   	ORTG: 85.21   	DRTG: 103.15  
+254  Charlotte                	EM: -9.02   	ORTG: 94.73   	DRTG: 112.76  
+255  Cleveland State          	EM: -9.24   	ORTG: 83.14   	DRTG: 101.63  
+256  Duquesne                 	EM: -9.35   	ORTG: 89.55   	DRTG: 108.25  
+257  Princeton                	EM: -9.4    	ORTG: 92.4    	DRTG: 111.2   
+258  Montana                  	EM: -9.46   	ORTG: 83.25   	DRTG: 102.18  
+259  Northern Illinois        	EM: -9.56   	ORTG: 104.84  	DRTG: 123.97  
+260  Loyola (MD)              	EM: -9.56   	ORTG: 80.0    	DRTG: 99.13   
+261  Chattanooga              	EM: -9.68   	ORTG: 86.48   	DRTG: 105.83  
+262  Santa Clara              	EM: -9.72   	ORTG: 96.12   	DRTG: 115.57  
+263  Pepperdine               	EM: -9.78   	ORTG: 100.16  	DRTG: 119.71  
+264  James Madison            	EM: -10.09  	ORTG: 101.62  	DRTG: 121.79  
+265  Charleston Southern      	EM: -10.11  	ORTG: 88.26   	DRTG: 108.47  
+266  Long Beach State         	EM: -10.11  	ORTG: 89.39   	DRTG: 109.62  
+267  Sam Houston State        	EM: -10.12  	ORTG: 79.29   	DRTG: 99.53   
+268  Colorado State           	EM: -10.25  	ORTG: 86.34   	DRTG: 106.83  
+269  Texas A&M-CC             	EM: -10.34  	ORTG: 77.24   	DRTG: 97.93   
+270  New Hampshire            	EM: -10.39  	ORTG: 84.36   	DRTG: 105.13  
+271  South Florida            	EM: -10.4   	ORTG: 78.09   	DRTG: 98.9    
+272  Western Illinois         	EM: -10.65  	ORTG: 68.41   	DRTG: 89.71   
+273  Boston University        	EM: -10.68  	ORTG: 87.49   	DRTG: 108.84  
+274  American                 	EM: -10.69  	ORTG: 109.01  	DRTG: 130.38  
+275  Omaha                    	EM: -10.92  	ORTG: 93.55   	DRTG: 115.4   
+276  UNC Wilmington           	EM: -11.17  	ORTG: 103.57  	DRTG: 125.9   
+277  South Carolina Upstate   	EM: -11.43  	ORTG: 106.68  	DRTG: 129.53  
+278  Drexel                   	EM: -11.56  	ORTG: 75.93   	DRTG: 99.06   
+279  Arkansas State           	EM: -11.84  	ORTG: 88.35   	DRTG: 112.02  
+280  Grambling                	EM: -11.89  	ORTG: 93.2    	DRTG: 116.98  
+281  IUPUI                    	EM: -12.22  	ORTG: 111.34  	DRTG: 135.79  
+282  North Florida            	EM: -12.31  	ORTG: 96.18   	DRTG: 120.8   
+283  San Jose State           	EM: -12.49  	ORTG: 82.45   	DRTG: 107.43  
+284  Rice                     	EM: -12.49  	ORTG: 70.69   	DRTG: 95.68   
+285  Little Rock              	EM: -12.63  	ORTG: 78.74   	DRTG: 103.99  
+286  Portland                 	EM: -12.87  	ORTG: 95.96   	DRTG: 121.69  
+287  Stetson                  	EM: -13.11  	ORTG: 92.43   	DRTG: 118.65  
+288  Kennesaw State           	EM: -13.25  	ORTG: 83.48   	DRTG: 109.98  
+289  Houston Baptist          	EM: -13.3   	ORTG: 100.17  	DRTG: 126.76  
+290  Miami (OH)               	EM: -13.38  	ORTG: 80.6    	DRTG: 107.36  
+291  Morgan State             	EM: -13.41  	ORTG: 72.57   	DRTG: 99.39   
+292  Cal State Fullerton      	EM: -13.82  	ORTG: 68.13   	DRTG: 95.77   
+293  UT Martin                	EM: -13.95  	ORTG: 80.77   	DRTG: 108.67  
+294  Detroit Mercy            	EM: -14.09  	ORTG: 96.61   	DRTG: 124.79  
+295  Siena                    	EM: -14.46  	ORTG: 95.12   	DRTG: 124.05  
+296  Abilene Christian        	EM: -14.63  	ORTG: 101.88  	DRTG: 131.15  
+297  Southern Mississippi     	EM: -14.72  	ORTG: 86.84   	DRTG: 116.27  
+298  Idaho State              	EM: -14.9   	ORTG: 81.53   	DRTG: 111.33  
+299  McNeese                  	EM: -15.06  	ORTG: 82.06   	DRTG: 112.18  
+300  Western Carolina         	EM: -15.07  	ORTG: 89.55   	DRTG: 119.69  
+301  Central Arkansas         	EM: -15.12  	ORTG: 96.01   	DRTG: 126.25  
+302  UTEP                     	EM: -15.22  	ORTG: 62.46   	DRTG: 92.89   
+303  UC Riverside             	EM: -15.28  	ORTG: 56.5    	DRTG: 87.07   
+304  Marist                   	EM: -15.41  	ORTG: 88.91   	DRTG: 119.73  
+305  Hartford                 	EM: -15.43  	ORTG: 82.97   	DRTG: 113.84  
+306  Dartmouth                	EM: -15.69  	ORTG: 87.97   	DRTG: 119.35  
+307  Wofford                  	EM: -15.8   	ORTG: 101.1   	DRTG: 132.69  
+308  Florida Intl             	EM: -15.9   	ORTG: 69.88   	DRTG: 101.69  
+309  Sacramento State         	EM: -15.97  	ORTG: 71.69   	DRTG: 103.64  
+310  Samford                  	EM: -15.98  	ORTG: 109.66  	DRTG: 141.62  
+311  Winthrop                 	EM: -16.1   	ORTG: 92.87   	DRTG: 125.07  
+312  Sacred Heart             	EM: -16.13  	ORTG: 74.12   	DRTG: 106.39  
+313  St Francis (BKN)         	EM: -16.16  	ORTG: 76.28   	DRTG: 108.6   
+314  Morehead State           	EM: -16.23  	ORTG: 77.4    	DRTG: 109.85  
+315  SIU Edwardsville         	EM: -16.3   	ORTG: 91.21   	DRTG: 123.81  
+316  Green Bay                	EM: -16.31  	ORTG: 67.06   	DRTG: 99.67   
+317  Presbyterian College     	EM: -16.41  	ORTG: 94.46   	DRTG: 127.27  
+318  Maine                    	EM: -16.69  	ORTG: 69.13   	DRTG: 102.51  
+319  Bryant                   	EM: -16.7   	ORTG: 86.31   	DRTG: 119.71  
+320  CSU Northridge           	EM: -16.76  	ORTG: 84.67   	DRTG: 118.18  
+321  Holy Cross               	EM: -17.47  	ORTG: 90.3    	DRTG: 125.25  
+322  Florida A&M              	EM: -17.65  	ORTG: 83.19   	DRTG: 118.49  
+323  Savannah State           	EM: -17.7   	ORTG: 86.16   	DRTG: 121.55  
+324  Lafayette                	EM: -17.77  	ORTG: 103.81  	DRTG: 139.36  
+325  The Citadel              	EM: -17.8   	ORTG: 85.4    	DRTG: 121.0   
+326  Fairleigh Dickinson      	EM: -17.87  	ORTG: 85.43   	DRTG: 121.16  
+327  Howard                   	EM: -18.16  	ORTG: 80.75   	DRTG: 117.07  
+328  Quinnipiac               	EM: -18.35  	ORTG: 84.85   	DRTG: 121.55  
+329  Gardner-Webb             	EM: -18.36  	ORTG: 73.51   	DRTG: 110.22  
+330  Eastern Kentucky         	EM: -18.48  	ORTG: 91.98   	DRTG: 128.94  
+331  Oral Roberts             	EM: -18.64  	ORTG: 97.48   	DRTG: 134.76  
+332  Jacksonville             	EM: -18.7   	ORTG: 84.31   	DRTG: 121.71  
+333  Incarnate Word           	EM: -19.95  	ORTG: 84.89   	DRTG: 124.79  
+334  Jackson State            	EM: -20.27  	ORTG: 78.65   	DRTG: 119.18  
+335  Arkansas-Pine Bluff      	EM: -20.77  	ORTG: 69.92   	DRTG: 111.46  
+336  Southern                 	EM: -21.59  	ORTG: 83.45   	DRTG: 126.62  
+337  Norfolk State            	EM: -22.84  	ORTG: 71.28   	DRTG: 116.95  
+338  Coppin State             	EM: -23.4   	ORTG: 60.43   	DRTG: 107.23  
+339  Mount St Mary's          	EM: -23.43  	ORTG: 96.76   	DRTG: 143.62  
+340  Northern Arizona         	EM: -23.76  	ORTG: 73.02   	DRTG: 120.55  
+341  Northwestern State       	EM: -24.99  	ORTG: 72.54   	DRTG: 122.51  
+342  Youngstown State         	EM: -25.14  	ORTG: 77.05   	DRTG: 127.33  
+343  Alabama A&M              	EM: -25.87  	ORTG: 71.9    	DRTG: 123.63  
+344  Chicago State            	EM: -26.32  	ORTG: 75.7    	DRTG: 128.34  
+345  Longwood                 	EM: -27.15  	ORTG: 54.52   	DRTG: 108.82  
+346  Mississippi Valley State 	EM: -27.39  	ORTG: 73.19   	DRTG: 127.97  
+347  Alcorn State             	EM: -28.01  	ORTG: 76.05   	DRTG: 132.07  
+348  Alabama State            	EM: -30.4   	ORTG: 79.44   	DRTG: 140.25  
+349  South Carolina State     	EM: -34.12  	ORTG: 52.08   	DRTG: 120.32  
+350  Delaware State           	EM: -35.6   	ORTG: 87.56   	DRTG: 158.75  
+351  Maryland-Eastern Shore   	EM: -40.52  	ORTG: 61.93   	DRTG: 142.98  
