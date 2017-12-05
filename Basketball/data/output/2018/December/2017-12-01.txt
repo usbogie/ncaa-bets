@@ -1,12 +1,11 @@
 ~~~~~~~~~~Regular Decision Tree Results~~~~~~~~~~~~~~~~
-Bet       Gonzaga             -9.0   10   1.0  v Creighton           0.5225  9:00 PM CT  
-Caution   Maryland            2.5    -5   ---  v Purdue              0.5215  6:00 PM CT  
-Bet       Boise State         7.0    -2   5.0  @ Oregon              0.5124  8:30 PM CT  
-Caution   Marist              4.5    -9   ---  @ The Citadel         0.5124  2:00 PM CT  
-Caution   Duquesne            5.5    -6   ---  @ Pittsburgh          0.5093  6:00 PM CT  
-Bet       Illinois            5.0    -2   3.0  @ Northwestern        0.5093  8:00 PM CT  
-Bet       Bradley             -7.0   10   3.0  v Eastern Illinois    0.5013  7:00 PM CT  
+Caution   Creighton           9.0    -10  ---  @ Gonzaga             0.5242  9:00 PM CT
+Caution   Maryland            3.5    -5   ---  v Purdue              0.5215  6:00 PM CT
+Bet       Boise State         7.0    -2   5.0  @ Oregon              0.5124  8:30 PM CT
+Caution   Marist              4.5    -9   ---  @ The Citadel         0.5124  2:00 PM CT
+Bet       Illinois            5.5    -2   3.5  @ Northwestern        0.5021  8:00 PM CT
+Bet       Bradley             -7.0   10   3.0  v Eastern Illinois    0.5013  7:00 PM CT
 ~~~~~~~~~~Neutral Decision Tree Results~~~~~~~~~~~~~~~~
-Caution   Manhattan           1.0    -1   0.0  v Holy Cross          0.5342  10:30 AM CT 
-Bet       Towson              4.0    6    10.0 @ La Salle            0.5246  1:00 PM CT  
-Bet       Davidson            10.5   -7   3.5  v North Carolina      0.5028  7:00 PM CT  
+Caution   Manhattan           1.0    -1   0.0  v Holy Cross          0.5342  10:30 AM CT
+Bet       Towson              4.0    6    10.0 @ La Salle            0.5246  1:00 PM CT
+Bet       Davidson            11.0   -7   4.0  v North Carolina      0.5028  7:00 PM CT

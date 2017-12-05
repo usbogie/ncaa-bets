@@ -47,7 +47,7 @@ def get(season=str(this_season)):
             try:
                 new_game = upcoming_games[key]
             except:
-                print(key)
+                print(upcoming_games)
                 new_game = upcoming_games[key]
             new_game['key'] = key
             new_game['spread_home'] = (float(game['close_line']),-110)
@@ -66,6 +66,7 @@ def get(season=str(this_season)):
             new_games.append(new_game)
         except:
             print("In vegas info, no game matched:",game["home"],game["away"])
+
     for game in new_games:
         home = h.teams[game["home"]+season]
         away = h.teams[game["away"]+season]

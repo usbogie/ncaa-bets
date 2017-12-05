@@ -1,18 +1,20 @@
 Game_ID,Away_Abbrv,Home_Abbrv,Away_Score,Home_Score,Game_Away,Game_Home,Game_Year,Game_Date,Game_Tipoff,Game_Location,Neutral_Site,Conference_Competition,Attendance
-400991084,MRST,CIT,92,89,Marist,The Citadel,2017,12/01,15:00:00,McAlister Field House|Charleston|South Carolina,False,False,0
-400991085,HC,MAN,54,70,Holy Cross,Manhattan,2017,12/01,11:30:00,SSE Arena|Belfast|Northern Ireland,True,False,0
-400990071,TOWS,LAS,67,60,Towson,La Salle,2017,12/01,14:00:00,SSE Arena|Belfast|Northern Ireland,True,False,0
-400991582,UMBC,ARMY,0,0,UMBC,Army,2017,12/01,17:00:00,McAlister Field House|Charleston|South Carolina,True,False,0
-400986111,DUQ,PITT,0,0,Duquesne,Pittsburgh,2017,12/01,19:00:00,PPG Paints Arena|Pittsburgh|Pennsylvania,False,False,0
-400986394,PUR,MD,0,0,Purdue,Maryland,2017,12/01,19:00:00,XFINITY Center|College Park|Maryland,False,True,0
-400990143,COPP,OHIO,0,0,Coppin State,Ohio,2017,12/01,19:00:00,Convocation Center (OH)|Athens|Ohio,False,False,0
-400990144,JKST,CMU,0,0,Jackson State,Central Michigan,2017,12/01,19:00:00,McGuirk Arena|Mount Pleasant|Michigan,False,False,0
-400990746,FAIR,WAG,0,0,Fairfield,Wagner,2017,12/01,19:00:00,Spiro Sports Center|Staten Island|New York,False,False,0
-400991395,DEL,NAVY,0,0,Delaware,Navy,2017,12/01,19:00:00,Alumni Hall|Annapolis|Maryland,False,False,0
-400986112,GRAM,GT,0,0,Grambling,Georgia Tech,2017,12/01,19:30:00,McCamish Pavilion|Atlanta|Georgia,False,False,0
-400986110,UNC,DAV,0,0,North Carolina,Davidson,2017,12/01,20:00:00,Spectrum Center|Charlotte|North Carolina,True,False,0
-400988946,ULL,NICH,0,0,UL Lafayette,Nicholls,2017,12/01,20:00:00,Stopher Gymnasium|Thibodaux|Louisiana,False,False,0
-400989634,EIU,BRAD,0,0,Eastern Illinois,Bradley,2017,12/01,20:00:00,Carver Arena|Peoria|Illinois,False,False,0
-400986395,ILL,NW,0,0,Illinois,Northwestern,2017,12/01,21:00:00,Allstate Arena|Rosemont|Illinois,False,True,0
-400988238,BSU,ORE,0,0,Boise State,Oregon,2017,12/01,21:30:00,Matthew Knight Arena|Eugene|Oregon,False,False,0
-400986881,CREI,GONZ,0,0,Creighton,Gonzaga,2017,12/01,22:00:00,McCarthey Athletic Center|Spokane|Washington,False,False,0
+400988954,SHSU,BAY,33,56,Sam Houston State,Baylor,2017,12/04,20:00:00,Ferrell Center|Waco|Texas,False,False,0
+400986405,IOWA,IND,42,44,Iowa,Indiana,2017,12/04,20:00:00,Assembly Hall (Indiana)|Bloomington|Indiana,False,True,0
+400989216,UTSA,OKLA,54,58,UT San Antonio,Oklahoma,2017,12/04,20:00:00,Lloyd Noble Center|Norman|Oklahoma,False,False,0
+400989326,MOST,NDSU,49,45,Missouri State,North Dakota State,2017,12/04,20:00:00,Scheels Center|Fargo|North Dakota,False,False,0
+400990922,BEL,LIP,20,36,Belmont,Lipscomb,2017,12/04,20:15:00,Allen Arena|Nashville|Tennessee,False,False,0
+400986121,FSU,FLA,14,7,Florida State,Florida,2017,12/04,21:00:00,Exactech Arena|Gainesville|Florida,False,False,0
+400989154,NIU,ISU,17,14,Northern Illinois,Iowa State,2017,12/04,21:00:00,Hilton Coliseum|Ames|Iowa,False,False,0
+400986404,MICH,OSU,62,71,Michigan,Ohio State,2017,12/04,18:30:00,Value City Arena|Columbus|Ohio,False,True,12546
+400986403,WIS,PSU,64,63,Wisconsin,Penn State,2017,12/04,19:00:00,Bryce Jordan Center|University Park|Pennsylvania,False,True,0
+400987992,CAM,ECU,66,69,Campbell,East Carolina,2017,12/04,19:00:00,Minges Coliseum|Greenville|North Carolina,False,False,2980
+400988701,APP,WCU,71,72,Appalachian State,Western Carolina,2017,12/04,19:00:00,Ramsey Center|Cullowhee|North Carolina,False,False,0
+400989839,UMES,DUQ,61,0,Maryland-Eastern Shore,Duquesne,2017,12/04,19:00:00,A.J. Palumbo Center|Pittsburgh|Pennsylvania,False,False,1201
+400990555,LIB,GAST,77,74,Liberty,Georgia State,2017,12/04,19:00:00,GSU Sports Arena|Atlanta|Georgia,False,False,0
+400990570,HP,COFC,58,70,High Point,Charleston,2017,12/04,19:00:00,TD Arena|Charleston|South Carolina,False,False,0
+400990753,STON,LIU,71,75,Stony Brook,LIU Brooklyn,2017,12/04,19:00:00,"Wellness, Recreation and Athletic Center|Brooklyn|New York",False,False,953
+400991090,QUIN,CLMB,46,87,Quinnipiac,Columbia,2017,12/04,19:00:00,Levien Gymnasium|New York|New York,False,False,873
+400991663,PENN,HOW,81,68,Penn,Howard,2017,12/04,19:00:00,Burr Gymnasium|Washington|District of Columbia,False,False,0
+400987052,UCA,SF,0,0,Central Arkansas,San Francisco,2017,12/04,22:00:00,War Memorial Gymnasium|San Francisco|California,False,False,0
+401000172,SAC,SMC,0,0,Sacramento State,Saint Mary's,2017,12/04,22:00:00,McKeon Pavilion|Moraga|California,False,False,0

@@ -3,6 +3,7 @@ import urllib.error as error
 from fake_useragent import UserAgent
 from datetime import datetime, timedelta, date
 from bs4 import BeautifulSoup
+import sys
 
 def get_soup(url):
     ua = UserAgent()

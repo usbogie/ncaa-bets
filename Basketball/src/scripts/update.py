@@ -12,11 +12,7 @@ this_season = h.this_season
 my_path = h.path
 
 def run():
-	try:
-		update_lines_only = sys.argv[1]
-	except:
-		update_lines_only = False
-
+	update_lines_only=False
 	print("Get today's ESPN data")
 
 	today_data = espn.get_tonight_info()
@@ -24,7 +20,6 @@ def run():
 		today_data = today_data.drop_duplicates()
 
 	print("Got today's ESPN data")
-
 	if not update_lines_only:
 		print("Get yesterday's EPSN data")
 		last_night_list = espn.update_espn_data((datetime.now() - timedelta(1)).strftime('%Y%m%d'))

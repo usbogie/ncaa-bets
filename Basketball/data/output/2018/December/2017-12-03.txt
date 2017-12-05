@@ -1,0 +1,22 @@
+~~~~~~~~~~Regular Decision Tree Results~~~~~~~~~~~~~~~~
+Bet       Nebraska            19.0   -17  2.0  @ Michigan State      0.5477  3:30 PM CT  
+Bet       Long Beach State    6.5    -4   2.5  v Stanford            0.5435  4:00 PM CT  
+Caution   UCLA                -21.5  19   ---  v Detroit Mercy       0.5297  8:00 PM CT  
+Caution   Georgia Tech        6.0    -14  ---  v Tennessee           0.5215  5:00 PM CT  
+Caution   North Carolina      -19.5  15   ---  v Tulane              0.5215  1:00 PM CT  
+Caution   Auburn              -15.5  15   ---  v George Mason        0.5215  2:00 PM CT  
+Caution   San Diego State     -11.5  7    ---  v Bradley             0.5215  5:00 PM CT  
+Caution   Minnesota           -12.0  8    ---  v Rutgers             0.5215  5:00 PM CT  
+Caution   Illinois            2.5    -4   ---  v Maryland            0.5215  7:00 PM CT  
+Caution   Samford             9.5    -13  ---  @ Jacksonville State  0.5194  2:00 PM CT  
+Caution   Northwestern        13.5   -19  ---  @ Purdue              0.5194  3:00 PM CT  
+Caution   Portland            18.5   -20  ---  @ Boise State         0.5194  3:00 PM CT  
+Bet       Omaha               13.5   -12  1.5  @ Washington          0.516   6:00 PM CT  
+Bet       Coppin State        27.5   -20  7.5  @ Georgetown          0.516   5:30 PM CT  
+Bet       CSU Northridge      14.5   -7   7.5  @ Montana             0.516   8:00 PM CT  
+Bet       Dayton              10.0   -9   1.0  @ Mississippi State   0.516   7:00 PM CT  
+Caution   Temple              -11.0  11   0.0  @ George Washington   0.5099  1:30 PM CT  
+Caution   UCF                 10.0   -11  ---  @ Alabama             0.5099  1:00 PM CT  
+Bet       SIU Edwardsville    14.0   -10  4.0  @ Fort Wayne          0.5058  1:00 PM CT  
+Bet       Louisville          -1.5   4    2.5  v Seton Hall          0.5045  3:00 PM CT  
+Caution   Vanderbilt          -1.0   -4   ---  v Kansas State        0.5021  1:30 PM CT  

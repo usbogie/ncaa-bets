@@ -4,10 +4,10 @@ import sys
 import re
 import json
 import os
-from helpers import get_soup, make_season
+from shared import get_soup, make_season
 
 my_path = os.path.dirname(os.path.abspath(__file__))
-names_path = os.path.join(my_path,'..','names.json')
+names_path = os.path.join(my_path,'..','organizers','names.json')
 data_path = os.path.join(my_path,'..','..','data')
 
 with open(names_path,'r') as infile:
@@ -18,6 +18,7 @@ def get_data(data=[],get_yesterday=False,get_today=False,year=2018):
 	base = "https://www.sportsbookreview.com/betting-odds/ncaa-basketball/?date="
 	today = int(datetime.now().strftime('%Y%m%d'))
 	yesterday = int((datetime.now()-timedelta(1)).strftime('%Y%m%d'))
+	events = []
 	for day in all_dates:
 		if today < int(day.replace('-','')):
 			continue
@@ -28,8 +29,7 @@ def get_data(data=[],get_yesterday=False,get_today=False,year=2018):
 		print(day)
 		url = base + day.replace('-','')
 
-		content = get_soup(url).read()
-		soup = BeautifulSoup(content, "html5lib")
+		soup = get_soup(url)
 
 		games = soup.find_all('div', {'class': 'event-holder holder-complete'})
 
@@ -42,11 +42,37 @@ def get_data(data=[],get_yesterday=False,get_today=False,year=2018):
 				print("Can't find {} or {}".format(teams[0].a.text, teams[1].a.text))
 				continue
 
+			event = {}
+			open_line = game.find('div', {'class': 'el-div eventLine-opener'}).find_all('div', {'class': 'eventLine-book-value'})
+			try:
+				home_open_line = open_line[1].text.split()[0].replace("½",".5")
+				if 'PK' in home_open_line:
+					home_open_line = 0
+			except:
+				try:
+					away_open_line = open_line[0].text.split()[0].replace("½",".5")
+					if 'PK' in away_open_line:
+						away_open_line = 0
+					home_open_line = float(away_open_line) * -1
+				except:
+					print("No open line listed for {} vs {}".format(away, home))
+					continue
 
+			event['home'] = home
+			event['away'] = away
+			event['date'] = day
+			event['open_line'] = float(home_open_line)
 
+			print(event)
+			events.append(event)
+
+	for
+
+	return events
 
 if __name__ == '__main__':
 	year = 2018
-	cur_season = get_data(year=year)
-	csv_path = os.path.join(my_path,'..','..','data','cbbref','{}.csv'.format(year))
-	cur_season.to_csv(csv_path, index=False)
+	data = get_data(year=year)
+	json_path = os.path.join(my_path,'..','..','data','sbr','{}.json'.format(year))
+	with open(json_path,'w') as infile:
+		json.dump(data,infile)

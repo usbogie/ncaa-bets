@@ -125,7 +125,7 @@ def get_tonight_info():
 		except:
 			print("Unrecognized team, continue on {} vs {}".format(html.unescape(competitors[away]['team']['location']),html.unescape(competitors[home]['team']['location'])))
 			continue
-
+		print(names_dict[html.unescape(competitors[away]['team']['location']).replace('\u00E9', 'e')])
 		game_info['Away_Abbrv'] = competitors[away]['team']['abbreviation']
 		game_info['Home_Abbrv'] = competitors[home]['team']['abbreviation']
 		game_info['Away_Score'] = competitors[away]['score']

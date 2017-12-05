@@ -3,10 +3,12 @@ import re
 import json
 import os
 from scrapers.shared import get_soup, make_season
-import helpers as h
 
-my_path = h.path
-names_dict = h.read_names()
+my_path = os.path.dirname(os.path.abspath(__file__))
+names_path = os.path.join(my_path,'..','organizers','names.json')
+
+with open(names_path,'r') as infile:
+	names_dict = json.load(infile)
 
 def ordered(obj):
 	if isinstance(obj, dict):
@@ -16,34 +18,71 @@ def ordered(obj):
 	else:
 		return obj
 
-def get_open_line(table):
-	link = table.find('a', text='BT Movements')['href']
-	url = 'http://www.vegasinsider.com{}/linechanges/y'.format(link)
+def add_open_lines(games, day, yesterday_could_not_find, today_can_not_find):
+	yesterday_could_not_find = today_can_not_find[:]
+	for match in yesterday_could_not_find:
+		found = False
+		for game in games:
+			if game['home'] == match['home'] and game['away'] == match['away']:
+				game['open_line'] = match['open_line']
+				found = True
+				print('Found and updated yesterday line: {} at {} as {}'.format(match['away'], match['home'], match['open_line']))
+				break
+		if not found:
+			print('Cannot update yesterday line: {} at {} as {}'.format(match['away'], match['home'], match['open_line']))
+
+	today_can_not_find = []
+	base = "https://www.sportsbookreview.com/betting-odds/ncaa-basketball/?date="
+	url = base + day.replace('-','')
 
 	soup = get_soup(url)
 
-	if soup.find('h1', {'class': 'page_title'}).text == 'Scoreboard':
-		return -1000
+	matches = soup.find_all('div', {'class': 'event-holder holder-complete'})
 
-	rows = soup.find('table', { 'class': 'rt_railbox_border2' }).findAll('tr')[3:]
-	for row in rows:
-		items = row.findAll('td')
+	for match in matches:
+		teams = match.find('div', {'class': 'el-div eventLine-team'}).find_all('div', {'class': 'eventLine-value'})
 		try:
-			home_open = items[8].text.strip()
-			home_percent = items[9].text.strip()
-			away_percent = items[12].text.strip()
+			away = names_dict[teams[0].a.text]
+			home = names_dict[teams[1].a.text]
 		except:
-			return -1000
+			print("Can't find {} or {}".format(teams[0].a.text, teams[1].a.text))
+			continue
 
-		if not (home_percent=='n/a' or home_percent=='0%' and away_percent=='0%'):
-			if home_open == '+PK':
-				return 0.0
-			else:
-				return float(home_open)
+		open_line = match.find('div', {'class': 'el-div eventLine-opener'}).find_all('div', {'class': 'eventLine-book-value'})
+		try:
+			home_open_line = open_line[1].text.split()[0].replace("½",".5")
+			if 'PK' in home_open_line:
+				home_open_line = 0
+		except:
+			try:
+				away_open_line = open_line[0].text.split()[0].replace("½",".5")
+				if 'PK' in away_open_line:
+					away_open_line = 0
+				home_open_line = float(away_open_line) * -1
+			except:
+				print("No open line listed for {} vs {}".format(away, home))
+				continue
+		found = False
+		for game in games:
+			if game['home'] == home and game['away'] == away:
+				game['open_line'] = home_open_line
+				found = True
+				print('Found and updated: {} at {} as {}'.format(away, home, home_open_line))
+				break
+		if not found:
+			missing_game = {}
+			missing_game['home'] = home
+			missing_game['away'] = away
+			missing_game['open_line'] = home_open_line
+			today_can_not_find.append(missing_game)
+			print('Cannot update: {} at {} as {}'.format(away, home, home_open_line))
 
-	return -1000
+	return yesterday_could_not_find, today_can_not_find
+
 
 def get_data(data=[],get_yesterday=False,get_today=False,year=2018):
+	yesterday_could_not_find = list()
+	today_can_not_find = list()
 	all_dates = make_season(year-1)
 	base = "http://www.vegasinsider.com/college-basketball/matchups/matchups.cfm/date/"
 	today = int(datetime.now().strftime('%Y%m%d'))
@@ -65,6 +104,8 @@ def get_data(data=[],get_yesterday=False,get_today=False,year=2018):
 		if len(game_tables) == 0:
 			print("No games, skipping day")
 
+		games = []
+
 		for table in game_tables:
 			game_info = {}
 			time = table.find('td', {'class': 'viSubHeader1 cellBorderL1 headerTextHot padLeft'}).text
@@ -84,11 +125,17 @@ def get_data(data=[],get_yesterday=False,get_today=False,year=2018):
 
 			try:
 				class_search = 'tabletext' if year < 2014 else 'tableText'
-				game_info['away'] = names_dict[away_info[0].a.text]
+				try:
+					game_info['away'] = names_dict[away_info[0].a.text]
+				except:
+					game_info['away'] = names_dict[away_info[0].font.text]
 				game_info['home'] = names_dict[home_info[0].a.text]
 				print(game_info['away'], game_info['home'])
 			except:
-				print('continuing on {} vs {}'.format(away_info[0].a.text, home_info[0].a.text))
+				try:
+					print('continuing on {} vs {}'.format(away_info[0].a.text, home_info[0].a.text))
+				except:
+					pass
 				continue
 
 			game_info['away_ats'] = re.sub('\s+','',away_info[3].text)
@@ -128,16 +175,7 @@ def get_data(data=[],get_yesterday=False,get_today=False,year=2018):
 					game_info['open_line'] = float(game_info['open_line'])
 
 			if game_info['open_line'] == "":
-				print("No open line, checking line logs")
-				try:
-					candidate_open = get_open_line(table)
-				except:
-					candidate_open = -1000
-				print("Found open line: "+str(candidate_open))
-				if candidate_open == -1000:
-					game_info['open_line'] = game_info['close_line']
-				else:
-					game_info['open_line'] = candidate_open
+				game_info['open_line'] = game_info['close_line']
 
 			if str(game_info['open_line']) == str(game_info['close_line']) and \
 					str(game_info['close_line']) == str(game_info['over_under']) and \
@@ -156,15 +194,21 @@ def get_data(data=[],get_yesterday=False,get_today=False,year=2018):
 			game_info['home_side_pct'] = re.sub('\s+','',home_info[8].text.replace('%', ''))
 			game_info['over_pct'] = re.sub('\s+','',away_info[10].text.replace('%', ''))
 			add = True
+
+
 			for line in data:
 				if ordered(line) == ordered(game_info):
 					add = False
 			if add:
-				data.append(game_info)
+				games.append(game_info)
+
+		yesterday_could_not_find, today_can_not_find = add_open_lines(games, day, yesterday_could_not_find, today_can_not_find)
+		data += games
+
 	return data
 
 if __name__ == '__main__':
-	year = 2018
+	year = 2016
 	data = get_data(year=year)
 	json_path = os.path.join(my_path,'..','..','data','vi','{}.json'.format(year))
 	with open(json_path,'w') as infile:
