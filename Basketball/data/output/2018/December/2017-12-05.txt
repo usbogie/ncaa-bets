@@ -1,0 +1,35 @@
+~~~~~~~~~~Regular Decision Tree Results~~~~~~~~~~~~~~~~
+Caution   UAB                 1.0    -5   ---  @ Troy                0.553   7:00 PM CT  
+Caution   Michigan State      -14.5  10   ---  @ Rutgers             0.5479  6:00 PM CT  
+Caution   Colorado State      16.5   -19  ---  @ Arkansas            0.5479  7:00 PM CT  
+Bet       St Francis (PA)     27.5   -19  8.5  @ Duke                0.5477  8:00 PM CT  
+Caution   North Dakota        19.0   -19  0.0  @ Creighton           0.5477  7:00 PM CT  
+Bet       Montana State       2.0    1    3.0  @ Central Michigan    0.5477  6:00 PM CT  
+Caution   Denver              -8.5   7    ---  v San Jose State      0.5435  8:00 PM CT  
+Caution   Arkansas State      -6.0   6    0.0  v UT Martin           0.5435  7:30 PM CT  
+Bet       Nebraska            9.0    -6   3.0  v Minnesota           0.5435  8:00 PM CT  
+Caution   TCU                 -4.0   1    ---  v SMU                 0.5297  8:00 PM CT  
+Bet       Virginia            4.0    -1   3.0  @ West Virginia       0.524   6:00 PM CT  
+Caution   Butler              -7.5   -4   ---  v Utah                0.5215  8:00 PM CT  
+Caution   Texas Tech          -5.5   4    ---  v Nevada              0.5215  7:00 PM CT  
+Caution   Missouri            -23.5  21   ---  v Miami (OH)          0.5215  8:00 PM CT  
+Caution   Wichita St          -19.0  17   ---  v South Dakota State  0.5215  7:00 PM CT  
+Caution   Notre Dame          -18.5  14   ---  v Ball State          0.5215  6:00 PM CT  
+Caution   Oral Roberts        21.0   -22  ---  @ UNLV                0.5194  9:00 PM CT  
+Caution   Omaha               10.5   -13  ---  @ UC Santa Barbara    0.5194  9:00 PM CT  
+Caution   Wake Forest         -8.0   5    ---  @ Charlotte           0.5168  6:00 PM CT  
+Bet       Eastern Kentucky    15.5   -13  2.5  @ Oregon State        0.516   9:00 PM CT  
+Caution   UC Riverside        6.5    -6   0.5  @ Pepperdine          0.516   9:00 PM CT  
+Bet       Winthrop            12.0   -11  1.0  @ Georgia             0.516   6:00 PM CT  
+Caution   Samford             9.5    -12  ---  @ Memphis             0.516   7:00 PM CT  
+Bet       Vermont             3.5    -1   2.5  @ Marquette           0.5058  6:00 PM CT  
+Caution   James Madison       -7.0   6    ---  @ The Citadel         0.5058  5:00 PM CT  
+Bet       VCU                 6.5    -5   1.5  v Texas               0.5045  6:00 PM CT  
+Caution   Bowling Green       -2.5   1    ---  v Evansville          0.5045  6:00 PM CT  
+Caution   Marshall            -8.0   8    0.0  v Chattanooga         0.5021  6:00 PM CT  
+Bet       VMI                 26.0   -18  8.0  @ Davidson            0.5016  6:00 PM CT  
+~~~~~~~~~~Neutral Decision Tree Results~~~~~~~~~~~~~~~~
+Caution   Villanova           -4.5   5    0.5  @ Gonzaga             0.5272  6:00 PM CT  
+Caution   Grand Canyon        5.5    -9   ---  v St John's           0.527   10:30 PM CT 
+Bet       Texas A&M           -1.0   5    4.0  @ Arizona             0.5138  8:00 PM CT  
+Bet       Syracuse            -6.0   9    3.0  @ Connecticut         0.5138  8:00 PM CT  
