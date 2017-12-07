@@ -39,7 +39,7 @@ def get_soup(url):
     content = page.read()
     return BeautifulSoup(content, "html5lib")
 
-def make_season(start_year=2016):
+def make_season(season):
 	months = ['11', '12', '01', '02', '03', '04']
 
 	dates = {'11': list(range(31)[1:]), '12': list(range(32)[1:]), '01': list(range(32)[1:]), '02': list(range(29)[1:]),
@@ -48,11 +48,11 @@ def make_season(start_year=2016):
 	all_season = []
 	for month in months:
 		if month in ['01', '02', '03', '04']:
-			year = start_year + 1
-			if year % 4 == 0:
-				dates['02'].append(29)
+			year = season
 		else:
-			year = start_year
+			year = season - 1
+		if year % 4 == 0 and month == '02':
+			dates['02'].append(29)
 		for d in dates[month]:
 			day = str(d)
 			if len(day) == 1:

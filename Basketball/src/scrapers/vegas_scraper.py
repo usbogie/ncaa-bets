@@ -83,7 +83,7 @@ def add_open_lines(games, day, yesterday_could_not_find, today_can_not_find):
 def get_data(data=[],get_yesterday=False,get_today=False,year=2018):
 	yesterday_could_not_find = list()
 	today_can_not_find = list()
-	all_dates = make_season(year-1)
+	all_dates = make_season(year)
 	base = "http://www.vegasinsider.com/college-basketball/matchups/matchups.cfm/date/"
 	today = int(datetime.now().strftime('%Y%m%d'))
 	yesterday = int((datetime.now()-timedelta(1)).strftime('%Y%m%d'))

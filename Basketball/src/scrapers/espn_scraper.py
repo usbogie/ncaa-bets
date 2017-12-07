@@ -125,7 +125,7 @@ def get_tonight_info():
 		except:
 			print("Unrecognized team, continue on {} vs {}".format(html.unescape(competitors[away]['team']['location']),html.unescape(competitors[home]['team']['location'])))
 			continue
-		print("{} vs {}".format(game_info['Game_Away'], game_info['Game_Home']))
+		print("{} vs {}".format(game_info['Game_Away'][0], game_info['Game_Home'][0]))
 		game_info['Away_Abbrv'] = competitors[away]['team']['abbreviation']
 		game_info['Home_Abbrv'] = competitors[home]['team']['abbreviation']
 		game_info['Away_Score'] = competitors[away]['score']
@@ -235,9 +235,9 @@ def update_espn_data(date):
 
 	return gen_info
 
-def make_year_dataframe(start_year):
+def make_year_dataframe(season):
 	gen_info = []
-	date_list = make_season(start_year)
+	date_list = make_season(season)
 	for day in date_list:
 		print(day)
 		if (datetime.now() - timedelta(1)).strftime('%Y%m%d') < day:
@@ -251,8 +251,8 @@ if __name__ == '__main__':
 	# today_data.drop_duplicates().to_csv('upcoming_games.csv', index_label='Game_ID')
 	# print("Updated ESPN Data")
 
-	start_year = 2010
-	info_list = make_year_dataframe(start_year)
+	start_season = 2011
+	info_list = make_year_dataframe(start_season)
 	final_info = pd.concat(info_list, ignore_index=True).set_index('Game_ID')
-	csv_path = os.path.join(my_path,'..','..','data','espn','{}.csv'.format(start_year+1))
+	csv_path = os.path.join(my_path,'..','..','data','espn','{}.csv'.format(start_season))
 	final_info.drop_duplicates().to_csv(csv_path)

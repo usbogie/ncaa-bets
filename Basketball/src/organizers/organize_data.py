@@ -102,7 +102,7 @@ def get_spreads(year_list=[this_season]):
                     continue
                 game["spread"] = float(row.close_line) * switch
                 if game["spread"] > 65 or game["spread"] < -65:
-                    print("Found big spread, probably an over/under")
+                    print("Ignoring {} vs {} on {} because spread says {}".format(game["away"],game["home"],game["date"],game["spread"],))
                     continue
                 if game["spread"] + game["margin"] < 0:
                     game["cover"] = game["away"]

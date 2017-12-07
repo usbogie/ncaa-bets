@@ -1,5 +1,5 @@
-from scripts import update, organize, decision_tree
+from scripts import update, organize, predict
 
 update.run()
 organize.run()
-decision_tree.run()
+predict.today()

@@ -14,7 +14,7 @@ with open(names_path,'r') as infile:
 	names_dict = json.load(infile)
 
 def get_data(data=[],get_yesterday=False,get_today=False,year=2018):
-	all_dates = make_season(year-1)
+	all_dates = make_season(year)
 	base = "https://www.sportsbookreview.com/betting-odds/ncaa-basketball/?date="
 	today = int(datetime.now().strftime('%Y%m%d'))
 	yesterday = int((datetime.now()-timedelta(1)).strftime('%Y%m%d'))
