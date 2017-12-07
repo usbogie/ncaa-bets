@@ -16,6 +16,7 @@ game_list = []
 over_games = []
 
 def run(year_list):
+    print("Adding features")
     key_list = []
     saved_years = sorted(list(set(range(h.first_season, this_season + 1)) - set(year_list)))
     if saved_years:

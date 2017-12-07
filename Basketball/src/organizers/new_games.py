@@ -35,7 +35,6 @@ def get(season=str(this_season)):
         except:
             print("In ESPN, {} vs. {} failed".format(row.Game_Away,row.Game_Home))
             continue
-
     data_path = os.path.join(path,'..','data','vi','vegas_today.json')
     with open(data_path,'r') as infile:
         vegas_info = json.load(infile)
@@ -45,23 +44,25 @@ def get(season=str(this_season)):
             away = game['away']
             key = str((home,away))
             new_game = upcoming_games[key]
-            new_game['key'] = key
-            new_game['spread_home'] = (float(game['close_line']),-110)
-            new_game['spread'] = new_game['spread_home'][0]
-            new_game["line_movement"] = 0 if game["open_line"] == "" else new_game["spread"] - float(game["open_line"])
-            new_game["home_public_percentage"] = 50 if game["home_side_pct"] == "" else float(game["home_side_pct"])
-            new_game["home_ats"] = game["home_ats"].split("-")
-            new_game["away_ats"] = game["away_ats"].split("-")
-            new_game["home_ats"] = 0 if new_game["home_ats"][0] == "0" and new_game["home_ats"][1] == "0" else int(new_game["home_ats"][0]) / (int(new_game["home_ats"][0])+int(new_game["home_ats"][1]))
-            new_game["away_ats"] = 0 if new_game["away_ats"][0] == "0" and new_game["away_ats"][1] == "0" else int(new_game["away_ats"][0]) / (int(new_game["away_ats"][0])+int(new_game["away_ats"][1]))
-            try:
-                new_game["total"] = float(game["over_under"])
-                new_game["over_pct"] = float(game["over_pct"])
-            except:
-                new_game["over_pct"] = 50
-            new_games.append(new_game)
         except:
             print("In vegas info, no game matched:",game["home"],game["away"])
+            continue
+        new_game['key'] = key
+        new_game['spread_home'] = (float(game['close_line']),-110)
+        new_game['spread'] = new_game['spread_home'][0]
+        new_game["line_movement"] = 0 if game["open_line"] == "" else new_game["spread"] - float(game["open_line"])
+        print(game["home_side_pct"])
+        new_game["home_public_percentage"] = 50 if game["home_side_pct"] == "" else float(game["home_side_pct"])
+        new_game["home_ats"] = game["home_ats"].split("-")
+        new_game["away_ats"] = game["away_ats"].split("-")
+        new_game["home_ats"] = 0 if new_game["home_ats"][0] == "0" and new_game["home_ats"][1] == "0" else int(new_game["home_ats"][0]) / (int(new_game["home_ats"][0])+int(new_game["home_ats"][1]))
+        new_game["away_ats"] = 0 if new_game["away_ats"][0] == "0" and new_game["away_ats"][1] == "0" else int(new_game["away_ats"][0]) / (int(new_game["away_ats"][0])+int(new_game["away_ats"][1]))
+        try:
+            new_game["total"] = float(game["over_under"])
+            new_game["over_pct"] = float(game["over_pct"])
+        except:
+            new_game["over_pct"] = 50
+        new_games.append(new_game)
 
     for game in new_games:
         home = h.teams[game["home"]+season]
