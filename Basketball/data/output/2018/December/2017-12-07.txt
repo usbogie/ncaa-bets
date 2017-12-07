@@ -1,0 +1,45 @@
+~~~~~~~~~~Regular Decision Tree Results~~~~~~~~~~~~~~~~
+Caution   Pacific             4.0    -9   ---  @ UC Davis            0.552   9:30 PM CT  
+Caution   Eastern Illinois    -4.5   3    ---  @ Green Bay           0.552   7:00 PM CT  
+Caution   Oakland             -1.5   -2   ---  @ Eastern Michigan    0.552   6:00 PM CT  
+Caution   Richmond            11.0   -14  ---  @ Old Dominion        0.5487  6:00 PM CT  
+Bet       SIU Edwardsville    7.5    -6   1.5  @ IUPUI               0.5487  6:00 PM CT  
+Caution   New Mexico          7.5    -8   ---  @ Colorado            0.5487  8:00 PM CT  
+Caution   Princeton           4.0    -10  ---  @ George Washington   0.5487  6:00 PM CT  
+Caution   UC Irvine           8.0    -9   ---  @ Utah State          0.5432  8:00 PM CT  
+Caution   Long Beach State    -2.5   -6   ---  @ Southern Utah       0.5432  7:30 PM CT  
+Caution   St Bonaventure      -8.5   5    ---  @ Canisius            0.5432  6:00 PM CT  
+Caution   Drake               10.0   -13  ---  @ South Dakota        0.5432  7:00 PM CT  
+Caution   Wisconsin           4.0    -8   ---  @ Temple              0.5432  6:00 PM CT  
+Caution   Idaho               -3.5   -1   ---  v Washington State    0.5314  9:00 PM CT  
+Caution   Delaware            4.0    -5   ---  v Buffalo             0.5314  6:00 PM CT  
+Caution   Houston             -15.5  14   ---  v Fairfield           0.5314  11:00 AM CT 
+Caution   BYU                 -11.0  11   0.0  v Illinois State      0.5314  8:00 PM CT  
+Caution   Alabama             -4.0   -1   ---  v Rhode Island        0.5314  7:00 PM CT  
+Bet       Middle Tennessee    3.0    5    8.0  @ Vanderbilt          0.5236  7:00 PM CT  
+Bet       Southern Illinois   2.5    5    7.5  @ Saint Louis         0.5231  7:00 PM CT  
+Bet       Cleveland State     13.5   -10  3.5  @ Western Michigan    0.5231  6:00 PM CT  
+Caution   CSU Northridge      2.5    -7   ---  @ Idaho State         0.5231  8:00 PM CT  
+Caution   Hofstra             4.0    -7   ---  @ Monmouth            0.5231  6:00 PM CT  
+Caution   North Carolina      -32.0  28   ---  v Western Carolina    0.5208  6:00 PM CT  
+Caution   Illinois            -18.0  12   ---  v Austin Peay         0.5208  7:00 PM CT  
+Caution   East Tennessee St.  1.5    -5   ---  v Northern Kentucky   0.5208  6:00 PM CT  
+Caution   Virginia Tech       -21.0  14   ---  v Radford             0.5208  5:00 PM CT  
+Caution   Loyola Marymount    -2.5   -3   ---  v Portland State      0.5208  9:00 PM CT  
+Caution   Florida             -16.5  14   ---  v Loyola (CHI)        0.5208  7:00 PM CT  
+Caution   Indiana State       -3.5   -3   ---  @ North Texas         0.5143  7:00 PM CT  
+Caution   Kent State          24.0   -25  ---  @ Xavier              0.5143  6:00 PM CT  
+Caution   Wyoming             9.5    -11  ---  @ South Carolina      0.5143  6:00 PM CT  
+Bet       Siena               23.5   -21  2.5  @ Louisville          0.5098  6:00 PM CT  
+Bet       Toledo              -5.0   8    3.0  @ Detroit Mercy       0.5098  6:00 PM CT  
+Caution   William & Mary      6.0    -5   1.0  @ George Mason        0.5098  6:00 PM CT  
+Bet       Tennessee Tech      8.5    -7   1.5  @ Dayton              0.5044  6:00 PM CT  
+Caution   Cal State Fullerton -1.0   -2   ---  @ Portland            0.5044  9:00 PM CT  
+Caution   Harvard             -1.5   -3   ---  @ Fordham             0.5014  6:00 PM CT  
+Caution   Georgia Tech        -3.0   2    ---  @ Wofford             0.5014  6:00 PM CT  
+Bet       Brown               18.5   -16  2.5  @ Providence          0.5013  6:00 PM CT  
+Caution   Montana             12.5   -14  ---  @ UCLA                0.5013  10:00 PM CT 
+Caution   Fort Wayne          -2.0   -2   ---  @ Akron               0.5013  6:00 PM CT  
+Bet       Central Connecticut 11.0   -3   8.0  @ DePaul              0.5013  8:00 PM CT  
+~~~~~~~~~~Neutral Decision Tree Results~~~~~~~~~~~~~~~~
+Caution   Washington          22.0   -25  ---  @ Kansas              0.5031  8:00 PM CT  

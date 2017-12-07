@@ -8,6 +8,7 @@ this_season = h.this_season
 path = h.path
 
 def get_sports_ref_data(year_list=[this_season]):
+    print("Getting College Basketball Reference Data")
     years = []
     for year in year_list:
         data_path = os.path.join(path,'..','data','cbbref','{}.csv'.format(year))
@@ -68,7 +69,8 @@ def get_sports_ref_data(year_list=[this_season]):
             except:
                 print(row.team,row.opponent)
                 continue
-    print(x)
+    #print(x)
+    print()
 
 def get_spreads(year_list=[this_season]):
     print("Getting sportsbook info from Vegas Insider")
@@ -136,6 +138,7 @@ def get_spreads(year_list=[this_season]):
                     continue
             except:
                 continue
+    print()
 
 def get_old_games(year_list=[this_season]):
     print("Getting old games from ESPN")
@@ -182,3 +185,4 @@ def get_old_games(year_list=[this_season]):
                     away["games"].append(key)
             except:
                 continue
+    print()

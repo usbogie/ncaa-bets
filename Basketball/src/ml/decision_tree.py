@@ -1,13 +1,11 @@
-from pprint import pprint
 import numpy as np
 import pandas as pd
 from sklearn import tree
 from sklearn.model_selection import GridSearchCV
-from sklearn.feature_selection import RFECV, RFE
+from sklearn.feature_selection import RFE
 from time import time
 from datetime import date
 from operator import itemgetter
-import matplotlib.pyplot as plt
 import helpers as h
 from ml import ml_shared as mls
 from scrapers.shared import make_season
@@ -15,10 +13,12 @@ import os
 
 my_path = h.path
 this_season = h.this_season
-games_path = os.path.join(my_path,'..','data','composite','games.csv')
-all_games = pd.read_csv(games_path)
-n_games = all_games.ix[all_games['true_home_game'] == 0]
-h_games = all_games.ix[all_games['true_home_game'] == 1]
+
+all_games = mls.all_games
+todays_games = mls.todays_games
+h_games = mls.h_games
+n_games = mls.n_games
+
 game_type = ['home','neutral']
 features = ["DT_home_winner","DT_away_movement","DT_home_public","DT_away_public",
             "DT_home_ats","DT_away_ats","DT_home_tPAr","DT_home_reb"]
@@ -235,8 +235,6 @@ def print_picks(games,game_type,prob=.5,check_pmargin=False):
 
 
 def predict_today():
-    path = os.path.join(my_path,'..','data','composite','todays_games.csv')
-    todays_games = pd.read_csv(path)
     todays_n_games = todays_games.ix[todays_games['true_home_game']==0]
     todays_h_games = todays_games.ix[todays_games['true_home_game']==1]
     t_game_list = [todays_h_games,todays_n_games]
@@ -246,7 +244,7 @@ def predict_today():
         os.makedirs(output_path)
     write_path = os.path.join(output_path,'{}.txt'.format(date.today()))
     write_file = open(write_path, 'w')
-    for i in range(2):
+    for i in range(len(game_list)):
         if len(t_game_list[i]) == 0:
             continue
         games = mls.get_train_data(game_list[i],2011)

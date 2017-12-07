@@ -33,7 +33,7 @@ def get(season=str(this_season)):
             game["true_home_game"] = 1 if not row.Neutral_Site else 0
             game["conf"] = 1 if row.Conference_Competition else 0
         except:
-            print(row.Game_Home,row.Game_Away)
+            print("In ESPN, {} vs. {} failed".format(row.Game_Away,row.Game_Home))
             continue
 
     data_path = os.path.join(path,'..','data','vi','vegas_today.json')
@@ -44,11 +44,7 @@ def get(season=str(this_season)):
             home = game['home']
             away = game['away']
             key = str((home,away))
-            try:
-                new_game = upcoming_games[key]
-            except:
-                print(upcoming_games)
-                new_game = upcoming_games[key]
+            new_game = upcoming_games[key]
             new_game['key'] = key
             new_game['spread_home'] = (float(game['close_line']),-110)
             new_game['spread'] = new_game['spread_home'][0]
@@ -153,7 +149,7 @@ def get(season=str(this_season)):
         except:
             pass
 
-        print("Found:",game["home"],game["away"])
+        #print("Found:",game["home"],game["away"])
     if new_games:
         data_path = os.path.join(path,'..','data','composite','todays_games.csv')
         with open(data_path,'w') as outfile:
@@ -170,3 +166,5 @@ def get(season=str(this_season)):
             writer.writeheader()
             for game in new_over_games:
                 writer.writerow(game)
+    print()
+    

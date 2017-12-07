@@ -48,12 +48,10 @@ def run():
 			vegasfile.truncate()
 			json.dump(yesterday_games, vegasfile)
 		print("Updated Yesterday Vegas Insider")
-		'''
 		cur_season = cbbref.get_games(year=this_season)
 		cbbref_path = os.path.join(my_path,'..','data','cbbref','{}.csv'.format(this_season))
 		cur_season.to_csv(cbbref_path, index=False)
 		print("Updated cbbref")
-		'''
 
 	data = vi.get_data(get_today = True)
 

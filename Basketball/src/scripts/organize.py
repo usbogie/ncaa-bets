@@ -8,6 +8,6 @@ def run():
 	organize_data.get_spreads(year_list)
 	organize_data.get_sports_ref_data(year_list)
 	h.save()
-	add_features.betsy()
+	add_features.run(year_list)
 	new_games.get()
 	rankings.get()

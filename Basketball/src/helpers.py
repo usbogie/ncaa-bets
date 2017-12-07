@@ -5,6 +5,7 @@ from datetime import datetime, timedelta, date
 
 path = os.path.dirname(os.path.abspath(__file__))
 this_season = date.today().year + 1 if date.today().month > 4 else date.today().year
+first_season = 2011
 
 months = {
     11: 'November',
