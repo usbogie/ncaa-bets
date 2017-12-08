@@ -14,11 +14,6 @@ import os
 my_path = h.path
 this_season = h.this_season
 
-all_games = mls.all_games
-todays_games = mls.todays_games
-h_games = mls.h_games
-n_games = mls.n_games
-
 game_type = ['home','neutral']
 features = ["DT_home_winner","DT_away_movement","DT_home_public","DT_away_public",
             "DT_home_ats","DT_away_ats","DT_home_tPAr","DT_home_reb"]
@@ -27,13 +22,14 @@ n_features = ["DT_home_winner",
             "DT_home_public","DT_home_ats",
             "DT_home_reb"]
 
-game_list = [h_games,n_games]
 samples = [575,1]
 depths = [6,4]
+min_prob = .52
+pdiff = -4
 feat_list = [features,n_features]
 
-def run_gridsearch():
-    X_train,y = mls.pick_features(h_games,features)
+def run_gridsearch(games):
+    X_train,y = mls.pick_features(games,features)
     param_grid = {"criterion": ["gini"],
               "max_depth": [None,2,3,4,5,6,7,8,9],
               "min_samples_leaf": [50,75,100,125,150,175,200,250,300,325,350,375,400,450,500,550,600,650]}
@@ -64,22 +60,22 @@ def run_gridsearch():
         print("")
 
 
-def track_today(results_df,prob = .5,pdiff=0):
+def track_today(results_df):
     right = 0
     wrong = 0
     for idx, row in results_df.iterrows():
-        if float(row['results']) < 0 and row['home_cover'] < 0 and float(row['prob']) >= prob and row['pmargin'] + row['spread'] <= -1 * pdiff:
+        if float(row['results']) < 0 and row['home_cover'] < 0 and float(row['prob']) >= min_prob and row['pmargin'] + row['spread'] <= -1 * pdiff:
             right += 1
-        elif float(row['results']) < 0 and row['home_cover'] > 0 and float(row['prob']) >= prob and row['pmargin'] + row['spread'] <= -1 * pdiff:
+        elif float(row['results']) < 0 and row['home_cover'] > 0 and float(row['prob']) >= min_prob and row['pmargin'] + row['spread'] <= -1 * pdiff:
             wrong += 1
-        elif float(row['results']) > 0 and row['home_cover'] < 0 and float(row['prob']) >= prob and row['pmargin'] + row['spread'] >= 1 * pdiff:
+        elif float(row['results']) > 0 and row['home_cover'] < 0 and float(row['prob']) >= min_prob and row['pmargin'] + row['spread'] >= 1 * pdiff:
             wrong += 1
-        elif float(row['results']) > 0 and row['home_cover'] > 0 and float(row['prob']) >= prob and row['pmargin'] + row['spread'] >= 1 * pdiff:
+        elif float(row['results']) > 0 and row['home_cover'] > 0 and float(row['prob']) >= min_prob and row['pmargin'] + row['spread'] >= 1 * pdiff:
             right += 1
     return right,wrong
 
 
-def find_min_samples():
+def find_min_samples(game_list):
     min_samp_dict = {}
     feature_dict = {}
     for test_year in range(2011,this_season + 1):
@@ -111,7 +107,7 @@ def find_min_samples():
             results_df = test_data[['away','home','pmargin','spread','home_cover']]
             results_df.insert(5, 'results', resultstree)
             results_df.insert(6, 'prob', probs)
-            right,wrong = track_today(results_df,prob=.53,pdiff = .5)
+            right,wrong = track_today(results_df)
             profit = right - 1.05 * wrong
             if min_samp_dict.get(min_samples,0) == 0:
                 min_samp_dict[min_samples] = [profit]
@@ -129,7 +125,7 @@ def find_min_samples():
     for key in sorted(list(feature_dict.keys())):
         print(key,feature_dict[key])
 
-def test():
+def test(game_list):
     min_samp_dict = {}
     feature_dict = {}
     total_profit = 0
@@ -169,7 +165,7 @@ def test():
             results_df = test_data[['away','home','pmargin','spread','home_cover']]
             results_df.insert(5, 'results', resultstree)
             results_df.insert(6, 'prob', probs)
-            right,wrong = track_today(results_df,prob=.53,pdiff = .5)
+            right,wrong = track_today(results_df)
             total_right += right
             total_wrong += wrong
         profit = total_right - 1.05 * total_wrong
@@ -222,7 +218,7 @@ def print_picks(games,game_type,prob=.5,check_pmargin=False):
                 pmargin = str(row['pmargin'] * -1)
                 diff = str(-1 * (row['spread'] + row['pmargin']))
                 loc = "@ "
-            bet_string = 'Bet' if (float(diff) >=.5 and row['prob']>=.53) or (float(diff) >= 1 and row['prob'] >= .51) or float(diff) >= 1.5 else 'Caution'
+            bet_string = 'Bet' if (float(diff) >= pdiff and row['prob']>=min_prob) else 'Caution'
             if float(diff) < 0:
                 diff = '---'
             elif float(diff) == 0:
@@ -234,7 +230,9 @@ def print_picks(games,game_type,prob=.5,check_pmargin=False):
     return games
 
 
-def predict_today():
+def predict_today(game_list):
+    today_path = os.path.join(my_path,'..','data','composite','todays_games.csv')
+    todays_games = pd.read_csv(today_path)
     todays_n_games = todays_games.ix[todays_games['true_home_game']==0]
     todays_h_games = todays_games.ix[todays_games['true_home_game']==1]
     t_game_list = [todays_h_games,todays_n_games]
@@ -244,10 +242,10 @@ def predict_today():
         os.makedirs(output_path)
     write_path = os.path.join(output_path,'{}.txt'.format(date.today()))
     write_file = open(write_path, 'w')
-    for i in range(len(game_list)):
+    for i in range(len(t_game_list)):
         if len(t_game_list[i]) == 0:
             continue
-        games = mls.get_train_data(game_list[i],2011)
+        games = mls.get_train_data(game_list[i])
         game_matrix = t_game_list[i].as_matrix(feat_list[i])
         X_train,y = mls.pick_features(games,feat_list[i])
 
@@ -272,4 +270,4 @@ def predict_today():
         today_resultsdf = t_game_list[i][['away','home','pmargin','spread','tipstring']]
         today_resultsdf.insert(5, 'results', today_results)
         today_resultsdf.insert(6, 'prob', probs)
-        write_file.writelines(print_picks(today_resultsdf,game_types[i],prob=.5,))
+        write_file.writelines(print_picks(today_resultsdf,game_types[i],prob=.5))

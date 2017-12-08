@@ -1,12 +1,12 @@
 Game_ID,Away_Abbrv,Home_Abbrv,Away_Score,Home_Score,Game_Away,Game_Home,Game_Year,Game_Date,Game_Tipoff,Game_Location,Neutral_Site,Conference_Competition,Attendance
-400986412,VALP,PUR,0,0,Valparaiso,Purdue,2017,12/07,18:30:00,Mackey Arena|West Lafayette|Indiana,False,False,0
-400986411,OHIO,MD,0,0,Ohio,Maryland,2017,12/07,19:00:00,XFINITY Center|College Park|Maryland,False,False,0
-400986413,NJIT,RUTG,0,0,NJIT,Rutgers,2017,12/07,19:00:00,Louis Brown Athletic Center|Piscataway|New Jersey,False,False,0
-400988707,ELON,UNCG,0,0,Elon,UNC Greensboro,2017,12/07,19:00:00,Greensboro Coliseum|Greensboro|North Carolina,False,False,0
-400990072,DREX,LAS,0,0,Drexel,La Salle,2017,12/07,19:00:00,Tom Gola Arena|Philadelphia|Pennsylvania,False,False,0
-400991094,QUIN,HART,0,0,Quinnipiac,Hartford,2017,12/07,19:00:00,Chase Arena|West Hartford|Connecticut,False,False,0
-400991562,STON,CLMB,0,0,Stony Brook,Columbia,2017,12/07,19:00:00,Levien Gymnasium|New York|New York,False,False,0
-400986410,IOWA,ISU,0,0,Iowa,Iowa State,2017,12/07,20:00:00,Hilton Coliseum|Ames|Iowa,False,False,0
-400989643,UTA,UNI,0,0,UT-Arlington,Northern Iowa,2017,12/07,20:00:00,McLeod Center|Cedar Falls|Iowa,False,False,0
-400988518,HOW,GTWN,0,0,Howard,Georgetown,2017,12/07,20:30:00,Capital One Arena|Washington|District of Columbia,False,False,0
-400987053,EWU,SF,0,0,Eastern Washington,San Francisco,2017,12/07,22:00:00,War Memorial Gymnasium|San Francisco|California,False,False,0
+400986412,VALP,PUR,50,80,Valparaiso,Purdue,2017,12/07,18:30:00,Mackey Arena|West Lafayette|Indiana,False,False,14232
+400986411,OHIO,MD,62,87,Ohio,Maryland,2017,12/07,19:00:00,XFINITY Center|College Park|Maryland,False,False,12914
+400986413,NJIT,RUTG,64,73,NJIT,Rutgers,2017,12/07,19:00:00,Louis Brown Athletic Center|Piscataway|New Jersey,False,False,3732
+400988707,ELON,UNCG,44,75,Elon,UNC Greensboro,2017,12/07,19:00:00,Greensboro Coliseum|Greensboro|North Carolina,False,False,2446
+400990072,DREX,LAS,72,70,Drexel,La Salle,2017,12/07,19:00:00,Tom Gola Arena|Philadelphia|Pennsylvania,False,False,1451
+400991094,QUIN,HART,75,77,Quinnipiac,Hartford,2017,12/07,19:00:00,Chase Arena|West Hartford|Connecticut,False,False,1019
+400991562,STON,CLMB,76,66,Stony Brook,Columbia,2017,12/07,19:00:00,Levien Gymnasium|New York|New York,False,False,1231
+400986410,IOWA,ISU,78,84,Iowa,Iowa State,2017,12/07,20:00:00,Hilton Coliseum|Ames|Iowa,False,False,14384
+400989643,UTA,UNI,58,62,UT-Arlington,Northern Iowa,2017,12/07,20:00:00,McLeod Center|Cedar Falls|Iowa,False,False,3630
+400988518,HOW,GTWN,67,81,Howard,Georgetown,2017,12/07,20:30:00,Capital One Arena|Washington|District of Columbia,False,False,4543
+400987053,EWU,SF,71,81,Eastern Washington,San Francisco,2017,12/07,22:00:00,War Memorial Gymnasium|San Francisco|California,False,False,1137

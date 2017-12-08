@@ -19,7 +19,7 @@ def run():
 	if not today_data.empty:
 		today_data = today_data.drop_duplicates()
 
-	print("Got today's ESPN data")
+	print("Got today's ESPN data\n")
 	if not update_lines_only:
 		print("Get yesterday's EPSN data")
 		last_night_list = espn.update_espn_data((datetime.now() - timedelta(1)).strftime('%Y%m%d'))
@@ -38,7 +38,7 @@ def run():
 
 		today_path = os.path.join(my_path,'..','data','espn','upcoming_games.csv')
 		today_data.to_csv(today_path, index_label='Game_ID')
-		print("Updated ESPN Data")
+		print("Updated ESPN Data\n")
 
 		vi_path = os.path.join(my_path,'..','data','vi','{}.json'.format(this_season))
 		with open(vi_path, 'r+') as vegasfile:
@@ -47,13 +47,11 @@ def run():
 			vegasfile.seek(0)
 			vegasfile.truncate()
 			json.dump(yesterday_games, vegasfile)
-		print("Updated Yesterday Vegas Insider")
-		'''
+		print("Updated Yesterday Vegas Insider\n")
 		cur_season = cbbref.get_games(year=this_season)
 		cbbref_path = os.path.join(my_path,'..','data','cbbref','{}.csv'.format(this_season))
 		cur_season.to_csv(cbbref_path, index=False)
 		print("Updated cbbref")
-		'''
 
 	data = vi.get_data(get_today = True)
 
@@ -84,4 +82,4 @@ def run():
 	vi_path = os.path.join(my_path,'..','data','vi','vegas_today.json')
 	with open(vi_path, 'w') as outfile:
 		json.dump(data, outfile)
-	print("Updated Vegas info for today")
+	print("Updated Vegas Insider for today\n")

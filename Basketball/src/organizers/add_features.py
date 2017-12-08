@@ -9,22 +9,17 @@ from scrapers.shared import make_season
 
 path = h.path
 this_season = h.this_season
-games_path = os.path.join(path,'..','data','composite','games.csv')
-
+num_teams = 351
 preseason_length = 4
-game_list = []
 over_games = []
 
 def run(year_list):
     print("Adding features")
-    key_list = []
+    gamesdf = pd.DataFrame()
     saved_years = sorted(list(set(range(h.first_season, this_season + 1)) - set(year_list)))
     if saved_years:
-        gamesdf = pd.read_csv(games_path)
-        key_list = list(gamesdf.keys())
-        for year in saved_years:
-            tmp = gamesdf.ix[gamesdf['season']==year].to_dict('records')
-            game_list.extend(tmp)
+        gamesdf = pd.concat([h.gamesdf.ix[h.gamesdf['season']==year] for year in saved_years])
+    game_list = []
     home_ortg_std_list = []
     away_ortg_std_list = []
     home_score_std_list = []
@@ -74,8 +69,8 @@ def run(year_list):
                 except:
                     continue
                 try:
-                    home = h.teams[game["home"]+game["season"]]
-                    away = h.teams[game["away"]+game["season"]]
+                    home = h.teams[game["home"]+str(game["season"])]
+                    away = h.teams[game["away"]+str(game["season"])]
                 except:
                     continue
                 team_list = [home,away]
@@ -285,7 +280,11 @@ def run(year_list):
     print("Ties:",correct)
     '''
     print()
-    save(key_list)
+    try:
+        gamesdf = pd.concat([gamesdf, pd.DataFrame(game_list)],ignore_index=True).set_index('key')
+    except:
+        gamesdf = pd.DataFrame(game_list)
+    save(gamesdf)
 
 def get_standard_deviations_averages(year):
     FT_list = []
@@ -310,8 +309,8 @@ def get_averages(year):
         team_year = key[-4:]
         if team_year != str(year):
             continue
-        averages["o"+team_year] = averages.get("o"+team_year,0) + team["adj_ortg"][-1] / 351
-        averages["t"+team_year] = averages.get("t"+team_year,0) + team["adj_temp"][-1] / 351
+        averages["o"+team_year] = averages.get("o"+team_year,0) + team["adj_ortg"][-1] / num_teams
+        averages["t"+team_year] = averages.get("t"+team_year,0) + team["adj_temp"][-1] / num_teams
     return averages
 
 # Gets starting stats for a team in the year
@@ -335,8 +334,8 @@ def run_preseason():
         # Get average of each stat for each team
         for i in range(game_count):
             game = h.game_dict[team["games"][i]]
-            home = h.teams[game["home"]+game["season"]]
-            away = h.teams[game["away"]+game["season"]]
+            home = h.teams[game["home"]+str(game["season"])]
+            away = h.teams[game["away"]+str(game["season"])]
             team["pre_adj_temp"] = team.get("pre_adj_temp",0) + game["Pace"] / game_count
             try:
                 team["over_rec"][0] += 1 if game["over"] == .5 else 0
@@ -376,8 +375,8 @@ def run_preseason():
             pre_adj_tempo = 0
             for i in range(game_count):
                 game = h.game_dict[p_game_list[i]]
-                home = h.teams[game["home"]+game["season"]]
-                away = h.teams[game["away"]+game["season"]]
+                home = h.teams[game["home"]+str(game["season"])]
+                away = h.teams[game["away"]+str(game["season"])]
                 # Home court advantage values taken into account only if true home game
                 home_o = 3 if game["true_home_game"] == 1 else 0
                 away_o = 2 if game["true_home_game"] == 1 else 0
@@ -422,8 +421,8 @@ def eliminate_games_missing_data():
                 keys_to_remove.add(key)
     for key in keys_to_remove:
         game = h.game_dict[key]
-        h.teams[game["home"]+game["season"]]["games"].remove(key)
-        h.teams[game["away"]+game["season"]]["games"].remove(key)
+        h.teams[game["home"]+str(game["season"])]["games"].remove(key)
+        h.teams[game["away"]+str(game["season"])]["games"].remove(key)
 
 # Creates game dictionary that facilitates getting games played on the same date
 def get_game_date_dict():
@@ -436,17 +435,6 @@ def get_game_date_dict():
             game_date_dict[game["date"]] = [game["key"]]
     return game_date_dict
 
-def save(keys):
-    key_list = keys
-    if not key_list:
-        key_set = set()
-        for game in game_list:
-            for k in game.keys():
-                key_set.add(k)
-        key_list = list(key_set)
-
-    with open(games_path,'w') as outfile:
-        writer = csv.DictWriter(outfile,fieldnames = list(key_list))
-        writer.writeheader()
-        for game in game_list:
-            writer.writerow(game)
+def save(games):
+    h.gamesdf = games
+    games.to_csv(h.games_path)

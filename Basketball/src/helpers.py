@@ -25,22 +25,24 @@ def refresh_game_dict():
     with open(game_dict_path,'w') as outfile:
         json.dump({}, outfile)
 
+
 def read_game_dict():
     with open(game_dict_path,'r') as infile:
         return json.load(infile)
+
 
 def write_game_dict(game_dict):
     with open(game_dict_path,'w') as outfile:
         json.dump(game_dict, outfile)
 
+
 def refresh_games_csv():
-    with open(games_path,'w') as blank:
-        writer = csv.DictWriter(outfile,fieldnames = [])
-        writer.writeheader()
-        writer.writerow({})
+    pd.DataFrame().to_csv(games_path)
+
 
 def read_games_csv():
     return pd.read_csv(games_path)
+
 
 def refresh_teams(year_list=range(2011,this_season+1)):
     names_dict = read_names()
@@ -66,23 +68,26 @@ def refresh_teams(year_list=range(2011,this_season+1)):
             teams[name+str(i)]["prev_games"] = []
     write_teams(teams)
 
+
 def read_teams():
     with open(teams_path,'r') as infile:
         return json.load(infile)
+
 
 def write_teams(teams):
     with open(teams_path,'w') as outfile:
         return json.dump(teams, outfile)
 
+
 def read_names():
     with open(names_path,'r') as infile:
         return json.load(infile)
+
 
 def save():
     write_teams(teams)
     write_game_dict(game_dict)
 
-
 game_dict = read_game_dict()
 teams = read_teams()
-#gamesdf = read_games_csv()
+gamesdf = read_games_csv()

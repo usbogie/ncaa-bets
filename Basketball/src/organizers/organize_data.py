@@ -154,7 +154,7 @@ def get_old_games(year_list=[this_season]):
                 game = {}
                 game["home"] = row.Game_Home.strip()
                 game["away"] = row.Game_Away.strip()
-                game["season"] = str(year_list[idx])
+                game["season"] = year_list[idx]
                 d = row.Game_Date.split("/")
                 d.append(row.Game_Year)
                 gameday = date(int(d[2]),int(d[0]),int(d[1]))
@@ -177,8 +177,8 @@ def get_old_games(year_list=[this_season]):
                     game["winner"] = game["away"]
                 game["true_home_game"] = 1 if not row.Neutral_Site else 0
                 game["conf"] = 1 if row.Conference_Competition else 0
-                home = h.teams[game["home"]+game["season"]]
-                away = h.teams[game["away"]+game["season"]]
+                home = h.teams[game["home"]+str(game["season"])]
+                away = h.teams[game["away"]+str(game["season"])]
                 if key not in home["games"]:
                     home["games"].append(key)
                 if key not in away["games"]:
@@ -186,3 +186,9 @@ def get_old_games(year_list=[this_season]):
             except:
                 continue
     print()
+
+
+def run(year_list):
+    get_old_games(year_list)
+    get_spreads(year_list)
+    get_sports_ref_data(year_list)
