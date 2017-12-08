@@ -129,6 +129,7 @@ def test(game_list):
     min_samp_dict = {}
     feature_dict = {}
     total_profit = 0
+    total_games = 0
     for test_year in range(2011,this_season + 1):
         print(test_year)
         total_right = 0
@@ -170,6 +171,7 @@ def test(game_list):
             total_wrong += wrong
         profit = total_right - 1.05 * total_wrong
         total_profit += profit
+        total_games += (total_right+total_wrong)
         print("profit",round(profit,1),total_right+total_wrong)
         # if i == 0:
         #     min_samp_dict[min_samples] = [profit]
@@ -183,6 +185,7 @@ def test(game_list):
         #         feature_dict[features[idx]] = feature_dict.get(features[idx],0) + 1
         # print("min_samples_leaf: ",min_samples,"\nProfit: ", profit, "\nTotal Games: ", right + wrong, "\nPercentage: ", right / (right + wrong),"\n")
     print("total profit",round(total_profit,1))
+    print("total games", total_games, "ROI", round(100*(total_profit/total_games),1))
     # for key in sorted(list(min_samp_dict.keys())):
     #     print(key,sum(min_samp_dict[key]))
     # for key in sorted(list(feature_dict.keys())):
