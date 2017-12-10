@@ -167,4 +167,3 @@ def get(season=str(this_season)):
             for game in new_over_games:
                 writer.writerow(game)
     print()
-    

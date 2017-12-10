@@ -1,0 +1,2 @@
+pdiff = 4, min_prob = .54, ROI = 11.1, total_games = 399
+pdiff = 4, min_prob = .55, ROI = 25.8, total_games = 174

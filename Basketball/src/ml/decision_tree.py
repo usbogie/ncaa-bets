@@ -15,33 +15,24 @@ my_path = h.path
 this_season = h.this_season
 
 game_type = ['home','neutral']
-features = ["DT_home_winner","DT_away_movement","DT_home_public","DT_away_public",
-            "DT_home_ats","DT_away_ats","DT_home_tPAr","DT_home_reb"]
 
-n_features = ["DT_home_winner",
-            "DT_home_public","DT_home_ats",
-            "DT_home_reb"]
+features = ["DT_away_movement","DT_home_ats","DT_away_ats","DT_away_reb",
+"DT_home_tPAr","DT_home_winner"]
 
-samples = [575,1]
-depths = [6,4]
+n_features = ["DT_home_public","DT_home_ats","DT_home_TOVP","DT_home_reb",
+"DT_away_tPAr","DT_home_FT","DT_away_FT","DT_home_winner"]
+
+samples = [650,75]
+depths = [4,7]
 min_prob = .52
 pdiff = -4
 feat_list = [features,n_features]
 
-def run_gridsearch(games):
-    X_train,y = mls.pick_features(games,features)
-    param_grid = {"criterion": ["gini"],
-              "max_depth": [None,2,3,4,5,6,7,8,9],
+def run_gridsearch(games, home_away):
+    X_train,y = mls.pick_features(games[home_away],feat_list[home_away])
+    param_grid = {"criterion": ["gini","entropy"],
+              "max_depth": [None,1,2,3,4,5,6,7,8,9],
               "min_samples_leaf": [50,75,100,125,150,175,200,250,300,325,350,375,400,450,500,550,600,650]}
-    est = tree.DecisionTreeClassifier(criterion="entropy", max_depth=6, min_samples_leaf=375)
-    rfe = RFE(est, 1, verbose=10)
-    rfe = rfe.fit(X_train, y)
-    # summarize the selection of the attributes
-    rankings = []
-    for idx,i in enumerate(rfe.ranking_):
-        rankings.append((i,features[idx]))
-    for i in sorted(rankings):
-        print(i)
 
     clf = GridSearchCV(tree.DecisionTreeClassifier(), param_grid=param_grid, cv=5, verbose=0)
     start = time()
@@ -59,6 +50,16 @@ def run_gridsearch(games):
         print("Parameters: {0}".format(score.parameters))
         print("")
 
+    top = top_scores[0]
+    est = tree.DecisionTreeClassifier(criterion=top.parameters['criterion'], max_depth=top.parameters['max_depth'], min_samples_leaf=top.parameters['min_samples_leaf'])
+    rfe = RFE(est, 1, verbose=10)
+    rfe = rfe.fit(X_train, y)
+    # summarize the selection of the attributes
+    rankings = []
+    for idx,i in enumerate(rfe.ranking_):
+        rankings.append((i,feat_list[home_away][idx]))
+    for i in sorted(rankings):
+        print(i)
 
 def track_today(results_df):
     right = 0
@@ -130,6 +131,10 @@ def test(game_list):
     feature_dict = {}
     total_profit = 0
     total_games = 0
+    # print("Grid search Home")
+    # run_gridsearch(game_list,0)
+    # print("Grid search Neutral")
+    # run_gridsearch(game_list,1)
     for test_year in range(2011,this_season + 1):
         print(test_year)
         total_right = 0
