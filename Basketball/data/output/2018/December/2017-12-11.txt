@@ -1,0 +1,7 @@
+~~~~~~~~~~Regular Decision Tree Results~~~~~~~~~~~~~~~~
+Bet       Louisville          -29.0  25   ---  v Bryant              0.5392  6:00 PM CT  
+Bet       South Florida       -2.5   -3   ---  v Florida Intl        0.5291  6:00 PM CT  
+Bet       Northwestern        -27.0  24   ---  v Chicago State       0.5249  6:00 PM CT  
+Bet       Oregon              -20.0  12   ---  v Texas Southern      0.5249  9:00 PM CT  
+Bet       Alabama A&M         24.5   -20  4.5  @ DePaul              0.5248  8:00 PM CT  
+Bet       Minnesota           -20.5  17   ---  v Drake               0.5206  7:00 PM CT  

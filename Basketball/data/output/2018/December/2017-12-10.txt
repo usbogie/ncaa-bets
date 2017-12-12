@@ -1,0 +1,16 @@
+~~~~~~~~~~Regular Decision Tree Results~~~~~~~~~~~~~~~~
+Bet       La Salle            19.5   -23  ---  @ Villanova           0.5476  12:00 PM CT 
+Bet       IUPUI               27.0   -29  ---  @ Purdue              0.5476  6:00 PM CT  
+Bet       Eastern Washington  11.0   -13  ---  @ South Dakota        0.5476  1:00 PM CT  
+Bet       Richmond            -3.5   3    ---  v James Madison       0.5395  1:00 PM CT  
+Caution   Ohio                3.0    -9   ---  v Western Kentucky    0.528   1:00 PM CT  
+Bet       Oral Roberts        12.5   -11  1.5  v Missouri State      0.528   3:00 PM CT  
+Bet       UNC Wilmington      13.0   -13  0.0  @ LSU                 0.5248  4:00 PM CT  
+Bet       Kansas              -12.0  9    ---  v Arizona State       0.5209  1:00 PM CT  
+Bet       Troy                -3.5   6    2.5  @ Southern Mississippi0.5205  2:00 PM CT  
+Bet       South Alabama       2.5    2    4.5  @ SIU Edwardsville    0.5205  2:00 PM CT  
+Caution   Gonzaga             -10.0  8    ---  @ Washington          0.5193  7:00 PM CT  
+Caution   Charlotte           3.5    -5   ---  @ Chattanooga         0.5076  12:00 PM CT 
+Caution   Eastern Kentucky    15.0   -18  ---  @ Northern Kentucky   0.5076  5:00 PM CT  
+~~~~~~~~~~Neutral Decision Tree Results~~~~~~~~~~~~~~~~
+Bet       Tulane              14.0   -11  3.0  @ Florida State       0.5385  11:00 AM CT 

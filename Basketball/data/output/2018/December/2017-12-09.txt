@@ -1,0 +1,66 @@
+~~~~~~~~~~Regular Decision Tree Results~~~~~~~~~~~~~~~~
+Caution   Canisius            4.0    -8   ---  @ Evansville          0.5491  1:00 PM CT  
+Caution   Tennessee Tech      4.0    -10  ---  @ Central Michigan    0.5473  12:00 PM CT 
+Caution   Montana             4.0    -10  ---  @ Georgia State       0.5473  1:00 PM CT  
+Caution   Saint Joseph's      10.5   -17  ---  @ Temple              0.5473  1:30 PM CT  
+Caution   San Jose State      4.5    -3   1.5  @ Portland            0.5407  9:00 PM CT  
+Caution   UCLA                7.0    -5   2.0  @ Michigan            0.5407  11:00 AM CT 
+Caution   New Mexico State    -3.0   2    ---  @ New Mexico          0.5407  8:00 PM CT  
+Caution   UIC                 4.5    -6   ---  v DePaul              0.5401  3:00 PM CT  
+Caution   Pepperdine          1.0    3    4.0  v Long Beach State    0.5401  9:00 PM CT  
+Caution   Wisconsin           -5.0   7    2.0  v Marquette           0.5401  11:00 AM CT 
+Caution   Akron               -1.5   -1   ---  v Appalachian State   0.5401  1:00 PM CT  
+Caution   Louisville          -9.0   12   3.0  v Indiana             0.5401  1:00 PM CT  
+Caution   CSU Northridge      5.0    -4   1.0  v Loyola Marymount    0.5299  9:00 PM CT  
+Caution   Saint Louis         8.0    -12  ---  v Houston             0.5299  7:00 PM CT  
+Caution   Montana State       -1.0   2    1.0  v UC Santa Barbara    0.5299  3:00 PM CT  
+Caution   Southern Illinois   -9.5   5    ---  v Southeast Missouri State0.525   7:00 PM CT  
+Caution   Seton Hall          -13.0  13   0.0  v VCU                 0.525   2:00 PM CT  
+Caution   Santa Clara         -2.5   -5   ---  v Portland State      0.525   9:00 PM CT  
+Caution   Ohio State          -17.5  13   ---  v William & Mary      0.525   11:00 AM CT 
+Caution   Connecticut         -28.0  17   ---  v Coppin State        0.525   1:00 PM CT  
+Caution   Oregon State        -24.5  15   ---  v Arkansas-Pine Bluff 0.525   9:00 PM CT  
+Caution   Youngstown State    27.0   -25  2.0  @ Butler              0.5246  11:00 AM CT 
+Caution   George Washington   13.0   -9   4.0  @ Penn State          0.5246  3:00 PM CT  
+Caution   Nebraska            12.5   -10  2.5  @ Creighton           0.5246  1:30 PM CT  
+Caution   Providence          -4.0   5    1.0  @ Massachusetts       0.5246  2:00 PM CT  
+Caution   Western Michigan    -5.5   7    1.5  @ Detroit Mercy       0.5246  1:00 PM CT  
+Caution   Coastal Carolina    15.0   -13  2.0  @ South Carolina      0.5246  11:00 AM CT 
+Caution   UAB                 8.5    -8   0.5  @ Auburn              0.5246  3:30 PM CT  
+Caution   Washington State    -1.5   5    3.5  @ UTEP                0.5209  8:00 PM CT  
+Caution   Duke                -15.5  9    ---  @ Boston College      0.5209  11:00 AM CT 
+Caution   North Dakota State  1.0    5    6.0  @ North Dakota        0.5209  7:00 PM CT  
+Caution   Drake               -7.0   5    ---  v Omaha               0.5207  5:00 PM CT  
+Caution   Michigan State      -31.5  27   ---  v Southern Utah       0.5207  5:00 PM CT  
+Caution   Western Illinois    4.0    -4   0.0  v Milwaukee           0.5207  7:00 PM CT  
+Caution   Boise State         -21.0  20   ---  v Sacramento State    0.5207  3:00 PM CT  
+Caution   Arkansas            -5.0   5    0.0  v Minnesota           0.5207  5:45 PM CT  
+Caution   Cal Poly            8.5    -9   ---  v Fresno State        0.5207  9:00 PM CT  
+Caution   Ball State          -4.0   -1   ---  v Valparaiso          0.5207  1:00 PM CT  
+Caution   Missouri            -24.0  23   ---  v Green Bay           0.5207  8:00 PM CT  
+Caution   Xavier              -17.0  16   ---  v Colorado            0.5207  4:00 PM CT  
+Caution   Notre Dame          -14.0  9    ---  @ Delaware            0.5189  6:00 PM CT  
+Caution   North Carolina A&T  21.0   -9   12.0 @ Georgetown          0.5189  1:30 PM CT  
+Caution   Marshall            5.0    -6   ---  @ Toledo              0.5189  6:00 PM CT  
+Caution   Bowling Green       14.0   -11  3.0  @ Old Dominion        0.5189  6:00 PM CT  
+Caution   Yale                10.5   -11  ---  @ St Bonaventure      0.5189  1:00 PM CT  
+Caution   Penn                6.5    -4   2.5  @ Dayton              0.5189  2:00 PM CT  
+Caution   Alabama             9.0    -7   2.0  @ Arizona             0.5189  9:00 PM CT  
+Caution   Kent State          4.0    -6   ---  @ Wright State        0.5189  2:00 PM CT  
+Caution   Northern Arizona    15.5   -18  ---  @ San Diego           0.5189  9:00 PM CT  
+Caution   Ole Miss            5.5    -7   ---  @ Middle Tennessee    0.5082  5:00 PM CT  
+Caution   Lipscomb            17.5   -18  ---  @ Tennessee           0.5082  1:15 PM CT  
+Caution   Samford             20.5   -24  ---  @ Clemson             0.5082  2:00 PM CT  
+Caution   Hofstra             4.0    -9   ---  @ Rider               0.5082  6:00 PM CT  
+Caution   California          16.0   -22  ---  @ San Diego State     0.5082  4:00 PM CT  
+Caution   Fort Wayne          -4.5   -2   ---  @ Miami (OH)          0.5082  12:00 PM CT 
+Caution   Louisiana Monroe    9.0    -10  ---  @ Jacksonville State  0.5082  1:00 PM CT  
+Caution   Wichita St          -5.5   5    ---  @ Oklahoma State      0.5044  3:00 PM CT  
+Caution   Pacific             8.0    -4   4.0  @ Wyoming             0.5044  5:00 PM CT  
+Caution   West Virginia       -15.5  16   0.5  @ Pittsburgh          0.5044  7:00 PM CT  
+Caution   Murray State        -0.0   4    4.0  @ Illinois State      0.5044  3:00 PM CT  
+~~~~~~~~~~Neutral Decision Tree Results~~~~~~~~~~~~~~~~
+Caution   Kansas State        -9.5   11   1.5  v Tulsa               0.626   7:00 PM CT  
+Caution   Weber State         11.5   -10  1.5  v BYU                 0.5949  9:00 PM CT  
+Caution   Kentucky            -14.5  9    ---  v Monmouth            0.5467  11:00 AM CT 
+Caution   Utah State          5.5    -7   ---  @ Utah                0.5286  6:30 PM CT  

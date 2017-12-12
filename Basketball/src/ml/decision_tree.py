@@ -5,7 +5,7 @@ from sklearn.model_selection import GridSearchCV
 from sklearn.feature_selection import RFE
 from time import time
 from datetime import date
-from operator import itemgetter
+import itertools
 import helpers as h
 from ml import ml_shared as mls
 from scrapers.shared import make_season
@@ -24,8 +24,10 @@ n_features = ["DT_home_public","DT_home_ats","DT_home_TOVP","DT_home_reb",
 
 samples = [650,75]
 depths = [4,7]
-min_prob = .52
-pdiff = -4
+min_probs = [.51,.52]
+max_probs = [.54,None]
+min_pdiffs = [-7,-4]
+max_pdiffs = [-3,None]
 feat_list = [features,n_features]
 
 def run_gridsearch(games, home_away):
@@ -61,70 +63,128 @@ def run_gridsearch(games, home_away):
     for i in sorted(rankings):
         print(i)
 
-def track_today(results_df):
+def print_picks(games,game_type,prob=.5,check_pmargin=False):
+    sorted_games = games.sort_values('prob',ascending=False)
+    games = []
+    game_type_str = "~~~~~~~~~~{} Decision Tree Results~~~~~~~~~~~~~~~~\n".format(game_type)
+    print(game_type_str)
+    games.append(game_type_str)
+    for idx, row in sorted_games.iterrows():
+        print_game = True
+        if row['prob'] >= prob:
+            if float(row['results']) > 0:
+                if check_pmargin and row['pmargin'] + row['spread'] <= 1:
+                    print_game = False
+                    continue
+                winner = row['home']
+                loser = row['away']
+                spread = str(row['spread'])
+                pmargin = str(row['pmargin'])
+                diff = str(row['spread'] + row['pmargin'])
+                loc = "v "
+            else:
+                if check_pmargin and row['pmargin'] + row['spread'] >= -1:
+                    print_game = False
+                    continue
+                winner = row['away']
+                loser = row['home']
+                spread = str(row['spread'] * -1)
+                pmargin = str(row['pmargin'] * -1)
+                diff = str(-1 * (row['spread'] + row['pmargin']))
+                loc = "@ "
+            bet_string = 'Bet' #if (float(diff) >= pdiff[10] and row['prob']>=min_prob) else 'Caution'
+            if float(diff) < 0:
+                diff = '---'
+            elif float(diff) == 0:
+                diff = str(abs(float(diff)))
+            if print_game:
+                suggestion_str = "{}{}{}{}{}{}{}{}{}\n".format(bet_string.ljust(10),winner.ljust(20),spread.ljust(7),pmargin.ljust(5),diff.ljust(5),loc,loser.ljust(20),str(round(row['prob'],4)).ljust(8),row['tipstring'].ljust(12))
+                games.append(suggestion_str)
+                print(suggestion_str[:-1])
+    return games
+
+def track_today(results_df, min_prob, min_diff, max_prob, max_diff):
     right = 0
     wrong = 0
     for idx, row in results_df.iterrows():
-        if float(row['results']) < 0 and row['home_cover'] < 0 and float(row['prob']) >= min_prob and row['pmargin'] + row['spread'] <= -1 * pdiff:
-            right += 1
-        elif float(row['results']) < 0 and row['home_cover'] > 0 and float(row['prob']) >= min_prob and row['pmargin'] + row['spread'] <= -1 * pdiff:
-            wrong += 1
-        elif float(row['results']) > 0 and row['home_cover'] < 0 and float(row['prob']) >= min_prob and row['pmargin'] + row['spread'] >= 1 * pdiff:
-            wrong += 1
-        elif float(row['results']) > 0 and row['home_cover'] > 0 and float(row['prob']) >= min_prob and row['pmargin'] + row['spread'] >= 1 * pdiff:
-            right += 1
+        fdiff = row['pmargin'] + row['spread']
+        if (max_diff is None or fdiff > -1 * max_diff) and (max_prob is None or float(row['prob']) < max_prob) and float(row['prob']) >=min_prob:
+            if float(row['results']) < 0 and fdiff <= -1 * min_diff:
+                if row['home_cover'] < 0:
+                    right += 1
+                elif row['home_cover'] > 0:
+                    wrong += 1
+            elif float(row['results']) > 0 and fdiff >= 1 * min_diff:
+                if row['home_cover'] < 0:
+                    wrong += 1
+                elif row['home_cover'] > 0:
+                    right += 1
     return right,wrong
 
+def test_combinations(game_list):
+    import matplotlib.pyplot as plt
+    from mpl_toolkits.mplot3d import Axes3D
+    fig = plt.figure()
+    ax = fig.add_subplot(111, projection='3d')
+    percentages = list(np.arange(.505,.565,.01)) + [None]
+    pdiffs = list(range(-10,16)) + [None]
+    print(percentages)
+    print(pdiffs)
 
-def find_min_samples(game_list):
-    min_samp_dict = {}
-    feature_dict = {}
+    home_games = game_list[0]
+    away_games = game_list[1]
+
+
+    #get home games
+    results_dfs = []
     for test_year in range(2011,this_season + 1):
-        games = game_list[0]
-        these_features = features
-        depth = 5
-        initial_training_games = mls.get_train_data(games,test_year)
-
         test_days = []
         for day in make_season(test_year):
-            test_days.append(games.ix[games['date']==day])
+            test_days.append(home_games.ix[home_games['date']==day])
         test_data = pd.concat(test_days,ignore_index=True)
-        X_train,y = mls.pick_features(initial_training_games,these_features)
-        X_test, y_test = mls.pick_features(test_data,these_features)
+        initial_training_games = mls.get_train_data(home_games,test_year)
+        X_train,y = mls.pick_features(initial_training_games,features)
+        X_test, y_test = mls.pick_features(test_data,features)
 
-        print('\n' + str(test_year) + '\n')
-        for j in range(12):
-            min_samples = j * 25 + 375
-            if min_samples == 0:
-                min_samples = 1
-            clf = tree.DecisionTreeClassifier(min_samples_leaf=min_samples,max_depth=depth)
-            clf = clf.fit(X_train,y)
+        clf = tree.DecisionTreeClassifier(min_samples_leaf=samples[0],max_depth=depths[0])
+        clf = clf.fit(X_train,y)
 
-            resultstree = clf.predict(X_test)
-            probs = []
-            for j in range(len(X_test)):
-                probs.append(max(max(clf.predict_proba(X_test[j].reshape(1,-1)))))
+        resultstree = clf.predict(X_test)
+        probs = []
+        for j in range(len(X_test)):
+            probs.append(max(max(clf.predict_proba(X_test[j].reshape(1,-1)))))
 
-            results_df = test_data[['away','home','pmargin','spread','home_cover']]
-            results_df.insert(5, 'results', resultstree)
-            results_df.insert(6, 'prob', probs)
-            right,wrong = track_today(results_df)
-            profit = right - 1.05 * wrong
-            if min_samp_dict.get(min_samples,0) == 0:
-                min_samp_dict[min_samples] = [profit]
-            else:
-                min_samp_dict[min_samples].append(profit)
-            if right + wrong == 0:
-                break
-            for idx,feat in enumerate(clf.feature_importances_):
-                if feat == 0:
-                    print(these_features[idx])
-                    feature_dict[these_features[idx]] = feature_dict.get(these_features[idx],0) + 1
-            print("min_samples_leaf: ",min_samples,"\nProfit: ", profit, "\nTotal Games: ", right + wrong, "\nPercentage: ", right / (right + wrong),"\n")
-    for key in sorted(list(min_samp_dict.keys())):
-        print(key,sum(min_samp_dict[key]))
-    for key in sorted(list(feature_dict.keys())):
-        print(key,feature_dict[key])
+        results_df = test_data[['away','home','pmargin','spread','home_cover']]
+        results_df.insert(5, 'results', resultstree)
+        results_df.insert(6, 'prob', probs)
+        results_dfs.append(results_df)
+
+    results = pd.concat(results_dfs, ignore_index=True)
+
+    xs = np.array([])
+    ys = np.array([])
+    zs = np.array([])
+    for percentage, upper_percentage in zip(percentages, percentages[1:]):
+        for margin, upper_margin in zip(pdiffs, pdiffs[1:]):
+            right, wrong = track_today(results,percentage,margin,upper_percentage,upper_margin)
+            profit = (float(right)/1.07) - wrong
+            total_games = right + wrong
+            if total_games == 0:
+                print("No games")
+                continue
+            roi = 100 * round(float(profit)/total_games, 4)
+            print('prob: {}-{}; diff: {}-{}; games: {}; ROI: {}'.format(percentage,upper_percentage,margin,upper_margin,total_games,roi))
+
+            if upper_percentage is None or upper_margin is None:
+                continue
+
+            xs = np.append(xs, margin)
+            ys = np.append(ys, percentage)
+            zs = np.append(zs, roi)
+
+    ax.plot_wireframe(xs, ys, zs)
+    plt.show()
+
 
 def test(game_list):
     min_samp_dict = {}
@@ -171,10 +231,11 @@ def test(game_list):
             results_df = test_data[['away','home','pmargin','spread','home_cover']]
             results_df.insert(5, 'results', resultstree)
             results_df.insert(6, 'prob', probs)
-            right,wrong = track_today(results_df)
+            right,wrong = track_today(results_df,min_probs[k],min_pdiffs[k],max_probs[k],max_pdiffs[k])
             total_right += right
             total_wrong += wrong
-        profit = total_right - 1.05 * total_wrong
+            break
+        profit = (float(total_right)/1.07) - total_wrong
         total_profit += profit
         total_games += (total_right+total_wrong)
         print("profit",round(profit,1),total_right+total_wrong)
@@ -195,48 +256,6 @@ def test(game_list):
     #     print(key,sum(min_samp_dict[key]))
     # for key in sorted(list(feature_dict.keys())):
     #     print(key,feature_dict[key])
-
-
-def print_picks(games,game_type,prob=.5,check_pmargin=False):
-    sorted_games = games.sort_values('prob',ascending=False)
-    games = []
-    game_type_str = "~~~~~~~~~~{} Decision Tree Results~~~~~~~~~~~~~~~~\n".format(game_type)
-    print(game_type_str)
-    games.append(game_type_str)
-    for idx, row in sorted_games.iterrows():
-        print_game = True
-        if row['prob'] >= prob:
-            if float(row['results']) > 0:
-                if check_pmargin and row['pmargin'] + row['spread'] <= 1:
-                    print_game = False
-                    continue
-                winner = row['home']
-                loser = row['away']
-                spread = str(row['spread'])
-                pmargin = str(row['pmargin'])
-                diff = str(row['spread'] + row['pmargin'])
-                loc = "v "
-            else:
-                if check_pmargin and row['pmargin'] + row['spread'] >= -1:
-                    print_game = False
-                    continue
-                winner = row['away']
-                loser = row['home']
-                spread = str(row['spread'] * -1)
-                pmargin = str(row['pmargin'] * -1)
-                diff = str(-1 * (row['spread'] + row['pmargin']))
-                loc = "@ "
-            bet_string = 'Bet' if (float(diff) >= pdiff and row['prob']>=min_prob) else 'Caution'
-            if float(diff) < 0:
-                diff = '---'
-            elif float(diff) == 0:
-                diff = str(abs(float(diff)))
-            if print_game:
-                suggestion_str = "{}{}{}{}{}{}{}{}{}\n".format(bet_string.ljust(10),winner.ljust(20),spread.ljust(7),pmargin.ljust(5),diff.ljust(5),loc,loser.ljust(20),str(round(row['prob'],4)).ljust(8),row['tipstring'].ljust(12))
-                games.append(suggestion_str)
-                print(suggestion_str[:-1])
-    return games
-
 
 def predict_today(game_list):
     today_path = os.path.join(my_path,'..','data','composite','todays_games.csv')
