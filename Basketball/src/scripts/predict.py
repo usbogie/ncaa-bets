@@ -7,8 +7,8 @@ def test():
     game_list = mls.get_game_list()
     #dt.run_gridsearch()
     #dt.find_min_samples()
-    dt.test_combinations(game_list)
-    #dt.test(game_list)
+    #dt.test_combinations(game_list)
+    dt.test(game_list)
     #dto.test()
 
 def today():

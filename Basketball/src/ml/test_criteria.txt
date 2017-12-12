@@ -1,3 +1,6 @@
 home games only:
-pdiff -7 to -3, prob .51 to .54, games 812, ROI 5.3
-pdiff 1 to 11, prob .51 to .53, games 4165, ROI 5.1
+pdiff -7 to -3, prob .51 to .54, games 812, ROI 3.6
+pdiff 1 to 10.5, prob .51 to .53, games 3871, ROI 4.5
+pdiff 2 to None, prob .515 to .525, games 1047, ROI 7.5
+pdiff 3 to 9, prob .515 to .535, games 1453, ROI 5.8
+pdiff 3.5 to 8.5 prob .51 to .535 games 1191 ROI 9.3

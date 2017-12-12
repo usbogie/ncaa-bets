@@ -25,9 +25,9 @@ n_features = ["DT_home_public","DT_home_ats","DT_home_TOVP","DT_home_reb",
 samples = [650,75]
 depths = [4,7]
 min_probs = [.51,.52]
-max_probs = [.54,None]
-min_pdiffs = [-7,-4]
-max_pdiffs = [-3,None]
+max_probs = [.53,None]
+min_pdiffs = [1,-4]
+max_pdiffs = [10.5,None]
 feat_list = [features,n_features]
 
 def run_gridsearch(games, home_away):
@@ -122,18 +122,13 @@ def track_today(results_df, min_prob, min_diff, max_prob, max_diff):
     return right,wrong
 
 def test_combinations(game_list):
-    import matplotlib.pyplot as plt
-    from mpl_toolkits.mplot3d import Axes3D
-    fig = plt.figure()
-    ax = fig.add_subplot(111, projection='3d')
-    percentages = list(np.arange(.505,.565,.01)) + [None]
-    pdiffs = list(range(-10,16)) + [None]
+    percentages = [.5] + [ float('%.3f' % elem) for elem in list(np.arange(.50,.565,.005)) ] + [None]
+    pdiffs = [-100] + [ float('%.1f' % elem) for elem in list(np.arange(-10.5,15.5,.5)) ] + [None]
     print(percentages)
     print(pdiffs)
 
     home_games = game_list[0]
     away_games = game_list[1]
-
 
     #get home games
     results_dfs = []
@@ -161,11 +156,8 @@ def test_combinations(game_list):
 
     results = pd.concat(results_dfs, ignore_index=True)
 
-    xs = np.array([])
-    ys = np.array([])
-    zs = np.array([])
-    for percentage, upper_percentage in zip(percentages, percentages[1:]):
-        for margin, upper_margin in zip(pdiffs, pdiffs[1:]):
+    for percentage, upper_percentage in zip(percentages, percentages[3:]):
+        for margin, upper_margin in zip(pdiffs, pdiffs[3:]):
             right, wrong = track_today(results,percentage,margin,upper_percentage,upper_margin)
             profit = (float(right)/1.07) - wrong
             total_games = right + wrong
@@ -177,14 +169,6 @@ def test_combinations(game_list):
 
             if upper_percentage is None or upper_margin is None:
                 continue
-
-            xs = np.append(xs, margin)
-            ys = np.append(ys, percentage)
-            zs = np.append(zs, roi)
-
-    ax.plot_wireframe(xs, ys, zs)
-    plt.show()
-
 
 def test(game_list):
     min_samp_dict = {}
