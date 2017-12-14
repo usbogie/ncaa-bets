@@ -24,10 +24,10 @@ n_features = ["DT_home_public","DT_home_ats","DT_home_TOVP","DT_home_reb",
 
 samples = [650,75]
 depths = [4,7]
-min_probs = [.51,.52]
-max_probs = [.53,None]
-min_pdiffs = [1,-4]
-max_pdiffs = [10.5,None]
+min_probs = [.52,.52]
+max_probs = [.535,.53]
+min_pdiffs = [-7.5,-2.5]
+max_pdiffs = [0,-1.5]
 feat_list = [features,n_features]
 
 def run_gridsearch(games, home_away):
@@ -107,30 +107,34 @@ def track_today(results_df, min_prob, min_diff, max_prob, max_diff):
     right = 0
     wrong = 0
     for idx, row in results_df.iterrows():
-        fdiff = row['pmargin'] + row['spread']
-        if (max_diff is None or fdiff > -1 * max_diff) and (max_prob is None or float(row['prob']) < max_prob) and float(row['prob']) >=min_prob:
-            if float(row['results']) < 0 and fdiff <= -1 * min_diff:
-                if row['home_cover'] < 0:
-                    right += 1
-                elif row['home_cover'] > 0:
-                    wrong += 1
-            elif float(row['results']) > 0 and fdiff >= 1 * min_diff:
-                if row['home_cover'] < 0:
-                    wrong += 1
-                elif row['home_cover'] > 0:
-                    right += 1
+        if row['prob'] < min_prob or (max_prob is not None and row['prob'] >= max_prob):
+            continue
+
+        if float(row['results']) > 0 and row['pmargin'] + row['spread'] >= min_diff and (max_diff is None or row['pmargin'] + row['spread'] < max_diff):
+            if row['home_cover'] > 0:
+                #print("right",row)
+                right += 1
+            elif row['home_cover'] < 0:
+                #print("wrong",row)
+                wrong += 1
+        if float(row['results']) < 0 and -1*(row['pmargin'] + row['spread']) >= min_diff and (max_diff is None or -1*(row['pmargin'] + row['spread']) < max_diff):
+            if row['home_cover'] < 0:
+                #print("right",row)
+                right += 1
+            elif row['home_cover'] > 0:
+                #print("wrong",row)
+                wrong += 1
     return right,wrong
 
 def test_combinations(game_list):
-    percentages = [.5] + [ float('%.3f' % elem) for elem in list(np.arange(.50,.565,.005)) ] + [None]
+    percentages = [ float('%.3f' % elem) for elem in list(np.arange(.50,.56,.005)) ] + [None]
     pdiffs = [-100] + [ float('%.1f' % elem) for elem in list(np.arange(-10.5,15.5,.5)) ] + [None]
     print(percentages)
     print(pdiffs)
 
     home_games = game_list[0]
-    away_games = game_list[1]
+    neutral_games = game_list[1]
 
-    #get home games
     results_dfs = []
     for test_year in range(2011,this_season + 1):
         test_days = []
@@ -138,8 +142,8 @@ def test_combinations(game_list):
             test_days.append(home_games.ix[home_games['date']==day])
         test_data = pd.concat(test_days,ignore_index=True)
         initial_training_games = mls.get_train_data(home_games,test_year)
-        X_train,y = mls.pick_features(initial_training_games,features)
-        X_test, y_test = mls.pick_features(test_data,features)
+        X_train,y = mls.pick_features(initial_training_games,feat_list[0])
+        X_test, y_test = mls.pick_features(test_data,feat_list[0])
 
         clf = tree.DecisionTreeClassifier(min_samples_leaf=samples[0],max_depth=depths[0])
         clf = clf.fit(X_train,y)
@@ -156,19 +160,17 @@ def test_combinations(game_list):
 
     results = pd.concat(results_dfs, ignore_index=True)
 
-    for percentage, upper_percentage in zip(percentages, percentages[3:]):
-        for margin, upper_margin in zip(pdiffs, pdiffs[3:]):
+    for percentage, upper_percentage in zip(percentages, percentages[2:]):
+        for margin, upper_margin in zip(pdiffs, pdiffs[2:]):
             right, wrong = track_today(results,percentage,margin,upper_percentage,upper_margin)
             profit = (float(right)/1.07) - wrong
             total_games = right + wrong
             if total_games == 0:
                 print("No games")
                 continue
-            roi = 100 * round(float(profit)/total_games, 4)
-            print('prob: {}-{}; diff: {}-{}; games: {}; ROI: {}'.format(percentage,upper_percentage,margin,upper_margin,total_games,roi))
-
-            if upper_percentage is None or upper_margin is None:
-                continue
+            roi = round((100 * float(profit)/total_games),2)
+            print('prob: {}-{}; diff: {}-{}; games: {} ({}-{}); ROI: {}'.format(percentage,upper_percentage,margin,upper_margin,total_games,right,wrong,roi))
+            # print('right: {}, wrong {}'.format(right,wrong))
 
 def test(game_list):
     min_samp_dict = {}
@@ -183,9 +185,9 @@ def test(game_list):
         print(test_year)
         total_right = 0
         total_wrong = 0
+        year_profit = 0
         for k,games in enumerate(game_list):
             initial_training_games = mls.get_train_data(games,test_year)
-
             test_days = []
             for day in make_season(test_year):
                 test_days.append(games.ix[games['date']==day])
@@ -193,17 +195,16 @@ def test(game_list):
             X_train,y = mls.pick_features(initial_training_games,feat_list[k])
             X_test, y_test = mls.pick_features(test_data,feat_list[k])
 
-            min_samples = samples[k]
-            clf = tree.DecisionTreeClassifier(min_samples_leaf=min_samples,max_depth=depths[k])
+            clf = tree.DecisionTreeClassifier(min_samples_leaf=samples[k],max_depth=depths[k])
             clf = clf.fit(X_train,y)
 
-            filename = os.path.join(my_path,'..','data','trees','tree{}{}'.format(str(test_year),game_type[k]))
-            tree.export_graphviz(clf, out_file='{}.dot'.format(filename),
-                                feature_names=feat_list[k],
-                                class_names=True,
-                                filled=True,
-                                rounded=True,
-                                special_characters=True)
+            # filename = os.path.join(my_path,'..','data','trees','tree{}{}'.format(str(test_year),game_type[k]))
+            # tree.export_graphviz(clf, out_file='{}.dot'.format(filename),
+            #                     feature_names=feat_list[k],
+            #                     class_names=True,
+            #                     filled=True,
+            #                     rounded=True,
+            #                     special_characters=True)
             # os.system('dot -Tpng {}.dot -o {}.png'.format(filename,filename))
             # ./dot -Tpng C:\Users\Carl\Documents\ncaa-bets\tree_data\treehome.dot -o C:\Users\Carl\Documents\ncaa-bets\tree_data\treehome.png
 
@@ -215,14 +216,15 @@ def test(game_list):
             results_df = test_data[['away','home','pmargin','spread','home_cover']]
             results_df.insert(5, 'results', resultstree)
             results_df.insert(6, 'prob', probs)
+
             right,wrong = track_today(results_df,min_probs[k],min_pdiffs[k],max_probs[k],max_pdiffs[k])
             total_right += right
             total_wrong += wrong
+            year_profit += ((float(total_right)/1.07) - total_wrong)
             break
-        profit = (float(total_right)/1.07) - total_wrong
-        total_profit += profit
+        total_profit += year_profit
         total_games += (total_right+total_wrong)
-        print("profit",round(profit,1),total_right+total_wrong)
+        print("profit",round(year_profit,1),total_right+total_wrong)
         # if i == 0:
         #     min_samp_dict[min_samples] = [profit]
         # else:

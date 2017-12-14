@@ -1,0 +1,12 @@
+~~~~~~~~~~Regular Decision Tree Results~~~~~~~~~~~~~~~~
+Bet       Little Rock         10.0   -15  ---  @ Bradley             0.5479  7:00 PM CT  
+Bet       UNC Wilmington      8.5    -14  ---  @ UNC Greensboro      0.5479  6:00 PM CT  
+Bet       Villanova           -9.0   8    ---  @ Temple              0.5477  6:00 PM CT  
+Bet       Wisconsin           -5.5   -2   ---  v Western Kentucky    0.5285  7:00 PM CT  
+Bet       Oregon              -14.0  10   ---  v Portland State      0.5248  9:00 PM CT  
+Bet       Milwaukee           10.0   -6   4.0  @ Belmont             0.5247  6:30 PM CT  
+Bet       Grand Canyon        10.0   -10  0.0  @ Boise State         0.5247  8:00 PM CT  
+Bet       Arkansas State      4.0    -6   ---  @ Omaha               0.5205  7:00 PM CT  
+Bet       LSU                 2.5    -5   ---  v Houston             0.5202  8:00 PM CT  
+Bet       Longwood            30.0   -23  7.0  @ Illinois            0.5194  7:00 PM CT  
+Bet       Denver              5.5    -8   ---  @ Northern Colorado   0.5067  8:00 PM CT  

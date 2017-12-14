@@ -1510,3 +1510,38 @@ Game_ID,Away_Abbrv,Home_Abbrv,Away_Score,Home_Score,Game_Away,Game_Home,Game_Yea
 400987240,UNCW,LSU,84,97,UNC Wilmington,LSU,2017,12/10,16:00:00,Pete Maravich Assembly Center|Baton Rouge|Louisiana,False,False,0
 400989155,ALCN,ISU,58,78,Alcorn State,Iowa State,2017,12/10,17:00:00,Hilton Coliseum|Ames|Iowa,False,False,14112
 400990926,EKY,NKU,63,91,Eastern Kentucky,Northern Kentucky,2017,12/10,17:00:00,BB&T Arena|Highland Heights|Kentucky,False,False,3622
+400986137,BRY,LOU,59,102,Bryant,Louisville,2017,12/11,18:00:00,KFC Yum! Center|Louisville|Kentucky,False,False,16236
+400986426,CHS,NW,31,96,Chicago State,Northwestern,2017,12/11,18:00:00,Allstate Arena|Rosemont|Illinois,False,False,5007
+400988005,FIU,USF,65,53,Florida Intl,South Florida,2017,12/11,18:00:00,USF Sun Dome|Tampa|Florida,False,False,2040
+400990763,SHU,HART,72,86,Sacred Heart,Hartford,2017,12/11,18:00:00,Chase Arena|West Hartford|Connecticut,False,False,1182
+400991099,SIE,UVM,57,81,Siena,Vermont,2017,12/11,18:00:00,Patrick Gymnasium|Burlington|Vermont,False,False,3266
+400991934,UNF,FAMU,101,89,North Florida,Florida A&M,2017,12/11,18:00:00,Al Lawson Center|Tallahassee|Florida,False,False,1389
+400986427,DRKE,MINN,67,68,Drake,Minnesota,2017,12/11,19:00:00,Williams Arena|Minneapolis|Minnesota,False,False,11319
+400988525,AAMU,DEP,59,83,Alabama A&M,DePaul,2017,12/11,20:00:00,Wintrust Arena|Chicago|Illinois,False,False,4508
+400990628,NCCU,GCU,59,64,North Carolina Central,Grand Canyon,2017,12/11,20:00:00,GCU Arena|Phoenix|Arizona,False,False,6276
+400988263,TXSO,ORE,68,74,Texas Southern,Oregon,2017,12/11,21:00:00,Matthew Knight Arena|Eugene|Oregon,False,False,0
+400988526,SPU,HALL,61,84,Saint Peter's,Seton Hall,2017,12/12,18:00:00,Walsh Gymnasium|South Orange|New Jersey,False,False,1655
+400987241,MSST,CIN,50,65,Mississippi State,Cincinnati,2017,12/12,18:00:00,BB&T Arena|Highland Heights|Kentucky,False,False,8128
+400992291,CHSO,SCST,88,91,Charleston Southern,South Carolina State,2017,12/12,12:00:00,S-H-M Memorial Center|Orangeburg|South Carolina,False,False,154
+400986138,CLMB,BC,66,81,Columbia,Boston College,2017,12/12,18:00:00,Silvio Conte Forum|Chestnut Hill|Massachusetts,False,False,3989
+400986429,FOR,RUTG,63,75,Fordham,Rutgers,2017,12/12,18:00:00,Louis Brown Athletic Center|Piscataway|New Jersey,False,False,3389
+400988006,SELA,UCF,53,61,Southeastern Louisiana,UCF,2017,12/12,18:00:00,CFE Arena|Orlando|Florida,False,False,3449
+400989652,GB,INST,63,85,Green Bay,Indiana State,2017,12/12,18:00:00,Hulman Center|Terre Haute|Indiana,False,False,2924
+400989885,GASO,GMU,74,51,Georgia Southern,George Mason,2017,12/12,18:00:00,EagleBank Arena|Fairfax|Virginia,False,False,2607
+400990764,ARMY,SFNY,76,64,Army,St Francis (BKN),2017,12/12,18:00:00,Pope Physical Education Center|Brooklyn|New York,False,False,475
+400991100,MONM,PRIN,58,69,Monmouth,Princeton,2017,12/12,18:00:00,Jadwin Gymnasium|Princeton|New Jersey,False,False,1549
+400991101,YALE,IONA,67,83,Yale,Iona,2017,12/12,18:00:00,Hynes Athletics Center|New Rochelle|New York,False,False,1553
+400991453,HOF,STON,84,81,Hofstra,Stony Brook,2017,12/12,18:00:00,Island FCU Arena|Stony Brook|New York,False,False,2735
+400991584,COPP,UMBC,74,81,Coppin State,UMBC,2017,12/12,18:00:00,RAC Arena|Baltimore|Maryland,False,False,1166
+400991924,NJIT,COLG,76,87,NJIT,Colgate,2017,12/12,18:00:00,Cotterell Court|Hamilton|New York,False,False,377
+400992427,CP,BCU,53,67,Cal Poly,Bethune-Cookman,2017,12/12,18:00:00,Moore Gymnasium|Daytona Beach|Florida,False,False,704
+400990404,ULL,LT,75,71,UL Lafayette,Louisiana Tech,2017,12/12,18:30:00,Thomas Assembly Center|Ruston|Louisiana,False,False,0
+400986999,USD,COLO,69,59,San Diego,Colorado,2017,12/12,19:00:00,Coors Events Center|Boulder|Colorado,False,False,0
+400989343,UND,SDST,63,99,North Dakota,South Dakota State,2017,12/12,19:00:00,Frost Arena|Brookings|South Dakota,False,False,1874
+400989953,MURR,SLU,55,69,Murray State,Saint Louis,2017,12/12,19:00:00,Chaifetz Arena|St. Louis|Missouri,False,False,0
+400990403,GRAM,ULM,57,59,Grambling,Louisiana Monroe,2017,12/12,19:00:00,Fant-Ewing Coliseum|Monroe|Louisiana,False,False,1391
+400990927,TNST,ALST,64,45,Tennessee State,Alabama State,2017,12/12,19:00:00,Dunn-Oliver Acadome|Montgomery|Alabama,False,False,362
+400986430,MICH,TEX,59,52,Michigan,Texas,2017,12/12,20:00:00,Frank Erwin Center|Austin|Texas,False,False,12504
+400988007,ALBY,MEM,58,67,Albany,Memphis,2017,12/12,20:00:00,FedExForum|Memphis|Tennessee,False,False,4168
+400991258,EWU,WYO,88,93,Eastern Washington,Wyoming,2017,12/12,20:00:00,Arena-Auditorium|Laramie|Wyoming,False,False,0
+400988264,JVST,ORST,69,70,Jacksonville State,Oregon State,2017,12/12,21:00:00,Gill Coliseum|Corvallis|Oregon,False,False,3900

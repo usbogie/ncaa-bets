@@ -1,0 +1,18 @@
+~~~~~~~~~~Regular Decision Tree Results~~~~~~~~~~~~~~~~
+Bet       Charleston Southern -7.0   6    ---  @ South Carolina State0.549   12:00 PM CT 
+Bet       North Dakota        11.0   -15  ---  @ South Dakota State  0.549   7:00 PM CT  
+Bet       Monmouth            2.5    3    5.5  @ Princeton           0.5396  6:00 PM CT  
+Bet       George Mason        2.5    -3   ---  v Georgia Southern    0.5394  6:00 PM CT  
+Bet       Saint Peter's       21.0   -17  4.0  @ Seton Hall          0.525   6:00 PM CT  
+Bet       Colorado            -8.5   4    ---  v San Diego           0.5248  7:00 PM CT  
+Bet       Indiana State       -11.5  7    ---  v Green Bay           0.5248  6:00 PM CT  
+Bet       Murray State        -3.5   8    4.5  @ Saint Louis         0.5205  7:00 PM CT  
+Bet       Jacksonville State  6.0    1    7.0  @ Oregon State        0.5205  9:00 PM CT  
+Bet       Albany              1.0    3    4.0  @ Memphis             0.5205  8:00 PM CT  
+Bet       Michigan            5.5    -6   ---  @ Texas               0.5194  8:00 PM CT  
+Bet       Mississippi State   13.0   -12  1.0  @ Cincinnati          0.5194  6:00 PM CT  
+Bet       Columbia            11.0   -14  ---  @ Boston College      0.5194  6:00 PM CT  
+Bet       Fordham             12.0   -14  ---  @ Rutgers             0.5067  6:00 PM CT  
+Bet       UL Lafayette        4.5    -7   ---  @ Louisiana Tech      0.5067  6:30 PM CT  
+Bet       Yale                4.5    -5   ---  @ Iona                0.5067  6:00 PM CT  
+Bet       Eastern Washington  10.0   -5   5.0  @ Wyoming             0.5044  8:00 PM CT  
