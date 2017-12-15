@@ -1,8 +1,6 @@
 home games only:
-pdiff -7.5 to 0, prob .52 to .535, games 4276 ROI 5.6
-pdiff 1 to 10.5, prob .51 to .53, games 4271 ROI 4.0
-pdiff 2 to None, prob .515 to .525, games 1047, ROI 7.5
-pdiff 3.5 to 8.5 prob .51 to .533 games 1140 ROI 8.6
+pdiff -7.5 to 0, prob .52 to .535, games 4276 ROI 5.6 1x
+pdiff 3.5 to 8.5 prob .51 to .534 games 1149 ROI 8.3 2-4x
 
 neutral games only:
-pdiff 3.5 to None prob .515 to None games 375 ROI 19.7
+pdiff 3.5 to None, prob .515 to None, games 375 ROI 19.7 3x

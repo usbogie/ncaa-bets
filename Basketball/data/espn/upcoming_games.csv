@@ -1,22 +1,10 @@
 Game_ID,Away_Abbrv,Home_Abbrv,Away_Score,Home_Score,Game_Away,Game_Home,Game_Year,Game_Date,Game_Tipoff,Game_Location,Neutral_Site,Conference_Competition,Attendance
-400991575,BU,UML,61,69,Boston University,UMass Lowell,2017,12/13,17:00:00,Costello Athletic Center|Lowell|Massachusetts,False,False,0
-400988008,VILL,TEM,0,0,Villanova,Temple,2017,12/13,19:00:00,Liacouras Center|Philadelphia|Pennsylvania,False,False,0
-400988715,UNCW,UNCG,0,0,UNC Wilmington,UNC Greensboro,2017,12/13,19:00:00,Greensboro Coliseum|Greensboro|North Carolina,False,False,0
-400989841,MVSU,DUQ,0,0,Mississippi Valley State,Duquesne,2017,12/13,19:00:00,A.J. Palumbo Center|Pittsburgh|Pennsylvania,False,False,0
-400991935,FIU,UNF,0,0,Florida Intl,North Florida,2017,12/13,19:00:00,UNF Arena|Jacksonville|Florida,False,False,0
-400990929,MILW,BEL,0,0,Milwaukee,Belmont,2017,12/13,19:30:00,Curb Event Center|Nashville|Tennessee,False,False,0
-400987242,SAV,TAMU,0,0,Savannah State,Texas A&M,2017,12/13,20:00:00,Reed Arena|College Station|Texas,False,False,0
-400986431,LONG,ILL,0,0,Longwood,Illinois,2017,12/13,20:00:00,State Farm Center|Champaign|Illinois,False,False,0
-400986432,WKU,WIS,0,0,Western Kentucky,Wisconsin,2017,12/13,20:00:00,Kohl Center|Madison|Wisconsin,False,False,0
-400987243,SHSU,MISS,0,0,Sam Houston State,Ole Miss,2017,12/13,20:00:00,The Pavilion at Ole Miss|Oxford|Mississippi,False,False,0
-400988009,UNO,SMU,0,0,New Orleans,SMU,2017,12/13,20:00:00,Moody Coliseum|Dallas|Texas,False,False,0
-400989344,ARST,OMA,0,0,Arkansas State,Omaha,2017,12/13,20:00:00,Baxter Arena|Omaha|Nebraska,False,False,0
-400989653,JKST,SIU,0,0,Jackson State,Southern Illinois,2017,12/13,20:00:00,SIU Arena|Carbondale|Illinois,False,False,0
-400989654,UALR,BRAD,0,0,Little Rock,Bradley,2017,12/13,20:00:00,Carver Arena|Peoria|Illinois,False,False,0
-400992566,USM,AAMU,0,0,Southern Mississippi,Alabama A&M,2017,12/13,20:00:00,T.M. Elmore Gymnasium|Normal|Alabama,False,False,0
-400989270,KENN,TTU,0,0,Kennesaw State,Texas Tech,2017,12/13,21:00:00,United Supermarkets Arena|Lubbock|Texas,False,False,0
-400987244,HOU,LSU,0,0,Houston,LSU,2017,12/13,21:00:00,Pete Maravich Assembly Center|Baton Rouge|Louisiana,False,False,0
-400989345,DEN,UNCO,0,0,Denver,Northern Colorado,2017,12/13,21:00:00,Bank of Colorado Arena|Greeley|Colorado,False,False,0
-400990629,GCU,BSU,0,0,Grand Canyon,Boise State,2017,12/13,21:00:00,Taco Bell Arena|Boise|Idaho,False,False,0
-400988265,PRST,ORE,0,0,Portland State,Oregon,2017,12/13,22:00:00,Matthew Knight Arena|Eugene|Oregon,False,False,0
-400991747,UAPB,FRES,0,0,Arkansas-Pine Bluff,Fresno State,2017,12/13,22:00:00,Save Mart Center|Fresno|California,False,False,0
+400988010,BCU,USF,37,38,Bethune-Cookman,South Florida,2017,12/14,19:00:00,USF Sun Dome|Tampa|Florida,False,False,0
+400988718,CIT,CAM,28,45,The Citadel,Campbell,2017,12/14,19:00:00,Pope Convocation Center|Buies Creek|North Carolina,False,False,0
+400988969,MCNS,NCCU,34,51,McNeese,North Carolina Central,2017,12/14,19:00:00,McDougald-McLendon Arena|Durham|North Carolina,False,False,0
+400992753,FAMU,SOU,18,17,Florida A&M,Southern,2017,12/14,19:30:00,F. G. Clark Activity Center|Baton Rouge|Louisiana,False,False,0
+400986433,VALP,NW,0,0,Valparaiso,Northwestern,2017,12/14,20:00:00,Allstate Arena|Rosemont|Illinois,False,False,0
+400988011,PV,TLSA,0,0,Prairie View A&M,Tulsa,2017,12/14,20:00:00,Reynolds Center|Tulsa|Oklahoma,False,False,0
+400989130,TXSO,BAY,0,0,Texas Southern,Baylor,2017,12/14,20:30:00,Ferrell Center|Waco|Texas,False,False,0
+400989346,SDAK,NAU,0,0,South Dakota,Northern Arizona,2017,12/14,21:30:00,J. Lawrence Walkup Skydome|Flagstaff|Arizona,False,False,0
+400987090,SCU,USC,0,0,Santa Clara,USC,2017,12/14,22:00:00,Galen Center|Los Angeles|California,False,False,0

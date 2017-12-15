@@ -24,10 +24,10 @@ n_features = ["DT_home_public","DT_home_ats","DT_home_TOVP","DT_home_reb",
 
 samples = [650,75]
 depths = [4,7]
-min_probs = [.52,.52]
-max_probs = [.535,.53]
-min_pdiffs = [-7.5,-2.5]
-max_pdiffs = [0,-1.5]
+min_probs = [.51,.515]
+max_probs = [.534,None]
+min_pdiffs = [3.5,3.5]
+max_pdiffs = [8.5,None]
 feat_list = [features,n_features]
 
 def run_gridsearch(games, home_away):
@@ -139,13 +139,13 @@ def test_combinations(game_list):
     for test_year in range(2011,this_season + 1):
         test_days = []
         for day in make_season(test_year):
-            test_days.append(home_games.ix[home_games['date']==day])
+            test_days.append(neutral_games.ix[neutral_games['date']==day])
         test_data = pd.concat(test_days,ignore_index=True)
-        initial_training_games = mls.get_train_data(home_games,test_year)
-        X_train,y = mls.pick_features(initial_training_games,feat_list[0])
-        X_test, y_test = mls.pick_features(test_data,feat_list[0])
+        initial_training_games = mls.get_train_data(neutral_games,test_year)
+        X_train,y = mls.pick_features(initial_training_games,feat_list[1])
+        X_test, y_test = mls.pick_features(test_data,feat_list[1])
 
-        clf = tree.DecisionTreeClassifier(min_samples_leaf=samples[0],max_depth=depths[0])
+        clf = tree.DecisionTreeClassifier(min_samples_leaf=samples[1],max_depth=depths[1])
         clf = clf.fit(X_train,y)
 
         resultstree = clf.predict(X_test)
