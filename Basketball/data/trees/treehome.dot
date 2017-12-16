@@ -1,6 +1,7 @@
 digraph Tree {
 node [shape=box, style="filled, rounded", color="black", fontname=helvetica] ;
 edge [fontname=helvetica] ;
+<<<<<<< HEAD
 0 [label=<DT_home_ats &le; 0.5<br/>gini = 0.5<br/>samples = 17864<br/>value = [9048, 8816]<br/>class = y<SUB>0</SUB>>, fillcolor="#e5813907"] ;
 1 [label=<DT_away_movement &le; 0.5<br/>gini = 0.5<br/>samples = 11605<br/>value = [5806, 5799]<br/>class = y<SUB>0</SUB>>, fillcolor="#e5813900"] ;
 0 -> 1 [labeldistance=2.5, labelangle=45, headlabel="True"] ;
@@ -15,9 +16,26 @@ edge [fontname=helvetica] ;
 6 [label=<DT_home_tPAr &le; 0.5<br/>gini = 0.498<br/>samples = 2488<br/>value = [1313, 1175]<br/>class = y<SUB>0</SUB>>, fillcolor="#e581391b"] ;
 2 -> 6 ;
 7 [label=<gini = 0.499<br/>samples = 1540<br/>value = [802, 738]<br/>class = y<SUB>0</SUB>>, fillcolor="#e5813914"] ;
+=======
+0 [label=<DT_home_ats &le; 0.5<br/>gini = 0.5<br/>samples = 17868<br/>value = [9048, 8820]<br/>class = y<SUB>0</SUB>>, fillcolor="#e5813906"] ;
+1 [label=<DT_away_movement &le; 0.5<br/>gini = 0.5<br/>samples = 11608<br/>value = [5806, 5802]<br/>class = y<SUB>0</SUB>>, fillcolor="#e5813900"] ;
+0 -> 1 [labeldistance=2.5, labelangle=45, headlabel="True"] ;
+2 [label=<DT_away_ats &le; 0.5<br/>gini = 0.5<br/>samples = 7723<br/>value = [3957, 3766]<br/>class = y<SUB>0</SUB>>, fillcolor="#e581390c"] ;
+1 -> 2 ;
+3 [label=<DT_home_tPAr &le; 0.5<br/>gini = 0.499<br/>samples = 5055<br/>value = [2628, 2427]<br/>class = y<SUB>0</SUB>>, fillcolor="#e5813914"] ;
+2 -> 3 ;
+4 [label=<gini = 0.498<br/>samples = 3572<br/>value = [1885, 1687]<br/>class = y<SUB>0</SUB>>, fillcolor="#e581391b"] ;
+3 -> 4 ;
+5 [label=<gini = 0.5<br/>samples = 1483<br/>value = [743, 740]<br/>class = y<SUB>0</SUB>>, fillcolor="#e5813901"] ;
+3 -> 5 ;
+6 [label=<DT_away_reb &le; 0.5<br/>gini = 0.5<br/>samples = 2668<br/>value = [1329, 1339]<br/>class = y<SUB>1</SUB>>, fillcolor="#399de502"] ;
+2 -> 6 ;
+7 [label=<gini = 0.499<br/>samples = 1674<br/>value = [796, 878]<br/>class = y<SUB>1</SUB>>, fillcolor="#399de518"] ;
+>>>>>>> updates 12/16/2017
 6 -> 7 ;
-8 [label=<gini = 0.497<br/>samples = 948<br/>value = [511, 437]<br/>class = y<SUB>0</SUB>>, fillcolor="#e5813925"] ;
+8 [label=<gini = 0.497<br/>samples = 994<br/>value = [533, 461]<br/>class = y<SUB>0</SUB>>, fillcolor="#e5813922"] ;
 6 -> 8 ;
+<<<<<<< HEAD
 9 [label=<DT_home_tPAr &le; 0.5<br/>gini = 0.499<br/>samples = 3884<br/>value = [1849, 2035]<br/>class = y<SUB>1</SUB>>, fillcolor="#399de517"] ;
 1 -> 9 ;
 10 [label=<DT_away_ats &le; 0.5<br/>gini = 0.497<br/>samples = 2738<br/>value = [1271, 1467]<br/>class = y<SUB>1</SUB>>, fillcolor="#399de522"] ;
@@ -33,6 +51,23 @@ edge [fontname=helvetica] ;
 15 [label=<DT_away_ats &le; 0.5<br/>gini = 0.5<br/>samples = 3394<br/>value = [1717, 1677]<br/>class = y<SUB>0</SUB>>, fillcolor="#e5813906"] ;
 14 -> 15 ;
 16 [label=<gini = 0.499<br/>samples = 1982<br/>value = [1040, 942]<br/>class = y<SUB>0</SUB>>, fillcolor="#e5813918"] ;
+=======
+9 [label=<DT_home_tPAr &le; 0.5<br/>gini = 0.499<br/>samples = 3885<br/>value = [1849, 2036]<br/>class = y<SUB>1</SUB>>, fillcolor="#399de517"] ;
+1 -> 9 ;
+10 [label=<DT_away_ats &le; 0.5<br/>gini = 0.497<br/>samples = 2739<br/>value = [1271, 1468]<br/>class = y<SUB>1</SUB>>, fillcolor="#399de522"] ;
+9 -> 10 ;
+11 [label=<gini = 0.497<br/>samples = 1878<br/>value = [865, 1013]<br/>class = y<SUB>1</SUB>>, fillcolor="#399de525"] ;
+10 -> 11 ;
+12 [label=<gini = 0.498<br/>samples = 861<br/>value = [406, 455]<br/>class = y<SUB>1</SUB>>, fillcolor="#399de51b"] ;
+10 -> 12 ;
+13 [label=<gini = 0.5<br/>samples = 1146<br/>value = [578, 568]<br/>class = y<SUB>0</SUB>>, fillcolor="#e5813904"] ;
+9 -> 13 ;
+14 [label=<DT_home_winner &le; 0.5<br/>gini = 0.499<br/>samples = 6260<br/>value = [3242, 3018]<br/>class = y<SUB>0</SUB>>, fillcolor="#e5813912"] ;
+0 -> 14 [labeldistance=2.5, labelangle=-45, headlabel="False"] ;
+15 [label=<DT_away_ats &le; 0.5<br/>gini = 0.5<br/>samples = 3395<br/>value = [1717, 1678]<br/>class = y<SUB>0</SUB>>, fillcolor="#e5813906"] ;
+14 -> 15 ;
+16 [label=<gini = 0.499<br/>samples = 1983<br/>value = [1040, 943]<br/>class = y<SUB>0</SUB>>, fillcolor="#e5813918"] ;
+>>>>>>> updates 12/16/2017
 15 -> 16 ;
 17 [label=<gini = 0.499<br/>samples = 1412<br/>value = [677, 735]<br/>class = y<SUB>1</SUB>>, fillcolor="#399de514"] ;
 15 -> 17 ;

@@ -1,10 +1,9 @@
 Game_ID,Away_Abbrv,Home_Abbrv,Away_Score,Home_Score,Game_Away,Game_Home,Game_Year,Game_Date,Game_Tipoff,Game_Location,Neutral_Site,Conference_Competition,Attendance
-400988010,BCU,USF,37,38,Bethune-Cookman,South Florida,2017,12/14,19:00:00,USF Sun Dome|Tampa|Florida,False,False,0
-400988718,CIT,CAM,28,45,The Citadel,Campbell,2017,12/14,19:00:00,Pope Convocation Center|Buies Creek|North Carolina,False,False,0
-400988969,MCNS,NCCU,34,51,McNeese,North Carolina Central,2017,12/14,19:00:00,McDougald-McLendon Arena|Durham|North Carolina,False,False,0
-400992753,FAMU,SOU,18,17,Florida A&M,Southern,2017,12/14,19:30:00,F. G. Clark Activity Center|Baton Rouge|Louisiana,False,False,0
-400986433,VALP,NW,0,0,Valparaiso,Northwestern,2017,12/14,20:00:00,Allstate Arena|Rosemont|Illinois,False,False,0
-400988011,PV,TLSA,0,0,Prairie View A&M,Tulsa,2017,12/14,20:00:00,Reynolds Center|Tulsa|Oklahoma,False,False,0
-400989130,TXSO,BAY,0,0,Texas Southern,Baylor,2017,12/14,20:30:00,Ferrell Center|Waco|Texas,False,False,0
-400989346,SDAK,NAU,0,0,South Dakota,Northern Arizona,2017,12/14,21:30:00,J. Lawrence Walkup Skydome|Flagstaff|Arizona,False,False,0
-400987090,SCU,USC,0,0,Santa Clara,USC,2017,12/14,22:00:00,Galen Center|Los Angeles|California,False,False,0
+400990932,TNST,NCAT,0,0,Tennessee State,North Carolina A&T,2017,12/15,19:00:00,Corbett Sports Center|Greensboro|North Carolina,False,False,0
+400988970,UALR,SHSU,0,0,Little Rock,Sam Houston State,2017,12/15,19:30:00,Bernard G. Johnson Coliseum|Huntsville|Texas,False,False,0
+400992198,EKY,CHSO,0,0,Eastern Kentucky,Charleston Southern,2017,12/15,19:30:00,CSU Field House|Charleston|South Carolina,False,False,0
+400988266,SDST,COLO,0,0,South Dakota State,Colorado,2017,12/15,20:00:00,Coors Events Center|Boulder|Colorado,False,False,0
+400988527,UMES,CREI,0,0,Maryland-Eastern Shore,Creighton,2017,12/15,20:00:00,CenturyLink Center Omaha|Omaha|Nebraska,False,False,0
+400991643,DART,UIC,0,0,Dartmouth,UIC,2017,12/15,20:00:00,UIC Pavilion|Chicago|Illinois,False,False,0
+400988267,DEN,STAN,0,0,Denver,Stanford,2017,12/15,22:00:00,Maples Pavilion|Stanford|California,False,False,0
+400992509,UCD,SF,0,0,UC Davis,San Francisco,2017,12/15,23:00:00,War Memorial Gymnasium|San Francisco|California,False,False,0

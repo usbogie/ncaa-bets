@@ -1,0 +1,6 @@
+~~~~~~~~~~Regular Decision Tree Results~~~~~~~~~~~~~~~~
+Bet       UIC                 -6.0   6    0.0  v Dartmouth           0.5394  7:00 PM CT  
+Bet       Denver              12.5   -9   3.5  @ Stanford            0.5277  9:00 PM CT  
+Bet       Colorado            -4.5   3    ---  v South Dakota State  0.5245  7:00 PM CT  
+Bet       Maryland-Eastern Shore36.5   -37  ---  @ Creighton           0.5062  7:00 PM CT  
+Bet       UC Davis            3.5    4    7.5  @ San Francisco       0.5044  10:00 PM CT 
