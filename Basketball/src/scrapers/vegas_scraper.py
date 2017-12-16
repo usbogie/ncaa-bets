@@ -208,7 +208,7 @@ def get_data(data=[],get_yesterday=False,get_today=False,year=2018):
 	return data
 
 if __name__ == '__main__':
-	year = 2016
+	year = 2018
 	data = get_data(year=year)
 	json_path = os.path.join(my_path,'..','..','data','vi','{}.json'.format(year))
 	with open(json_path,'w') as infile:

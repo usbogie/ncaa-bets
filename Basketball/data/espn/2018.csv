@@ -382,7 +382,7 @@ Game_ID,Away_Abbrv,Home_Abbrv,Away_Score,Home_Score,Game_Away,Game_Home,Game_Yea
 400987176,GAST,MISS,72,77,Georgia State,Ole Miss,2017,11/17,18:00:00,The Pavilion at Ole Miss|Oxford|Mississippi,False,False,6835
 400987179,AAMU,ALA,67,104,Alabama A&M,Alabama,2017,11/17,18:00:00,Coleman Coliseum|Tuscaloosa|Alabama,False,False,11948
 400987952,CCSU,ECU,79,68,Central Connecticut,East Carolina,2017,11/17,18:00:00,Minges Coliseum|Greenville|North Carolina,False,False,0
-400989987,YALE,ALBY,72,80,Yale,Albany,2017,11/17,18:00:00,SEFCU Arena|Albany|New York,False,False,0
+400989987,YALE,ALBY,72,80,Yale,Albany,2017,11/17,18:00:00,SEFCU Arena|Albany|New York,False,False,2717
 400990120,STON,BALL,76,87,Stony Brook,Ball State,2017,11/17,18:00:00,Worthen Arena|Muncie|Indiana,False,False,3502
 400991066,SIE,LEH,90,91,Siena,Lehigh,2017,11/17,18:00:00,Stabler Arena|Bethlehem|Pennsylvania,False,False,767
 400991500,TOWS,L-MD,95,72,Towson,Loyola (MD),2017,11/17,18:00:00,Reitz Arena|Baltimore|Maryland,False,False,0
@@ -407,14 +407,14 @@ Game_ID,Away_Abbrv,Home_Abbrv,Away_Score,Home_Score,Game_Away,Game_Home,Game_Yea
 400988905,MCNS,SDSU,52,83,McNeese,San Diego State,2017,11/17,21:30:00,Viejas Arena|San Diego|California,False,False,10702
 400988217,ALST,ORE,56,114,Alabama State,Oregon,2017,11/17,22:00:00,Matthew Knight Arena|Eugene|Oregon,False,False,0
 400999668,SC,UTEP,80,56,South Carolina,UTEP,2017,11/17,09:30:00,The HTC Center|Conway|South Carolina,True,False,987
-400990369,UTSA,CCAR,69,0,UT San Antonio,Coastal Carolina,2017,11/17,13:00:00,Kendal Isaacs Gymnasium|Freeport|Grand Bahama Island,True,False,0
+400990369,UTSA,CCAR,69,83,UT San Antonio,Coastal Carolina,2017,11/17,13:00:00,Kendal Isaacs Gymnasium|Freeport|Grand Bahama Island,True,False,0
 400999766,VT,WASH,103,79,Virginia Tech,Washington,2017,11/17,16:00:00,Madison Square Garden|New York|New York,True,False,0
 400999662,OHIO,DAY,65,79,Ohio,Dayton,2017,11/17,18:00:00,TD Arena|Charleston|South Carolina,True,False,0
 400999767,PROV,SLU,90,63,Providence,Saint Louis,2017,11/17,18:33:00,Madison Square Garden|New York|New York,True,False,6713
 400986879,USU,GONZ,66,79,Utah State,Gonzaga,2017,11/18,21:00:00,McCarthey Athletic Center|Spokane|Washington,False,False,6000
 400986364,FAIR,PUR,64,106,Fairfield,Purdue,2017,11/18,18:00:00,Mackey Arena|West Lafayette|Indiana,False,False,14804
 400986363,LAS,NW,74,82,La Salle,Northwestern,2017,11/18,13:30:00,Mohegan Sun Arena|Uncasville|Connecticut,True,False,0
-400988488,NJIT,HALL,33,82,NJIT,Seton Hall,2017,11/18,15:00:00,Prudential Center|Newark|New Jersey,False,False,6743
+400988488,NJIT,HALL,53,82,NJIT,Seton Hall,2017,11/18,15:00:00,Prudential Center|Newark|New Jersey,False,False,6743
 400989276,MORG,WVU,48,111,Morgan State,West Virginia,2017,11/18,18:30:00,WVU Coliseum|Morgantown|West Virginia,False,False,11698
 401001058,UTSA,BRAD,69,71,UT San Antonio,Bradley,2017,11/18,10:00:00,Kendal Isaacs Gymnasium|Freeport|Grand Bahama Island,True,False,247
 400986069,TTU,BC,75,64,Texas Tech,Boston College,2017,11/18,11:00:00,Mohegan Sun Arena|Uncasville|Connecticut,True,False,0
@@ -430,7 +430,7 @@ Game_ID,Away_Abbrv,Home_Abbrv,Away_Score,Home_Score,Game_Away,Game_Home,Game_Yea
 400989901,HAMP,GW,57,65,Hampton,George Washington,2017,11/18,13:00:00,Charles E. Smith Center|Washington|District of Columbia,False,False,2636
 400990123,HOW,EMU,66,76,Howard,Eastern Michigan,2017,11/18,13:00:00,Convocation Center (MI)|Ypsilanti|Michigan,False,False,819
 400990594,SEA,DET,102,71,Seattle,Detroit Mercy,2017,11/18,13:00:00,Curb Event Center|Nashville|Tennessee,True,False,0
-400990719,AMER,WAG,32,71,American,Wagner,2017,11/18,13:00:00,Spiro Sports Center|Staten Island|New York,False,False,1128
+400990719,AMER,WAG,70,71,American,Wagner,2017,11/18,13:00:00,Spiro Sports Center|Staten Island|New York,False,False,1128
 400991942,CHSO,UPST,82,72,Charleston Southern,South Carolina Upstate,2017,11/18,13:00:00,Hodge Center|Spartanburg|South Carolina,False,False,528
 401001059,WEB,JMU,73,65,Weber State,James Madison,2017,11/18,13:00:00,Kendal Isaacs Gymnasium|Freeport|Grand Bahama Island,True,False,264
 401001053,QUIN,WAKE,55,72,Quinnipiac,Wake Forest,2017,11/18,13:30:00,Vines Center|Lynchburg|Virginia,True,False,743
@@ -499,7 +499,7 @@ Game_ID,Away_Abbrv,Home_Abbrv,Away_Score,Home_Score,Game_Away,Game_Home,Game_Yea
 400999664,INST,OHIO,94,96,Indiana State,Ohio,2017,11/19,12:00:00,TD Arena|Charleston|South Carolina,True,False,0
 400986073,BCU,GT,62,65,Bethune-Cookman,Georgia Tech,2017,11/19,13:00:00,McCamish Pavilion|Atlanta|Georgia,False,False,5154
 400986368,UND,NEB,70,92,North Dakota,Nebraska,2017,11/19,13:00:00,Pinnacle Bank Arena|Lincoln|Nebraska,False,False,15418
-400986369,NE,OSU,55,47,Northeastern,Ohio State,2017,11/19,13:00:00,Value City Arena|Columbus|Ohio,False,False,10779
+400986369,NE,OSU,55,80,Northeastern,Ohio State,2017,11/19,13:00:00,Value City Arena|Columbus|Ohio,False,False,10779
 400988220,UCI,ASU,78,99,UC Irvine,Arizona State,2017,11/19,13:00:00,Wells Fargo Arena (AZ)|Tempe|Arizona,False,False,5394
 400988667,UNF,WOF,83,86,North Florida,Wofford,2017,11/19,13:00:00,Jerry Richardson Indoor Stadium|Spartanburg|South Carolina,False,False,1632
 400988910,ALCN,UCA,76,102,Alcorn State,Central Arkansas,2017,11/19,13:00:00,Farris Center|Conway|Arkansas,False,False,542
@@ -507,11 +507,11 @@ Game_ID,Away_Abbrv,Home_Abbrv,Away_Score,Home_Score,Game_Away,Game_Home,Game_Yea
 401001159,WEB,BRAD,64,70,Weber State,Bradley,2017,11/19,13:00:00,Kendal Isaacs Gymnasium|Freeport|Grand Bahama Island,True,False,312
 401001170,SEA,BEL,77,90,Seattle,Belmont,2017,11/19,13:00:00,Curb Event Center|Nashville|Tennessee,False,False,0
 401001160,HOU,WAKE,78,73,Houston,Wake Forest,2017,11/19,13:30:00,Vines Center|Lynchburg|Virginia,True,False,655
-400988668,SAM,L-IL,67,41,Samford,Loyola (CHI),2017,11/19,14:00:00,Joseph J. Gentile Center|Chicago|Illinois,False,False,1289
+400988668,SAM,L-IL,67,88,Samford,Loyola (CHI),2017,11/19,14:00:00,Joseph J. Gentile Center|Chicago|Illinois,False,False,1289
 400990127,MVSU,KENT,67,80,Mississippi Valley State,Kent State,2017,11/19,14:00:00,MAC Center|Kent|Ohio,False,False,2005
 400990893,UNCA,PEAY,82,79,UNC Asheville,Austin Peay,2017,11/19,14:00:00,Winfield Dunn Center|Clarksville|Tennessee,False,False,0
 401000131,BC,LAS,82,61,Boston College,La Salle,2017,11/19,14:00:00,Mohegan Sun Arena|Uncasville|Connecticut,True,False,0
-400988911,CSB,LAM,36,73,CSU Bakersfield,Lamar,2017,11/19,15:00:00,Montagne Center|Beaumont|Texas,False,False,1500
+400988911,CSB,LAM,85,73,CSU Bakersfield,Lamar,2017,11/19,15:00:00,Montagne Center|Beaumont|Texas,False,False,1500
 400988912,SELA,VALP,50,83,Southeastern Louisiana,Valparaiso,2017,11/19,15:00:00,Athletics-Recreation Center|Valparaiso|Indiana,False,False,2651
 400992812,SOU,NCCU,67,80,Southern,North Carolina Central,2017,11/19,15:00:00,McDougald-McLendon Arena|Durham|North Carolina,False,False,803
 400991435,ELON,MILW,71,72,Elon,Milwaukee,2017,11/19,15:30:00,UW-Milwaukee Panther Arena|Milwaukee|Wisconsin,False,False,1013
@@ -567,7 +567,7 @@ Game_ID,Away_Abbrv,Home_Abbrv,Away_Score,Home_Score,Game_Away,Game_Home,Game_Yea
 400991071,SIE,BUCK,92,115,Siena,Bucknell,2017,11/20,18:00:00,Sojka Pavilion|Lewisburg|Pennsylvania,False,False,2053
 400992369,PRE,CHAR,74,83,Presbyterian College,Charlotte,2017,11/20,18:00:00,Halton Arena|Charlotte|North Carolina,False,False,3260
 401001035,UMES,SBON,48,96,Maryland-Eastern Shore,St Bonaventure,2017,11/20,18:00:00,Reilly Center|Saint Bonaventure|New York,False,False,3281
-400988671,ALST,CHAT,48,67,Alabama State,Chattanooga,2017,11/20,18:30:00,McKenzie Arena|Chattanooga|Tennessee,False,False,2332
+400988671,ALST,CHAT,50,67,Alabama State,Chattanooga,2017,11/20,18:30:00,McKenzie Arena|Chattanooga|Tennessee,False,False,2332
 400991501,FAU,TOWS,52,76,Florida Atlantic,Towson,2017,11/20,18:30:00,Germain Arena|Estero|Florida,True,False,0
 400987187,GB,MSST,68,77,Green Bay,Mississippi State,2017,11/20,19:00:00,Humphrey Coliseum|Starkville|Mississippi,False,False,6359
 400988914,LIP,ACU,75,67,Lipscomb,Abilene Christian,2017,11/20,19:00:00,Moody Coliseum (Abilene)|Abilene|Texas,False,False,1075
@@ -610,7 +610,7 @@ Game_ID,Away_Abbrv,Home_Abbrv,Away_Score,Home_Score,Game_Away,Game_Home,Game_Yea
 400986079,HBU,VT,73,99,Houston Baptist,Virginia Tech,2017,11/21,18:00:00,Cassell Coliseum|Blacksburg|Virginia,False,False,4951
 400986377,BRY,RUTG,54,83,Bryant,Rutgers,2017,11/21,18:00:00,Louis Brown Athletic Center|Piscataway|New Jersey,False,False,3044
 400988672,WCU,UMASS,76,85,Western Carolina,Massachusetts,2017,11/21,18:00:00,William D. Mullins Memorial Center|Amherst|Massachusetts,False,False,2042
-400988917,SELA,KENT,26,66,Southeastern Louisiana,Kent State,2017,11/21,18:00:00,MAC Center|Kent|Ohio,False,False,1827
+400988917,SELA,KENT,70,66,Southeastern Louisiana,Kent State,2017,11/21,18:00:00,MAC Center|Kent|Ohio,False,False,1827
 400990722,COPP,CCSU,71,74,Coppin State,Central Connecticut,2017,11/21,18:00:00,William H. Detrick Gymnasium|New Britain|Connecticut,False,False,1212
 400990898,MORE,IUPU,61,67,Morehead State,IUPUI,2017,11/21,18:00:00,Indiana Farmers Coliseum|Indianapolis|Indiana,False,False,1012
 400991545,AMER,UNH,74,70,American,New Hampshire,2017,11/21,18:00:00,Lundholm Gymnasium|Durham|New Hampshire,False,False,474
@@ -632,7 +632,7 @@ Game_ID,Away_Abbrv,Home_Abbrv,Away_Score,Home_Score,Game_Away,Game_Home,Game_Yea
 400986930,PAC,AFA,83,71,Pacific,Air Force,2017,11/21,20:00:00,Clune Arena|Colorado Springs|Colorado,False,False,1510
 400990899,TNTC,UNM,104,96,Tennessee Tech,New Mexico,2017,11/21,20:00:00,Dreamstyle Arena|Albuquerque|New Mexico,False,False,9703
 400989778,DAV,NEV,68,81,Davidson,Nevada,2017,11/21,21:00:00,Lawlor Events Center|Reno|Nevada,False,False,8225
-400992507,SAC,UCD,20,64,Sacramento State,UC Davis,2017,11/21,21:05:00,Golden 1 Center|Sacramento|California,True,False,2200
+400992507,SAC,UCD,47,64,Sacramento State,UC Davis,2017,11/21,21:05:00,Golden 1 Center|Sacramento|California,True,False,2200
 400999771,ORU,PEPP,76,80,Oral Roberts,Pepperdine,2017,11/21,21:30:00,Firestone Fieldhouse|Malibu|California,False,False,0
 401000133,BAY,CREI,65,59,Baylor,Creighton,2017,11/21,21:00:00,Sprint Center|Kansas City|Missouri,True,False,10160
 400986081,ARIZ,NCST,84,90,Arizona,NC State,2017,11/22,18:00:00,Imperial Arena|Nassau|Bahamas,True,False,2850
@@ -655,7 +655,7 @@ Game_ID,Away_Abbrv,Home_Abbrv,Away_Score,Home_Score,Game_Away,Game_Home,Game_Yea
 401001925,SDST,BUFF,94,80,South Dakota State,Buffalo,2017,11/22,13:30:00,John Gray Gymnasium|George Town|Cayman Islands,True,False,450
 400990726,LIU,UML,66,74,LIU Brooklyn,UMass Lowell,2017,11/22,14:00:00,Costello Athletic Center|Lowell|Massachusetts,False,False,407
 401001949,SEMO,MTST,82,88,Southeast Missouri State,Montana State,2017,11/22,14:00:00,Hard Rock Hotel Riviera Maya|Cancun|Mexico,True,False,0
-400986309,COLG,BC,79,27,Colgate,Boston College,2017,11/22,15:00:00,Silvio Conte Forum|Chestnut Hill|Massachusetts,False,False,3277
+400986309,COLG,BC,79,83,Colgate,Boston College,2017,11/22,15:00:00,Silvio Conte Forum|Chestnut Hill|Massachusetts,False,False,3277
 400990375,APP,JMU,99,105,Appalachian State,James Madison,2017,11/22,15:00:00,JMU Convocation Center|Harrisonburg|Virginia,False,False,2062
 400990569,CP,COFC,73,68,Cal Poly,Charleston,2017,11/22,15:00:00,Alaska Airlines Center|Anchorage|Alaska,True,False,1524
 401001882,GAST,PV,56,71,Georgia State,Prairie View A&M,2017,11/22,15:30:00,T-Mobile Arena|Las Vegas|Nevada,True,False,0
@@ -689,7 +689,7 @@ Game_ID,Away_Abbrv,Home_Abbrv,Away_Score,Home_Score,Game_Away,Game_Home,Game_Yea
 400990376,STET,USA,81,77,Stetson,South Alabama,2017,11/22,19:05:00,Mitchell Center|Mobile|Alabama,False,False,1737
 401001951,EVAN,LT,61,63,Evansville,Louisiana Tech,2017,11/22,19:30:00,Hard Rock Hotel Riviera Maya|Cancun|Mexico,True,False,982
 400990601,CSU,NMSU,76,89,Colorado State,New Mexico State,2017,11/22,20:00:00,Pan American Center|Las Cruces|New Mexico,False,False,3883
-400987086,IDHO,SCU,28,59,Idaho,Santa Clara,2017,11/22,20:30:00,Alaska Airlines Center|Anchorage|Alaska,True,False,2303
+400987086,IDHO,SCU,69,59,Idaho,Santa Clara,2017,11/22,20:30:00,Alaska Airlines Center|Anchorage|Alaska,True,False,2303
 400987963,UNI,SMU,61,58,Northern Iowa,SMU,2017,11/22,20:30:00,Imperial Arena|Nassau|Bahamas,True,False,909
 400990377,TXST,UAPB,71,54,Texas State,Arkansas-Pine Bluff,2017,11/22,21:00:00,Alex G. Spanos Center|Stockton|California,True,False,30
 400991803,IDST,SJSU,54,62,Idaho State,San Jose State,2017,11/22,21:00:00,Event Center (San Jose St.)|San Jose|California,False,False,1278
@@ -713,7 +713,7 @@ Game_ID,Away_Abbrv,Home_Abbrv,Away_Score,Home_Score,Game_Away,Game_Home,Game_Yea
 400990602,CHS,UMBC,73,84,Chicago State,UMBC,2017,11/23,11:00:00,RAC Arena|Baltimore|Maryland,False,False,334
 400988225,SJU,ORST,82,77,St John's,Oregon State,2017,11/23,13:00:00,HP Field House|Orlando|Florida,True,False,2712
 400991242,NAU,HAMP,66,76,Northern Arizona,Hampton,2017,11/23,13:00:00,Orleans Arena|Las Vegas|Nevada,True,False,0
-400988921,NICH,PRE,76,64,Nicholls,Presbyterian College,2017,11/23,13:30:00,RAC Arena|Baltimore|Maryland,True,False,0
+400988921,NICH,PRE,76,64,Nicholls,Presbyterian College,2017,11/23,13:30:00,RAC Arena|Baltimore|Maryland,True,False,146
 401000101,NCST,UNI,60,64,NC State,Northern Iowa,2017,11/23,14:09:00,Imperial Arena|Nassau|Bahamas,True,False,892
 400986087,UVA,VAN,68,42,Virginia,Vanderbilt,2017,11/23,15:06:00,Barclays Center|Brooklyn|New York,True,False,0
 400987195,ARK,OKLA,92,83,Arkansas,Oklahoma,2017,11/23,16:05:00,Moda Center|Portland|Oregon,True,False,11294
@@ -750,7 +750,7 @@ Game_ID,Away_Abbrv,Home_Abbrv,Away_Score,Home_Score,Game_Away,Game_Home,Game_Yea
 400988922,ACU,CAM,85,80,Abilene Christian,Campbell,2017,11/24,13:00:00,Pope Convocation Center|Buies Creek|North Carolina,False,False,1083
 401002175,UCI,NAU,77,71,UC Irvine,Northern Arizona,2017,11/24,13:00:00,Orleans Arena|Las Vegas|Nevada,True,False,0
 400992948,UMES,JKST,66,63,Maryland-Eastern Shore,Jackson State,2017,11/24,13:30:00,The Arena at Northwest FL St|Niceville|Florida,True,False,200
-401002166,NICH,UMBC,35,89,Nicholls,UMBC,2017,11/24,13:30:00,RAC Arena|Baltimore|Maryland,False,False,489
+401002166,NICH,UMBC,88,89,Nicholls,UMBC,2017,11/24,13:30:00,RAC Arena|Baltimore|Maryland,False,False,489
 401002170,NCST,TENN,58,67,NC State,Tennessee,2017,11/24,13:30:00,Imperial Arena|Nassau|Bahamas,True,False,1329
 400986314,TXSO,CLEM,77,84,Texas Southern,Clemson,2017,11/24,14:00:00,Littlejohn Coliseum|Clemson|South Carolina,False,False,5526
 400986389,ORU,PSU,48,86,Oral Roberts,Penn State,2017,11/24,14:00:00,Bryce Jordan Center|University Park|Pennsylvania,False,False,4463
@@ -767,10 +767,10 @@ Game_ID,Away_Abbrv,Home_Abbrv,Away_Score,Home_Score,Game_Away,Game_Home,Game_Yea
 400991075,FAIR,JAC,84,92,Fairfield,Jacksonville,2017,11/24,15:30:00,Nutter Center|Dayton|Ohio,True,False,0
 400989617,UNCW,L-IL,78,102,UNC Wilmington,Loyola (CHI),2017,11/24,16:00:00,Savannah Civic Center|M M|Georgia,True,False,0
 400990305,UPST,BGSU,74,83,South Carolina Upstate,Bowling Green,2017,11/24,16:00:00,Pope Convocation Center|Buies Creek|North Carolina,True,False,1083
-400990729,CCSU,CLEV,43,73,Central Connecticut,Cleveland State,2017,11/24,16:00:00,Wolstein Center|Cleveland|Ohio,False,False,1121
+400990729,CCSU,CLEV,74,73,Central Connecticut,Cleveland State,2017,11/24,16:00:00,Wolstein Center|Cleveland|Ohio,False,False,1121
 400990730,NSU,RMU,53,75,Norfolk State,Robert Morris,2017,11/24,17:00:00,Jack Stephens Center|Little Rock|Arkansas,True,False,218
 400989307,USM,SDAK,71,84,Southern Mississippi,South Dakota,2017,11/24,17:30:00,Sanford Pentagon|Sioux Falls|South Dakota,True,False,1105
-400986090,UNCG,WAKE,75,36,UNC Greensboro,Wake Forest,2017,11/24,18:00:00,Lawrence Joel Coliseum|Winston-salem|North Carolina,False,False,6810
+400986090,UNCG,WAKE,75,81,UNC Greensboro,Wake Forest,2017,11/24,18:00:00,Lawrence Joel Coliseum|Winston-salem|North Carolina,False,False,6810
 400987198,WIN,AUB,85,119,Winthrop,Auburn,2017,11/24,18:00:00,Auburn Arena|Auburn|Alabama,False,False,0
 400988681,WCU,UTA,65,89,Western Carolina,UT-Arlington,2017,11/24,18:00:00,Gallagher Center|Niagara Falls|New York,True,False,842
 400989244,UNM,TCU,67,69,New Mexico,TCU,2017,11/24,18:00:00,The Arena at Northwest FL St|Niceville|Florida,True,False,1000
@@ -853,7 +853,7 @@ Game_ID,Away_Abbrv,Home_Abbrv,Away_Score,Home_Score,Game_Away,Game_Home,Game_Yea
 400989310,SDAK,UNCO,62,63,South Dakota,Northern Colorado,2017,11/25,18:30:00,Sanford Pentagon|Sioux Falls|South Dakota,True,False,1248
 400989622,UNCW,VALP,70,79,UNC Wilmington,Valparaiso,2017,11/25,18:30:00,Savannah Civic Center|M M|Georgia,True,False,547
 400986310,BC,PROV,66,86,Boston College,Providence,2017,11/25,19:00:00,Dunkin Donuts Center|Providence|Rhode Island,False,False,10806
-400987966,IW,HOU,58,97,Incarnate Word,Houston,2017,11/25,19:00:00,H&PE Arena|Houston|Texas,False,False,0
+400987966,IW,HOU,58,97,Incarnate Word,Houston,2017,11/25,19:00:00,H&PE Arena|Houston|Texas,False,False,2724
 400989153,WIU,ISU,45,70,Western Illinois,Iowa State,2017,11/25,19:00:00,Hilton Coliseum|Ames|Iowa,False,False,13647
 400989311,STET,NDSU,58,94,Stetson,North Dakota State,2017,11/25,19:00:00,Scheels Center|Fargo|North Dakota,False,False,0
 400989621,SIU,MURR,73,81,Southern Illinois,Murray State,2017,11/25,19:00:00,CFSB Center|Murray|Kentucky,False,False,3062
@@ -943,9 +943,9 @@ Game_ID,Away_Abbrv,Home_Abbrv,Away_Score,Home_Score,Game_Away,Game_Home,Game_Yea
 400989314,OAK,ORU,93,86,Oakland,Oral Roberts,2017,11/27,19:00:00,Mabee Center|Tulsa|Oklahoma,False,False,1754
 400990383,DSU,TROY,64,95,Delaware State,Troy,2017,11/27,19:00:00,Trojan Arena|Troy|Alabama,False,False,1201
 400991953,STET,GB,83,71,Stetson,Green Bay,2017,11/27,19:00:00,Resch Center|Ashwaubenon|Wisconsin,False,False,1836
-400992556,GRAM,UNT,77,82,Grambling,North Texas,2017,11/27,19:00:00,UNT Coliseum|Denton|Texas,False,False,1513
+400992556,GRAM,UNT,77,82,Grambling,North Texas,2017,11/27,19:00:00,UNT Coliseum|Denton|Texas,False,False,0
 400988934,LAM,UTEP,66,52,Lamar,UTEP,2017,11/27,20:00:00,Don Haskins Center|El Paso|Texas,False,False,5855
-400990607,IDST,SEA,67,73,Idaho State,Seattle,2017,11/27,21:00:00,KeyArena|Seattle|Washington,False,False,529
+400990607,IDST,SEA,67,73,Idaho State,Seattle,2017,11/27,21:00:00,KeyArena|Seattle|Washington,False,False,0
 400989178,TOL,KU,58,96,Toledo,Kansas,2017,11/28,19:00:00,Allen Fieldhouse|Lawrence|Kansas,False,False,16300
 400987976,SAV,WICH,66,112,Savannah State,Wichita St,2017,11/28,19:00:00,Charles Koch Arena|Wichita|Kansas,False,False,10506
 400988500,BAY,XAV,63,76,Baylor,Xavier,2017,11/28,17:30:00,Cintas Center|Cincinnati|Ohio,False,False,10503
@@ -974,7 +974,7 @@ Game_ID,Away_Abbrv,Home_Abbrv,Away_Score,Home_Score,Game_Away,Game_Home,Game_Yea
 400989952,WMU,SLU,65,51,Western Michigan,Saint Louis,2017,11/28,19:00:00,Chaifetz Arena|St. Louis|Missouri,False,False,5081
 400990384,JKST,ULM,52,65,Jackson State,Louisiana Monroe,2017,11/28,19:00:00,Fant-Ewing Coliseum|Monroe|Louisiana,False,False,1284
 400988939,NDSU,SFA,50,54,North Dakota State,Stephen F. Austin,2017,11/28,19:30:00,William R. Johnson Coliseum|Nacogdoches|Texas,False,False,4398
-400988501,MAINE,GTWN,55,76,Maine,Georgetown,2017,11/28,19:45:00,Capital One Arena|Washington|District of Columbia,False,False,0
+400988501,MAINE,GTWN,55,76,Maine,Georgetown,2017,11/28,19:45:00,Capital One Arena|Washington|District of Columbia,False,False,4029
 400986100,ILL,WAKE,73,80,Illinois,Wake Forest,2017,11/28,20:00:00,Lawrence Joel Coliseum|Winston-salem|North Carolina,False,False,5782
 400986101,IOWA,VT,55,79,Iowa,Virginia Tech,2017,11/28,20:00:00,Cassell Coliseum|Blacksburg|Virginia,False,False,7101
 400988233,KENN,WASH,71,85,Kennesaw State,Washington,2017,11/28,20:00:00,Alaska Airlines Arena|Seattle|Washington,False,False,4858
@@ -1088,7 +1088,7 @@ Game_ID,Away_Abbrv,Home_Abbrv,Away_Score,Home_Score,Game_Away,Game_Home,Game_Yea
 400990144,JKST,CMU,63,70,Jackson State,Central Michigan,2017,12/01,18:00:00,McGuirk Arena|Mount Pleasant|Michigan,False,False,2444
 400990746,FAIR,WAG,76,78,Fairfield,Wagner,2017,12/01,18:00:00,Spiro Sports Center|Staten Island|New York,False,False,793
 400991395,DEL,NAVY,76,82,Delaware,Navy,2017,12/01,18:00:00,Alumni Hall|Annapolis|Maryland,False,False,535
-400986112,GRAM,GT,64,23,Grambling,Georgia Tech,2017,12/01,18:30:00,McCamish Pavilion|Atlanta|Georgia,False,False,4925
+400986112,GRAM,GT,64,63,Grambling,Georgia Tech,2017,12/01,18:30:00,McCamish Pavilion|Atlanta|Georgia,False,False,4925
 400988946,ULL,NICH,105,80,UL Lafayette,Nicholls,2017,12/01,19:00:00,Stopher Gymnasium|Thibodaux|Louisiana,False,False,733
 400989634,EIU,BRAD,56,67,Eastern Illinois,Bradley,2017,12/01,19:00:00,Carver Arena|Peoria|Illinois,False,False,5275
 400986395,ILL,NW,68,72,Illinois,Northwestern,2017,12/01,20:00:00,Allstate Arena|Rosemont|Illinois,False,True,10017
@@ -1118,7 +1118,7 @@ Game_ID,Away_Abbrv,Home_Abbrv,Away_Score,Home_Score,Game_Away,Game_Home,Game_Yea
 400987215,UGA,MARQ,73,66,Georgia,Marquette,2017,12/02,13:00:00,BMO Harris Bradley Center|Milwaukee|Wisconsin,False,False,13476
 400988506,SLU,BUT,45,75,Saint Louis,Butler,2017,12/02,13:00:00,Hinkle Fieldhouse|Indianapolis|Indiana,False,False,8963
 400988507,YSU,DEP,73,89,Youngstown State,DePaul,2017,12/02,13:00:00,Wintrust Arena|Chicago|Illinois,False,False,4732
-400989861,MAINE,FOR,66,60,Maine,Fordham,2017,12/02,13:00:00,Rose Hill Gymnasium|Bronx|New York,False,False,1421
+400989861,MAINE,FOR,66,67,Maine,Fordham,2017,12/02,13:00:00,Rose Hill Gymnasium|Bronx|New York,False,False,1421
 400989935,SBON,BUFF,73,62,St Bonaventure,Buffalo,2017,12/02,13:00:00,Alumni Arena|Buffalo|New York,False,False,6212
 400990145,IUPU,BALL,64,83,IUPUI,Ball State,2017,12/02,13:00:00,Worthen Arena|Muncie|Indiana,False,False,3505
 400990151,OAK,WMU,78,73,Oakland,Western Michigan,2017,12/02,13:00:00,University Arena (MI)|Kalamazoo|Michigan,False,False,2418
@@ -1277,7 +1277,7 @@ Game_ID,Away_Abbrv,Home_Abbrv,Away_Score,Home_Score,Game_Away,Game_Home,Game_Yea
 400992371,SCST,PRE,77,88,South Carolina State,Presbyterian College,2017,12/05,18:00:00,Ross E. Templeton P.E. Center|Clinton|South Carolina,False,False,0
 400988705,UNCA,FUR,72,83,UNC Asheville,Furman,2017,12/05,18:30:00,Timmons Arena|Greenville|South Carolina,False,False,0
 400991856,FAU,FGCU,92,88,Florida Atlantic,Florida Gulf Coast,2017,12/05,18:30:00,Alico Arena|Fort Myers|Florida,False,False,3418
-400987224,CSU,ARK,66,92,Colorado State,Arkansas,2017,12/05,19:00:00,Bud Walton Arena|Fayetteville|Arkansas,False,False,0
+400987224,CSU,ARK,66,92,Colorado State,Arkansas,2017,12/05,19:00:00,Bud Walton Arena|Fayetteville|Arkansas,False,False,13634
 400987993,SAM,MEM,64,65,Samford,Memphis,2017,12/05,19:00:00,FedExForum|Memphis|Tennessee,False,False,4702
 400988513,UND,CREI,68,111,North Dakota,Creighton,2017,12/05,19:00:00,CenturyLink Center Omaha|Omaha|Nebraska,False,False,15069
 400989199,UPST,KSU,49,86,South Carolina Upstate,Kansas State,2017,12/05,19:00:00,Bramlage Coliseum|Manhattan|Kansas,False,False,6911
@@ -1340,7 +1340,7 @@ Game_ID,Away_Abbrv,Home_Abbrv,Away_Score,Home_Score,Game_Away,Game_Home,Game_Yea
 400988960,AMCC,TRGV,78,82,Texas A&M-CC,UT Rio Grande Valley,2017,12/06,19:00:00,UTRGV Fieldhouse|Edinburg|Texas,False,False,764
 400989331,DRKE,SDAK,65,93,Drake,South Dakota,2017,12/06,19:00:00,Sanford Coyote Sports Center|Vermillion|South Dakota,False,False,2101
 400989332,AMER,WIU,56,69,American,Western Illinois,2017,12/06,19:00:00,Western Hall|Macomb|Illinois,False,False,616
-400989641,INST,UNT,76,79,Indiana State,North Texas,2017,12/06,19:00:00,UNT Coliseum|Denton|Texas,False,False,1642
+400989641,INST,UNT,76,79,Indiana State,North Texas,2017,12/06,19:00:00,UNT Coliseum|Denton|Texas,False,False,0
 400989642,SIU,SLU,69,74,Southern Illinois,Saint Louis,2017,12/06,19:00:00,Chaifetz Arena|St. Louis|Missouri,False,False,5633
 400989840,STET,DUQ,59,73,Stetson,Duquesne,2017,12/06,19:00:00,A.J. Palumbo Center|Pittsburgh|Pennsylvania,False,False,1191
 400990924,EIU,GB,57,59,Eastern Illinois,Green Bay,2017,12/06,19:00:00,Resch Center|Ashwaubenon|Wisconsin,False,False,1925
@@ -1488,7 +1488,7 @@ Game_ID,Away_Abbrv,Home_Abbrv,Away_Score,Home_Score,Game_Away,Game_Home,Game_Yea
 400988259,UAPB,ORST,58,85,Arkansas-Pine Bluff,Oregon State,2017,12/09,21:00:00,Gill Coliseum|Corvallis|Oregon,False,False,0
 400990624,IDHO,CSB,55,66,Idaho,CSU Bakersfield,2017,12/09,21:00:00,Icardo Center|Bakersfield|California,False,False,2633
 400991746,FRES,CP,83,63,Fresno State,Cal Poly,2017,12/09,21:00:00,Mott Athletics Center|San Luis Obispo|California,False,False,1994
-400986421,ILL,UNLV,82,89,Illinois,UNLV,2017,12/09,22:59:00,MGM Grand Garden Arena|Las Vegas|Nevada,False,False,9668
+400986421,ILL,UNLV,82,89,Illinois,UNLV,2017,12/09,22:59:00,MGM Grand Garden Arena|Las Vegas|Nevada,True,False,9668
 400988262,ASU,KU,95,85,Arizona State,Kansas,2017,12/10,13:00:00,Allen Fieldhouse|Lawrence|Kansas,False,False,16300
 400988524,LAS,VILL,68,77,La Salle,Villanova,2017,12/10,12:00:00,Wells Fargo Center|Philadelphia|Pennsylvania,False,False,0
 400986883,GONZ,WASH,97,70,Gonzaga,Washington,2017,12/10,19:00:00,Alaska Airlines Arena|Seattle|Washington,False,False,9749
@@ -1575,3 +1575,11 @@ Game_ID,Away_Abbrv,Home_Abbrv,Away_Score,Home_Score,Game_Away,Game_Home,Game_Yea
 400988011,PV,TLSA,73,77,Prairie View A&M,Tulsa,2017,12/14,19:00:00,Reynolds Center|Tulsa|Oklahoma,False,False,3315
 400989346,SDAK,NAU,90,77,South Dakota,Northern Arizona,2017,12/14,20:30:00,J. Lawrence Walkup Skydome|Flagstaff|Arizona,False,False,256
 400987090,SCU,USC,59,82,Santa Clara,USC,2017,12/14,21:00:00,Galen Center|Los Angeles|California,False,False,2712
+400990932,TNST,NCAT,54,64,Tennessee State,North Carolina A&T,2017,12/15,18:00:00,Corbett Sports Center|Greensboro|North Carolina,False,False,0
+400988970,UALR,SHSU,55,57,Little Rock,Sam Houston State,2017,12/15,18:30:00,Bernard G. Johnson Coliseum|Huntsville|Texas,False,False,636
+400992198,EKY,CHSO,70,65,Eastern Kentucky,Charleston Southern,2017,12/15,18:30:00,CSU Field House|Charleston|South Carolina,False,False,556
+400988266,SDST,COLO,103,112,South Dakota State,Colorado,2017,12/15,19:00:00,Coors Events Center|Boulder|Colorado,False,False,0
+400988527,UMES,CREI,36,87,Maryland-Eastern Shore,Creighton,2017,12/15,19:00:00,CenturyLink Center Omaha|Omaha|Nebraska,False,False,16520
+400991643,DART,UIC,60,76,Dartmouth,UIC,2017,12/15,19:00:00,UIC Pavilion|Chicago|Illinois,False,False,0
+400988267,DEN,STAN,62,75,Denver,Stanford,2017,12/15,21:00:00,Maples Pavilion|Stanford|California,False,False,3303
+400992509,UCD,SF,61,74,UC Davis,San Francisco,2017,12/15,22:00:00,War Memorial Gymnasium|San Francisco|California,False,False,2231

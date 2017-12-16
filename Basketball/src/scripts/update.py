@@ -12,7 +12,7 @@ this_season = h.this_season
 my_path = h.path
 
 def run():
-	update_lines_only=False
+	update_lines_only=True
 	print("Get today's ESPN data")
 
 	today_data = espn.get_tonight_info()
