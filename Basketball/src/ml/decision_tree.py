@@ -16,11 +16,11 @@ this_season = h.this_season
 
 game_type = ['home','neutral']
 
-features = ["DT_away_movement","DT_home_ats","DT_away_ats","DT_away_reb",
-"DT_home_tPAr","DT_home_winner"]
+features = ["away_movement","home_ats","away_ats","away_reb",
+"home_tPAr","home_winner"]
 
-n_features = ["DT_home_public","DT_home_ats","DT_home_TOVP","DT_home_reb",
-"DT_away_tPAr","DT_home_FT","DT_away_FT","DT_home_winner"]
+n_features = ["home_public","home_ats","home_TOVP","home_reb",
+"away_tPAr","home_FT","away_FT","home_winner"]
 
 samples = [650,75]
 depths = [4,7]
@@ -244,10 +244,10 @@ def test(game_list):
     #     print(key,feature_dict[key])
 
 def predict_today(game_list):
-    today_path = os.path.join(my_path,'..','data','composite','todays_games.csv')
+    today_path = os.path.join(my_path,'..','data','todays_predict_data.csv')
     todays_games = pd.read_csv(today_path)
-    todays_n_games = todays_games.ix[todays_games['true_home_game']==0]
-    todays_h_games = todays_games.ix[todays_games['true_home_game']==1]
+    todays_n_games = todays_games.ix[todays_games['neutral']==1]
+    todays_h_games = todays_games.ix[todays_games['neutral']==0]
     t_game_list = [todays_h_games,todays_n_games]
     game_types = ["Regular","Neutral"]
     output_path = os.path.join(my_path,'..','data','output',str(this_season),h.months[date.today().month])

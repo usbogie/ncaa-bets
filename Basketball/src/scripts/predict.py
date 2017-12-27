@@ -4,7 +4,7 @@ from ml import ml_shared as mls
 
 
 def test():
-    game_list = mls.get_game_list()
+    game_list = mls.get_dt_data()
     #dt.run_gridsearch()
     #dt.find_min_samples()
     #dt.test_combinations(game_list)
@@ -12,6 +12,6 @@ def test():
     #dto.test()
 
 def today():
-    game_list = mls.get_game_list()
+    game_list = mls.get_dt_data()
     dt.predict_today(game_list)
     #dto.predict_today()
