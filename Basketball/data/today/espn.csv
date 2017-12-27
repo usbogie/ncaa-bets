@@ -1,0 +1,17 @@
+Game_ID,Game_ID,Away_Abbrv,Home_Abbrv,Away_Score,Home_Score,Game_Away,Game_Home,Season,Game_Date,Game_Tipoff,Game_Location,Neutral_Site
+0,400988547,BUT,GTWN,0,0,Butler,Georgetown,2018,2017-12-27,18:30:00,Capital One Arena|Washington|District of Columbia,False
+1,400986167,EMU,SYR,0,0,Eastern Michigan,Syracuse,2018,2017-12-27,19:00:00,Carrier Dome|Syracuse|New York,False
+2,400990094,FGCU,URI,0,0,Florida Gulf Coast,Rhode Island,2018,2017-12-27,19:00:00,Ryan Center|Kingston|Rhode Island,False
+3,400991665,DSU,PENN,0,0,Delaware State,Penn,2018,2017-12-27,19:00:00,The Palestra|Philadelphia|Pennsylvania,False
+4,400988548,VILL,DEP,0,0,Villanova,DePaul,2018,2017-12-27,19:30:00,Wintrust Arena|Chicago|Illinois,False
+5,400986168,COPP,GT,0,0,Coppin State,Georgia Tech,2018,2017-12-27,19:30:00,McCamish Pavilion|Atlanta|Georgia,False
+6,400987276,CSB,ARK,0,0,CSU Bakersfield,Arkansas,2018,2017-12-27,20:00:00,Bud Walton Arena|Fayetteville|Arkansas,False
+7,400988549,XAV,MARQ,0,0,Xavier,Marquette,2018,2017-12-27,20:30:00,BMO Harris Bradley Center|Milwaukee|Wisconsin,False
+8,400986465,CHS,WIS,0,0,Chicago State,Wisconsin,2018,2017-12-27,21:00:00,Kohl Center|Madison|Wisconsin,False
+9,400988036,UCF,SMU,0,0,UCF,SMU,2018,2017-12-27,21:00:00,Moody Coliseum|Dallas|Texas,False
+10,400990638,MORG,GCU,0,0,Morgan State,Grand Canyon,2018,2017-12-27,21:00:00,Orleans Arena|Las Vegas|Nevada,True
+11,400991688,AFA,UNM,0,0,Air Force,New Mexico,2018,2017-12-27,21:00:00,Dreamstyle Arena|Albuquerque|New Mexico,False
+12,400991794,SDSU,WYO,0,0,San Diego State,Wyoming,2018,2017-12-27,21:00:00,Arena-Auditorium|Laramie|Wyoming,False
+13,400991804,SJSU,USU,0,0,San Jose State,Utah State,2018,2017-12-27,21:00:00,Dee Glen Smith Spectrum|Logan|Utah,False
+14,400991709,CSU,BSU,0,0,Colorado State,Boise State,2018,2017-12-27,21:30:00,Taco Bell Arena|Boise|Idaho,False
+15,400991767,NEV,FRES,0,0,Nevada,Fresno State,2018,2017-12-27,22:00:00,Save Mart Center|Fresno|California,False

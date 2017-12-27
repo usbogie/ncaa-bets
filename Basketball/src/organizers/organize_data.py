@@ -13,7 +13,7 @@ import csv
 this_season = h.this_season
 num_teams = 351
 preseason_length = 4
-path = h.path
+data_path = h.data_path
 
 
 '''
@@ -492,12 +492,12 @@ class Organizer(object):
     def get_new_games(self):
         print("Getting new games")
         season = this_season
-        data_path = os.path.join(path,'..','data','espn_today.csv')
-        gamesdf = pd.read_csv(data_path)
+        espn_path = os.path.join(data_path,'today','espn.csv')
+        espndf = pd.read_csv(espn_path)
         upcoming_games = {}
         new_games = []
         new_over_games = []
-        for i, row in gamesdf.iterrows():
+        for i, row in espndf.iterrows():
             try:
                 game = {}
                 game["home"] = row.Game_Home.strip()
@@ -508,27 +508,26 @@ class Organizer(object):
                     upcoming_games[key] = game
                 else:
                     continue
-                game["true_home_game"] = 1 if not row.Neutral_Site else 0
-                game["conf"] = 1 if row.Conference_Competition else 0
+                game["neutral"] = 1 if row.Neutral_Site else 0
+                game["season"] = row.Season
+                game["date"] = row.Game_Date
             except:
                 print("In ESPN, {} vs. {} failed".format(row.Game_Away,row.Game_Home))
                 continue
-        data_path = os.path.join(path,'..','data','vegas_today.json')
-        with open(data_path,'r') as infile:
-            vegas_info = json.load(infile)
-        for game in vegas_info:
+        vegas_path = os.path.join(data_path,'today','vegas.csv')
+        vegasdf = pd.read_csv(vegas_path)
+        for i, row in vegasdf.iterrows():
             try:
-                home = game['home']
-                away = game['away']
+                home = row.home
+                away = row.away
                 key = str((home,away))
                 new_game = upcoming_games[key]
                 new_game['key'] = key
-                new_game['spread_home'] = (float(game['close_line']),-110)
-                new_game['spread'] = new_game['spread_home'][0]
-                new_game["line_movement"] = 0 if game["open_line"] == "" else new_game["spread"] - float(game["open_line"])
-                new_game["home_public_percentage"] = 50 if game["home_side_pct"] == "" else float(game["home_side_pct"])
-                new_game["home_ats"] = game["home_ats"].split("-")
-                new_game["away_ats"] = game["away_ats"].split("-")
+                new_game['spread'] = row.close_line
+                new_game["line_movement"] = 0 if row.open_line == "" else new_game["spread"] - float(row.open_line)
+                new_game["home_side_pct"] = 50 if row.home_side_pct == "" else float(row.home_side_pct)
+                new_game["home_ats"] = row.home_ats.split("-")
+                new_game["away_ats"] = row.away_ats.split("-")
                 new_game["home_ats"] = .5 if new_game["home_ats"][0] == "0" and new_game["home_ats"][1] == "0" else int(new_game["home_ats"][0]) / (int(new_game["home_ats"][0])+int(new_game["home_ats"][1]))
                 new_game["away_ats"] = .5 if new_game["away_ats"][0] == "0" and new_game["away_ats"][1] == "0" else int(new_game["away_ats"][0]) / (int(new_game["away_ats"][0])+int(new_game["away_ats"][1]))
                 new_games.append(new_game)
@@ -538,8 +537,8 @@ class Organizer(object):
         predictions = []
         lg_avg, lg_std = self.get_avg_std(this_season)
         for game in new_games:
-            home = self.teams[game["home"]+season]
-            away = self.teams[game["away"]+season]
+            home = self.teams[game["home"]+str(season)]
+            away = self.teams[game["away"]+str(season)]
             predict = {}
             self.update_stats([home,away])
             predict["pmargin"] = self.get_pmargin(home,away,game)
@@ -548,8 +547,8 @@ class Organizer(object):
                 predictions.append(predict)
             #print("Found:",game["home"],game["away"])
         if predictions:
-            data_path = os.path.join(path,'..','data','todays_predict_data.csv')
-            with open(data_path,'w') as outfile:
+            predict_path = os.path.join(data_path, 'today', 'predict.csv')
+            with open(predict_path,'w') as outfile:
                 keys = list(predictions[0].keys())
                 writer = csv.DictWriter(outfile,fieldnames = keys)
                 writer.writeheader()
@@ -560,8 +559,8 @@ class Organizer(object):
 
     def get_rankings(self, year=this_season):
         print("Updating Rankings for {}".format(year))
-        data_path = os.path.join(path,'..','data','rankings','rankings.txt')
-        with open(data_path, 'w') as f:
+        rank_path = os.path.join(data_path,'rankings','rankings.txt')
+        with open(rank_path, 'w') as f:
             em_list = [((team["adj_ORtg"][-1] - team["adj_DRtg"][-1])/2, key) for key, team in self.teams.items() if team["year"] == year]
             f.write("{:<5}{:<26}{:>7}{:>9}{:>9}\n".format("Rank", "Team", "EM", "ORTG", "DRTG"))
             for rank, em_key in enumerate(sorted(em_list, reverse=True)):

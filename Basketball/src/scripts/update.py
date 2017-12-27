@@ -11,15 +11,15 @@ import helpers as h
 import sqlite3
 
 this_season = h.this_season
-my_path = h.path
-teams_path = os.path.join(my_path,'..','data','teams_to_update.json')
+data_path = h.data_path
+teams_path = os.path.join(data_path,'teams_to_update.json')
 
 def espn_today():
 	print("Getting today's ESPN data...")
 	today_data = espn.get_tonight_info()
 	if not today_data.empty:
 		today_data = today_data.drop_duplicates()
-	today_path = os.path.join(my_path,'..','data','espn_today.csv')
+	today_path = os.path.join(data_path,'today','espn.csv')
 	today_data.to_csv(today_path, index_label='Game_ID')
 	print("Got today's ESPN data\n")
 	return today_data
@@ -101,9 +101,9 @@ def vegas_today(espn_data):
 				game['open_line'] = game['open_line'] * -1
 				game['close_line'] = game['close_line'] * -1
 
-	vi_path = os.path.join(my_path,'..','data','vegas_today.json')
-	with open(vi_path, 'w') as outfile:
-		json.dump(data, outfile)
+	vi_path = os.path.join(data_path,'today','vegas.csv')
+	vidf = pd.DataFrame(data)
+	vidf.to_csv(vi_path)
 	print("Updated Vegas Insider for today\n")
 
 

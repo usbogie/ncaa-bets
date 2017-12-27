@@ -1,0 +1,14 @@
+~~~~~~~~~~Regular Decision Tree Results~~~~~~~~~~~~~~~~
+Bet       Xavier              -3.5   5    1.5  @ Marquette           0.5395  8:30 PM ET  
+Bet       Air Force           11.0   -9   2.0  @ New Mexico          0.5395  9:00 PM ET  
+Bet       San Diego State     -3.0   6    3.0  @ Wyoming             0.5395  9:00 PM ET  
+Bet       San Jose State      13.0   -12  1.0  @ Utah State          0.5395  9:00 PM ET  
+Bet       Villanova           -15.0  14   ---  @ DePaul              0.5381  7:30 PM ET  
+Bet       Nevada              -1.0   -1   ---  @ Fresno State        0.5381  10:00 PM ET 
+Bet       Georgetown          4.0    -2   2.0  v Butler              0.5255  6:30 PM ET  
+Bet       Syracuse            -13.0  12   ---  v Eastern Michigan    0.5255  7:00 PM ET  
+Bet       Florida Gulf Coast  13.0   -11  2.0  @ Rhode Island        0.5191  7:00 PM ET  
+Bet       Chicago State       30.5   -26  4.5  @ Wisconsin           0.5183  9:00 PM ET  
+Bet       SMU                 -11.5  11   ---  v UCF                 0.5121  9:00 PM ET  
+Bet       Arkansas            -23.5  20   ---  v CSU Bakersfield     0.5121  8:00 PM ET  
+Bet       Colorado State      11.0   -15  ---  @ Boise State         0.5073  9:30 PM ET  

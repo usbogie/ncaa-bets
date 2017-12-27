@@ -1,0 +1,14 @@
+away_FT,away_ats,home_movement,pmargin,home_TOVP,home,away_tPAr,home_ats,away_movement,season,spread,spread_diff,date,home_public,home_big,away_reb,key,home_tPAr,away_public,away_big,neutral,home_reb,home_fav,tipstring,away_fav,home_FT,home_winner,away,away_TOVP
+0,1,0,-2,1,Georgetown,0,0,0,2018,4.0,0,2017-12-27,0,0,0,"('Georgetown', 'Butler')",0,0,0,0,1,1,6:30 PM ET,0,1,1,Butler,0
+1,1,1,12,0,Syracuse,0,0,0,2018,-13.0,0,2017-12-27,0,1,0,"('Syracuse', 'Eastern Michigan')",0,0,0,0,1,0,7:00 PM ET,0,1,0,Eastern Michigan,0
+0,1,0,-14,0,DePaul,1,1,0,2018,15.0,0,2017-12-27,0,0,1,"('DePaul', 'Villanova')",0,0,1,0,0,0,7:30 PM ET,0,0,1,Villanova,0
+1,1,0,-5,0,Marquette,0,0,0,2018,3.5,0,2017-12-27,0,0,1,"('Marquette', 'Xavier')",1,1,0,0,0,0,8:30 PM ET,0,1,0,Xavier,0
+1,0,1,9,0,New Mexico,1,0,0,2018,-11.0,0,2017-12-27,0,1,1,"('New Mexico', 'Air Force')",1,1,0,0,0,0,9:00 PM ET,1,0,0,Air Force,1
+1,1,1,11,0,SMU,0,1,0,2018,-11.5,0,2017-12-27,0,1,0,"('SMU', 'UCF')",0,0,0,0,0,0,9:00 PM ET,0,0,0,UCF,1
+1,1,0,-6,1,Wyoming,0,0,0,2018,3.0,1,2017-12-27,0,0,1,"('Wyoming', 'San Diego State')",1,1,0,0,0,0,9:00 PM ET,1,1,0,San Diego State,0
+1,0,1,12,0,Utah State,0,0,0,2018,-13.0,0,2017-12-27,1,1,1,"('Utah State', 'San Jose State')",1,0,0,0,0,0,9:00 PM ET,0,1,0,San Jose State,1
+1,0,0,15,0,Boise State,0,0,1,2018,-11.0,1,2017-12-27,0,1,0,"('Boise State', 'Colorado State')",1,1,0,0,0,1,9:30 PM ET,0,0,1,Colorado State,0
+1,1,1,1,0,Fresno State,0,1,0,2018,1.0,0,2017-12-27,0,0,0,"('Fresno State', 'Nevada')",0,1,0,0,0,1,10:00 PM ET,0,1,1,Nevada,0
+1,1,1,11,0,Rhode Island,0,0,0,2018,-13.0,0,2017-12-27,1,1,1,"('Rhode Island', 'Florida Gulf Coast')",0,0,0,0,0,0,7:00 PM ET,1,0,0,Florida Gulf Coast,1
+0,1,1,20,0,Arkansas,0,1,0,2018,-23.5,1,2017-12-27,0,1,0,"('Arkansas', 'CSU Bakersfield')",0,0,0,0,1,0,8:00 PM ET,1,0,0,CSU Bakersfield,1
+0,0,1,26,0,Wisconsin,0,0,0,2018,-30.5,1,2017-12-27,1,1,0,"('Wisconsin', 'Chicago State')",0,0,0,0,1,0,9:00 PM ET,1,0,0,Chicago State,1

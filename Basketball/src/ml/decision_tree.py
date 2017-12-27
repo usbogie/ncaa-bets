@@ -11,7 +11,7 @@ from ml import ml_shared as mls
 from scrapers.shared import make_season
 import os
 
-my_path = h.path
+data_path = h.data_path
 this_season = h.this_season
 
 game_type = ['home','neutral']
@@ -198,7 +198,7 @@ def test(game_list):
             clf = tree.DecisionTreeClassifier(min_samples_leaf=samples[k],max_depth=depths[k])
             clf = clf.fit(X_train,y)
 
-            # filename = os.path.join(my_path,'..','data','trees','tree{}{}'.format(str(test_year),game_type[k]))
+            # filename = os.path.join(data_path,'trees','tree{}{}'.format(str(test_year),game_type[k]))
             # tree.export_graphviz(clf, out_file='{}.dot'.format(filename),
             #                     feature_names=feat_list[k],
             #                     class_names=True,
@@ -244,13 +244,13 @@ def test(game_list):
     #     print(key,feature_dict[key])
 
 def predict_today(game_list):
-    today_path = os.path.join(my_path,'..','data','todays_predict_data.csv')
+    today_path = os.path.join(data_path,'today','predict.csv')
     todays_games = pd.read_csv(today_path)
     todays_n_games = todays_games.ix[todays_games['neutral']==1]
     todays_h_games = todays_games.ix[todays_games['neutral']==0]
     t_game_list = [todays_h_games,todays_n_games]
     game_types = ["Regular","Neutral"]
-    output_path = os.path.join(my_path,'..','data','output',str(this_season),h.months[date.today().month])
+    output_path = os.path.join(data_path,'output',str(this_season),h.months[date.today().month])
     if not os.path.exists(output_path):
         os.makedirs(output_path)
     write_path = os.path.join(output_path,'{}.txt'.format(date.today()))
@@ -264,7 +264,7 @@ def predict_today(game_list):
 
         clf = tree.DecisionTreeClassifier(min_samples_leaf=samples[i],max_depth=depths[i])
         clf = clf.fit(X_train,y)
-        filename = os.path.join(my_path,'..','data','trees','tree{}'.format(game_type[i]))
+        filename = os.path.join(data_path,'trees','tree{}'.format(game_type[i]))
         tree.export_graphviz(clf, out_file='{}.dot'.format(filename),
                             feature_names=feat_list[i],
                             class_names=True,

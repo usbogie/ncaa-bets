@@ -1,5 +1,5 @@
 Rank Team                           EM     ORTG     DRTG
-1    Villanova                   37.66   122.41    84.75
+1    Villanova                   37.17   122.78    85.61
 2    Michigan State              33.54   115.66    82.12
 3    Virginia                    31.74   109.87    78.13
 4    Kansas                      31.21   117.68    86.47
@@ -7,21 +7,21 @@ Rank Team                           EM     ORTG     DRTG
 6    West Virginia               27.64   113.11    85.47
 7    Duke                        27.36   120.04    92.69
 8    Arizona State               26.32   122.75    96.43
-9    Gonzaga                     25.54   117.18    91.65
-10   Xavier                      25.26   118.09    92.83
+9    Xavier                      25.89   118.45    92.56
+10   Gonzaga                     25.54   117.18    91.65
 11   North Carolina              24.72   112.54    87.82
 12   Texas Tech                  24.58   110.15    85.57
 13   Texas A&M                   24.46   107.95    83.49
 14   Cincinnati                  23.49   107.07    83.58
 15   Arizona                     23.49   118.88    95.40
-16   Nevada                      23.04   115.37    92.33
-17   SMU                         22.61   113.04    90.43
-18   Tennessee                   22.10   109.32    87.21
-19   Arkansas                    21.87   111.92    90.05
-20   Virginia Tech               21.83   116.32    94.49
-21   Seton Hall                  21.17   112.86    91.70
-22   Creighton                   20.92   113.82    92.90
-23   TCU                         20.80   116.37    95.57
+16   Arkansas                    23.12   113.40    90.28
+17   Tennessee                   22.10   109.32    87.21
+18   Virginia Tech               21.83   116.32    94.49
+19   SMU                         21.71   113.31    91.60
+20   Seton Hall                  21.17   112.86    91.70
+21   Creighton                   20.92   113.82    92.90
+22   TCU                         20.80   116.37    95.57
+23   Nevada                      20.77   114.02    93.25
 24   Clemson                     20.76   108.40    87.64
 25   Wichita St                  20.71   115.68    94.97
 26   Baylor                      20.41   111.58    91.17
@@ -33,22 +33,22 @@ Rank Team                           EM     ORTG     DRTG
 32   Ohio State                  17.23   108.63    91.40
 33   Kentucky                    17.10   111.13    94.03
 34   Louisville                  17.07   106.59    89.52
-35   Syracuse                    16.92   105.85    88.93
-36   Fresno State                16.91   114.02    97.11
-37   Florida                     16.88   111.57    94.69
-38   Michigan                    16.88   105.96    89.08
-39   Oklahoma                    16.86   113.33    96.47
-40   Houston                     16.79   110.61    93.82
-41   Rhode Island                16.69   108.73    92.05
-42   Penn State                  16.63   104.58    87.95
-43   Auburn                      16.58   110.23    93.65
-44   Northwestern                15.99   108.83    92.85
-45   St John's                   15.39   101.48    86.10
-46   Notre Dame                  15.04   113.71    98.67
-47   Boise State                 14.83   100.08    85.25
-48   Texas                       14.83   100.08    85.26
-49   Minnesota                   14.62   109.77    95.15
-50   San Diego State             14.37   106.03    91.66
+35   Florida                     16.88   111.57    94.69
+36   Michigan                    16.88   105.96    89.08
+37   Oklahoma                    16.86   113.33    96.47
+38   Houston                     16.79   110.61    93.82
+39   Penn State                  16.63   104.58    87.95
+40   Auburn                      16.58   110.23    93.65
+41   Northwestern                15.99   108.83    92.85
+42   Rhode Island                15.85   108.43    92.57
+43   Syracuse                    15.76   103.41    87.65
+44   St John's                   15.39   101.48    86.10
+45   San Diego State             15.30   105.82    90.52
+46   Butler                      15.17   107.94    92.77
+47   Notre Dame                  15.04   113.71    98.67
+48   Fresno State                14.99   111.71    96.72
+49   Texas                       14.83   100.08    85.26
+50   Minnesota                   14.62   109.77    95.15
 51   Western Kentucky            14.15   111.12    96.97
 52   Oregon                      14.08   107.09    93.01
 53   Kansas State                14.04   108.49    94.45
@@ -61,31 +61,31 @@ Rank Team                           EM     ORTG     DRTG
 60   Temple                      12.75   108.92    96.16
 61   Old Dominion                12.69   101.45    88.76
 62   Rutgers                     12.58    97.72    85.14
-63   NC State                    12.20   111.01    98.81
-64   Oklahoma State              11.71   100.32    88.61
-65   Utah                        11.70   105.30    93.60
-66   Boston College              11.54   108.15    96.62
-67   New Mexico State            11.29   104.46    93.17
-68   BYU                         11.24   108.34    97.10
-69   South Dakota                10.58   106.69    96.11
-70   Wake Forest                 10.56   111.60   101.03
-71   San Diego                   10.54    98.22    87.69
-72   Nebraska                    10.51   108.23    97.72
-73   UT-Arlington                10.40   101.98    91.58
-74   Bradley                     10.39    98.26    87.86
-75   South Carolina              10.33   102.22    91.90
-76   Mississippi State           10.12   100.24    90.11
-77   Davidson                    10.05   110.62   100.57
-78   Idaho                        9.89   102.20    92.31
-79   Butler                       9.78   104.55    94.77
-80   Providence                   9.36   104.57    95.21
-81   Marquette                    9.36   110.95   101.59
+63   Boise State                 12.58   100.52    87.94
+64   NC State                    12.20   111.01    98.81
+65   Marquette                   12.15   112.18   100.03
+66   Oklahoma State              11.71   100.32    88.61
+67   Utah                        11.70   105.30    93.60
+68   Boston College              11.54   108.15    96.62
+69   New Mexico State            11.29   104.46    93.17
+70   BYU                         11.24   108.34    97.10
+71   South Dakota                10.58   106.69    96.11
+72   Wake Forest                 10.56   111.60   101.03
+73   San Diego                   10.54    98.22    87.69
+74   Nebraska                    10.51   108.23    97.72
+75   UT-Arlington                10.40   101.98    91.58
+76   Bradley                     10.39    98.26    87.86
+77   South Carolina              10.33   102.22    91.90
+78   Mississippi State           10.12   100.24    90.11
+79   Davidson                    10.05   110.62   100.57
+80   Idaho                        9.89   102.20    92.31
+81   Providence                   9.36   104.57    95.21
 82   UNC Greensboro               9.22   100.79    91.56
-83   Towson                       9.12   103.08    93.96
-84   Northern Kentucky            9.08   107.73    98.65
-85   UAB                          9.08   111.51   102.43
-86   Washington                   8.94   109.09   100.15
-87   Wisconsin                    8.93   104.53    95.60
+83   Wisconsin                    9.20   105.31    96.11
+84   Towson                       9.12   103.08    93.96
+85   Northern Kentucky            9.08   107.73    98.65
+86   UAB                          9.08   111.51   102.43
+87   Washington                   8.94   109.09   100.15
 88   Illinois                     8.74   103.21    94.46
 89   Murray State                 8.73   111.90   103.17
 90   UCLA                         8.61   104.41    95.80
@@ -100,44 +100,44 @@ Rank Team                           EM     ORTG     DRTG
 99   UC Santa Barbara             6.65   109.32   102.66
 100  Iowa State                   6.59   106.13    99.54
 101  Iowa                         6.52   104.15    97.63
-102  La Salle                     6.39   104.17    97.78
-103  Vanderbilt                   6.34   102.03    95.69
-104  Colorado                     6.29   103.29    97.00
-105  UCF                          6.10    92.13    86.03
-106  Valparaiso                   5.96    97.13    91.17
-107  Mercer                       5.90   114.17   108.28
-108  Lipscomb                     5.57    92.65    87.08
-109  East Tennessee St.           5.51   103.36    97.86
-110  LSU                          5.49   114.17   108.67
-111  UC Davis                     5.42   102.70    97.28
-112  Ball State                   5.25   104.82    99.57
-113  Louisiana Tech               5.24   103.67    98.43
-114  Iona                         5.23   109.12   103.89
-115  VCU                          4.99   103.88    98.89
-116  Loyola (CHI)                 4.85   102.98    98.13
-117  DePaul                       4.80   101.03    96.23
-118  Utah State                   4.64   102.15    97.51
+102  Georgetown                   6.41   105.03    98.62
+103  La Salle                     6.39   104.17    97.78
+104  Vanderbilt                   6.34   102.03    95.69
+105  Colorado                     6.29   103.29    97.00
+106  UCF                          5.99    94.14    88.15
+107  Valparaiso                   5.96    97.13    91.17
+108  Mercer                       5.90   114.17   108.28
+109  Lipscomb                     5.57    92.65    87.08
+110  East Tennessee St.           5.51   103.36    97.86
+111  LSU                          5.49   114.17   108.67
+112  UC Davis                     5.42   102.70    97.28
+113  Ball State                   5.25   104.82    99.57
+114  Louisiana Tech               5.24   103.67    98.43
+115  Iona                         5.23   109.12   103.89
+116  DePaul                       5.15   101.42    96.27
+117  VCU                          4.99   103.88    98.89
+118  Loyola (CHI)                 4.85   102.98    98.13
 119  Georgia State                4.47    99.28    94.81
 120  Ole Miss                     4.45   109.18   104.72
-121  Georgetown                   4.41   103.75    99.34
-122  Belmont                      4.31   106.89   102.58
-123  Northeastern                 4.21   104.49   100.28
-124  Oakland                      4.15   104.16   100.00
-125  Portland State               3.99   104.22   100.24
-126  Tulane                       3.92   101.05    97.13
-127  Rider                        3.89   108.52   104.63
-128  Jacksonville State           3.71   100.88    97.18
-129  Stephen F. Austin            3.67   101.18    97.51
+121  Belmont                      4.31   106.89   102.58
+122  Northeastern                 4.21   104.49   100.28
+123  Oakland                      4.15   104.16   100.00
+124  Portland State               3.99   104.22   100.24
+125  Tulane                       3.92   101.05    97.13
+126  Rider                        3.89   108.52   104.63
+127  Jacksonville State           3.71   100.88    97.18
+128  Stephen F. Austin            3.67   101.18    97.51
+129  Utah State                   3.55   102.35    98.80
 130  Central Michigan             3.34   102.39    99.05
 131  Albany                       3.15   105.95   102.80
 132  Penn                         3.08    97.60    94.52
 133  Southern Illinois            2.88   101.54    98.67
 134  Northern Colorado            2.88    96.09    93.21
-135  North Dakota State           2.84   102.29    99.44
-136  Massachusetts                2.59    98.53    95.94
-137  Indiana                      2.43   106.49   104.06
-138  Washington State             2.15   103.37   101.22
-139  Florida Gulf Coast           1.97   106.12   104.15
+135  Florida Gulf Coast           2.87   105.05   102.18
+136  North Dakota State           2.84   102.29    99.44
+137  Massachusetts                2.59    98.53    95.94
+138  Indiana                      2.43   106.49   104.06
+139  Washington State             2.15   103.37   101.22
 140  Ohio                         1.93    98.96    97.03
 141  North Texas                  1.39   103.87   102.48
 142  Tulsa                        1.31   102.20   100.89
@@ -147,27 +147,27 @@ Rank Team                           EM     ORTG     DRTG
 146  Utah Valley                  1.05   103.14   102.09
 147  Dayton                       0.99   102.95   101.97
 148  Marshall                     0.89   105.12   104.23
-149  Wyoming                      0.87    96.21    95.33
-150  Wagner                       0.86    98.09    97.23
-151  Wright State                 0.72    90.13    89.40
-152  Oregon State                 0.47   102.62   102.15
-153  Connecticut                  0.39    98.51    98.13
-154  Army                         0.37    99.29    98.91
-155  Stanford                     0.23    97.85    97.62
-156  Liberty                     -0.01    97.89    97.91
-157  Charleston                  -0.04    94.88    94.92
-158  Hawai'i                     -0.09    96.15    96.25
+149  Wagner                       0.86    98.09    97.23
+150  Wright State                 0.72    90.13    89.40
+151  Oregon State                 0.47   102.62   102.15
+152  Connecticut                  0.39    98.51    98.13
+153  Army                         0.37    99.29    98.91
+154  Stanford                     0.23    97.85    97.62
+155  Liberty                     -0.01    97.89    97.91
+156  Charleston                  -0.04    94.88    94.92
+157  Hawai'i                     -0.09    96.15    96.25
+158  Wyoming                     -0.32    97.23    97.55
 159  Pacific                     -0.37   102.88   103.25
 160  Hofstra                     -0.53   103.12   103.65
 161  Canisius                    -0.64   101.26   101.89
-162  Princeton                   -0.71   102.08   102.79
-163  Binghamton                  -0.74   102.43   103.18
-164  Robert Morris               -0.81    94.22    95.02
-165  Lamar                       -0.87    96.15    97.01
-166  Evansville                  -0.93    95.12    96.06
-167  Yale                        -0.97   101.26   102.24
-168  Coastal Carolina            -1.01   103.63   104.64
-169  Eastern Michigan            -1.11   100.42   101.53
+162  Eastern Michigan            -0.66   102.05   102.71
+163  Princeton                   -0.71   102.08   102.79
+164  Binghamton                  -0.74   102.43   103.18
+165  Robert Morris               -0.81    94.22    95.02
+166  Lamar                       -0.87    96.15    97.01
+167  Evansville                  -0.93    95.12    96.06
+168  Yale                        -0.97   101.26   102.24
+169  Coastal Carolina            -1.01   103.63   104.64
 170  UNC Asheville               -1.17    96.23    97.40
 171  Duquesne                    -1.19    99.36   100.56
 172  Texas Southern              -1.21   104.15   105.37
@@ -176,21 +176,21 @@ Rank Team                           EM     ORTG     DRTG
 175  Illinois State              -1.32    98.65    99.97
 176  San Francisco               -1.34    93.71    95.05
 177  Fort Wayne                  -1.47   100.70   102.18
-178  Milwaukee                   -1.56    96.56    98.13
-179  Stony Brook                 -1.58    95.62    97.20
-180  Indiana State               -1.58    98.27    99.85
-181  Brown                       -1.64    95.33    96.96
-182  Saint Joseph's              -1.70   102.97   104.67
-183  Toledo                      -1.71   104.75   106.47
-184  Troy                        -1.74   106.09   107.83
-185  Southeast Missouri State    -1.77   108.47   110.24
-186  Eastern Washington          -1.80   100.51   102.31
-187  Appalachian State           -1.89   104.30   106.19
-188  Furman                      -1.93   102.32   104.25
-189  Colgate                     -1.98   102.31   104.29
-190  Memphis                     -1.98    97.86    99.85
-191  Southern Utah               -2.11   107.96   110.07
-192  New Mexico                  -2.15   100.24   102.39
+178  New Mexico                  -1.53   101.68   103.21
+179  Milwaukee                   -1.56    96.56    98.13
+180  Stony Brook                 -1.58    95.62    97.20
+181  Indiana State               -1.58    98.27    99.85
+182  Brown                       -1.64    95.33    96.96
+183  Saint Joseph's              -1.70   102.97   104.67
+184  Toledo                      -1.71   104.75   106.47
+185  Troy                        -1.74   106.09   107.83
+186  Southeast Missouri State    -1.77   108.47   110.24
+187  Eastern Washington          -1.80   100.51   102.31
+188  Appalachian State           -1.89   104.30   106.19
+189  Furman                      -1.93   102.32   104.25
+190  Colgate                     -1.98   102.31   104.29
+191  Memphis                     -1.98    97.86    99.85
+192  Southern Utah               -2.11   107.96   110.07
 193  Saint Peter's               -2.41    95.38    97.79
 194  Georgia Tech                -2.48    92.23    94.71
 195  Loyola Marymount            -2.51   101.39   103.89
@@ -199,33 +199,33 @@ Rank Team                           EM     ORTG     DRTG
 198  Monmouth                    -2.79    96.51    99.30
 199  California                  -2.91    97.31   100.22
 200  UMBC                        -2.92   105.92   108.84
-201  CSU Bakersfield             -3.02    93.58    96.60
-202  Central Connecticut         -3.03   101.87   104.89
-203  Tennessee State             -3.07    91.25    94.33
-204  Radford                     -3.09    97.99   101.08
-205  Montana State               -3.60    98.03   101.63
-206  Navy                        -3.85    98.38   102.23
-207  Austin Peay                 -3.88    94.37    98.25
-208  Tennessee Tech              -3.94   101.88   105.82
-209  Winthrop                    -3.96   103.71   107.68
-210  St Francis (PA)             -4.07   105.61   109.68
-211  Manhattan                   -4.23    95.43    99.66
-212  Florida Intl                -4.31    95.18    99.49
-213  Harvard                     -4.35    92.69    97.04
-214  Weber State                 -4.39   102.28   106.67
-215  Pittsburgh                  -4.43    98.44   102.87
-216  Western Michigan            -4.52    97.78   102.30
-217  Hampton                     -4.58    98.28   102.85
-218  Drexel                      -4.61    94.10    98.71
-219  Cal State Fullerton         -4.67    95.81   100.47
-220  New Orleans                 -4.77    98.79   103.57
-221  Campbell                    -4.92   104.15   109.07
-222  Florida Atlantic            -4.99    94.38    99.37
-223  Wofford                     -5.07   106.56   111.63
-224  Texas State                 -5.09    95.12   100.21
-225  William & Mary              -5.13   111.74   116.87
-226  Saint Louis                 -5.20    90.20    95.40
-227  UC Irvine                   -5.31    96.45   101.76
+201  Central Connecticut         -3.03   101.87   104.89
+202  Tennessee State             -3.07    91.25    94.33
+203  Radford                     -3.09    97.99   101.08
+204  Montana State               -3.60    98.03   101.63
+205  Navy                        -3.85    98.38   102.23
+206  Austin Peay                 -3.88    94.37    98.25
+207  Tennessee Tech              -3.94   101.88   105.82
+208  Winthrop                    -3.96   103.71   107.68
+209  St Francis (PA)             -4.07   105.61   109.68
+210  Manhattan                   -4.23    95.43    99.66
+211  Florida Intl                -4.31    95.18    99.49
+212  Harvard                     -4.35    92.69    97.04
+213  Weber State                 -4.39   102.28   106.67
+214  Pittsburgh                  -4.43    98.44   102.87
+215  Western Michigan            -4.52    97.78   102.30
+216  Hampton                     -4.58    98.28   102.85
+217  Drexel                      -4.61    94.10    98.71
+218  Cal State Fullerton         -4.67    95.81   100.47
+219  New Orleans                 -4.77    98.79   103.57
+220  Campbell                    -4.92   104.15   109.07
+221  Florida Atlantic            -4.99    94.38    99.37
+222  Wofford                     -5.07   106.56   111.63
+223  Texas State                 -5.09    95.12   100.21
+224  William & Mary              -5.13   111.74   116.87
+225  Saint Louis                 -5.20    90.20    95.40
+226  UC Irvine                   -5.31    96.45   101.76
+227  CSU Bakersfield             -5.38    92.84    98.22
 228  Western Illinois            -5.44    92.43    97.87
 229  Chattanooga                 -5.54    92.62    98.17
 230  Drake                       -5.63   102.80   108.43
@@ -244,12 +244,12 @@ Rank Team                           EM     ORTG     DRTG
 243  North Carolina Central      -7.14    99.98   107.11
 244  South Alabama               -7.38    88.40    95.78
 245  Fordham                     -7.52    91.75    99.27
-246  Colorado State              -7.87    95.51   103.38
-247  Cornell                     -7.88   100.74   108.62
-248  Nicholls                    -7.95    95.29   103.24
-249  UTEP                        -7.97    89.18    97.15
-250  Louisiana Monroe            -8.01   100.28   108.28
-251  Oral Roberts                -8.14   101.78   109.92
+246  Cornell                     -7.88   100.74   108.62
+247  Nicholls                    -7.95    95.29   103.24
+248  UTEP                        -7.97    89.18    97.15
+249  Louisiana Monroe            -8.01   100.28   108.28
+250  Oral Roberts                -8.14   101.78   109.92
+251  Colorado State              -8.14    94.21   102.35
 252  Bowling Green               -8.28   101.57   109.85
 253  Cleveland State             -8.40    93.48   101.88
 254  Houston Baptist             -8.42   101.63   110.04
@@ -262,22 +262,22 @@ Rank Team                           EM     ORTG     DRTG
 261  Akron                       -9.16    93.24   102.40
 262  Idaho State                 -9.31    94.44   103.75
 263  Santa Clara                 -9.47   101.83   111.30
-264  Air Force                   -9.54    92.22   101.76
-265  New Hampshire               -9.62    93.73   103.35
-266  Southern Mississippi        -9.71    98.55   108.26
-267  Elon                        -9.73    96.52   106.25
-268  Siena                       -9.74    98.68   108.42
-269  South Florida              -10.10    90.12   100.21
-270  Morgan State               -10.22    91.89   102.11
-271  High Point                 -10.30    93.06   103.35
-272  Charlotte                  -10.38    92.39   102.77
-273  LIU Brooklyn               -10.40    97.07   107.47
-274  Texas A&M-CC               -10.46    89.58   100.04
-275  North Florida              -10.48    98.29   108.77
-276  Denver                     -10.57    95.92   106.49
-277  UMass Lowell               -10.60    99.62   110.22
-278  Delaware                   -11.10    98.93   110.03
-279  North Carolina A&T         -11.23    95.83   107.07
+264  New Hampshire               -9.62    93.73   103.35
+265  Southern Mississippi        -9.71    98.55   108.26
+266  Elon                        -9.73    96.52   106.25
+267  Siena                       -9.74    98.68   108.42
+268  South Florida              -10.10    90.12   100.21
+269  Morgan State               -10.22    91.89   102.11
+270  High Point                 -10.30    93.06   103.35
+271  Charlotte                  -10.38    92.39   102.77
+272  LIU Brooklyn               -10.40    97.07   107.47
+273  Texas A&M-CC               -10.46    89.58   100.04
+274  North Florida              -10.48    98.29   108.77
+275  Denver                     -10.57    95.92   106.49
+276  UMass Lowell               -10.60    99.62   110.22
+277  Delaware                   -11.10    98.93   110.03
+278  North Carolina A&T         -11.23    95.83   107.07
+279  San Jose State             -11.35    88.91   100.26
 280  Grambling                  -11.53    95.19   106.71
 281  Loyola (MD)                -11.71    90.23   101.94
 282  Rice                       -11.72    86.19    97.91
@@ -285,21 +285,21 @@ Rank Team                           EM     ORTG     DRTG
 284  Pepperdine                 -11.99   101.43   113.42
 285  UC Riverside               -12.12    83.02    95.14
 286  Cal Poly                   -12.13    96.37   108.50
-287  UT Martin                  -12.57    94.82   107.39
-288  Richmond                   -12.58    93.85   106.43
-289  Portland                   -12.67    98.13   110.81
-290  Western Carolina           -12.70    95.48   108.17
-291  Gardner-Webb               -12.72    92.25   104.96
-292  Dartmouth                  -12.87    98.08   110.95
-293  Green Bay                  -12.98    86.16    99.14
-294  Kennesaw State             -13.08    91.94   105.03
-295  Omaha                      -13.18    96.65   109.83
-296  East Carolina              -13.24    86.85   100.10
-297  VMI                        -13.37    89.30   102.66
-298  IUPUI                      -13.42    99.25   112.68
-299  Stetson                    -13.47    95.35   108.82
-300  Quinnipiac                 -13.58    97.60   111.18
-301  San Jose State             -14.12    88.05   102.17
+287  Air Force                  -12.13    90.53   102.66
+288  UT Martin                  -12.57    94.82   107.39
+289  Richmond                   -12.58    93.85   106.43
+290  Portland                   -12.67    98.13   110.81
+291  Western Carolina           -12.70    95.48   108.17
+292  Gardner-Webb               -12.72    92.25   104.96
+293  Dartmouth                  -12.87    98.08   110.95
+294  Green Bay                  -12.98    86.16    99.14
+295  Kennesaw State             -13.08    91.94   105.03
+296  Omaha                      -13.18    96.65   109.83
+297  East Carolina              -13.24    86.85   100.10
+298  VMI                        -13.37    89.30   102.66
+299  IUPUI                      -13.42    99.25   112.68
+300  Stetson                    -13.47    95.35   108.82
+301  Quinnipiac                 -13.58    97.60   111.18
 302  Sam Houston State          -14.16    88.22   102.38
 303  St Francis (BKN)           -14.27    88.90   103.16
 304  UNC Wilmington             -14.47    98.40   112.87
@@ -347,6 +347,6 @@ Rank Team                           EM     ORTG     DRTG
 346  Mississippi Valley State   -26.80    85.85   112.65
 347  South Carolina State       -26.97    86.80   113.77
 348  Alabama A&M                -29.65    83.18   112.83
-349  Chicago State              -33.61    82.36   115.96
+349  Chicago State              -32.92    82.71   115.63
 350  Delaware State             -33.83    87.32   121.15
 351  Maryland-Eastern Shore     -36.30    79.97   116.27
