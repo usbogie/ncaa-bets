@@ -9,6 +9,6 @@ Bet       Georgetown          4.0    -2   2.0  v Butler              0.5255  6:3
 Bet       Syracuse            -13.0  12   ---  v Eastern Michigan    0.5255  7:00 PM ET  
 Bet       Florida Gulf Coast  13.0   -11  2.0  @ Rhode Island        0.5191  7:00 PM ET  
 Bet       Chicago State       30.5   -26  4.5  @ Wisconsin           0.5183  9:00 PM ET  
-Bet       SMU                 -11.5  11   ---  v UCF                 0.5121  9:00 PM ET  
+Bet       SMU                 -12.0  11   ---  v UCF                 0.5121  9:00 PM ET  
 Bet       Arkansas            -23.5  20   ---  v CSU Bakersfield     0.5121  8:00 PM ET  
 Bet       Colorado State      11.0   -15  ---  @ Boise State         0.5073  9:30 PM ET  

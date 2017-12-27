@@ -559,12 +559,16 @@ class Organizer(object):
 
     def get_rankings(self, year=this_season):
         print("Updating Rankings for {}".format(year))
-        rank_path = os.path.join(data_path,'rankings','rankings.txt')
-        with open(rank_path, 'w') as f:
-            em_list = [((team["adj_ORtg"][-1] - team["adj_DRtg"][-1])/2, key) for key, team in self.teams.items() if team["year"] == year]
-            f.write("{:<5}{:<26}{:>7}{:>9}{:>9}\n".format("Rank", "Team", "EM", "ORTG", "DRTG"))
-            for rank, em_key in enumerate(sorted(em_list, reverse=True)):
-                em, key = em_key
-                ORtg = (self.teams[key]["adj_ORtg"][-1] + 100) / 2
-                DRtg = (self.teams[key]["adj_DRtg"][-1] + 100) / 2
-                f.write("{:<5}{:<26}{:>7.2f}{:>9.2f}{:>9.2f}\n".format(rank+1, self.teams[key]["name"], em, ORtg, DRtg))
+        rank_path = os.path.join(data_path,'rankings','{}.csv'.format(year))
+        em_list = [((team["adj_ORtg"][-1] - team["adj_DRtg"][-1])/2, key) for key, team in self.teams.items() if team["year"] == year]
+        rank_list = []
+        for rank, em_key in enumerate(sorted(em_list, reverse=True)):
+            em, key = em_key
+            name = self.teams[key]["name"]
+            ortg = round((self.teams[key]["adj_ORtg"][-1] + 100) / 2, 2)
+            drtg = round((self.teams[key]["adj_DRtg"][-1] + 100) / 2, 2)
+            info = [name, em, ortg, drtg]
+            rank_list.append((rank+1,info))
+        rankdf = pd.DataFrame.from_items(rank_list,columns=["Name","EM","ORtg","DRtg"],orient="index")
+        rankdf.index.name = "Rank"
+        rankdf.to_csv(rank_path)
