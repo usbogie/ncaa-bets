@@ -141,11 +141,12 @@ def create_table(cur):
 		FOREIGN KEY (Game_ID) REFERENCES espn(Game_ID))''')
 
 
-def rescrape_all():
+def rescrape(year_list = h.all_years):
+	year_list = h.all_years
 	with sqlite3.connect(h.database) as db:
 		cur = db.cursor()
 		create_table(cur)
-		for year in range(h.first_season, h.this_season+1):
+		for year in year_list:
 			final_info = get_games(year)
 			season_df = pd.DataFrame(final_info)
 			insert_games(db,cur,season_df,year)
@@ -156,7 +157,7 @@ def transfer_to_db():
 	with sqlite3.connect(h.database) as db:
 		cur = db.cursor()
 		create_table(cur)
-		for year in range(h.first_season, h.this_season + 1):
+		for year in h.all_years:
 			csv_path = os.path.join(h.data_path,'cbbref','{}.csv'.format(year))
 			df = pd.read_csv(csv_path)
 			insert_games(db,cur,df,year)

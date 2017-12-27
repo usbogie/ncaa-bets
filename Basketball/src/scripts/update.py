@@ -154,29 +154,33 @@ def update_cbbref(db,cur,year,get_all=False):
 					games_to_add.append(team_df.tail(new_count))
 			if games_to_add:
 				cbbref.insert_games(db,cur,pd.concat(games_to_add, ignore_index=True),year)
-			print("Updated cbbref")
+			print("Updated cbbref\n")
 			file.seek(0)
 			json.dump(teams,file)
 			file.truncate()
 		else:
-			print("CBBRef already up-to-date.")
+			print("CBBRef already up-to-date.\n")
 
 
-def run():
+def run(today_only=False):
 	espn_data = espn_today()
 	vegas_today(espn_data)
-	with sqlite3.connect(h.database) as db:
-		cur = db.cursor()
-		update_espn(db,cur)
-		update_vegas(db,cur,this_season)
-		update_cbbref(db,cur,this_season)
-		db.commit()
+	if not today_only:
+		with sqlite3.connect(h.database) as db:
+			cur = db.cursor()
+			update_espn(db,cur)
+			update_vegas(db,cur,this_season)
+			update_cbbref(db,cur,this_season)
+			db.commit()
 
 
-def rescrape_all():
-	espn.rescrape_all()
-	#vi.rescrape_all()
-	#cbbref.rescrape_all()
+def rescrape(year_list=h.all_years,espn=True,vi=True,cbbref=True):
+	if espn:
+		espn.rescrape(year_list)
+	if vi:
+		vi.rescrape(year_list)
+	if cbbref:
+		cbbref.rescrape(year_list)
 
 
 def transfer_to_db():

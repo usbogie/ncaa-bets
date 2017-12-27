@@ -136,7 +136,7 @@ def test_combinations(game_list):
     neutral_games = game_list[1]
 
     results_dfs = []
-    for test_year in range(2011,this_season + 1):
+    for test_year in h.all_years:
         test_days = []
         for day in make_season(test_year):
             test_days.append(neutral_games.ix[neutral_games['date']==day])
@@ -181,7 +181,7 @@ def test(game_list):
     # run_gridsearch(game_list,0)
     # print("Grid search Neutral")
     # run_gridsearch(game_list,1)
-    for test_year in range(2011,this_season + 1):
+    for test_year in h.all_years:
         print(test_year)
         total_right = 0
         total_wrong = 0

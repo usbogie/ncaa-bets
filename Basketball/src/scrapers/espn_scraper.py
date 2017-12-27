@@ -260,12 +260,13 @@ def create_table(cur):
 		Game_Tipoff TEXT, Game_Location TEXT, Neutral_Site TEXT, Key TEXT)''')
 
 
-def rescrape_all():
+def rescrape(year_list = h.all_years):
+	year_list = h.all_years
 	with sqlite3.connect(h.database) as db:
 		cur = db.cursor()
 		create_table(cur)
 		games = 0
-		for year in range(h.first_season, h.this_season+1):
+		for year in year_list:
 			info_list = make_year_dataframe(year)
 			games += insert_games(cur, pd.concat(info_list, ignore_index=True), games)
 		db.commit()
@@ -276,7 +277,7 @@ def transfer_to_db():
 		cur = db.cursor()
 		create_table(cur)
 		dfs = []
-		for year in range(h.first_season, h.this_season + 1):
+		for year in h.all_years:
 			csv_path = os.path.join(h.data_path,'espn','{}.csv'.format(year))
 			dfs.append(pd.read_csv(csv_path, dtype=str))
 		insert_games(cur, pd.concat(dfs, ignore_index=True),0)
