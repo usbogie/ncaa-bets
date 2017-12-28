@@ -243,6 +243,8 @@ def insert_games(cur, dfs, games):
 	final_info = dfs.drop_duplicates(subset=['Game_Home','Game_Away','Game_Date']).reset_index(drop=True)
 	items = []
 	for index, row in final_info.iterrows():
+		if not row['Home_Score'] and not row['Away_Score']:
+			continue
 		values = [int(index + games) if var == 'Game_ID' 
 				  else get_date_str(row['Season'],row[var]) if var == 'Game_Date'
 		   		  else row[var] for var in info]

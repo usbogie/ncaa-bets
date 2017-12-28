@@ -1,17 +1,48 @@
 Game_ID,Game_ID,Away_Abbrv,Home_Abbrv,Away_Score,Home_Score,Game_Away,Game_Home,Season,Game_Date,Game_Tipoff,Game_Location,Neutral_Site
-0,400988547,BUT,GTWN,0,0,Butler,Georgetown,2018,2017-12-27,18:30:00,Capital One Arena|Washington|District of Columbia,False
-1,400986167,EMU,SYR,0,0,Eastern Michigan,Syracuse,2018,2017-12-27,19:00:00,Carrier Dome|Syracuse|New York,False
-2,400990094,FGCU,URI,0,0,Florida Gulf Coast,Rhode Island,2018,2017-12-27,19:00:00,Ryan Center|Kingston|Rhode Island,False
-3,400991665,DSU,PENN,0,0,Delaware State,Penn,2018,2017-12-27,19:00:00,The Palestra|Philadelphia|Pennsylvania,False
-4,400988548,VILL,DEP,0,0,Villanova,DePaul,2018,2017-12-27,19:30:00,Wintrust Arena|Chicago|Illinois,False
-5,400986168,COPP,GT,0,0,Coppin State,Georgia Tech,2018,2017-12-27,19:30:00,McCamish Pavilion|Atlanta|Georgia,False
-6,400987276,CSB,ARK,0,0,CSU Bakersfield,Arkansas,2018,2017-12-27,20:00:00,Bud Walton Arena|Fayetteville|Arkansas,False
-7,400988549,XAV,MARQ,0,0,Xavier,Marquette,2018,2017-12-27,20:30:00,BMO Harris Bradley Center|Milwaukee|Wisconsin,False
-8,400986465,CHS,WIS,0,0,Chicago State,Wisconsin,2018,2017-12-27,21:00:00,Kohl Center|Madison|Wisconsin,False
-9,400988036,UCF,SMU,0,0,UCF,SMU,2018,2017-12-27,21:00:00,Moody Coliseum|Dallas|Texas,False
-10,400990638,MORG,GCU,0,0,Morgan State,Grand Canyon,2018,2017-12-27,21:00:00,Orleans Arena|Las Vegas|Nevada,True
-11,400991688,AFA,UNM,0,0,Air Force,New Mexico,2018,2017-12-27,21:00:00,Dreamstyle Arena|Albuquerque|New Mexico,False
-12,400991794,SDSU,WYO,0,0,San Diego State,Wyoming,2018,2017-12-27,21:00:00,Arena-Auditorium|Laramie|Wyoming,False
-13,400991804,SJSU,USU,0,0,San Jose State,Utah State,2018,2017-12-27,21:00:00,Dee Glen Smith Spectrum|Logan|Utah,False
-14,400991709,CSU,BSU,0,0,Colorado State,Boise State,2018,2017-12-27,21:30:00,Taco Bell Arena|Boise|Idaho,False
-15,400991767,NEV,FRES,0,0,Nevada,Fresno State,2018,2017-12-27,22:00:00,Save Mart Center|Fresno|California,False
+0,400988996,AMCC,UCA,67,80,Texas A&M-CC,Central Arkansas,2018,2017-12-28,14:00:00,Farris Center|Conway|Arkansas,False
+1,400991397,COR,DEL,84,83,Cornell,Delaware,2018,2017-12-28,14:00:00,Bob Carpenter Center|Newark|Delaware,False
+2,400986169,NCAT,VT,59,76,North Carolina A&T,Virginia Tech,2018,2017-12-28,12:00:00,Cassell Coliseum|Blacksburg|Virginia,False
+3,400988037,ECU,TLSA,0,0,East Carolina,Tulsa,2018,2017-12-28,17:00:00,Reynolds Center|Tulsa|Oklahoma,False
+4,400988550,CREI,HALL,0,0,Creighton,Seton Hall,2018,2017-12-28,18:30:00,Prudential Center|Newark|New Jersey,False
+5,400986466,HART,RUTG,0,0,Hartford,Rutgers,2018,2017-12-28,19:00:00,Louis Brown Athletic Center|Piscataway|New Jersey,False
+6,400988038,TULN,TEM,0,0,Tulane,Temple,2018,2017-12-28,19:00:00,Liacouras Center|Philadelphia|Pennsylvania,False
+7,400988039,HOU,USF,0,0,Houston,South Florida,2018,2017-12-28,19:00:00,USF Sun Dome|Tampa|Florida,False
+8,400988551,PROV,SJU,0,0,Providence,St John's,2018,2017-12-28,19:00:00,Carnesecca Arena|Queens|New York,False
+9,400988736,KENN,MER,0,0,Kennesaw State,Mercer,2018,2017-12-28,19:00:00,Hawkins Arena|Macon|Georgia,False
+10,400989672,VALP,INST,0,0,Valparaiso,Indiana State,2018,2017-12-28,19:00:00,Hulman Center|Terre Haute|Indiana,False
+11,400989997,KENT,ALBY,0,0,Kent State,Albany,2018,2017-12-28,19:00:00,SEFCU Arena|Albany|New York,False
+12,400990185,NJIT,BUFF,0,0,NJIT,Buffalo,2018,2017-12-28,19:00:00,Alumni Arena|Buffalo|New York,False
+13,400990945,TNST,UTM,0,0,Tennessee State,UT Martin,2018,2017-12-28,19:00:00,Skyhawk Arena|Martin|Tennessee,False
+14,400991114,SPU,FAIR,0,0,Saint Peter's,Fairfield,2018,2017-12-28,19:00:00,Webster Bank Arena|Bridgeport|Connecticut,False
+15,400992179,UIC,WRST,0,0,UIC,Wright State,2018,2017-12-28,19:00:00,Nutter Center|Dayton|Ohio,False
+16,400992576,USM,MRSH,0,0,Southern Mississippi,Marshall,2018,2017-12-28,19:00:00,Cam Henderson Center|Huntington|West Virginia,False
+17,400988999,IW,MCNS,0,0,Incarnate Word,McNeese,2018,2017-12-28,19:30:00,Burton Coliseum|Lake Charles|Louisiana,False
+18,400991115,MONM,QUIN,0,0,Monmouth,Quinnipiac,2018,2017-12-28,19:30:00,TD Bank Sports Center|Hamden|Connecticut,False
+19,400992141,IUPU,NKU,0,0,IUPUI,Northern Kentucky,2018,2017-12-28,19:30:00,BB&T Arena|Highland Heights|Kentucky,False
+20,400988995,ACU,UNO,0,0,Abilene Christian,New Orleans,2018,2017-12-28,20:00:00,Lakefront Arena|New Orleans|Louisiana,False
+21,400988997,SFA,SELA,0,0,Stephen F. Austin,Southeastern Louisiana,2018,2017-12-28,20:00:00,University Center (LA)|Hammond|Louisiana,False
+22,400988998,HBU,LAM,0,0,Houston Baptist,Lamar,2018,2017-12-28,20:00:00,Montagne Center|Beaumont|Texas,False
+23,400989000,NWST,NICH,0,0,Northwestern State,Nicholls,2018,2017-12-28,20:00:00,Stopher Gymnasium|Thibodaux|Louisiana,False
+24,400989671,SIU,UNI,0,0,Southern Illinois,Northern Iowa,2018,2017-12-28,20:00:00,McLeod Center|Cedar Falls|Iowa,False
+25,400989673,BRAD,DRKE,0,0,Bradley,Drake,2018,2017-12-28,20:00:00,The Knapp Center|Des Moines|Iowa,False
+26,400990944,SIUE,PEAY,0,0,SIU Edwardsville,Austin Peay,2018,2017-12-28,20:00:00,Winfield Dunn Center|Clarksville|Tennessee,False
+27,400990946,EIU,MURR,0,0,Eastern Illinois,Murray State,2018,2017-12-28,20:00:00,CFSB Center|Murray|Kentucky,False
+28,400992105,DET,GB,0,0,Detroit Mercy,Green Bay,2018,2017-12-28,20:00:00,Resch Center|Ashwaubenon|Wisconsin,False
+29,400992156,OAK,MILW,0,0,Oakland,Milwaukee,2018,2017-12-28,20:00:00,UW-Milwaukee Panther Arena|Milwaukee|Wisconsin,False
+30,400992577,LT,WKU,0,0,Louisiana Tech,Western Kentucky,2018,2017-12-28,20:00:00,E. A. Diddle Arena|Bowling Green|Kentucky,False
+31,400992578,RICE,UTSA,0,0,Rice,UT San Antonio,2018,2017-12-28,20:00:00,UTSA Convocation Center|San Antonio|Texas,False
+32,400990947,EKY,JVST,0,0,Eastern Kentucky,Jacksonville State,2018,2017-12-28,20:30:00,Pete Mathews Coliseum|Jacksonville|Alabama,False
+33,400990948,BEL,SEMO,0,0,Belmont,Southeast Missouri State,2018,2017-12-28,20:30:00,Show Me Center|Cape Girardeau|Missouri,False
+34,400990949,MORE,TNTC,0,0,Morehead State,Tennessee Tech,2018,2017-12-28,20:30:00,Hooper Eblen Center|Cookeville|Tennessee,False
+35,400991266,MTST,SUU,0,0,Montana State,Southern Utah,2018,2017-12-28,20:30:00,America First Events Center|Cedar City|Utah,False
+36,400991267,MONT,NAU,0,0,Montana,Northern Arizona,2018,2017-12-28,20:30:00,J. Lawrence Walkup Skydome|Flagstaff|Arizona,False
+37,400986887,PAC,GONZ,0,0,Pacific,Gonzaga,2018,2017-12-28,21:00:00,McCarthey Athletic Center|Spokane|Washington,False
+38,400986859,PORT,BYU,0,0,Portland,BYU,2018,2017-12-28,21:00:00,Marriott Center|Provo|Utah,False
+39,400987002,SF,USD,0,0,San Francisco,San Diego,2018,2017-12-28,21:00:00,Jenny Craig Pavilion|San Diego|California,False
+40,400987277,LSU,MEM,0,0,LSU,Memphis,2018,2017-12-28,21:00:00,FedExForum|Memphis|Tennessee,False
+41,400990640,UCRV,UVU,0,0,UC Riverside,Utah Valley,2018,2017-12-28,21:00:00,UCCU Center|Orem|Utah,False
+42,400992575,UNT,UTEP,0,0,North Texas,UTEP,2018,2017-12-28,21:00:00,Don Haskins Center|El Paso|Texas,False
+43,400986963,PEPP,SCU,0,0,Pepperdine,Santa Clara,2018,2017-12-28,22:00:00,Leavey Center|Santa Clara|California,False
+44,400990641,NMSU,UCI,0,0,New Mexico State,UC Irvine,2018,2017-12-28,22:00:00,Bren Events Center|Irvine|California,False
+45,400990642,GRAM,SEA,0,0,Grambling,Seattle,2018,2017-12-28,22:00:00,Connolly Center|Seattle|Washington,False
+46,400986913,LMU,SMC,0,0,Loyola Marymount,Saint Mary's,2018,2017-12-28,23:00:00,McKeon Pavilion|Moraga|California,False

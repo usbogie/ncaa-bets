@@ -44,8 +44,6 @@ def update_espn(db, cur):
 		last_night_list = espn.update_espn_data(str(day))
 		if day == days[0]:
 			last_night_list = pd.concat(last_night_list, ignore_index=True)
-			if len(last_night_list.index) == len(homes):
-				continue
 			for index, ldf in last_night_list.iterrows():
 				if not ldf['Game_Home'] in homes:
 					all_dfs.append(ldf)

@@ -63,45 +63,39 @@ def run_gridsearch(games, home_away):
     for i in sorted(rankings):
         print(i)
 
-def print_picks(games,game_type,prob=.5,check_pmargin=False):
+def print_picks(games,game_type,prob=.5):
     sorted_games = games.sort_values('prob',ascending=False)
     games = []
-    game_type_str = "~~~~~~~~~~{} Decision Tree Results~~~~~~~~~~~~~~~~\n".format(game_type)
-    print(game_type_str)
-    games.append(game_type_str)
+    print("~~~~~~~~~~{} Decision Tree Results~~~~~~~~~~~~~~~~\n".format(game_type))
     for idx, row in sorted_games.iterrows():
-        print_game = True
         if row['prob'] >= prob:
+            game = {}
             if float(row['results']) > 0:
-                if check_pmargin and row['pmargin'] + row['spread'] <= 1:
-                    print_game = False
-                    continue
-                winner = row['home']
-                loser = row['away']
-                spread = str(row['spread'])
-                pmargin = str(row['pmargin'])
-                diff = str(row['spread'] + row['pmargin'])
+                game['Pick'] = row['home']
                 loc = "v "
+                game['Opp'] = loc + row['away']
+                game['Spread'] = str(row['spread'])
+                game['pmargin'] = str(row['pmargin'])
+                diff = str(row['spread'] + row['pmargin'])
             else:
-                if check_pmargin and row['pmargin'] + row['spread'] >= -1:
-                    print_game = False
-                    continue
-                winner = row['away']
-                loser = row['home']
-                spread = str(row['spread'] * -1)
-                pmargin = str(row['pmargin'] * -1)
+                game['Pick'] = row['away']
+                loc = "@ " if game_type == "Regular" else "v "
+                game['Opp'] = loc + row['home']
+                game['Spread'] = str(row['spread'] * -1)
+                game['pmargin'] = str(row['pmargin'] * -1)
                 diff = str(-1 * (row['spread'] + row['pmargin']))
-                loc = "@ "
-            bet_string = 'Bet' #if (float(diff) >= pdiff[10] and row['prob']>=min_prob) else 'Caution'
+            game['Confidence'] = 'Bet' if (float(diff) >= 0 and row['prob']>=.51) else 'Caution'
+            game['DT Prob'] = row['prob']
+            game['Tipoff'] = row['tipstring']
             if float(diff) < 0:
-                diff = '---'
+                game['diff'] = ''
             elif float(diff) == 0:
-                diff = str(abs(float(diff)))
-            if print_game:
-                suggestion_str = "{}{}{}{}{}{}{}{}{}\n".format(bet_string.ljust(10),winner.ljust(20),spread.ljust(7),pmargin.ljust(5),diff.ljust(5),loc,loser.ljust(20),str(round(row['prob'],4)).ljust(8),row['tipstring'].ljust(12))
-                games.append(suggestion_str)
-                print(suggestion_str[:-1])
-    return games
+                game['diff'] = str(abs(float(diff)))
+            else:
+                game['diff'] = diff
+            print("{Confidence:<10}{Pick:<25}{Spread:<7}{pmargin:<5}{diff:<5}{Opp:<27}{DT Prob:<8.4}{Tipoff:<12}".format(**game))
+            games.append(game)
+    return pd.DataFrame(games)
 
 def track_today(results_df, min_prob, min_diff, max_prob, max_diff):
     right = 0
@@ -250,11 +244,11 @@ def predict_today(game_list):
     todays_h_games = todays_games.ix[todays_games['neutral']==0]
     t_game_list = [todays_h_games,todays_n_games]
     game_types = ["Regular","Neutral"]
-    output_path = os.path.join(data_path,'output',str(this_season),h.months[date.today().month])
-    if not os.path.exists(output_path):
-        os.makedirs(output_path)
-    write_path = os.path.join(output_path,'{}.txt'.format(date.today()))
-    write_file = open(write_path, 'w')
+    month_path = os.path.join(data_path,'output',str(this_season),h.months[date.today().month])
+    if not os.path.exists(month_path):
+        os.makedirs(month_path)
+    output_path = os.path.join(month_path,'{}.csv'.format(date.today()))
+    df_list = []
     for i in range(len(t_game_list)):
         if len(t_game_list[i]) == 0:
             continue
@@ -283,4 +277,7 @@ def predict_today(game_list):
         today_resultsdf = t_game_list[i][['away','home','pmargin','spread','tipstring']]
         today_resultsdf.insert(5, 'results', today_results)
         today_resultsdf.insert(6, 'prob', probs)
-        write_file.writelines(print_picks(today_resultsdf,game_types[i],prob=.5))
+        today_resultsdf.insert(7, 'type', [game_types[i] for x in range(len(probs))])
+        df_list.append(print_picks(today_resultsdf,game_types[i],prob=.5))
+    df = pd.concat(df_list, ignore_index=True)
+    df.to_csv(output_path, index=False, columns=['Confidence','Pick','Spread','pmargin','diff','Opp','DT Prob','Tipoff'])
