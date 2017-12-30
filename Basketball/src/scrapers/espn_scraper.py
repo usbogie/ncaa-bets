@@ -250,7 +250,7 @@ def insert_games(cur, dfs, games):
 		   		  else row[var] for var in info]
 		key = ','.join([row['Game_Home'],row['Game_Away'],get_date_str(row['Season'],row['Game_Date'])])
 		items.append(tuple(values + [key]))
-	cur.executemany('''INSERT INTO espn VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)''', items)
+	cur.executemany('''INSERT OR REPLACE INTO espn VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)''', items)
 	return len(items)
 
 

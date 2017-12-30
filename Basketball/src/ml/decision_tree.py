@@ -85,7 +85,7 @@ def print_picks(games,game_type,prob=.5):
                 game['pmargin'] = str(row['pmargin'] * -1)
                 diff = str(-1 * (row['spread'] + row['pmargin']))
             game['Confidence'] = 'Bet' if (float(diff) >= 0 and row['prob']>=.51) else 'Caution'
-            game['DT Prob'] = row['prob']
+            game['DT Prob'] = round(row['prob'], 4)
             game['Tipoff'] = row['tipstring']
             if float(diff) < 0:
                 game['diff'] = ''
@@ -93,7 +93,7 @@ def print_picks(games,game_type,prob=.5):
                 game['diff'] = str(abs(float(diff)))
             else:
                 game['diff'] = diff
-            print("{Confidence:<10}{Pick:<25}{Spread:<7}{pmargin:<5}{diff:<5}{Opp:<27}{DT Prob:<8.4}{Tipoff:<12}".format(**game))
+            print("{Confidence:<10}{Pick:<25}{Spread:<7}{pmargin:<5}{diff:<5}{Opp:<27}{DT Prob:<8}{Tipoff:<12}".format(**game))
             games.append(game)
     return pd.DataFrame(games)
 

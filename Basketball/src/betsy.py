@@ -28,9 +28,12 @@ else:
 		org = Organizer([h.this_season])
 		org.run()
 		predict.today()
+	elif arg == 'test_stats':
+		org = Organizer(h.all_years)
+		org.run()
 	# Runs tests
 	elif arg == 'test':
 		predict.test()
 	else:
 		print("Argument not found.")
-		print("Options: 'today', 'all', 'test', 'rescrape'.")
+		print("Options: 'today', 'all', 'test', 'rescrape', 'test_stats'.")

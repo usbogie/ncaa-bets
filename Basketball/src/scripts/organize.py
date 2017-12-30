@@ -37,6 +37,9 @@ class Organizer(object):
                 to_drop.append(key)
         relevant_df = relevant_df.drop(to_drop)
         self.teams = self.get_teams(relevant_df)
+        self.margin_groups = {}
+        self.diff_groups = {}
+        self.test_data = self.initialize_test_data()
 
 
     def create_dt_table(self,cur):
@@ -116,9 +119,9 @@ class Organizer(object):
                         if game["home_cover"] != 0 and game["key"] not in self.dt_keys and self.make_prediction(predict, game, home, away, lg_avg, lg_std):
                             self.add_gen_info(predict,game)
                             self.old_predictions.append(predict)
-                        #self.add_test_data() # Not Going To Work! Just saving in case wanted
+                        self.add_test_data(game, predict["pmargin"])
                         self.store_results(home,away,game)
-            #self.print_test_results() # Not Going to Work!
+            self.print_test_results()
             self.add_dt_predictions(cur)
             db.commit()
             print()
@@ -222,67 +225,80 @@ class Organizer(object):
         if pmargin < 0 and pmargin >= -6:
             pmargin -= 1
         pmargin *= .8
+        pmargin = 1 if not pmargin else pmargin
         return round(pmargin)
 
 
     def print_test_results(self):
-        for key in sorted(margins.keys()):
-            data = {}
-            data["pred"] = key
-            data["margmed"] = np.median(margins[key])
-            data["diffmed"] = np.median(diffs[key])
-            data["count"] = len(margins[key])
-            print(str(key * 5).rjust(5),str(data["margmed"]).rjust(5),str(data["diffmed"]).rjust(15),str(len(margins[key])).rjust(6))
+        for key in sorted(self.margin_groups.keys()):
+            data = {
+                "group": key * 5,
+                "margmed": np.median(self.margin_groups[key]),
+                "diffmed": np.median(self.diff_groups[key]),
+                "count": len(self.margin_groups[key])
+            }
+            print("{group:>5}{margmed:>5}{diffmed:>15}{count:>6}".format(**data))
+        print("{:<60}{:.4}".format("Average Difference between Margin and Prediction:",np.mean(self.test_data['pm_diff'])))
+        print("{:<60}{:.4}".format("Average Difference between Margin and Spread:",np.mean(self.test_data['s_diff'])))
+        print("{:<60}{:.4}".format("Percentage of Picks that are Favorites:",sum(self.test_data['favs']) / self.test_data['all']))
+        print("{:<60}{:.4}".format("Win Percentage ATS for Favorites:",sum(self.test_data['fav_wins']) / self.test_data['all']))
+        print("{:<60}{:.4}".format("Percentage of Picks ATS that are Home Teams:",sum(self.test_data['home_ats']) / self.test_data['trues']))
+        print("{:<60}{:.4}".format("Win Percentage ATS for Home Teams:",sum(self.test_data['home_ats_wins']) / self.test_data['trues']))
+        print("{:<60}{:.4}".format("Percentage of Picks that are Home Teams:",sum(self.test_data['homes']) / self.test_data['trues']))
+        print("{:<60}{:.4}".format("Percentage of Favorites that are Home Teams:",sum(self.test_data['vegas_homes']) / self.test_data['trues']))
+        print("{:<60}{:.4}".format("Win Percentage of Home Teams:",sum(self.test_data['home_wins']) / self.test_data['trues']))
+        print("{:<60}{:.4}".format("Win Percentage:",sum(self.test_data['picks']) / self.test_data['all']))
+        print("{:<60}{:.4}".format("Vegas Win Percentage:",sum(self.test_data['vegas_picks']) / self.test_data['all']))
+        print("{:<60}{:.4}".format("Win Percentage ATS:",sum(self.test_data['picks_ats']) / self.test_data['all']))
 
-        print("Standard deviation of Home Offensive Rating prediction:".ljust(60),np.std(home_ORtg_std_list))
-        print("Standard deviation of Away Offensive Rating prediction:".ljust(60),np.std(away_ORtg_std_list))
-        print("Standard deviation of Home Score prediction:".ljust(60),np.std(home_score_std_list))
-        print("Standard deviation of Away Score prediction:".ljust(60),np.std(away_score_std_list))
-        print("Standard deviation of Scoring Margin prediction:".ljust(60),np.std(pmargin_std_list))
-        print("Standard deviation of Scoring Margin and Spread:".ljust(60),np.std(spread_std_list))
-        print("Standard deviation of Predicted Scoring Margin and Spread:".ljust(60),np.std(diff_std_list))
-        print("Home count:",len(home_count),len([i for i in home_count if i])/len(home_count))
-        print("Predicted Margin count:",len(pred_margin_count),len([i for i in pred_margin_count if i])/len(pred_margin_count))
+
+    def initialize_test_data(self):
+        d = {}
+        d['pm_diff'] = []
+        d['s_diff'] = []
+        d['favs'] = []
+        d['fav_wins'] = []
+        d['picks'] = []
+        d['vegas_picks'] = []
+        d['picks_ats'] = []
+        d['all'] = 0
+        d['home_ats'] = []
+        d['home_ats_wins'] = []
+        d['homes'] = []
+        d['vegas_homes'] = []
+        d['home_wins'] = []
+        d['trues'] = 0
+        return d
 
 
-    def add_test_data(self):
-        h_proj_o = (home["adj_ORtg"][-1] + away["adj_DRtg"][-1]) / 2 + game["home_o"]
-        a_proj_o = (away["adj_ORtg"][-1] + home["adj_DRtg"][-1]) / 2 + game["away_o"]
-        try:
-            home_ORtg_std_list.append(h_proj_o - game["home_ORtg"])
-            away_ORtg_std_list.append(a_proj_o - game["away_ORtg"])
-            home_score_std_list.append(h_proj_o * game["tempo"] / 100 - game["home_score"])
-            away_score_std_list.append(a_proj_o * game["tempo"] / 100 - game["away_score"])
-            spread_std_list.append(game["spread"] + game["margin"])
-            pmargin_std_list.append(game["pmargin"] - game["margin"])
-            diff_std_list.append(abs(game["pmargin"] + game["spread"]))
-            home_count.append(game["pmargin"] / game["margin"] > 0)
-            if game["spread"] != 0 and game["pmargin"] + game["spread"] != 0 and game["spread"] + game["margin"] != 0:
-                pred_margin_count.append((game["pmargin"] + game["spread"]) / (game["margin"] + game["spread"]) > 0)
-        except:
-            pass
-
-        data = {}
-        data["pmargin"] = game["pmargin"]
-        data["home_em"] = game["home_em"]
-        data["away_em"] = game["away_em"]
-        data["Pace"] = game["Pace"]
-        data["home_pORtg"] = game["home_pORtg"]
-        data["away_pORtg"] = game["away_pORtg"]
-        data["home_o"] = game["home_ORtg"]
-        data["away_o"] = game["away_ORtg"]
-        data["home_temp"] = home["adj_temp"][-1]
-        data["away_temp"] = away["adj_temp"][-1]
-        data["margin"] = game["margin"]
-        data["ptemp"] = game["tempo"]
-        data["neutral"] = game["neutral"]
-        data_list.append(data)
-        try:
-            margins[game["pmargin"] // 5].append(game["margin"])
-            diffs[game["pmargin"] // 5].append(game["pmargin"] - game["margin"])
-        except:
-            margins[game["pmargin"] // 5] = [game["margin"]]
-            diffs[game["pmargin"] // 5] = [game["pmargin"] - game["margin"]]
+    def add_test_data(self, game, pmargin):
+        # margin, pmargin, spread, neutral
+        if not game['spread'] in [None, '', 0]:
+            self.test_data['pm_diff'].append(abs(game['margin'] - pmargin))
+            self.test_data['s_diff'].append(abs(game['margin'] + game['spread']))
+            # WRONG
+            neg_fav = game['spread'] * (game['spread'] + pmargin)
+            self.test_data['favs'].append(1 if neg_fav < 0 else 0 if neg_fav > 0 else .5)
+            # WRONG
+            neg_fav_act = game['spread'] * (game['spread'] + game['margin'])
+            self.test_data['fav_wins'].append(1 if neg_fav_act < 0 else 0 if neg_fav_act > 0 else .5)
+            self.test_data['picks'].append(1 if game['margin'] / pmargin > 0 else 0)
+            self.test_data['vegas_picks'].append(1 if game['spread'] / game['margin'] < 0 else 0)
+            if game['margin'] + game['spread'] != 0 and game['spread'] + pmargin != 0:
+                self.test_data['picks_ats'].append(1 if (game['margin'] + game['spread']) / (pmargin + game['spread']) > 0 else 0)
+            else:
+                self.test_data['picks_ats'].append(.5)
+            self.test_data['all'] += 1
+            if not game['neutral']:
+                self.test_data['home_ats'].append(1 if game['spread'] + pmargin > 0 else 0 if game['spread'] + pmargin < 0 else .5)
+                self.test_data['home_ats_wins'].append(1 if game['spread'] + game['margin'] > 0 else 0 if game['spread'] + game['margin'] < 0 else .5)
+                self.test_data['homes'].append(1 if pmargin > 0 else 0)
+                self.test_data['vegas_homes'].append(1 if game['spread'] < 0 else 0 if game['spread'] > 0 else .5)
+                self.test_data['home_wins'].append(1 if game['margin'] > 0 else 0)
+                self.test_data['trues'] += 1
+        group = pmargin // 5
+        self.margin_groups[group] = self.margin_groups.get(group, []) + [game['margin']]
+        self.diff_groups[group] = self.diff_groups.get(group, []) + [pmargin - game['margin']]
 
 
     def update_stats(self, team_list):

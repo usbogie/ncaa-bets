@@ -27,14 +27,14 @@ def espn_today():
 
 def update_espn(db, cur):
 	print("Catching ESPN up to today...")
-	df = pd.read_sql_query('''SELECT Game_Home, Game_Date, Game_ID FROM espn WHERE Season = ?''', db, params = (str(this_season), ))
+	df = pd.read_sql_query('''SELECT * FROM espn WHERE Season = ?''', db, params = (str(this_season), ))
 	homes = []
 	prev_day = date.today() - timedelta(1)
 	days = [prev_day]
 	season_days = shared.make_season(this_season)
 	while not df.empty or str(prev_day) in season_days:
-		homes = df.ix[df['Game_Date']==str(prev_day)]['Game_Home'].tolist()
-		if homes:
+		day_df = df.ix[df['Game_Date']==str(prev_day)][['Game_Home','Home_Score','Away_Score']].set_index('Game_Home')
+		if len(day_df.index):
 			break
 		prev_day -= timedelta(1)
 		days = [str(prev_day)] + days
@@ -45,8 +45,17 @@ def update_espn(db, cur):
 		if day == days[0]:
 			last_night_list = pd.concat(last_night_list, ignore_index=True)
 			for index, ldf in last_night_list.iterrows():
-				if not ldf['Game_Home'] in homes:
+				if not ldf['Game_Home'] in day_df.index:
 					all_dfs.append(ldf)
+				else:
+					row = day_df.loc[ldf['Game_Home']]
+					if row['Home_Score'] != ldf['Home_Score'] or row['Away_Score'] != ldf['Away_Score']:
+						print("{} vs {} on {} had score of {}-{} in database, updating to {}-{}".format(
+							ldf['Away_Abbrv'], ldf['Home_Abbrv'], ldf['Game_Date'], row['Away_Score'], row['Home_Score'],
+							ldf['Away_Score'],ldf['Home_Score']))
+						row['Home_Score'] = ldf['Home_Score']
+						row['Away_Score'] = ldf['Away_Score']
+						all_dfs.append(row)
 		else:
 			all_dfs += last_night_list
 	if all_dfs:
