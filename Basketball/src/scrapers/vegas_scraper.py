@@ -2,13 +2,15 @@ from datetime import datetime, timedelta, date
 import re
 import json
 import os
-from scrapers.shared import get_soup, make_season
+from scrapers.shared import get_soup, make_season, get_season_year
+import helpers as h
+import sqlite3
+import pandas as pd
 
-my_path = os.path.dirname(os.path.abspath(__file__))
-names_path = os.path.join(my_path,'..','organizers','names.json')
-
-with open(names_path,'r') as infile:
-	names_dict = json.load(infile)
+my_path = h.path
+names_dict = h.read_names()
+info = ["home", "away", "open_line", "close_line", "date", "season", "home_ats", "away_ats",
+		"over_under", "over_pct", "away_side_pct", "home_side_pct"]
 
 def ordered(obj):
 	if isinstance(obj, dict):
@@ -44,8 +46,8 @@ def add_open_lines(games, day, yesterday_could_not_find, today_can_not_find):
 		try:
 			away = names_dict[teams[0].a.text]
 			home = names_dict[teams[1].a.text]
-		except:
-			print("Can't find {} or {}".format(teams[0].a.text, teams[1].a.text))
+		except Exception as e:
+			print("Can't find {} in {} vs {}".format(e, teams[0].a.text, teams[1].a.text))
 			continue
 
 		open_line = match.find('div', {'class': 'el-div eventLine-opener'}).find_all('div', {'class': 'eventLine-book-value'})
@@ -80,21 +82,22 @@ def add_open_lines(games, day, yesterday_could_not_find, today_can_not_find):
 	return yesterday_could_not_find, today_can_not_find
 
 
-def get_data(data=[],get_yesterday=False,get_today=False,year=2018):
+def get_data(days=[], today=False):
+	data = []
 	yesterday_could_not_find = list()
 	today_can_not_find = list()
-	all_dates = make_season(year)
 	base = "http://www.vegasinsider.com/college-basketball/matchups/matchups.cfm/date/"
 	today = int(datetime.now().strftime('%Y%m%d'))
-	yesterday = int((datetime.now()-timedelta(1)).strftime('%Y%m%d'))
-	for day in all_dates:
-		if today < int(day.replace('-','')):
+	for day in days:
+		tomorrow = False
+		day_int = int(day.replace('-',''))
+		if day_int - today == 1 and today:
+			tomorrow = True
+		elif today < day_int:
 			continue
-		if get_yesterday and yesterday != int(day.replace('-','')):
-			continue
-		if get_today and today != int(day.replace('-','')):
-			continue
-		print (day)
+		else:
+			print(day)
+		year = int(get_season_year(day))
 		url_day = "-".join(day.split('-')[1:]+day.split('-')[:1])
 		url = base+url_day
 
@@ -110,15 +113,19 @@ def get_data(data=[],get_yesterday=False,get_today=False,year=2018):
 			game_info = {}
 			time = table.find('td', {'class': 'viSubHeader1 cellBorderL1 headerTextHot padLeft'}).text
 
-			if time.startswith('12:') or time.startswith('1:') or time.startswith('4:') or time.startswith('2:') and 'AM' in time :
+			if (time.startswith('12:') or time.startswith('1:') or time.startswith('4:') or time.startswith('2:')) and 'AM' in time :
+				if not tomorrow and today:
+					continue
 				date = datetime.strptime(day, '%Y-%m-%d')
 				newdate = date - timedelta(1)
 				game_info['date'] = newdate.strftime('%Y-%m-%d')
 			elif time == 'Postponed':
 				continue
 			else:
+				if tomorrow:
+					continue
 				game_info['date'] = day
-
+			game_info['season'] = str(year)
 			info = table.find('td', {'class': 'viBodyBorderNorm'}).table.tbody.contents
 			away_info = info[4].contents[1::2]
 			home_info = info[6].contents[1::2]
@@ -131,8 +138,9 @@ def get_data(data=[],get_yesterday=False,get_today=False,year=2018):
 					game_info['away'] = names_dict[away_info[0].font.text]
 				game_info['home'] = names_dict[home_info[0].a.text]
 				print(game_info['away'], game_info['home'])
-			except:
+			except Exception as e:
 				try:
+					#print(e)
 					print('continuing on {} vs {}'.format(away_info[0].a.text, home_info[0].a.text))
 				except:
 					pass
@@ -207,12 +215,90 @@ def get_data(data=[],get_yesterday=False,get_today=False,year=2018):
 
 	return data
 
+
+def insert_games(db,cur,df,year):
+	items = []
+	df = df.drop_duplicates(['home','away','date'])
+	edf = pd.read_sql_query('''SELECT Game_ID, Game_Home, Game_Away, Game_Date FROM espn WHERE Season = ?''',db,params=(year,))
+	i = 0
+	for index, row in df.iterrows():
+		matches = edf[(edf.Game_Home == row['home']) & (edf.Game_Away == row['away'])]
+		key = -1
+		flip = False
+		for index2, match in matches.iterrows():
+			if abs((datetime.strptime(row['date'], '%Y-%m-%d') - datetime.strptime(match['Game_Date'], '%Y-%m-%d')).days) <= 1:
+				if key != -1:
+					print("Found multiple results for {} vs {} on {}".format(row['away'],row['home'],row['date']))
+					if row['date'] == match['Game_Date']:
+						key = match['Game_ID']
+				else:
+					key = match['Game_ID']
+		if key == -1:
+			matches = edf[(edf.Game_Home == row['away']) & (edf.Game_Away == row['home'])]
+			for index2, match in matches.iterrows():
+				if abs((datetime.strptime(row['date'], '%Y-%m-%d') - datetime.strptime(match['Game_Date'], '%Y-%m-%d')).days) <= 1:
+					if key != -1:
+						print("Found multiple results for {} vs {} on {}".format(row['home'],row['away'],row['date']))
+						if row['date'] == match['Game_Date']:
+							key = match['Game_ID']
+					else:
+						key = match['Game_ID']
+					flip = True
+		if key == -1:
+			#print("Match not found in vi: {} vs {} on {}".format(row['home'],row['away'],row['date']))
+			i += 1
+		values = None
+		if flip:
+			values = (row['away'], row['home'], -1 * row['open_line'], -1 * row['close_line'], row['date'],
+				row['season'], row['away_ats'], row['home_ats'], row['over_under'], row['over_pct'],
+				row['away_side_pct'], row['home_side_pct'], key)
+		else:
+			values = tuple([row[var] for var in info] + [key])
+		items.append(values)
+	print("Missed {}/{} games in {} in vi".format(i,len(df.index),year))
+	cur.executemany('''INSERT INTO vegas VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)''', items)
+
+
+def create_table(cur):
+	cur.execute('''DROP TABLE IF EXISTS vegas''')
+	cur.execute('''CREATE TABLE vegas (home TEXT, away TEXT, 
+		open_line REAL, close_line REAL, date TEXT, season TEXT,
+		home_ats TEXT, away_ats TEXT, over_under TEXT, over_pct TEXT, 
+		home_side_pct TEXT, away_side_pct TEXT, Game_ID INTEGER,
+		FOREIGN KEY (Game_ID) REFERENCES espn(Game_ID))''')
+
+
+def rescrape(year_list = h.all_years):
+	year_list = h.all_years
+	with sqlite3.connect(h.database) as db:
+		cur = db.cursor()
+		create_table(cur)
+		for year in year_list:
+			final_info = get_data(days=make_season(year))
+			season_df = pd.DataFrame(final_info)
+			insert_games(db,cur,season_df,year)
+		db.commit()
+
+
+def transfer_to_db():
+	with sqlite3.connect(h.database) as db:
+		cur = db.cursor()
+		create_table(cur)
+		for year in h.all_years:
+			json_path = os.path.join(h.data_path,'vi','{}.json'.format(year))
+			df = pd.read_json(json_path, convert_dates=False)
+			insert_games(db,cur,df,year)
+		db.commit()
+
+
 if __name__ == '__main__':
+	'''
 	year = 2018
 	data = get_data(year=year)
 	json_path = os.path.join(my_path,'..','..','data','vi','{}.json'.format(year))
 	with open(json_path,'w') as infile:
 		json.dump(data,infile)
+	'''
 	# data = get_data(get_today = True)
 	# with open('vegas_today.json', 'w') as outfile:
 	# 	json.dump(data, outfile)

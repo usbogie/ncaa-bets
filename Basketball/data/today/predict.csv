@@ -1,0 +1,74 @@
+away_TOVP,away_big,home_ats,home_TOVP,home_movement,away_fav,away_public,season,home_public,away_reb,neutral,key,spread_diff,tipstring,date,away,away_ats,home_tPAr,spread,away_movement,home_big,pmargin,home_fav,home_FT,away_tPAr,home_reb,away_FT,home,home_winner
+1,0,0,0,1,1,0,2018,1,0,0,"('Ohio State', 'Miami (OH)')",1,12:00 PM ET,2017-12-30,Miami (OH),1,0,-23.0,0,1,17,0,0,1,1,0,Ohio State,0
+0,0,0,0,0,1,0,2018,0,0,0,"('Notre Dame', 'Georgia Tech')",0,2:00 PM ET,2017-12-30,Georgia Tech,0,0,-15.0,0,1,13,0,1,0,0,1,Notre Dame,0
+0,0,1,0,0,0,0,2018,0,0,0,"('North Carolina', 'Wake Forest')",0,12:00 PM ET,2017-12-30,Wake Forest,0,0,-14.0,1,1,14,0,0,0,1,1,North Carolina,0
+0,0,1,0,0,0,0,2018,1,0,0,"('Houston', 'Temple')",0,6:00 PM ET,2017-12-30,Temple,0,0,-7.5,0,0,9,0,1,0,1,0,Houston,1
+0,0,1,0,0,1,1,2018,0,0,0,"('Clemson', 'NC State')",0,4:00 PM ET,2017-12-30,NC State,0,0,-10.0,0,1,8,0,1,0,0,1,Clemson,0
+0,1,0,0,0,0,0,2018,1,1,0,"('Connecticut', 'Wichita St')",1,12:00 PM ET,2017-12-30,Wichita St,0,0,11.0,1,0,-8,1,1,0,0,1,Connecticut,1
+0,0,0,0,0,1,0,2018,1,1,0,"('Florida', 'Vanderbilt')",0,4:00 PM ET,2017-12-30,Vanderbilt,0,0,-9.0,0,0,7,0,1,1,0,1,Florida,0
+1,0,0,0,0,1,1,2018,0,0,0,"('Northwestern', 'Brown')",1,12:00 PM ET,2017-12-30,Brown,1,1,-17.0,0,1,12,0,0,0,0,1,Northwestern,0
+0,0,0,0,0,1,0,2018,1,0,0,"('VCU', 'Fordham')",0,12:30 PM ET,2017-12-30,Fordham,0,0,-11.5,0,1,9,0,0,1,1,0,VCU,0
+0,1,1,0,0,0,1,2018,0,1,0,"('Green Bay', 'Oakland')",1,1:00 PM ET,2017-12-30,Oakland,0,0,10.0,0,0,-7,1,1,0,0,1,Green Bay,1
+0,0,1,0,1,0,0,2018,1,0,0,"('Duke', 'Florida State')",0,2:00 PM ET,2017-12-30,Florida State,1,0,-11.5,0,1,10,0,0,0,1,0,Duke,0
+0,0,0,0,0,0,1,2018,0,0,0,"('La Salle', 'Saint Louis')",0,2:00 PM ET,2017-12-30,Saint Louis,0,0,-6.0,1,0,7,0,0,0,0,1,La Salle,1
+0,0,0,0,0,1,0,2018,0,1,0,"('Elon', 'Drexel')",1,2:00 PM ET,2017-12-30,Drexel,1,1,-6.5,0,0,3,0,0,0,0,0,Elon,0
+0,0,1,0,0,0,1,2018,0,0,0,"('Virginia', 'Boston College')",0,2:00 PM ET,2017-12-30,Boston College,0,0,-15.5,0,1,15,0,0,0,0,0,Virginia,0
+0,0,1,0,0,0,0,2018,1,0,0,"('Xavier', 'DePaul')",0,2:00 PM ET,2017-12-30,DePaul,0,0,-14.0,0,1,15,0,1,0,1,0,Xavier,1
+0,0,0,0,1,0,0,2018,1,0,0,"('Minnesota', 'Harvard')",0,2:00 PM ET,2017-12-30,Harvard,0,0,-14.5,0,1,16,0,1,0,1,0,Minnesota,1
+1,0,1,0,0,0,1,2018,0,1,0,"('St Bonaventure', 'Massachusetts')",0,2:30 PM ET,2017-12-30,Massachusetts,1,0,-9.5,1,0,10,0,1,0,0,0,St Bonaventure,1
+0,0,1,0,0,0,1,2018,0,0,0,"('Western Kentucky', 'Southern Mississippi')",0,3:00 PM ET,2017-12-30,Southern Mississippi,0,0,-15.5,0,1,16,0,0,0,1,0,Western Kentucky,1
+0,0,0,0,0,0,0,2018,0,0,0,"('TCU', 'Oklahoma')",0,2:00 PM ET,2017-12-30,Oklahoma,0,0,-2.5,0,0,4,0,0,1,1,0,TCU,1
+0,0,0,0,1,1,0,2018,0,1,0,"('Alabama', 'Texas A&M')",1,6:00 PM ET,2017-12-30,Texas A&M,1,0,0.0,0,0,-5,0,1,0,0,0,Alabama,0
+0,0,0,0,0,1,1,2018,0,0,0,"('Butler', 'Villanova')",1,4:00 PM ET,2017-12-30,Villanova,1,0,5.5,0,0,-9,0,0,1,0,0,Butler,0
+0,0,1,0,0,0,0,2018,0,0,0,"('Arkansas', 'Tennessee')",0,1:00 PM ET,2017-12-30,Tennessee,1,0,-5.0,0,0,4,0,0,0,0,0,Arkansas,0
+0,1,1,1,0,0,0,2018,1,1,0,"('Pittsburgh', 'Miami')",1,4:00 PM ET,2017-12-30,Miami,1,1,12.5,1,0,-9,1,1,0,0,0,Pittsburgh,1
+0,0,0,0,0,0,0,2018,0,0,0,"('George Washington', ""Saint Joseph's"")",0,4:00 PM ET,2017-12-30,Saint Joseph's,0,0,-2.5,0,0,5,1,0,1,1,0,George Washington,1
+1,0,0,0,0,0,0,2018,0,0,0,"('Duquesne', 'Dayton')",1,4:00 PM ET,2017-12-30,Dayton,0,1,3.5,1,0,2,1,1,1,1,0,Duquesne,1
+1,0,0,0,0,0,1,2018,0,0,0,"('James Madison', 'Northeastern')",0,4:00 PM ET,2017-12-30,Northeastern,0,0,3.0,0,0,-3,0,0,1,1,0,James Madison,0
+0,0,0,1,0,0,0,2018,0,0,0,"('Wright State', 'IUPUI')",0,4:00 PM ET,2017-12-30,IUPUI,0,0,-8.0,1,0,10,1,0,0,1,0,Wright State,1
+0,0,0,0,0,1,1,2018,0,1,0,"('Charleston', 'Towson')",1,4:00 PM ET,2017-12-30,Towson,1,0,-4.0,0,0,-1,0,1,0,0,1,Charleston,0
+0,0,1,0,0,0,0,2018,1,1,0,"('San Diego', 'Pepperdine')",1,4:00 PM ET,2017-12-30,Pepperdine,0,1,-9.5,0,0,15,1,1,0,0,1,San Diego,1
+1,0,0,0,0,0,0,2018,1,0,0,"('Rhode Island', 'George Mason')",0,4:00 PM ET,2017-12-30,George Mason,0,0,-17.5,0,1,17,0,0,0,0,0,Rhode Island,0
+0,0,1,0,0,0,1,2018,0,1,0,"('William & Mary', 'Hofstra')",0,4:00 PM ET,2017-12-30,Hofstra,0,1,-1.5,0,0,2,0,0,0,0,0,William & Mary,1
+0,0,1,1,0,0,1,2018,0,0,0,"('Loyola (CHI)', 'Evansville')",0,4:00 PM ET,2017-12-30,Evansville,1,0,-7.5,0,0,7,0,1,0,0,1,Loyola (CHI),0
+0,0,1,0,0,1,1,2018,0,0,0,"('Auburn', 'Cornell')",0,3:30 PM ET,2017-12-30,Cornell,0,1,-22.5,0,1,20,0,1,1,1,0,Auburn,0
+1,0,0,0,0,1,0,2018,0,1,0,"('Marquette', 'Georgetown')",0,4:30 PM ET,2017-12-30,Georgetown,0,1,-9.5,0,0,7,0,0,0,0,1,Marquette,0
+0,0,0,0,0,0,1,2018,0,1,0,"('Richmond', 'Davidson')",0,4:30 PM ET,2017-12-30,Davidson,0,0,6.5,1,0,-8,0,0,1,0,0,Richmond,0
+0,0,0,0,0,0,0,2018,1,0,0,"('San Jose State', 'Colorado State')",1,5:00 PM ET,2017-12-30,Colorado State,0,0,3.0,0,0,3,1,1,0,1,1,San Jose State,1
+0,0,1,0,0,0,0,2018,1,0,0,"('Nevada', 'New Mexico')",1,5:00 PM ET,2017-12-30,New Mexico,0,0,-14.0,1,1,17,1,1,1,1,0,Nevada,1
+0,0,1,0,0,0,0,2018,1,0,0,"('UAB', 'Middle Tennessee')",0,5:00 PM ET,2017-12-30,Middle Tennessee,1,0,1.0,0,0,1,1,0,0,1,1,UAB,1
+1,0,1,0,0,0,0,2018,1,1,0,"('Northern Kentucky', 'UIC')",0,7:00 PM ET,2017-12-30,UIC,0,0,-14.0,0,1,15,0,0,0,0,0,Northern Kentucky,1
+0,0,1,0,0,0,0,2018,1,1,0,"('Florida Intl', 'Florida Atlantic')",1,7:00 PM ET,2017-12-30,Florida Atlantic,0,0,-1.5,0,0,5,1,0,0,0,0,Florida Intl,1
+0,0,0,0,0,0,0,2018,1,1,0,"('Marshall', 'Louisiana Tech')",0,7:00 PM ET,2017-12-30,Louisiana Tech,0,1,-2.0,0,0,2,0,0,0,0,1,Marshall,0
+0,0,0,0,1,0,0,2018,1,0,0,"('Milwaukee', 'Detroit Mercy')",0,7:00 PM ET,2017-12-30,Detroit Mercy,0,0,-11.0,0,1,11,0,0,1,1,1,Milwaukee,0
+1,0,0,0,1,1,1,2018,0,0,0,"('Old Dominion', 'Charlotte')",0,7:00 PM ET,2017-12-30,Charlotte,0,0,-17.0,0,1,15,0,0,0,1,1,Old Dominion,0
+1,0,0,0,0,0,1,2018,0,0,0,"('Fresno State', 'Air Force')",0,7:00 PM ET,2017-12-30,Air Force,0,0,-16.0,1,1,18,1,1,1,1,1,Fresno State,1
+0,0,0,0,0,1,0,2018,1,0,0,"('UNC Wilmington', 'Delaware')",0,7:00 PM ET,2017-12-30,Delaware,0,0,-1.5,0,0,-1,0,0,0,0,0,UNC Wilmington,0
+0,0,0,0,0,0,0,2018,1,0,0,"('Gonzaga', 'Santa Clara')",0,7:00 PM ET,2017-12-30,Santa Clara,0,1,-23.5,0,1,24,0,0,1,1,0,Gonzaga,1
+1,0,1,0,0,0,0,2018,1,1,0,"('UT San Antonio', 'North Texas')",0,8:00 PM ET,2017-12-30,North Texas,1,1,-5.5,0,0,5,0,0,0,0,0,UT San Antonio,0
+0,0,0,0,1,1,0,2018,1,0,0,"('Arizona', 'Arizona State')",1,9:00 PM ET,2017-12-30,Arizona State,1,0,-6.0,0,0,1,0,1,1,1,1,Arizona,0
+1,0,0,0,1,1,0,2018,1,1,0,"('UTEP', 'Rice')",1,9:00 PM ET,2017-12-30,Rice,0,0,-10.5,0,1,5,0,0,1,0,1,UTEP,0
+0,0,0,0,0,0,1,2018,0,1,0,"('Portland', 'San Francisco')",0,9:00 PM ET,2017-12-30,San Francisco,0,1,5.5,0,0,-5,0,0,1,0,0,Portland,1
+0,0,0,0,0,0,0,2018,1,0,0,"('Stanford', 'California')",0,10:00 PM ET,2017-12-30,California,0,0,-7.0,0,0,7,0,1,0,0,1,Stanford,0
+1,0,0,1,0,0,0,2018,0,0,0,"('Pacific', 'Loyola Marymount')",0,10:00 PM ET,2017-12-30,Loyola Marymount,1,0,-3.5,0,0,5,0,1,0,0,0,Pacific,1
+0,0,0,0,0,0,0,2018,0,0,0,"('BYU', ""Saint Mary's"")",1,4:00 PM ET,2017-12-30,Saint Mary's,0,0,1.5,0,0,2,1,1,0,0,0,BYU,1
+0,0,1,0,0,0,0,2018,1,0,0,"('San Diego State', 'Utah State')",0,10:00 PM ET,2017-12-30,Utah State,0,0,-10.0,0,1,9,0,1,1,1,0,San Diego State,0
+0,0,1,0,0,0,1,2018,0,0,0,"('UNLV', 'Boise State')",0,11:00 PM ET,2017-12-30,Boise State,1,0,-4.5,0,0,7,1,1,1,0,0,UNLV,1
+0,0,0,0,0,0,0,2018,1,1,0,"('The Citadel', 'Western Carolina')",1,1:00 PM ET,2017-12-30,Western Carolina,1,1,2.0,1,0,2,1,0,0,0,0,The Citadel,1
+0,1,0,1,0,0,0,2018,1,0,0,"('VMI', 'Furman')",1,1:00 PM ET,2017-12-30,Furman,1,0,12.0,0,0,-5,1,0,1,1,0,VMI,1
+0,1,1,0,0,0,1,2018,0,1,0,"('Southern Utah', 'Montana')",1,2:30 PM ET,2017-12-30,Montana,1,0,7.5,1,0,-1,1,1,0,0,0,Southern Utah,1
+1,0,1,0,1,0,0,2018,1,1,0,"('South Dakota', 'Denver')",0,4:30 PM ET,2017-12-30,Denver,0,0,-15.5,0,1,16,0,1,0,0,1,South Dakota,1
+1,0,1,1,0,0,1,2018,0,0,0,"('UNC Greensboro', 'Wofford')",0,5:00 PM ET,2017-12-30,Wofford,0,1,-5.5,0,0,6,0,0,1,1,0,UNC Greensboro,1
+1,0,1,0,0,0,0,2018,1,0,0,"('Manhattan', 'Fairfield')",0,7:00 PM ET,2017-12-30,Fairfield,1,0,-2.0,1,0,3,0,0,1,0,0,Manhattan,1
+1,0,0,0,0,0,1,2018,0,0,0,"('Tennessee Tech', 'Eastern Kentucky')",0,7:00 PM ET,2017-12-30,Eastern Kentucky,0,0,-8.5,0,0,9,0,0,0,1,1,Tennessee Tech,1
+1,1,0,0,0,0,0,2018,0,0,0,"('UT Martin', 'Belmont')",0,7:00 PM ET,2017-12-30,Belmont,1,0,9.5,1,0,-8,0,0,1,0,0,UT Martin,1
+0,0,0,1,0,0,1,2018,0,0,0,"('Northern Arizona', 'Montana State')",0,7:00 PM ET,2017-12-30,Montana State,0,0,5.0,0,0,-5,0,1,0,0,1,Northern Arizona,0
+0,0,0,0,0,0,0,2018,1,0,0,"('Oral Roberts', 'Omaha')",0,8:00 PM ET,2017-12-30,Omaha,0,0,-5.0,1,0,6,0,0,0,1,0,Oral Roberts,1
+0,0,1,1,1,0,0,2018,1,0,0,"('Austin Peay', 'Eastern Illinois')",0,8:00 PM ET,2017-12-30,Eastern Illinois,0,0,-5.5,0,0,6,0,0,0,1,0,Austin Peay,1
+0,0,0,1,0,1,1,2018,0,1,0,"('Samford', 'Chattanooga')",1,8:00 PM ET,2017-12-30,Chattanooga,1,1,-2.0,0,0,-1,0,0,1,0,0,Samford,0
+0,0,1,0,0,0,1,2018,0,0,0,"('Murray State', 'SIU Edwardsville')",0,8:00 PM ET,2017-12-30,SIU Edwardsville,0,0,-17.5,0,1,19,0,0,0,1,0,Murray State,1
+0,0,0,1,0,1,0,2018,0,0,0,"('Weber State', 'Idaho State')",1,9:00 PM ET,2017-12-30,Idaho State,1,1,-8.0,0,0,5,0,0,0,0,0,Weber State,0
+0,0,1,0,0,0,0,2018,0,0,0,"('Jacksonville State', 'Morehead State')",0,5:30 PM ET,2017-12-30,Morehead State,0,0,-12.5,0,1,13,0,0,0,1,0,Jacksonville State,1
+0,1,0,1,0,1,1,2018,0,0,0,"('Sacramento State', 'Portland State')",0,10:05 PM ET,2017-12-30,Portland State,1,0,8.5,1,0,-11,0,0,0,0,0,Sacramento State,0
+1,0,1,0,1,1,0,2018,1,0,0,"('Michigan', 'Jacksonville')",1,6:00 PM ET,2017-12-30,Jacksonville,1,1,-30.5,0,1,26,0,0,0,1,0,Michigan,0
+1,0,1,0,0,0,0,2018,0,0,0,"('Purdue', 'Lipscomb')",0,8:00 PM ET,2017-12-30,Lipscomb,0,0,-21.5,0,1,20,0,1,0,1,1,Purdue,0

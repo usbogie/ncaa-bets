@@ -7,7 +7,7 @@ import os
 from shared import get_soup, make_season
 
 my_path = os.path.dirname(os.path.abspath(__file__))
-names_path = os.path.join(my_path,'..','organizers','names.json')
+names_path = os.path.join(my_path,'..','names','names.json')
 data_path = os.path.join(my_path,'..','..','data')
 
 with open(names_path,'r') as infile:

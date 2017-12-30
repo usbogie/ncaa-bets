@@ -4,6 +4,8 @@ from fake_useragent import UserAgent
 from datetime import datetime, timedelta, date
 from bs4 import BeautifulSoup
 import sys
+import time
+import random
 
 def get_soup(url):
     ua = UserAgent()
@@ -60,3 +62,15 @@ def make_season(season):
 			all_season.append("{}-{}-{}".format(str(year),month,day))
 
 	return all_season
+
+def get_season_year(date_string):
+    year = int(date_string.split('-')[0])
+    return str(year if int(date_string.split('-')[1]) < 8 else year + 1)
+
+def get_date_str(season,date_string):
+    d = date_string.replace('/','-')
+    if len(d.split('-')) != 2:
+        return date_string
+    month = int(d.split('-')[0])
+    year = season if month < 8 else int(season) - 1
+    return "{}-{}".format(year, d)

@@ -1,14 +1,22 @@
 import numpy as np
 import pandas as pd
 import helpers as h
+import sqlite3
 import os
 
 my_path = h.path
 this_season = h.this_season
 
-def get_game_list():
-	h_games = h.gamesdf.ix[h.gamesdf['true_home_game'] == 1]
-	n_games = h.gamesdf.ix[h.gamesdf['true_home_game'] == 0]
+def get_dt_data():
+	with sqlite3.connect(h.database) as db:
+		gamesdf = pd.read_sql_query('''SELECT home, away, season, date, neutral,
+			spread, home_cover, tipstring, pmargin, home_winner, home_big,
+            away_big, spread_diff, home_fav, away_fav, home_movement,
+            away_movement, home_public, away_public, home_ats, away_ats,
+            home_tPAr, away_tPAr, home_reb, away_reb, home_TOVP, away_TOVP
+            FROM decision_tree''', db)
+	h_games = gamesdf.ix[gamesdf['neutral'] == 0]
+	n_games = gamesdf.ix[gamesdf['neutral'] == 1]
 	return [h_games, n_games]
 
 
@@ -23,5 +31,5 @@ def get_train_data(games,test_year=0):
 	for year in range(2012,this_season+1):
 		if year == test_year:
 			continue
-		training_games_list.append(games.ix[games['season']==year])
+		training_games_list.append(games.ix[games['season']==str(year)])
 	return pd.concat(training_games_list, ignore_index=True)

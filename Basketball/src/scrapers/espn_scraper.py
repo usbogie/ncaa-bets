@@ -7,16 +7,15 @@ import random
 import time
 import html
 import os
-from scrapers.shared import get_soup, make_season
+from scrapers.shared import get_soup, make_season, get_season_year, get_date_str
 import helpers as h
-
+import sqlite3
 my_path = h.path
 names_dict = h.read_names()
 
 info = ['Game_ID', 'Away_Abbrv', 'Home_Abbrv', 'Away_Score',
-		'Home_Score', 'Game_Away', 'Game_Home','Game_Year',
-		'Game_Date','Game_Tipoff', 'Game_Location', 'Neutral_Site',
-		'Conference_Competition', 'Attendance']
+		'Home_Score', 'Game_Away', 'Game_Home','Season',
+		'Game_Date','Game_Tipoff', 'Game_Location', 'Neutral_Site']
 
 base_url = "http://scores.espn.com/mens-college-basketball/scoreboard/_/group/50/date/"
 
@@ -35,9 +34,9 @@ class Game(object):
 		utc = datetime.strptime(dateTime, '%Y-%m-%d %H:%M')
 		eastern = utc.replace(tzinfo=self.from_zone).astimezone(self.to_zone)
 		date, time = str(eastern)[:-6].split(" ")
-		self.year = date.split('-')[0]
+		self.season = get_season_year(date)
 		self.tipoff = time
-		self.date = "{}/{}".format(date.split("-")[1],date.split("-")[2])
+		self.date = self.game_info['date']
 
 		data = array([arange(len(info))])
 		self.info_df = pd.DataFrame(data, columns=info)
@@ -49,7 +48,7 @@ class Game(object):
 		self.info_df['Home_Score'] = self.game_info['Home_Score']
 		self.info_df['Game_Away'] = self.game_info['Game_Away'].replace('\u00E9', 'e')
 		self.info_df['Game_Home'] = self.game_info['Game_Home'].replace('\u00E9', 'e')
-		self.info_df['Game_Year'] = self.year
+		self.info_df['Season'] = self.season
 		self.info_df['Game_Date'] = self.date
 		self.info_df['Game_Tipoff'] = self.tipoff
 		try:
@@ -57,8 +56,6 @@ class Game(object):
 		except:
 			pass
 		self.info_df['Neutral_Site'] = self.game_info['neutral_site']
-		self.info_df['Conference_Competition'] = self.game_info['conferenceCompetition']
-		self.info_df['Attendance'] = self.game_info['attendance']
 
 def get_json(soup):
 	for link in soup.find_all('script'):
@@ -107,10 +104,8 @@ def get_tonight_info():
 		competition = event['competitions'][0]
 		game_info['Game_ID'] = event['id']
 		game_info['Neutral_Site'] = competition['neutralSite']
-		game_info['Conference_Competition']	= competition['conferenceCompetition']
-		game_info['Attendance']	= competition['attendance']
-		game_info['Game_Date'] = date[4:6]+'/'+date[6:]
-		game_info['Game_Year'] = date[:4]
+		game_info['Game_Date'] = datetime.now().strftime('%Y-%m-%d')
+		game_info['Season'] = str(h.this_season)
 
 		competitors	= competition['competitors']
 		away = 0
@@ -143,15 +138,11 @@ def get_tonight_info():
 			game_info['Game_Location'] = venueJSON['fullName']
 
 		gen_info.append(game_info)
-	try:
-		return pd.concat(gen_info, ignore_index=True).set_index('Game_ID')
-	except:
-		return pd.DataFrame()
+	return pd.concat(gen_info, ignore_index=True) if gen_info else pd.DataFrame()
 
 
 def update_espn_data(date):
-	urls = create_day_urls(date)
-
+	urls = create_day_urls(date.replace('-',''))
 	gen_info = []
 
 	for url in urls:
@@ -177,6 +168,7 @@ def update_espn_data(date):
 			game_info['attendance']	= competition['attendance']
 			game_info['conferenceCompetition'] = competition['conferenceCompetition']
 			game_info['tipoff']	= competition['startDate']
+			game_info['date'] = date
 			try:
 				venueJSON = competition['venue']
 				game_info['venue'] = venueJSON['fullName']
@@ -246,13 +238,62 @@ def make_year_dataframe(season):
 
 	return gen_info
 
+
+def insert_games(cur, dfs, games):
+	final_info = dfs.drop_duplicates(subset=['Game_Home','Game_Away','Game_Date']).reset_index(drop=True)
+	items = []
+	for index, row in final_info.iterrows():
+		if not row['Home_Score'] and not row['Away_Score']:
+			continue
+		values = [int(index + games) if var == 'Game_ID' 
+				  else get_date_str(row['Season'],row[var]) if var == 'Game_Date'
+		   		  else row[var] for var in info]
+		key = ','.join([row['Game_Home'],row['Game_Away'],get_date_str(row['Season'],row['Game_Date'])])
+		items.append(tuple(values + [key]))
+	cur.executemany('''INSERT OR REPLACE INTO espn VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)''', items)
+	return len(items)
+
+
+def create_table(cur):
+	cur.execute('''DROP TABLE IF EXISTS espn''')
+	cur.execute('''CREATE TABLE espn (Game_ID INTEGER PRIMARY KEY,
+		Away_Abbrv TEXT, Home_Abbrv TEXT, Away_Score TEXT, Home_Score TEXT,
+		Game_Away TEXT, Game_Home TEXT, Season TEXT, Game_Date TEXT,
+		Game_Tipoff TEXT, Game_Location TEXT, Neutral_Site TEXT, Key TEXT)''')
+
+
+def rescrape(year_list = h.all_years):
+	year_list = h.all_years
+	with sqlite3.connect(h.database) as db:
+		cur = db.cursor()
+		create_table(cur)
+		games = 0
+		for year in year_list:
+			info_list = make_year_dataframe(year)
+			games += insert_games(cur, pd.concat(info_list, ignore_index=True), games)
+		db.commit()
+
+
+def transfer_to_db():
+	with sqlite3.connect(h.database) as db:
+		cur = db.cursor()
+		create_table(cur)
+		dfs = []
+		for year in h.all_years:
+			csv_path = os.path.join(h.data_path,'espn','{}.csv'.format(year))
+			dfs.append(pd.read_csv(csv_path, dtype=str))
+		insert_games(cur, pd.concat(dfs, ignore_index=True),0)
+		db.commit()
+
+
 if __name__ == '__main__':
 	# today_data = get_tonight_info()
 	# today_data.drop_duplicates().to_csv('upcoming_games.csv', index_label='Game_ID')
 	# print("Updated ESPN Data")
-
+	'''
 	start_season = 2011
 	info_list = make_year_dataframe(start_season)
 	final_info = pd.concat(info_list, ignore_index=True).set_index('Game_ID')
 	csv_path = os.path.join(my_path,'..','..','data','espn','{}.csv'.format(start_season))
 	final_info.drop_duplicates().to_csv(csv_path)
+	'''
