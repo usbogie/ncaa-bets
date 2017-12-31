@@ -8,21 +8,21 @@ The project breaks down into to main categories:
 ## Information Retrieval
 We retrieve the following information:
 
-Objective:
-    Report the favorable spreads
+### Objective
+Report the favorable spreads
 
-Variables:
--Game Type: Neutral Site or True Home Game.
--Spread: The Vegas spread according to Vegas Insider.
--Predicted Margin: Calculated using adjusted efficiency statistics and other factors.
--Home/Away: Only relevant for True Home Games.
--Line Movement: The difference between the opening spread and the closing/current spread.
--Public Percentage: The percent of the public picking a team.
--ATS Record: A team's record against the spread according to Vegas Insider.
--Three Point Rate: Percent of Field Goal Attempts from Three.
--Rebound Rate: Percent of available Rebounds grabbed.
--Turnover Rate: Turnovers per 100 plays.
--Free Throw Rate: Free Throw Attempts per Field Goal Attempt
+### Variables
+- Game Type: Neutral Site or True Home Game.
+- Spread: The Vegas spread according to Vegas Insider.
+- Predicted Margin: Calculated using adjusted efficiency statistics and other factors.
+- Home/Away: Only relevant for True Home Games.
+- Line Movement: The difference between the opening spread and the closing/current spread.
+- Public Percentage: The percent of the public picking a team.
+- ATS Record: A team's record against the spread according to Vegas Insider.
+- Three Point Rate: Percent of Field Goal Attempts from Three.
+- Rebound Rate: Percent of available Rebounds grabbed.
+- Turnover Rate: Turnovers per 100 plays.
+- Free Throw Rate: Free Throw Attempts per Field Goal Attempt
 
 
 ## Information Storage and Access Plan
