@@ -8,7 +8,7 @@ The project breaks down into to main categories:
 ## Information Retrieval
 
 ### Objective
-Report the favorable spreads
+Report the favorable spreads.
 
 ### Variables
 - Game Type: Neutral Site or True Home Game.
