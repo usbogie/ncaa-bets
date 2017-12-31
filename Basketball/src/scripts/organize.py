@@ -535,10 +535,10 @@ class Organizer(object):
                 new_game['spread'] = row.close_line
                 new_game["line_movement"] = 0 if row.open_line == "" else new_game["spread"] - float(row.open_line)
                 new_game["home_side_pct"] = 50 if row.home_side_pct == "" else float(row.home_side_pct)
-                new_game["home_ats"] = row.home_ats.split("-")
-                new_game["away_ats"] = row.away_ats.split("-")
-                new_game["home_ats"] = .5 if new_game["home_ats"][0] == "0" and new_game["home_ats"][1] == "0" else int(new_game["home_ats"][0]) / (int(new_game["home_ats"][0])+int(new_game["home_ats"][1]))
-                new_game["away_ats"] = .5 if new_game["away_ats"][0] == "0" and new_game["away_ats"][1] == "0" else int(new_game["away_ats"][0]) / (int(new_game["away_ats"][0])+int(new_game["away_ats"][1]))
+                home_ats = row.home_ats.split("-")
+                away_ats = row.away_ats.split("-")
+                new_game["home_ats"] = .5 if home_ats[0] == "0" and home_ats[1] == "0" else int(home_ats[0]) / (int(home_ats[0])+int(home_ats[1]))
+                new_game["away_ats"] = .5 if away_ats[0] == "0" and away_ats[1] == "0" else int(away_ats[0]) / (int(away_ats[0])+int(away_ats[1]))
                 new_games.append(new_game)
             except:
                 print("In vegas info, no game matched:",game["home"],game["away"])
