@@ -8,7 +8,6 @@ The project breaks down into to main categories:
 ## Information Retrieval
 We retrieve the following information:
 
-"""
 Objective:
     Report the favorable spreads
 
@@ -24,7 +23,6 @@ Variables:
     Rebound Rate: Percent of available Rebounds grabbed.
     Turnover Rate: Turnovers per 100 plays.
     Free Throw Rate: Free Throw Attempts per Field Goal Attempt
-"""
 
 
 ## Information Storage and Access Plan
