@@ -6,7 +6,6 @@ The project breaks down into to main categories:
 2. Data analysis
 
 ## Information Retrieval
-We retrieve the following information:
 
 ### Objective
 Report the favorable spreads
@@ -22,7 +21,7 @@ Report the favorable spreads
 - Three Point Rate: Percent of Field Goal Attempts from Three.
 - Rebound Rate: Percent of available Rebounds grabbed.
 - Turnover Rate: Turnovers per 100 plays.
-- Free Throw Rate: Free Throw Attempts per Field Goal Attempt
+- Free Throw Rate: Free Throw Attempts per Field Goal Attempt.
 
 
 ## Information Storage and Access Plan
