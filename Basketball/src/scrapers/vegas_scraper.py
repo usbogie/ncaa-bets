@@ -213,15 +213,14 @@ def get_data(days=[], today=False):
 		yesterday_could_not_find, today_can_not_find = add_open_lines(games, day, yesterday_could_not_find, today_can_not_find)
 		data += games
 
-	return data
+	return pd.DataFrame(data)
 
 
-def insert_games(db,cur,df,year):
+def insert_games(vdf,edf,year):
 	items = []
-	df = df.drop_duplicates(['home','away','date'])
-	edf = pd.read_sql_query('''SELECT Game_ID, Game_Home, Game_Away, Game_Date FROM espn WHERE Season = ?''',db,params=(year,))
+	vdf = vdf.drop_duplicates(['home','away','date'])
 	i = 0
-	for index, row in df.iterrows():
+	for index, row in vdf.iterrows():
 		matches = edf[(edf.Game_Home == row['home']) & (edf.Game_Away == row['away'])]
 		key = -1
 		flip = False
@@ -255,8 +254,8 @@ def insert_games(db,cur,df,year):
 		else:
 			values = tuple([row[var] for var in info] + [key])
 		items.append(values)
-	print("Missed {}/{} games in {} in vi".format(i,len(df.index),year))
-	cur.executemany('''INSERT INTO vegas VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)''', items)
+	print("Missed {}/{} games in {} in vi".format(i,len(vdf.index),year))
+	return items
 
 
 def create_table(cur):
@@ -274,9 +273,10 @@ def rescrape(year_list = h.all_years):
 		cur = db.cursor()
 		create_table(cur)
 		for year in year_list:
-			final_info = get_data(days=make_season(year))
-			season_df = pd.DataFrame(final_info)
-			insert_games(db,cur,season_df,year)
+			season_df = get_data(days=make_season(year))
+			edf = pd.read_sql_query('''SELECT Game_ID, Game_Home, Game_Away, Game_Date FROM espn WHERE Season = ?''',db,params=(year,))
+			items = insert_games(season_df,edf,year)
+			cur.executemany('''INSERT INTO vegas VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)''', items)
 		db.commit()
 
 
@@ -287,7 +287,9 @@ def transfer_to_db():
 		for year in h.all_years:
 			json_path = os.path.join(h.data_path,'vi','{}.json'.format(year))
 			df = pd.read_json(json_path, convert_dates=False)
-			insert_games(db,cur,df,year)
+			edf = pd.read_sql_query('''SELECT Game_ID, Game_Home, Game_Away, Game_Date FROM espn WHERE Season = ?''',db,params=(year,))
+			items = insert_games(df,edf,year)
+			cur.executemany('''INSERT INTO vegas VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)''', items)
 		db.commit()
 
 

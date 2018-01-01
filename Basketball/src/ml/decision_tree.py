@@ -238,11 +238,7 @@ def test(game_list):
     #     print(key,feature_dict[key])
 
 def predict_today(game_list):
-    today_path = os.path.join(data_path,'today','predict.csv')
-    todays_games = pd.read_csv(today_path)
-    todays_n_games = todays_games.ix[todays_games['neutral']==1]
-    todays_h_games = todays_games.ix[todays_games['neutral']==0]
-    t_game_list = [todays_h_games,todays_n_games]
+    t_game_list = mls.get_dt_today()
     game_types = ["Regular","Neutral"]
     month_path = os.path.join(data_path,'output',str(this_season),h.months[date.today().month])
     if not os.path.exists(month_path):

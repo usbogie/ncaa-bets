@@ -27,7 +27,10 @@ class Organizer(object):
             "home_fav", "away_fav", "home_movement", "away_movement", "home_public",
             "away_public", "home_ats", "away_ats", "home_tPAr", "away_tPAr", "home_reb",
             "away_reb", "home_TOVP", "away_TOVP", "home_FT", "away_FT", "key"]
-        all_df = self.join_into_df()
+        self.skip_today = ["home_cover", "key"]
+        with sqlite3.connect(h.database) as db:
+            all_df = self.join_into_df(db)
+            self.today = self.join_today_into_df(db).set_index('Game_ID').to_dict('index')
         relevant_df = pd.concat([all_df.ix[all_df['season']==str(year)] for year in year_list]).set_index('key', drop=False)
         self.game_dict = relevant_df.to_dict('index')
         to_drop = []
@@ -55,76 +58,75 @@ class Organizer(object):
 
 
     def run(self):
-        self.add_features()
-        self.get_new_games()
-        self.get_rankings()
-
-
-    def join_into_df(self):
-        with sqlite3.connect(h.database) as db:
-            return pd.read_sql_query("""SELECT Game_Home AS home, Game_Away AS away, 
-                espn.Season AS season, Game_Date AS date, Game_Tipoff AS tipoff,
-                Home_Score, Away_Score, Home_Score - Away_Score AS margin,
-                Neutral_Site AS neutral, group_concat(team) AS teams, group_concat(ORtg) AS ORtgs, Pace, 
-                group_concat(tPAr) AS tPArs, group_concat(TRBP) AS TRBPs, group_concat(FT) AS FTs,
-                group_concat(TOVP) AS TOVPs, open_line, close_line AS spread, home_ats, away_ats, 
-                home_side_pct, away_side_pct, Key AS key
-                FROM cbbref
-                INNER JOIN espn ON espn.Game_ID = cbbref.Game_ID
-                LEFT JOIN vegas ON espn.Game_ID = vegas.Game_ID
-                GROUP BY espn.Game_ID""", db)
-
-
-    def add_features(self):
-        print("Adding features")
         with sqlite3.connect(h.database) as db:
             cur = db.cursor()
-            self.dt_keys = set()
-            if self.year_list == h.all_years:
-                self.create_dt_table(cur)
-            else:
-                self.dt_keys = self.get_dt_keys(cur)
-            game_date_dict = self.get_game_date_dict()
-            self.run_preseason()
-            self.old_predictions = []
-            for year in self.year_list:
-                print(year)
-                dates = make_season(year)
-                for d in dates:
-                    if int(d.replace('-','')) >= int(date.today().strftime('%Y%m%d')):
-                        break
-                    elif d in game_date_dict:
-                        game_keys = game_date_dict[d]
-                    else:
-                        if d == str(date.today() - timedelta(1)):
-                            print("No games from yesterday.")
-                        continue
-                    lg_avg, lg_std = self.get_avg_std(year)
-                    for key in game_keys:
-                        game = self.game_dict[key]
-                        home = self.teams[game["home"]+str(game["season"])]
-                        away = self.teams[game["away"]+str(game["season"])]
-                        if not game["key"] in home["games"] + away["games"]:
-                            continue
-                        if game["key"] in home["games"] and game["key"] != home["games"][0]:
-                            print("GAMES OUT OF ORDER!!!")
-                            print(game["key"], home["games"])
-                        if game["key"] in away["games"] and game["key"] != away["games"][0]:
-                            print("GAMES OUT OF ORDER!!!")
-                            print(game["key"], away["games"])
-
-                        predict = {}
-                        self.update_stats([home,away])
-                        predict["pmargin"] = self.get_pmargin(home,away,game)
-                        if game["home_cover"] != 0 and game["key"] not in self.dt_keys and self.make_prediction(predict, game, home, away, lg_avg, lg_std):
-                            self.add_gen_info(predict,game)
-                            self.old_predictions.append(predict)
-                        self.add_test_data(game, predict["pmargin"])
-                        self.store_results(home,away,game)
-            self.print_test_results()
-            self.add_dt_predictions(cur)
+            self.add_features(cur)
+            self.get_new_games(cur)
+            self.get_rankings()
             db.commit()
-            print()
+
+
+    def join_into_df(self,db):
+        return pd.read_sql_query("""SELECT Game_Home AS home, Game_Away AS away, 
+            espn.Season AS season, Game_Date AS date, Game_Tipoff AS tipoff,
+            Home_Score, Away_Score, Home_Score - Away_Score AS margin,
+            Neutral_Site AS neutral, group_concat(team) AS teams, group_concat(ORtg) AS ORtgs, Pace, 
+            group_concat(tPAr) AS tPArs, group_concat(TRBP) AS TRBPs, group_concat(FT) AS FTs,
+            group_concat(TOVP) AS TOVPs, open_line, close_line AS spread, home_ats, away_ats, 
+            home_side_pct, away_side_pct, Key AS key
+            FROM cbbref
+            INNER JOIN espn ON espn.Game_ID = cbbref.Game_ID
+            LEFT JOIN vegas ON espn.Game_ID = vegas.Game_ID
+            GROUP BY espn.Game_ID""", db)
+
+
+    def add_features(self,cur):
+        print("Adding features")
+        self.dt_keys = set()
+        if self.year_list == h.all_years:
+            self.create_dt_table(cur)
+        else:
+            self.dt_keys = self.get_dt_keys(cur)
+        game_date_dict = self.get_game_date_dict()
+        self.run_preseason()
+        self.old_predictions = []
+        for year in self.year_list:
+            print(year)
+            dates = make_season(year)
+            for d in dates:
+                if int(d.replace('-','')) >= int(date.today().strftime('%Y%m%d')):
+                    break
+                elif d in game_date_dict:
+                    game_keys = game_date_dict[d]
+                else:
+                    if d == str(date.today() - timedelta(1)):
+                        print("No games from yesterday.")
+                    continue
+                lg_avg, lg_std = self.get_avg_std(year)
+                for key in game_keys:
+                    game = self.game_dict[key]
+                    home = self.teams[game["home"]+str(game["season"])]
+                    away = self.teams[game["away"]+str(game["season"])]
+                    if not game["key"] in home["games"] + away["games"]:
+                        continue
+                    if game["key"] in home["games"] and game["key"] != home["games"][0]:
+                        print("GAMES OUT OF ORDER!!!")
+                        print(game["key"], home["games"])
+                    if game["key"] in away["games"] and game["key"] != away["games"][0]:
+                        print("GAMES OUT OF ORDER!!!")
+                        print(game["key"], away["games"])
+
+                    predict = {}
+                    self.update_stats([home,away])
+                    predict["pmargin"] = self.get_pmargin(home,away,game)
+                    if game["home_cover"] != 0 and game["key"] not in self.dt_keys and self.make_prediction(predict, game, home, away, lg_avg, lg_std):
+                        self.add_gen_info(predict,game)
+                        self.old_predictions.append(predict)
+                    self.add_test_data(game, predict["pmargin"])
+                    self.store_results(home,away,game)
+        self.print_test_results()
+        self.add_dt_predictions(cur)
+        print()
 
 
     def get_dt_keys(self,cur):
@@ -177,8 +179,8 @@ class Organizer(object):
 
 
     def add_gen_info(self, predict, game, new_game=False):
-        gen_info = ["home", "away", "season", "neutral", "spread", "key", "date"]
-        gen_info += ["home_cover"] if not new_game else []
+        gen_info = ["home", "away", "season", "neutral", "spread", "date"]
+        gen_info += self.skip_today if not new_game else []
         for v in gen_info:
             predict[v] = game[v]
         hour = int(game["tipoff"].split(":")[0])
@@ -419,11 +421,12 @@ class Organizer(object):
         return game_date_dict
 
 
-    def add_vars(self, game):
-        game["home_cover"] = 0
-        if not self.add_cbbref_vars(game):
-            return False
-        self.add_vegas_vars(game)
+    def add_vars(self, game, new_game = False):
+        if not new_game:
+            game["home_cover"] = 0
+            if not self.add_cbbref_vars(game):
+                return False
+        self.add_vegas_vars(game, new_game)
         game["neutral"] = game["neutral"] in ["True", "1"]
         return True
 
@@ -445,14 +448,11 @@ class Organizer(object):
         return True
 
 
-    def add_vegas_vars(self, game):
+    def add_vegas_vars(self, game, new_game):
         if game["spread"] != None and game["spread"] != "":
             noOpenLine = game["open_line"] != 0 and not game["open_line"]
             if abs(game["spread"]) > 65:
-                if noOpenLine:
-                    return
-                else:
-                    game["spread"] = game["open_line"]
+                game["spread"] = 0
             if noOpenLine:
                 game["open_line"] = game["spread"]
         elif game["spread"] == None or game["spread"] == "":
@@ -460,8 +460,9 @@ class Organizer(object):
                 game["spread"] = game["open_line"]
             else:
                 return
-        spread_diff = game["spread"] + game["margin"]
-        game["home_cover"] = 1 if spread_diff > 0 else -1 if spread_diff < 0 else 0
+        if not new_game:
+            spread_diff = game["spread"] + game["margin"]
+            game["home_cover"] = 1 if spread_diff > 0 else -1 if spread_diff < 0 else 0
         game["line_movement"] = game["spread"] - game["open_line"]
         home_ats = game["home_ats"].split("-")
         away_ats = game["away_ats"].split("-")
@@ -498,71 +499,50 @@ class Organizer(object):
         return teams
 
 
-    def get_new_games(self):
+    def join_today_into_df(self,db):
+        return pd.read_sql_query("""SELECT espn_today.Game_ID AS Game_ID, Game_Home AS home, 
+            espn_today.Season AS season, Game_Away AS away, Game_Date AS date, Game_Tipoff AS tipoff,
+            Neutral_Site AS neutral, open_line, close_line AS spread, home_ats, away_ats, home_side_pct, 
+            away_side_pct
+            FROM espn_today
+            INNER JOIN vegas_today ON espn_today.Game_ID = vegas_today.Game_ID""", db)
+
+
+    def create_dt_today(self,cur):
+        cur.execute('''DROP TABLE IF EXISTS decision_tree_today''')
+        cur.execute('''CREATE TABLE decision_tree_today (home TEXT, away TEXT, 
+            season TEXT, date TEXT, neutral INTEGER, spread REAL,
+            tipstring TEXT, pmargin INTEGER, home_winner INTEGER, home_big INTEGER,
+            away_big INTEGER, spread_diff INTEGER, home_fav INTEGER, away_fav INTEGER,
+            home_movement INTEGER, away_movement INTEGER, home_public INTEGER,
+            away_public INTEGER, home_ats INTEGER, away_ats INTEGER, home_tPAr INTEGER,
+            away_tPAr INTEGER, home_reb INTEGER, away_reb INTEGER, home_TOVP INTEGER,
+            away_TOVP INTEGER, home_FT INTEGER, away_FT INTEGER)''')
+
+
+    def add_dt_today_predictions(self,cur):
+        items = [tuple([p[col] for col in self.dt_columns if col not in self.skip_today]) for p in self.new_predictions]
+        cur.executemany('''INSERT INTO decision_tree_today VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)''', items)
+
+
+    def get_new_games(self,cur):
         print("Getting new games")
-        season = this_season
-        espn_path = os.path.join(data_path,'today','espn.csv')
-        espndf = pd.read_csv(espn_path)
-        upcoming_games = {}
-        new_games = []
-        new_over_games = []
-        for i, row in espndf.iterrows():
-            try:
-                game = {}
-                game["home"] = row.Game_Home.strip()
-                game["away"] = row.Game_Away.strip()
-                game["tipoff"] = row.Game_Tipoff
-                key = str((game["home"],game["away"]))
-                if key not in set(upcoming_games.keys()):
-                    upcoming_games[key] = game
-                else:
-                    continue
-                game["neutral"] = 1 if row.Neutral_Site else 0
-                game["season"] = row.Season
-                game["date"] = row.Game_Date
-            except:
-                print("In ESPN, {} vs. {} failed".format(row.Game_Away,row.Game_Home))
-                continue
-        vegas_path = os.path.join(data_path,'today','vegas.csv')
-        vegasdf = pd.read_csv(vegas_path)
-        for i, row in vegasdf.iterrows():
-            try:
-                home = row.home
-                away = row.away
-                key = str((home,away))
-                new_game = upcoming_games[key]
-                new_game['key'] = key
-                new_game['spread'] = row.close_line
-                new_game["line_movement"] = 0 if row.open_line == "" else new_game["spread"] - float(row.open_line)
-                new_game["home_side_pct"] = 50 if row.home_side_pct == "" else float(row.home_side_pct)
-                home_ats = row.home_ats.split("-")
-                away_ats = row.away_ats.split("-")
-                new_game["home_ats"] = .5 if home_ats[0] == "0" and home_ats[1] == "0" else int(home_ats[0]) / (int(home_ats[0])+int(home_ats[1]))
-                new_game["away_ats"] = .5 if away_ats[0] == "0" and away_ats[1] == "0" else int(away_ats[0]) / (int(away_ats[0])+int(away_ats[1]))
-                new_games.append(new_game)
-            except:
-                print("In vegas info, no game matched:",game["home"],game["away"])
-                continue
-        predictions = []
+        self.create_dt_today(cur)
+        self.new_predictions = []
         lg_avg, lg_std = self.get_avg_std(this_season)
-        for game in new_games:
-            home = self.teams[game["home"]+str(season)]
-            away = self.teams[game["away"]+str(season)]
+        for key, game in self.today.items():
+            self.add_vars(game,new_game=True)
+            home = self.teams[game["home"]+str(this_season)]
+            away = self.teams[game["away"]+str(this_season)]
             predict = {}
             self.update_stats([home,away])
             predict["pmargin"] = self.get_pmargin(home,away,game)
-            if self.make_prediction(predict,game,home,away,lg_avg,lg_std):
-                self.add_gen_info(predict,game,new_game=True)
-                predictions.append(predict)
+            self.make_prediction(predict,game,home,away,lg_avg,lg_std)
+            self.add_gen_info(predict,game,new_game=True)
+            self.new_predictions.append(predict)
             #print("Found:",game["home"],game["away"])
-        if predictions:
-            predict_path = os.path.join(data_path, 'today', 'predict.csv')
-            with open(predict_path,'w') as outfile:
-                keys = list(predictions[0].keys())
-                writer = csv.DictWriter(outfile,fieldnames = keys)
-                writer.writeheader()
-                for game in predictions:
-                    writer.writerow(game)
+        if self.new_predictions:
+            self.add_dt_today_predictions(cur)
         print()
 
 

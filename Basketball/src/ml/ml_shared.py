@@ -20,6 +20,19 @@ def get_dt_data():
 	return [h_games, n_games]
 
 
+def get_dt_today():
+	with sqlite3.connect(h.database) as db:
+		gamesdf = pd.read_sql_query('''SELECT home, away, season, date, neutral,
+			spread, tipstring, pmargin, home_winner, home_big,
+            away_big, spread_diff, home_fav, away_fav, home_movement,
+            away_movement, home_public, away_public, home_ats, away_ats,
+            home_tPAr, away_tPAr, home_reb, away_reb, home_TOVP, away_TOVP
+            FROM decision_tree_today''', db)
+	h_games = gamesdf.ix[gamesdf['neutral'] == 0]
+	n_games = gamesdf.ix[gamesdf['neutral'] == 1]
+	return [h_games, n_games]
+
+
 def pick_features(initial_training_games,features):
 	y = np.asarray(initial_training_games['home_cover'], dtype="|S6")
 	X = initial_training_games.as_matrix(features)
