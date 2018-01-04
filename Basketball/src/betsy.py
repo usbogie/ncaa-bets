@@ -24,7 +24,7 @@ else:
 		normal(h.all_years)
 	# Only updates today's data
 	elif arg == 'today':
-		update.run(today_only=True)
+		update.run(today_only=False)
 		org = Organizer([h.this_season])
 		org.run()
 		predict.today()
